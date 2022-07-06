@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.ToothFairy" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/skyblue</item>
-        <item name="colorPrimaryVariant">@color/skyblue</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryVariant">@color/blue</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

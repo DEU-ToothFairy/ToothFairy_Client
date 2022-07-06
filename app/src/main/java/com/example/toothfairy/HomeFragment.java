@@ -64,10 +64,18 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // 프로그래스바 초기화
+        // 프로필 프로그래스바 초기화
         progressBar = view.findViewById(R.id.profileProgressBar);
-        progressBar.setProgress(60);
-        
+        progressBar.setProgress(70);
+
+        initWearingProgressBar(50, view);
+
         return view;
+    }
+
+    public void initWearingProgressBar(int progress, View view){
+        ProgressBar progressBar = view.findViewById(R.id.wearingProgressBar);
+
+        progressBar.setProgress(progress);
     }
 }

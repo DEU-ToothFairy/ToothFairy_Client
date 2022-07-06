@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -74,6 +75,7 @@ public class StatsFragment extends Fragment {
         calendarTextView = view.findViewById(R.id.calendarTextView);
 
         initHorizontalCalendar(view);
+
         return view;
     }
 
@@ -88,7 +90,7 @@ public class StatsFragment extends Fragment {
         endDate.add(Calendar.MONTH, 1);
 
         /*
-            - 가로 달력 실행
+            INFO 가로 달력 실행
 
             range(시작 날짜, 종료 날짜)
             datesNumberOnScreen(보여질 날짜 개수)

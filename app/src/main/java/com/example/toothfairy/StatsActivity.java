@@ -1,6 +1,8 @@
 package com.example.toothfairy;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,22 @@ public class StatsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_stats);
 
+        initBottomNavibar();
+    } // onCreate
+
+    // Fragment 변경
+    private void loadFragment(Fragment fragment) {
+        // 이전 버전까지 호환 가능하도록 getSupportFragmentManager() 사용
+        getSupportFragmentManager()
+                // 프래그먼트 변경을 위한 트랜잭션을 시작
+                .beginTransaction()
+                // FrameLayout에 전달 받은 프래그먼트로 교체
+                .replace(R.id.frameLayout, fragment)
+                // 변경 사항 적용
+                .commit();
+    }
+
+    private void initBottomNavibar(){
         bottomNavigation = findViewById(R.id.bottomNavigation);
 
         bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.ic_baseline_home_24));
@@ -59,7 +77,7 @@ public class StatsActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "You Clicked" + item.getId(), Toast.LENGTH_SHORT).show();
             }
         });
-        
+
         bottomNavigation.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
             @Override
             public void onReselectItem(MeowBottomNavigation.Model item) {
@@ -67,20 +85,5 @@ public class StatsActivity extends AppCompatActivity {
             }
         });
 
-
-    } // onCreate
-
-    // Fragment 변경
-    private void loadFragment(Fragment fragment) {
-        // 이전 버전까지 호환 가능하도록 getSupportFragmentManager() 사용
-        getSupportFragmentManager()
-                // 프래그먼트 변경을 위한 트랜잭션을 시작
-                .beginTransaction()
-                // FrameLayout에 전달 받은 프래그먼트로 교체
-                .replace(R.id.frameLayout, fragment)
-                // 변경 사항 적용
-                .commit();
     }
-
-
 } // StatsActivity

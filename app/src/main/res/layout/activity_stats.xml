@@ -10,6 +10,14 @@
     android:background="@color/white"
     >
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:title="ToothFairy"
+        app:titleTextColor="@color/blue"
+        />
+
     <FrameLayout
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
         android:id="@+id/frameLayout"
@@ -31,7 +39,7 @@
         app:mbn_circleColor="@color/white"
         app:mbn_countBackgroundColor="#ff6f00"
         app:mbn_countTextColor="@color/white"
-        app:mbn_defaultIconColor="@color/skyblue"
-        app:mbn_selectedIconColor="@color/skyblue" />
+        app:mbn_defaultIconColor="@color/blue"
+        app:mbn_selectedIconColor="@color/blue" />
 
 </LinearLayout>

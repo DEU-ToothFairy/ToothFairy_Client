@@ -19,7 +19,17 @@
                 android:shape="ring"
                 android:thicknessRatio="30"
                 android:useLevel="true">
-                <solid android:color="@color/colorAccent" />
+                <gradient
+                    android:angle="45"
+                    android:type="linear"
+                    android:startColor="@color/blue"
+                    android:centerColor="#9CBBFF"
+                    android:endColor="#83E2FF"
+                    />
+
+                <corners android:radius="20dp"/>
+
+<!--                <solid android:color="@color/colorAccent" />-->
             </shape>
         </rotate>
     </item>

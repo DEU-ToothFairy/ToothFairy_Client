@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StatsActivity">
+    tools:context=".MainActivity">
 
     <!-- 메인 로고 이미지 -->
     <ImageView
@@ -33,7 +33,7 @@
 
         <!-- 아이디 필드 -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/username"
+            android:id="@+id/userId"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width        ="match_parent"
             android:layout_height       ="wrap_content"

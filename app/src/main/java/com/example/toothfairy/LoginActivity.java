@@ -2,7 +2,6 @@ package com.example.toothfairy;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -30,14 +29,14 @@ public class LoginActivity extends AppCompatActivity {
         setAnimation();
 
         loginBtn.setOnClickListener(view -> {
-            Intent mainIntent = new Intent(getApplicationContext(), StatsActivity.class);
+            Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(mainIntent);
         });
     }
 
     private void initVariable(){
         image = findViewById(R.id.mainLogo);
-        usernameInput = (TextInputLayout) findViewById(R.id.username);
+        usernameInput = (TextInputLayout) findViewById(R.id.userId);
         passwordInput = (TextInputLayout) findViewById(R.id.password);
         loginBtn = findViewById(R.id.loginBtn);
         singUpBtn = findViewById(R.id.signUpBtn);

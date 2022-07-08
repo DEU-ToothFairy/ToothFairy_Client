@@ -1,16 +1,19 @@
 package com.example.toothfairy;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.example.toothfairy.databinding.FragmentHomeBinding;
+import com.example.toothfairy.fragment.HomeFragment;
+import com.example.toothfairy.fragment.ProfileFragment;
+import com.example.toothfairy.fragment.StatsFragment;
 
-public class StatsActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     MeowBottomNavigation bottomNavigation;
 
     @Override
@@ -18,7 +21,7 @@ public class StatsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_stats);
+        setContentView(R.layout.activity_main);
 
         initBottomNavibar();
     } // onCreate

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.toothfairy">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -23,7 +24,7 @@
 
         <!-- 착용 통계 액티비티 -->
         <activity
-            android:name=".StatsActivity"
+            android:name=".MainActivity"
             android:exported="true">
         </activity>
 

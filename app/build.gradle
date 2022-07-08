@@ -25,6 +25,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    //Android Studio 4.0 버전 이상일때,
+    buildFeatures {
+        dataBinding = true
+    }
+
+//    dataBinding{
+//        enabled = true
+//    }
 }
 
 dependencies {
@@ -33,12 +42,19 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    // 가로 캘린더 디펜던시
+    /* 가로 캘린더 디펜던시 */
     implementation 'devs.mulham.horizontalcalendar:horizontalcalendar:1.3.4'
+
+    /* MVVM 라이브러리 */
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+
+    /* Lombok */
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     implementation 'com.etebarian:meow-bottom-navigation-java:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    //implementation 'com.google.android.material:material:1.0.0'
+
     testImplementation 'junit:junit:4.+'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

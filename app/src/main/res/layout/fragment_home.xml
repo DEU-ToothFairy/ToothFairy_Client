@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- 데이터 바인딩을 위한 레이아웃 -->
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="home"
-            type="com.example.toothfairy.fragment.HomeFragment"/>
+            name="homeViewModel"
+            type="com.example.toothfairy.viewModel.HomeFragmentViewModel" />
     </data>
+
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -53,7 +54,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nanumsquare_extra_bold"
-                            android:text="김잼민 님 반갑습니다."
+                            android:text="@{homeViewModel.patient.name + `님 반갑습니다`, default = `김잼민님 반갑습니다.`}"
 
                             android:textColor="@color/black_gray"
                             android:textSize="22dp"
@@ -68,7 +69,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nanumsquare_bold"
-                            android:text="nickname"
+                            android:text="@{homeViewModel.patient.id, default=`nickname`}"
 
                             android:textColor="@color/blue"
                             android:textSize="14dp"
@@ -100,7 +101,7 @@
                                     android:layout_gravity="center"
                                     android:fontFamily="@font/nanumsquare_bold"
 
-                                    android:text="60%"
+                                    android:text="@{(double)homeViewModel.calibrationProgress + `%`}"
                                     android:textAlignment="center"
                                     android:textColor="@color/blue"
                                     android:textSize="22dp" />
@@ -131,7 +132,7 @@
                                     android:layout_gravity="center"
                                     android:fontFamily="@font/nanumsquare_bold"
 
-                                    android:text="230"
+                                    android:text="@{homeViewModel.treatmentDays.toString()}"
                                     android:textAlignment="center"
                                     android:textColor="@color/blue"
                                     android:textSize="22dp" />
@@ -172,7 +173,7 @@
                             android:progressDrawable="@drawable/profile_circle"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:progress="60" />
+                            tools:progress="@{(int)homeViewModel.calibrationProgress}" />
 
                         <!-- 프로필 사진 -->
                         <!--
@@ -240,7 +241,7 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="5dp"
                             android:fontFamily="@font/nanumsquare_extra_bold"
-                            android:text="7 July"
+                            android:text="@{homeViewModel.today}"
                             android:textColor="@color/blue"
                             android:textSize="25dp" />
 
@@ -317,52 +318,50 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_margin="10dp">
+                            android:layout_margin="10dp"
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="하루 평균 착용 시간"
-                                android:textSize="15dp"
                                 android:layout_marginBottom="10dp"
-                                android:fontFamily="@font/nanumsquare_extra_bold"/>
+                                android:fontFamily="@font/nanumsquare_extra_bold"
+                                android:text="하루 평균 착용 시간"
+                                android:textSize="15dp" />
 
                             <TextView
                                 android:id="@+id/userWearAvgTextView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/nanumsquare_bold"
                                 android:text="사용자 [ 12시간 41분 ]"
-                                android:textSize="12dp"
-                                android:fontFamily="@font/nanumsquare_bold"/>
+                                android:textSize="12dp" />
 
                             <ProgressBar
                                 android:id="@+id/userWearAvgProgressBar"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="7dp"
-                                android:progressDrawable="@drawable/wearing_progress_bar"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
-                                />
+                                android:progressDrawable="@drawable/wearing_progress_bar" />
 
                             <TextView
                                 android:id="@+id/curedWearAvgTextView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/nanumsquare_bold"
                                 android:text="완치자 [ 14시간 26분 ]"
-                                android:textSize="12dp"
-                                android:fontFamily="@font/nanumsquare_bold"/>
+                                android:textSize="12dp" />
 
                             <ProgressBar
                                 android:id="@+id/curedWearAvgProgressBar"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="7dp"
-                                android:progressDrawable="@drawable/cured_progress_bar"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
-                                />
+                                android:progressDrawable="@drawable/cured_progress_bar" />
 
                             <!--_________________________________________________________-->
 
@@ -370,93 +369,89 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="최대 착용 시간"
-                                android:textSize="15dp"
                                 android:layout_marginTop="20dp"
                                 android:layout_marginBottom="10dp"
-                                android:fontFamily="@font/nanumsquare_extra_bold"/>
+                                android:fontFamily="@font/nanumsquare_extra_bold"
+                                android:text="최대 착용 시간"
+                                android:textSize="15dp" />
 
                             <TextView
                                 android:id="@+id/userWearMaxTextView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/nanumsquare_bold"
                                 android:text="사용자 [ 14시간 31분 ]"
-                                android:textSize="12dp"
-                                android:fontFamily="@font/nanumsquare_bold"/>
+                                android:textSize="12dp" />
 
                             <ProgressBar
                                 android:id="@+id/userWearMaxProgressBar"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="7dp"
-                                android:progressDrawable="@drawable/wearing_progress_bar"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
-                                />
+                                android:progressDrawable="@drawable/wearing_progress_bar" />
 
                             <TextView
                                 android:id="@+id/curedWearMaxTextView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/nanumsquare_bold"
                                 android:text="완치자 [ 16시간 46분 ]"
-                                android:textSize="12dp"
-                                android:fontFamily="@font/nanumsquare_bold"/>
+                                android:textSize="12dp" />
 
                             <ProgressBar
                                 android:id="@+id/curedWearMaxProgressBar"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="7dp"
-                                android:progressDrawable="@drawable/cured_progress_bar"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
-                                />
+                                android:progressDrawable="@drawable/cured_progress_bar" />
 
                             <!-- 최소 착용 시간 비교 그래프 -->
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="최소 착용 시간"
-                                android:textSize="15dp"
                                 android:layout_marginTop="20dp"
                                 android:layout_marginBottom="10dp"
-                                android:fontFamily="@font/nanumsquare_extra_bold"/>
+                                android:fontFamily="@font/nanumsquare_extra_bold"
+                                android:text="최소 착용 시간"
+                                android:textSize="15dp" />
 
                             <TextView
                                 android:id="@+id/userWearMinTextView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/nanumsquare_bold"
                                 android:text="사용자 [ 10시간 13분 ]"
-                                android:textSize="12dp"
-                                android:fontFamily="@font/nanumsquare_bold"/>
+                                android:textSize="12dp" />
 
                             <ProgressBar
                                 android:id="@+id/userWearMinProgressBar"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="7dp"
-                                android:progressDrawable="@drawable/wearing_progress_bar"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
-                                />
+                                android:progressDrawable="@drawable/wearing_progress_bar" />
 
                             <TextView
                                 android:id="@+id/curedWearMinTextView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/nanumsquare_bold"
                                 android:text="완치자 [ 12시간 26분 ]"
-                                android:textSize="12dp"
-                                android:fontFamily="@font/nanumsquare_bold"/>
+                                android:textSize="12dp" />
 
                             <ProgressBar
                                 android:id="@+id/curedWearMinProgressBar"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="7dp"
-                                android:progressDrawable="@drawable/cured_progress_bar"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
-                                />
+                                android:progressDrawable="@drawable/cured_progress_bar" />
 
                         </LinearLayout>
 

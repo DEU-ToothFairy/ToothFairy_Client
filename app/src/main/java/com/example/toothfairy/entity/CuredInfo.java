@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class CuredInfo {
     private int age;
-    private Long totalTreatmentDate; // 총 치료 기간 (milliseconds)
+    private int totalTreatmentDate; // 총 치료 기간 (일 수)
     private Long totalWearTime;      // 총 착용 시간 (milliseconds)
 
     /*

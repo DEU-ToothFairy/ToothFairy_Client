@@ -31,9 +31,12 @@ android {
         dataBinding = true
     }
 
-//    dataBinding{
-//        enabled = true
-//    }
+    configurations.all {
+        resolutionStrategy.dependencySubstitution {
+            substitute module('org.hamcrest:hamcrest-core:1.1') with module('junit:junit:4.10')
+        }
+    }
+
 }
 
 dependencies {
@@ -52,6 +55,19 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
+    /* JSON */
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+
+    /* OKHttp3 */
+//    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+//    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
+
+    /* Retrofit2 */
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    /* Bottom Navigation */
     implementation 'com.etebarian:meow-bottom-navigation-java:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 

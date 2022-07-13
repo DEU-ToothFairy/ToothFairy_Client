@@ -1,4 +1,4 @@
-package com.example.toothfairy.model.util;
+package com.example.toothfairy.util;
 
 
 import android.icu.text.SimpleDateFormat;
@@ -7,7 +7,6 @@ import android.util.Log;
 
 import java.sql.Date;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,5 +35,17 @@ public class DateManager {
 
         // Day를 구해야하므로 24시간 * 60분 * 60초 * 1000 밀리세컨드 나눠주면 Day가 나옴
         return elapsed / (24 * 60 * 60 * 1000);
+    }
+
+    public static String getTimeToString(Long time){
+        Log.i("Time", time + "");
+
+        if(time == null) return "0 시간 0 분";
+
+        int hour = (int)(time / (60 * 1000)) / 60;
+        int minute = (int)(time / (60 * 1000)) % 60;
+
+        Log.i("Time To String", hour + "시간" + minute + "분");
+        return " " + hour + "시간 " + minute + "분 ";
     }
 }

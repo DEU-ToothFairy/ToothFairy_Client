@@ -1,20 +1,41 @@
 package com.example.toothfairy.fragment;
 
+import android.animation.ObjectAnimator;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import android.widget.MultiAutoCompleteTextView;
 
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.toothfairy.MainActivity;
 import com.example.toothfairy.R;
+import com.example.toothfairy.data.WearingStats;
 import com.example.toothfairy.databinding.FragmentHomeBinding;
+import com.example.toothfairy.entity.CuredInfo;
 import com.example.toothfairy.entity.Patient;
-import com.example.toothfairy.viewModel.HomeFragmentViewModel;
+import com.example.toothfairy.util.DateManager;
+import com.example.toothfairy.viewModel.MainViewModel;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +43,10 @@ import com.example.toothfairy.viewModel.HomeFragmentViewModel;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
+    // 싱글턴 패턴
+    public static HomeFragment homeFragment = new HomeFragment();
+    public static HomeFragment getInstance(){ return homeFragment; }
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,12 +59,8 @@ public class HomeFragment extends Fragment {
 
     // VARIABLE
     FragmentHomeBinding binding; // DataBinding
-    HomeFragmentViewModel viewModel;
-    MutableLiveData<Patient> liveDataPatient = new MutableLiveData<>();
-
-
-    // DEFINE View 인스턴스 선언
-    ProgressBar profileProgressBar, wearProgressBar;
+    MainViewModel viewModel;
+    SQLiteDatabase db;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -81,78 +102,61 @@ public class HomeFragment extends Fragment {
         // 데이터 바인딩
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         View view = binding.getRoot();
-        viewModel = new ViewModelProvider(this).get(HomeFragmentViewModel.class);
+
+        viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
     
         // 데이터를 관리하는 뷰 모델을 binding에 연결해줘야 적용 됨
+        binding.setLifecycleOwner(requireActivity());
         binding.setHomeViewModel(viewModel);
 
-//        setProfileProgressBar(60, view);
-        setWearProgressBar(60, view);
-        setAvgProgressBar(53, 60, view);
-        setMaxProgressBar(60, 70, view);
-        setMinProgressBar(43, 52, view);
+        setWearProgressBar(60);
+
+
+        // 오늘 날짜 설정
+        viewModel.getToday().setValue(DateManager.getToday());
+
+        MutableLiveData<Long> treatmentDays = viewModel.getTreatmentDays();
+        MutableLiveData<CuredInfo> curedInfoMutableLiveData = viewModel.getCuredInfo();
+
+        // 환자 정보가 갱신 된 경우
+        viewModel.getPatient().observe(requireActivity(), new Observer<Patient>() {
+            @Override
+            public void onChanged(Patient patient) {
+                // 치료 기간 설정 (현재 날짜 - 치료 시작 날짜)
+                treatmentDays.setValue(DateManager.getElapsedDate(patient.getStartDate()));
+
+                setCalibrationProgress(treatmentDays.getValue(), curedInfoMutableLiveData.getValue());
+            }
+        });
+
+        // 완치자 정보가 갱신 된 경우
+        viewModel.getCuredInfo().observe(requireActivity(), new Observer<CuredInfo>() {
+            @Override
+            public void onChanged(CuredInfo curedInfo) {
+                setCalibrationProgress(treatmentDays.getValue(), curedInfo);
+            }
+        });
 
         return view;
     }
 
 
-    // METHOD : 평균 착용 시간 프로그래스바 초기화 메소드
-    public void setAvgProgressBar(int patientProgress, int curedProgress, View view){
-        binding.userWearAvgProgressBar.setProgress(patientProgress);
-        binding.userWearAvgProgressBar.setMax(100);
+    // METHOD : 교정 진행률 프로그래스바 초기화 메소드
+    public void setCalibrationProgress(Long treatmentDays, CuredInfo curedInfo){
+        if(Objects.isNull(treatmentDays) || Objects.isNull(curedInfo)) return;
 
-        binding.curedWearAvgProgressBar.setProgress(curedProgress);
-        binding.curedWearAvgProgressBar.setMax(100);
-    }
+        // 교정 진행 률 (환자 치료 기간 / 완치자의 총 치료 기간 * 100)
+        double progress = Math.round((treatmentDays / (double)curedInfo.getTotalTreatmentDate()) * 100);
 
-    // METHOD : 최대 착용 시간 프로그래스바 초기화 메소드
-    public void setMaxProgressBar(int patientProgress, int curedProgress, View view){
-//        ProgressBar userMax = view.findViewById(R.id.userWearMaxProgressBar);
-//        ProgressBar curedMax = view.findViewById(R.id.curedWearMaxProgressBar);
-//
-//        userMax.setProgress(patientProgress);
-//        userMax.setMax(100);
-//
-//        curedMax.setProgress(curedProgress);
-//        curedMax.setMax(100);
+        // 교정 진행률 설정
+        viewModel.getCalibrationProgress().setValue(progress);
 
-        binding.userWearMaxProgressBar.setProgress(patientProgress);
-        binding.userWearMaxProgressBar.setMax(100);
-
-        binding.curedWearMaxProgressBar.setProgress(curedProgress);
-        binding.curedWearMaxProgressBar.setMax(100);
-    }
-
-    // METHOD : 최소 착용 시간 프로그래스바 초기화 메소드
-    public void setMinProgressBar(int patientProgress, int curedProgress, View view){
-//        ProgressBar userMin = view.findViewById(R.id.userWearMinProgressBar);
-//        ProgressBar curedMin = view.findViewById(R.id.curedWearMinProgressBar);
-//
-//        userMin.setProgress(patientProgress);
-//        userMin.setMax(100);
-//
-//        curedMin.setProgress(curedProgress);
-//        curedMin.setMax(100);
-
-        binding.userWearMinProgressBar.setProgress(patientProgress);
-        binding.userWearMinProgressBar.setMax(100);
-
-        binding.curedWearMinProgressBar.setProgress(curedProgress);
-        binding.curedWearMinProgressBar.setMax(100);
-    }
-
-    // Method 프로필 프로그래스바 초기화
-    public void setProfileProgressBar(int progress, View view) {
-//        profileProgressBar = view.findViewById(R.id.profileProgressBar);
-//        profileProgressBar.setProgress(progress);
-
-        binding.profileProgressBar.setProgress(progress);
     }
 
     // Method 착용 시간 프로그래스바 초기화
-    public void setWearProgressBar(int progress, View view){
-//        wearProgressBar = view.findViewById(R.id.wearingProgressBar);
-//        wearProgressBar.setProgress(progress);
+    public void setWearProgressBar(int progress){
+        ObjectAnimator progressAnimator = ObjectAnimator.ofInt(binding.curedWearAvgProgressBar, "progress", 1000).setDuration(1500);
+        progressAnimator.start();
 
         binding.wearingProgressBar.setProgress(progress);
     }

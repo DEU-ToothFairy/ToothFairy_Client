@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".BluetoothActivity">
+
+        <!-- 당일 착용 시간 그래프 레이아웃 -->
+        <LinearLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+
+            android:orientation="vertical"
+            android:padding="16dp"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- 오늘 날짜 텍스트 뷰 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nanumsquare_regular"
+                android:text="Search Device,"
+                android:textColor="@color/gray"
+                android:textSize="27dp"
+                />
+
+            <!-- 오늘 날짜 텍스트 뷰 -->
+            <TextView
+                android:id="@+id/searchText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/nanumsquare_bold"
+                android:text="장치를 검색 중 입니다..."
+                android:textColor="@color/blue"
+                android:textSize="20dp" />
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/dentalbackground"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="right"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/searchLayout"
+                >
+                <com.skyfishjy.library.RippleBackground
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/bluetoothPulse"
+                    app:rb_color="#AFD0FF"
+                    app:rb_radius="32dp"
+                    app:rb_rippleAmount="3"
+                    app:rb_duration="2500"
+                    app:rb_scale="6">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/centerImage"
+                        android:src="@drawable/bluetooth_logo"
+                        />
+                </com.skyfishjy.library.RippleBackground>
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

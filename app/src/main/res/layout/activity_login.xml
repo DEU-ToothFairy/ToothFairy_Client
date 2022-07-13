@@ -1,114 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- 메인 로고 이미지 -->
-    <ImageView
-        android:id="@+id/mainLogo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:src="@drawable/dentalcarelogo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.toothfairy.viewModel.LoginViewModel"/>
+    </data>
 
-    <!-- 텍스트 필드 영역 -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/loginBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainLogo"
-        app:layout_constraintVertical_bias="0.0">
+        <!-- 메인 로고 이미지 -->
+        <ImageView
+            android:id="@+id/mainLogo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/dentalcarelogo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- 아이디 필드 -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/userId"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width        ="match_parent"
-            android:layout_height       ="wrap_content"
-            android:layout_marginLeft   ="20dp"
-            android:layout_marginRight  ="20dp"
-            android:hint                ="Username"
-            app:hintTextColor           ="@color/skyblue"
-            app:boxStrokeColor          ="@color/skyblue"
-            >
+        <!-- 텍스트 필드 영역 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/loginBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width    ="match_parent"
-                android:layout_height   ="wrap_content"
-                android:textColor       ="@color/skyblue"
-                tools:ignore            ="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainLogo"
+            app:layout_constraintVertical_bias="0.0">
 
-        <!-- 패스워드 필드 -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width        ="match_parent"
-            android:layout_height       ="wrap_content"
-            android:layout_marginLeft   ="20dp"
-            android:layout_marginRight  ="20dp"
-            android:layout_marginTop    ="10dp"
-            android:hint                ="Password"
-            android:inputType           ="textPassword"
-            app:passwordToggleEnabled   ="true"
-            app:hintTextColor           ="@color/skyblue"
-            app:boxStrokeColor          ="@color/skyblue"
-            >
+            <!-- 아이디 필드 -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/userId"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Username"
+                app:boxStrokeColor="@color/skyblue"
+                app:hintTextColor="@color/skyblue">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width    ="match_parent"
-                android:layout_height   ="wrap_content"
-                android:textColor       ="@color/skyblue"
-                tools:ignore            ="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/skyblue"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 패스워드 필드 -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+
+                app:passwordToggleEnabled="true"
+
+                app:boxStrokeColor="@color/skyblue"
+                app:hintTextColor="@color/skyblue">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/skyblue"
+                    android:hint="Password"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:inputType="textPassword"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    </LinearLayout>
+            <CheckBox
+                android:id="@+id/autoLoginCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="자동 로그인"
+                android:fontFamily="@font/nanumsquare_bold"
+                android:textColor="@color/gray"/>
+        </LinearLayout>
 
-    <!-- 로그인 버튼 -->
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="104dp"
-        android:background="@color/skyblue"
-        android:text="로그인"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="TextContrastCheck" />
+        <!-- 로그인 버튼 -->
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="104dp"
+            android:background="@color/skyblue"
+            android:text="로그인"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="TextContrastCheck" />
 
-    <!-- 회원가입 버튼 -->
-    <Button
-        android:id="@+id/signUpBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="44dp"
-        android:background="#EAEAEA"
-        android:text="회원가입"
-        android:textColor="#8ECCFC"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="TextContrastCheck" />
+        <!-- 회원가입 버튼 -->
+        <Button
+            android:id="@+id/signUpBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="44dp"
+            android:background="#EAEAEA"
+            android:text="회원가입"
+            android:textColor="#8ECCFC"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="TextContrastCheck" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

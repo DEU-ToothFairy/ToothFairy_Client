@@ -1,63 +1,60 @@
 package com.example.toothfairy.model.repository;
 
+import com.example.toothfairy.dto.LoginDto;
 import com.example.toothfairy.entity.DailyWearTime;
 import com.example.toothfairy.entity.Patient;
+import com.example.toothfairy.model.RetrofitClient;
+import com.example.toothfairy.model.service.PatientService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientRepository extends Repository {
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+public class PatientRepository{
     // 싱글턴 패턴
     public static PatientRepository patientRepository = new PatientRepository();
     public static PatientRepository getInstance(){ return patientRepository; }
 
     // VARIABLE
-    private String URL = CONTEXT_PATH + "/api/patients";
+    private PatientService patientService;
 
-    private PatientRepository() {}
+    private PatientRepository() {
+        Retrofit retrofit = RetrofitClient.getInstance();
 
-//    public List<Patient> getAllPatients(){
-//        List<Patient> patients = new ArrayList<>();
-//
-//        try{
-//            Response response = this.get(URL);
-//
-//            //Response형 -> String형
-//            String data = response.body().string();
-//
-//            JSONArray patientArray = new JSONArray(data);
-//
-//            // 응답으로 받은 JSON을 Patient 타입으로 변환
-//            for (int i = 0; i < patientArray.length(); i++){
-//                JSONObject patient = patientArray.getJSONObject(i);
-//
-//                patients.add(jsonToPatient(patient));
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
-//        return patients;
-//    }
+        this.patientService = retrofit.create(PatientService.class);
+    }
 
-//    public Patient getPatient(String patientNum){
-//        try{
-//            Response response = this.get(URL + "/" + patientNum);
-//            String data = response.body().string();
-//
-//            JSONObject patient = new JSONObject(data);
-//
-//            return jsonToPatient(patient);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+    // 환자 정보 가져오는 메소드
+    public Response<Patient> loadPatient(String id){
+        Call<Patient> patientCall = patientService.findByPatientNum(id);
+
+        try {
+            return patientCall.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Response<Patient> login(LoginDto loginDto){
+        Call<Patient> patientCall = patientService.login(loginDto);
+
+        try {
+            return patientCall.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 //    private Patient jsonToPatient(JSONObject patient) throws JSONException {
 //        String patientNum = patient.getString("patientNum");

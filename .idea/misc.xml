@@ -15,16 +15,14 @@
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/profile_circle.xml" value="0.309704641350211" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/wearing_progress_bar.xml" value="0.309704641350211" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/font/fonts.xml" value="0.3210970464135021" />
-        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/activity_login.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/activity_bluetooth.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/activity_stats.xml" value="0.3004273504273504" />
-        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_home.xml" value="0.3004273504273504" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_profile.xml" value="0.28846153846153844" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_stats.xml" value="0.3004273504273504" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.26927083333333335" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_login.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_main.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_home.xml" value="0.3564102564102564" />
       </map>
     </option>
   </component>
@@ -33,5 +31,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="SuppressABINotification">
+    <option name="modulesWithSuppressedNotConfigured">
+      <set>
+        <option value="ToothFairy.app" />
+      </set>
+    </option>
   </component>
 </project>

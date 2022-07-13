@@ -1,4 +1,4 @@
-package com.example.toothfairy.model.data;
+package com.example.toothfairy.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +21,6 @@ public class WearingTime {
     public int getHour(){
         return (int)((end - start) / (1000 * 60)) / 60;
     }
-
     public int getMinute(){
         return (int)((end - start) / (1000 * 60)) % 60;
     }

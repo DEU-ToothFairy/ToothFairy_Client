@@ -50,22 +50,37 @@ dependencies {
 
     /* MVVM 라이브러리 */
     implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-core:2.3.1'
 
-    /* Lombok */
+//    /* Lombok */
     compileOnly 'org.projectlombok:lombok:1.18.24'
+    implementation 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     /* JSON */
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
-
-    /* OKHttp3 */
-//    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
-//    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
-
     /* Retrofit2 */
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    /* Room DB */
+    runtimeOnly 'androidx.room:room-runtime:2.4.2'
+    implementation "androidx.room:room-runtime:2.4.2"
+    annotationProcessor "androidx.room:room-compiler:2.4.2"
+
+    /* Ripple Background (Pulse Animation) */
+    implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
+
+    /* Glide (GIF) */
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+
+    /* Notification */
+    //noinspection GradleCompatible
+    implementation "com.android.support:support-compat:28.0.0"
 
     /* Bottom Navigation */
     implementation 'com.etebarian:meow-bottom-navigation-java:1.2.0'

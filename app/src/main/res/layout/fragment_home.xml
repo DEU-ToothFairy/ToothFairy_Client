@@ -6,10 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="homeViewModel"
-            type="com.example.toothfairy.viewModel.HomeFragmentViewModel" />
+            type="com.example.toothfairy.viewModel.MainViewModel" />
     </data>
 
 
@@ -257,7 +256,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nanumsquare_bold"
-                            android:text="10시간 31분"
+                            android:text="@{homeViewModel.dailyWearingTimeToString, default=`10시간 31분`}"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="20dp" />
@@ -279,6 +278,7 @@
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+
                             android:progressDrawable="@drawable/wearing_progress_bar" />
 
                     </LinearLayout> <!-- 당일 착용 시간 그래프 레이아웃 끝 -->
@@ -334,16 +334,17 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/nanumsquare_bold"
-                                android:text="사용자 [ 12시간 41분 ]"
+                                android:text="@{`사용자 [ ` + homeViewModel.patientStats.avgWearingTimeToString + ` ]`,default =`사용자 [ 12시간 41분 ]`}"
                                 android:textSize="12dp" />
 
                             <ProgressBar
                                 android:id="@+id/userWearAvgProgressBar"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
-                                android:layout_height="7dp"
+                                android:layout_height="5dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
+                                android:progress="@{(int)((double)homeViewModel.patientStats.avgWearingTime / (double)86400000.0 * 100)}"
                                 android:progressDrawable="@drawable/wearing_progress_bar" />
 
                             <TextView
@@ -351,16 +352,18 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/nanumsquare_bold"
-                                android:text="완치자 [ 14시간 26분 ]"
+                                android:text="@{`완치자 [ ` + homeViewModel.curedInfo.avgWearingTimeToString  + ` ]`,default = `완치자 [ 14시간 26분 ]`}"
                                 android:textSize="12dp" />
 
                             <ProgressBar
                                 android:id="@+id/curedWearAvgProgressBar"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
-                                android:layout_height="7dp"
+                                android:layout_height="5dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
+                                android:max="1000"
+                                android:progress="@{(int)((double)homeViewModel.curedInfo.avgWearingTime / (double)86400000.0 * 1000)}"
                                 android:progressDrawable="@drawable/cured_progress_bar" />
 
                             <!--_________________________________________________________-->
@@ -380,16 +383,17 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/nanumsquare_bold"
-                                android:text="사용자 [ 14시간 31분 ]"
+                                android:text="@{`사용자 [ ` + homeViewModel.patientStats.maxWearingTimeToString + ` ]` ,default=`사용자 [ 14시간 31분 ]`}"
                                 android:textSize="12dp" />
 
                             <ProgressBar
                                 android:id="@+id/userWearMaxProgressBar"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
-                                android:layout_height="7dp"
+                                android:layout_height="5dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
+                                android:progress="@{(int)((double)homeViewModel.patientStats.maxWearingTime / (double)86400000.0 * 100)}"
                                 android:progressDrawable="@drawable/wearing_progress_bar" />
 
                             <TextView
@@ -397,16 +401,17 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/nanumsquare_bold"
-                                android:text="완치자 [ 16시간 46분 ]"
+                                android:text="@{`완치자 [ ` + homeViewModel.curedInfo.maxWearingTimeToString + ` ]`,default = `완치자 [ 14 시간 26 분 ]`}"
                                 android:textSize="12dp" />
 
                             <ProgressBar
                                 android:id="@+id/curedWearMaxProgressBar"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
-                                android:layout_height="7dp"
+                                android:layout_height="5dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
+                                android:progress="@{(int)((double)homeViewModel.curedInfo.maxWearingTime / (double)86400000.0 * 100)}"
                                 android:progressDrawable="@drawable/cured_progress_bar" />
 
                             <!-- 최소 착용 시간 비교 그래프 -->
@@ -424,16 +429,17 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/nanumsquare_bold"
-                                android:text="사용자 [ 10시간 13분 ]"
+                                android:text="@{`사용자 [ ` + homeViewModel.patientStats.minWearingTimeToString + ` ]`,default = `사용자 [ 10시간 13분 ]`}"
                                 android:textSize="12dp" />
 
                             <ProgressBar
                                 android:id="@+id/userWearMinProgressBar"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
-                                android:layout_height="7dp"
+                                android:layout_height="5dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
+                                android:progress="@{(int)((double)homeViewModel.patientStats.minWearingTime / (double)86400000.0 * 100)}"
                                 android:progressDrawable="@drawable/wearing_progress_bar" />
 
                             <TextView
@@ -441,16 +447,17 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/nanumsquare_bold"
-                                android:text="완치자 [ 12시간 26분 ]"
+                                android:text="@{`완치자 [ ` + homeViewModel.curedInfo.minWearingTimeToString + ` ]` ,default = `완치자 [ 12시간 11분 ]`}"
                                 android:textSize="12dp" />
 
                             <ProgressBar
                                 android:id="@+id/curedWearMinProgressBar"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
-                                android:layout_height="7dp"
+                                android:layout_height="5dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
+                                android:progress="@{(int)((double)homeViewModel.curedInfo.minWearingTime / (double)86400000.0 * 100)}"
                                 android:progressDrawable="@drawable/cured_progress_bar" />
 
                         </LinearLayout>

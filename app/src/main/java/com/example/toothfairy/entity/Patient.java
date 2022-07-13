@@ -1,6 +1,8 @@
 package com.example.toothfairy.entity;
 
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -52,4 +54,8 @@ public class Patient {
     @SerializedName("dailyWearTimeList")
     private List<DailyWearTime> dailyWearTimeList; // 환자의 일별 착용 시간 리스트
     // 안되면 DailyWearTime[]으로 바꾸기
+
+    public int getAge(){
+        return (int)((startDate.getTime() - birthDate.getTime()) / (1000L * 365L * 60L * 60L * 24L));
+    }
 }

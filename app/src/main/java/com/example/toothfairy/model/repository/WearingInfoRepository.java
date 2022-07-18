@@ -27,7 +27,7 @@ public class WearingInfoRepository {
 
     public void init(String patientId){
         // 사용자 이름의 아이디로 내부 DB 생성
-        prefs = new PreferenceManager(patientId);
+        if(prefs == null) prefs = new PreferenceManager(patientId);
     }
 
     // 교정 장치 착용 감지 시
@@ -88,7 +88,9 @@ public class WearingInfoRepository {
     public Long setMinWearingTime(Long time){
         Long minTime = prefs.getLong(MIN_WEARING_TIME);
 
-        prefs.setLong(MIN_WEARING_TIME, Math.min(minTime, time));
+        if(minTime == 0) prefs.setLong(MIN_WEARING_TIME, time);
+        else prefs.setLong(MIN_WEARING_TIME, Math.min(minTime, time));
+
         return prefs.getLong(MIN_WEARING_TIME);
     }
 

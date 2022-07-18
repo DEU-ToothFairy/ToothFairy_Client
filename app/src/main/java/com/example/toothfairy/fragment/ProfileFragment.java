@@ -1,14 +1,21 @@
 package com.example.toothfairy.fragment;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.toothfairy.LoginActivity;
 import com.example.toothfairy.R;
+import com.example.toothfairy.databinding.FragmentProfileBinding;
+import com.example.toothfairy.util.MyApplication;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +32,8 @@ public class ProfileFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    FragmentProfileBinding binding;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -60,7 +69,28 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
+        View view = binding.getRoot();
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        binding.logoutBtn.setOnClickListener((v)->{
+
+            SharedPreferences prefs = this.getActivity().getSharedPreferences("autoLogin", this.getActivity().MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+
+            editor.remove("id");
+            editor.remove("password");
+
+            editor.commit();
+
+            ActivityCompat.finishAffinity(this.getActivity());
+
+            Intent intent = new Intent(this.getActivity().getApplicationContext(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+            startActivity(intent);
+        });
+        return view;
     }
 }

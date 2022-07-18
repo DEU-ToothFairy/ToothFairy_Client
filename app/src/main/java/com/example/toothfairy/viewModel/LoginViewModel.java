@@ -18,7 +18,6 @@ import retrofit2.Response;
 
 @Getter
 public class LoginViewModel extends ViewModel {
-
     private PatientRepository patientRepository = PatientRepository.getInstance();
 
     public static LoginViewModel loginViewModel = new LoginViewModel();
@@ -63,8 +62,9 @@ public class LoginViewModel extends ViewModel {
         String id = sharedPreferences.getString("id", null);
         String password = sharedPreferences.getString("password", null);
 
-        if(id != null && password != null){
-            loginUser.setValue(id);
+        if(id != null || password != null){
+            login(id, password);
+
             return true;
         }
 

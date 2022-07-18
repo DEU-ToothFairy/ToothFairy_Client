@@ -14,14 +14,13 @@
         <LinearLayout
             android:id="@+id/searchLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
-
             android:orientation="vertical"
             android:padding="16dp"
 
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
 
             <!-- 오늘 날짜 텍스트 뷰 -->
             <TextView
@@ -53,35 +52,85 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="right"
                 />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/searchLayout"
-                >
-                <com.skyfishjy.library.RippleBackground
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/bluetoothPulse"
-                    app:rb_color="#AFD0FF"
-                    app:rb_radius="32dp"
-                    app:rb_rippleAmount="3"
-                    app:rb_duration="2500"
-                    app:rb_scale="6">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerInParent="true"
-                        android:id="@+id/centerImage"
-                        android:src="@drawable/bluetooth_logo"
-                        />
-                </com.skyfishjy.library.RippleBackground>
-            </LinearLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/scanLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/searchLayout"
+            app:layout_constraintBottom_toTopOf="@+id/textLayout"
+            >
+
+            <com.skyfishjy.library.RippleBackground
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/bluetoothPulse"
+                app:rb_color="#AFD0FF"
+                app:rb_radius="32dp"
+                app:rb_rippleAmount="3"
+                app:rb_duration="2500"
+                app:rb_scale="6">
+
+                <ImageView
+                    android:id="@+id/centerImage"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/bluetooth_logo" />
+            </com.skyfishjy.library.RippleBackground>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="20dp"
+            android:id="@+id/textLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            app:layout_constraintTop_toBottomOf="@id/scanLayout"
+            app:layout_constraintBottom_toTopOf="@+id/buttonLayout">
+
+            <TextView
+                android:id="@+id/initText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="장치 초기화 중...\n이 작업은 몇 분정도 소요됩니다."
+                android:textSize="17dp"
+                android:textAlignment="center"
+                android:layout_weight="1"
+
+                android:fontFamily="@font/nanumsquare_regular"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:id="@+id/scanBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="30dp"
+                android:background="#AFD0FF"
+                android:text="장치 검색"
+
+                android:enabled="false"
+                android:visibility="visible"
+
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="TextContrastCheck" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

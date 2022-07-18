@@ -35,7 +35,6 @@ public class CuredInfo {
     }
 
     public String getAvgWearingTimeToString(){
-
         return DateManager.getTimeToString(totalWearTime / totalTreatmentDate);
     }
 

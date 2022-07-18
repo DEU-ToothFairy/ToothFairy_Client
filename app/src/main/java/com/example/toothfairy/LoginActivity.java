@@ -1,7 +1,9 @@
 package com.example.toothfairy;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.Animation;
@@ -32,6 +34,25 @@ public class LoginActivity extends AppCompatActivity {
         //        setContentView(R.layout.activity_login);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            requestPermissions(
+                    new String[]{
+                            Manifest.permission.BLUETOOTH,
+                            Manifest.permission.BLUETOOTH_SCAN,
+                            Manifest.permission.BLUETOOTH_ADVERTISE,
+                            Manifest.permission.BLUETOOTH_CONNECT,
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    },
+                    1);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(
+                    new String[]{
+                            Manifest.permission.BLUETOOTH
+                    },
+                    1);
+        }
+
         setAnimation();
 
         login();
@@ -39,12 +60,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(){
         SharedPreferences sharedPreferences = getSharedPreferences("autoLogin", LoginActivity.MODE_PRIVATE);
-
-        SharedPreferences.Editor autoLoginEdit = sharedPreferences.edit();
-
-        autoLoginEdit.putString("test", "test");
-
-        autoLoginEdit.commit();
 
         // 자동 로그인
         loginViewModel.autoLogin(sharedPreferences);
@@ -82,13 +97,15 @@ public class LoginActivity extends AppCompatActivity {
         // 로그인 성공 시
         loginViewModel.getLoginUser().observe(this, (value)->{
             // 블루투스 화면으로 전환
-//            Intent bluetoothIntent = new Intent(getApplicationContext(), BluetoothActivity.class);
-//            startActivity(bluetoothIntent);
+            Intent bluetoothIntent = new Intent(getApplicationContext(), BluetoothActivity.class);
+            bluetoothIntent.putExtra("loginUser", value);
+            startActivity(bluetoothIntent);
 
-            Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
-            mainIntent.putExtra("loginUser", value);
-
-            startActivity(mainIntent);
+            this.finish();
+//            Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+//            mainIntent.putExtra("loginUser", value);
+//
+//            startActivity(mainIntent);
         });
     }
 

@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="homeViewModel"
             type="com.example.toothfairy.viewModel.MainViewModel" />
@@ -212,77 +213,98 @@
                     app:layout_constraintTop_toBottomOf="@+id/profileLayout">
 
                     <!-- 당일 착용 시간 그래프 레이아웃 -->
-                    <LinearLayout
-                        android:id="@+id/wearingGraphLayout"
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp"
+                        app:cardUseCompatPadding="true"
+                        >
 
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
 
-                        <!-- 오늘 날짜 텍스트 뷰 -->
-                        <TextView
+                        <LinearLayout
+                            android:id="@+id/wearingGraphLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/nanumsquare_regular"
-                            android:text="Today,"
-                            android:textColor="@color/gray"
-                            android:textSize="27dp" />
+                            android:layout_margin="20dp"
 
-                        <!-- 오늘 날짜 텍스트 뷰 -->
-                        <TextView
-                            android:id="@+id/wearDate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="5dp"
-                            android:fontFamily="@font/nanumsquare_extra_bold"
-                            android:text="@{homeViewModel.today}"
-                            android:textColor="@color/blue"
-                            android:textSize="25dp" />
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView
-                            android:layout_width="200dp"
-                            android:layout_height="200dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/toothstatics" />
+                            <!-- 오늘 날짜 텍스트 뷰 -->
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/nanumsquare_regular"
+                                android:text="Today,"
+                                android:textColor="@color/gray"
+                                android:textSize="27dp" />
 
-                        <!-- 오늘 착용 시간 텍스트 뷰 -->
-                        <TextView
-                            android:id="@+id/wearTime"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/nanumsquare_bold"
-                            android:text="@{homeViewModel.dailyWearingTimeToString, default=`10시간 31분`}"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="20dp" />
+                            <!-- 오늘 날짜 텍스트 뷰 -->
+                            <TextView
+                                android:id="@+id/wearDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/nanumsquare_extra_bold"
+                                android:text="@{homeViewModel.today}"
+                                android:textColor="@color/blue"
+                                android:textSize="25dp" />
 
+                            <ImageView
+                                android:layout_width="200dp"
+                                android:layout_height="200dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/toothstatics" />
 
-                        <!-- 오늘 착용 시간 퍼센트 텍스트 뷰 -->
-                        <TextView
-                            android:id="@+id/wearPercentage"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/nanumsquare_extra_bold"
-                            android:text="60% 달성"
-                            android:textColor="@color/blue"
-                            android:textSize="20dp" />
+                            <!-- 오늘 착용 시간 텍스트 뷰 -->
+                            <!--                        android:text="@{homeViewModel.dailyWearingTimeToString, default=`10시간 31분`}"-->
+                            <TextView
+                                android:id="@+id/wearTime"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/nanumsquare_bold"
+                                android:text="@{homeViewModel.dailyWearingTimeToString, default=`10시간 31분`}"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="20dp" />
 
-                        <ProgressBar
-                            android:id="@+id/wearingProgressBar"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            <TextView
+                                android:id="@+id/wearStatus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/nanumsquare_regular"
+                                android:text="현재 착용 중"
+                                android:textAlignment="center"
+                                android:textColor="@color/blue"
+                                android:textSize="13dp" />
 
-                            android:progressDrawable="@drawable/wearing_progress_bar" />
+                            <!-- 오늘 착용 시간 퍼센트 텍스트 뷰 -->
 
-                    </LinearLayout> <!-- 당일 착용 시간 그래프 레이아웃 끝 -->
+                            <TextView
+                                android:id="@+id/wearPercentage"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/nanumsquare_extra_bold"
+                                android:text="@{(int)((double)homeViewModel.dailyWearingTime / (double)50400000.0 * 100) + `% 달성`, default = `60% 달성`}"
+                                android:textColor="@color/blue"
+                                android:textSize="20dp" />
 
+                            <ProgressBar
+                                android:id="@+id/wearingProgressBar"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:progress="@{(int)((double)homeViewModel.dailyWearingTime / (double)50400000.0 * 100)}"
+                                android:progressDrawable="@drawable/wearing_progress_bar" />
+
+                        </LinearLayout> <!-- 당일 착용 시간 그래프 레이아웃 끝 -->
+                    </androidx.cardview.widget.CardView>
 
                     <!-- 교정 장치 착용 통게 레이아웃 -->
                     <LinearLayout
@@ -362,8 +384,8 @@
                                 android:layout_height="5dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
-                                android:max="1000"
-                                android:progress="@{(int)((double)homeViewModel.curedInfo.avgWearingTime / (double)86400000.0 * 1000)}"
+                                android:max="100"
+                                android:progress="@{(int)((double)homeViewModel.curedInfo.avgWearingTime / (double)86400000.0 * 100)}"
                                 android:progressDrawable="@drawable/cured_progress_bar" />
 
                             <!--_________________________________________________________-->

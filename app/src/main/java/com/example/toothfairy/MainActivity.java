@@ -1,6 +1,7 @@
 package com.example.toothfairy;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -10,6 +11,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import com.example.toothfairy.data.WearingStats;
 import com.example.toothfairy.fragment.HomeFragment;
 import com.example.toothfairy.fragment.ProfileFragment;
 import com.example.toothfairy.fragment.StatsFragment;
+import com.example.toothfairy.viewModel.BluetoothViewModel;
 import com.example.toothfairy.viewModel.MainViewModel;
 
 import java.util.Timer;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     // VARIABLE
     MeowBottomNavigation bottomNavigation;
     MainViewModel mainViewModel;
+    BluetoothViewModel bluetoothViewModel;
 
     // Channel에 대한 id 생성 : Channel을 구분하기 위한 ID
     private static final String CHANNEL_ID = "ToothFairy";
@@ -42,13 +46,17 @@ public class MainActivity extends AppCompatActivity {
 
     private DateChangedReceiver dateChangedReceiver;
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // INIT 초기화 작업
+//        bluetoothViewModel = new ViewModelProvider(this).get(BluetoothViewModel.class);
+        bluetoothViewModel = BluetoothViewModel.getInstance();
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
         createNotificationChannel(); // 알림 채널 생성
         initBottomNavibar(); // 네비바 세팅
 
@@ -59,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         // 로그인한 유저의 정보를 가져옴
         mainViewModel.loadPatient(getIntent().getStringExtra("loginUser"));
 
+
         // 환자 정보가 로드되면 해당 환자의 나이에 맞는 완치자 정보를 로드
         mainViewModel.getPatient().observe(this, (patient)->{
             // 완치 환자 정보 로드
@@ -67,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             // 착용 시간 데이터 로드
             mainViewModel.loadWearingStats();
         });
-
 
 //        Timer timer = new Timer();
 //        TimerTask task = new TimerTask() {
@@ -80,11 +88,16 @@ public class MainActivity extends AppCompatActivity {
 //
 //        timer.schedule(task, 0, 1000); //Timer 실행
 
+
+
         // timer.cancel();//타이머 종료
 
-        // DailyWearingTime SharedPreference에 저장하고 MutableLiveData로 넣어주기
+        bluetoothViewModel.getBluetoothData().observe(this, (value)->{
+            Log.i("Main Activity", value + "");
+            if(value.equals("ON")) bluetoothViewModel.getWearStatus().setValue(true);
+            else bluetoothViewModel.getWearStatus().setValue(false);
+        });
 
-        
     } // onCreate
 
     @Override
@@ -130,19 +143,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    // Fragment 변경
-    private void loadFragment(Fragment fragment) {
-        // 이전 버전까지 호환 가능하도록 getSupportFragmentManager() 사용
-        getSupportFragmentManager()
-                // 프래그먼트 변경을 위한 트랜잭션을 시작
-                .beginTransaction()
-                // FrameLayout에 전달 받은 프래그먼트로 교체
-                .replace(R.id.frameLayout, fragment)
-                // 변경 사항 적용
-                .commit();
-    }
-
     private void initBottomNavibar(){
         bottomNavigation = findViewById(R.id.bottomNavigation);
 
@@ -182,16 +182,33 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
             public void onClickItem(MeowBottomNavigation.Model item) {
-                Toast.makeText(getApplicationContext(), "You Clicked" + item.getId(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "You Clicked" + item.getId(), Toast.LENGTH_SHORT).show();
             }
         });
 
         bottomNavigation.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
             @Override
             public void onReselectItem(MeowBottomNavigation.Model item) {
-                Toast.makeText(getApplicationContext(), "You Reselected " + item.getId(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "You Reselected " + item.getId(), Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
+
+    // Fragment 변경
+    private void loadFragment(Fragment fragment) {
+        // 이전 버전까지 호환 가능하도록 getSupportFragmentManager() 사용
+        getSupportFragmentManager()
+                // 프래그먼트 변경을 위한 트랜잭션을 시작
+                .beginTransaction()
+                // FrameLayout에 전달 받은 프래그먼트로 교체
+                .replace(R.id.frameLayout, fragment)
+                // 변경 사항 적용
+                .commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 } // StatsActivity

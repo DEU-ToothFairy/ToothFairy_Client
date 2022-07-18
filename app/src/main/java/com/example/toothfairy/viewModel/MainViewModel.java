@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.toothfairy.data.WearingStats;
 import com.example.toothfairy.model.repository.CuredInfoRepository;
@@ -29,7 +30,6 @@ public final class MainViewModel extends ViewModel {
     private PatientRepository patientRepository = PatientRepository.getInstance();
     private CuredInfoRepository curedInfoRepository = CuredInfoRepository.getInstance();
     private WearingInfoRepository wearingInfoRepository = WearingInfoRepository.getInstance();
-
 
     // VARIABLE
     private MutableLiveData<Patient> patient = new MutableLiveData<>();             // 환자 정보
@@ -81,6 +81,7 @@ public final class MainViewModel extends ViewModel {
 
     // 교정 장치 착용 되었을 때
     public void detectedOn() { wearingInfoRepository.setOn(); }
+
     // 교정 장치 착용 해제되었을 때
     public void detectedOff(){
         // 착용 시간을 내부 DB에 저장하고 값 갱신
@@ -94,6 +95,11 @@ public final class MainViewModel extends ViewModel {
         Long min = wearingInfoRepository.setMinWearingTime(time);
 
         this.patientStats.setValue(new WearingStats(avg,max,min));
+    }
+
+    public void setDailyWearingTime(Long time){
+        Log.i("SAVED", "시간 저장 됨");
+        dailyWearingTime.setValue(wearingInfoRepository.setDailyWearingTime(time));
     }
 
     public String getDailyWearingTimeToString(){

@@ -3,7 +3,9 @@ package com.example.toothfairy.fragment;
 import android.animation.ObjectAnimator;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
@@ -30,6 +34,7 @@ import com.example.toothfairy.databinding.FragmentHomeBinding;
 import com.example.toothfairy.entity.CuredInfo;
 import com.example.toothfairy.entity.Patient;
 import com.example.toothfairy.util.DateManager;
+import com.example.toothfairy.viewModel.BluetoothViewModel;
 import com.example.toothfairy.viewModel.MainViewModel;
 
 import org.jetbrains.annotations.NotNull;
@@ -60,6 +65,7 @@ public class HomeFragment extends Fragment {
     // VARIABLE
     FragmentHomeBinding binding; // DataBinding
     MainViewModel viewModel;
+    BluetoothViewModel bluetoothViewModel;
     SQLiteDatabase db;
 
     public HomeFragment() {
@@ -103,14 +109,12 @@ public class HomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         View view = binding.getRoot();
 
+        bluetoothViewModel = BluetoothViewModel.getInstance();
         viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
     
         // 데이터를 관리하는 뷰 모델을 binding에 연결해줘야 적용 됨
         binding.setLifecycleOwner(requireActivity());
         binding.setHomeViewModel(viewModel);
-
-        setWearProgressBar(60);
-
 
         // 오늘 날짜 설정
         viewModel.getToday().setValue(DateManager.getToday());
@@ -137,6 +141,24 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        bluetoothViewModel.getWearStatus().observe(requireActivity(), (status)->{
+            if(status){
+                binding.wearStatus.setText("현재 착용 중");
+                binding.wearStatus.setTextColor(Color.parseColor("#8ECCFC"));
+            }
+            else {
+                binding.wearStatus.setText("착용 대기 중");
+                binding.wearStatus.setTextColor(Color.parseColor("#919191"));
+            }
+        });
+
+        bluetoothViewModel.getWearingFlag().observe(requireActivity(), (flag)->{
+            viewModel.setDailyWearingTime(1000 * 20L);
+            // 일일 착용 시간은 DailyWearingTime 변수와 바인딩 된게 아니라 getDailyWearingTimeToString()과 매핑 되어 있으므로
+            // 옵저버로 감지 불가
+            binding.wearTime.setText(viewModel.getDailyWearingTimeToString());
+        });
+
         return view;
     }
 
@@ -151,13 +173,5 @@ public class HomeFragment extends Fragment {
         // 교정 진행률 설정
         viewModel.getCalibrationProgress().setValue(progress);
 
-    }
-
-    // Method 착용 시간 프로그래스바 초기화
-    public void setWearProgressBar(int progress){
-        ObjectAnimator progressAnimator = ObjectAnimator.ofInt(binding.curedWearAvgProgressBar, "progress", 1000).setDuration(1500);
-        progressAnimator.start();
-
-        binding.wearingProgressBar.setProgress(progress);
     }
 }

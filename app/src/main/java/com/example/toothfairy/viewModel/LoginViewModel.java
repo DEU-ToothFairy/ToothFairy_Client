@@ -18,7 +18,7 @@ import retrofit2.Response;
 
 @Getter
 public class LoginViewModel extends ViewModel {
-    private PatientRepository patientRepository = PatientRepository.getInstance();
+    private PatientRepository patientRepository = PatientRepository.Companion.getInstance();
 
     public static LoginViewModel loginViewModel = new LoginViewModel();
     public static LoginViewModel getInstance(){ return loginViewModel; }

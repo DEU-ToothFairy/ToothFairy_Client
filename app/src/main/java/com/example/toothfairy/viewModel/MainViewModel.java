@@ -27,7 +27,7 @@ import retrofit2.Response;
 public final class MainViewModel extends ViewModel {
 
     // REPOSITORY
-    private PatientRepository patientRepository = PatientRepository.getInstance();
+    private PatientRepository patientRepository = PatientRepository.Companion.getInstance();
     private CuredInfoRepository curedInfoRepository = CuredInfoRepository.getInstance();
     private WearingInfoRepository wearingInfoRepository = WearingInfoRepository.getInstance();
 

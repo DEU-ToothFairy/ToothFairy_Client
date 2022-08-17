@@ -18,20 +18,22 @@ class PatientRepository private constructor() {
     private val patientService: PatientService
 
     // 환자 정보 가져오는 메소드
-    fun loadPatient(id: String?): Response<Patient>? {
-        val patientCall: Call<Patient> = patientService.findByPatientNum(id)
+    fun loadPatient(id: String?): Response<Patient?>? {
+        val patientCall: Call<Patient?>? = patientService.findByPatientNum(id)
+
         return try {
-            patientCall.execute()
+            patientCall?.execute()
         } catch (e: IOException) {
             e.printStackTrace()
             null
         }
     }
 
-    fun login(loginDto: LoginDto?): Response<Patient>? {
-        val patientCall = patientService.login(loginDto)
+    fun login(loginDto: LoginDto?): Response<Patient?>? {
+        val patientCall: Call<Patient?>? = patientService.login(loginDto)
+
         return try {
-            patientCall.execute()
+            patientCall?.execute()
         } catch (e: IOException) {
             e.printStackTrace()
             null
@@ -62,7 +64,7 @@ class PatientRepository private constructor() {
     }
 
     init {
-        val retrofit = RetrofitClient.getInstance()
-        patientService = retrofit.create(PatientService::class.java)
+        val retrofit = RetrofitClient.instance
+        patientService = retrofit!!.create(PatientService::class.java)
     }
 }

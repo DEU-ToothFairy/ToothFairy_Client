@@ -10,7 +10,7 @@ import retrofit2.Response
 import retrofit2.create
 import java.io.IOException
 
-class CuredInfoRepository private constructor() {
+object CuredInfoRepository {
     // VARIABLE
     private val curedInfoService: CuredInfoService
 
@@ -24,11 +24,6 @@ class CuredInfoRepository private constructor() {
             e.printStackTrace()
             null
         }
-    }
-
-    companion object {
-        // 싱글턴 패턴
-        var instance = CuredInfoRepository()
     }
 
     init {

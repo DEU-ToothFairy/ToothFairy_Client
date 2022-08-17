@@ -13,7 +13,7 @@ import retrofit2.Response
 import java.io.IOException
 import java.sql.Date
 
-class PatientRepository private constructor() {
+object PatientRepository {
     // VARIABLE
     private val patientService: PatientService
 
@@ -59,9 +59,9 @@ class PatientRepository private constructor() {
         return dailyWearTimeList
     }
 
-    companion object {
-        var instance = PatientRepository() // 싱글턴 패턴
-    }
+//    companion object {
+//        var instance = PatientRepository() // 싱글턴 패턴
+//    }
 
     init {
         val retrofit = RetrofitClient.instance

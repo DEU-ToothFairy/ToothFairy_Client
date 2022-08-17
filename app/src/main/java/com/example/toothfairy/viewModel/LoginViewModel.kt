@@ -10,7 +10,6 @@ import com.example.toothfairy.util.Event
 import java.util.concurrent.Executors
 
 class LoginViewModel private constructor() : ViewModel() {
-    val patientRepository = PatientRepository.instance
     val loginUser = MutableLiveData<String?>()
     val error = MutableLiveData<Event<String>>()
 
@@ -19,7 +18,7 @@ class LoginViewModel private constructor() : ViewModel() {
         // 이미 저장되어 있는 정보가 있으면 자동 로그인
         Executors.newSingleThreadExecutor().execute {
             // 로그인 요청
-            val response = patientRepository.login(LoginDto(id, password))
+            val response = PatientRepository.login(LoginDto(id, password))
             
             if (response!!.isSuccessful) {
                 val patient = response.body()

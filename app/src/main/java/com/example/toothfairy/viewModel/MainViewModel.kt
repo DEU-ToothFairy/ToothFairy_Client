@@ -8,18 +8,12 @@ import com.example.toothfairy.entity.CuredInfo
 import com.example.toothfairy.entity.Patient
 import com.example.toothfairy.model.repository.CuredInfoRepository
 import com.example.toothfairy.model.repository.PatientRepository
-import com.example.toothfairy.model.repository.PatientRepository.Companion.instance
 import com.example.toothfairy.model.repository.WearingInfoRepository
 import com.example.toothfairy.util.DateManager
 import retrofit2.Response
 import java.util.concurrent.Executors
 
 class MainViewModel : ViewModel() {
-    // REPOSITORY
-    var patientRepository = instance
-    var curedInfoRepository: CuredInfoRepository = CuredInfoRepository.instance
-    var wearingInfoRepository: WearingInfoRepository = WearingInfoRepository.instance
-
     // VARIABLE
     var patient = MutableLiveData<Patient?>()               // 환자 정보
     var curedInfo = MutableLiveData<CuredInfo?>()           // 완치자 정보
@@ -34,13 +28,13 @@ class MainViewModel : ViewModel() {
     // 특정 환자의 정보를 가져옴
     fun loadPatient(id: String?) {
         Executors.newSingleThreadExecutor().execute {
-            val response: Response<Patient?>? = patientRepository.loadPatient(id)
+            val response: Response<Patient?>? = PatientRepository.loadPatient(id)
 
             if (response!!.isSuccessful) {
                 patient.postValue(response.body())
 
                 // 환자의 ID로 내부 DB 초기화
-                wearingInfoRepository.init(response.body()!!.id)
+                WearingInfoRepository.init(response.body()!!.id)
                 Log.i("Response [Patient]", response.body().toString())
             }
         }
@@ -49,7 +43,7 @@ class MainViewModel : ViewModel() {
     // 특정 나이의 완치자 정보를 가져옴
     fun loadCuredInfo(age: Int) {
         Executors.newSingleThreadExecutor().execute {
-            val response:Response<CuredInfo?>? = curedInfoRepository.loadCuredInfo(age)
+            val response:Response<CuredInfo?>? = CuredInfoRepository.loadCuredInfo(age)
 
             if (response!!.isSuccessful) {
                 curedInfo.postValue(response.body())
@@ -60,32 +54,32 @@ class MainViewModel : ViewModel() {
 
     // 착용 통계 데이터 로드
     fun loadWearingStats() {
-        dailyWearingTime.value = wearingInfoRepository.dailyWearingTime
-        patientStats.value = wearingInfoRepository.wearingStats
+        dailyWearingTime.value = WearingInfoRepository.dailyWearingTime
+        patientStats.value = WearingInfoRepository.wearingStats
     }
 
     // 교정 장치 착용 되었을 때
     fun detectedOn() {
-        wearingInfoRepository.setOn()
+        WearingInfoRepository.setOn()
     }
 
     // 교정 장치 착용 해제되었을 때
     fun detectedOff() {
         // 착용 시간을 내부 DB에 저장하고 값 갱신
-        dailyWearingTime.value = wearingInfoRepository.setOff()
+        dailyWearingTime.value = WearingInfoRepository.setOff()
     }
 
     // 환자 통계 그래프 데이터 갱신
     fun updatePatientStats(time: Long) {
-        val avg = wearingInfoRepository.setAvgWearingTime(time)
-        val max = wearingInfoRepository.setMaxWearingTime(time)
-        val min = wearingInfoRepository.setMinWearingTime(time)
+        val avg = WearingInfoRepository.setAvgWearingTime(time)
+        val max = WearingInfoRepository.setMaxWearingTime(time)
+        val min = WearingInfoRepository.setMinWearingTime(time)
         patientStats.value = WearingStats(avg, max, min)
     }
 
     fun setDailyWearingTime(time: Long) {
         Log.i("SAVED", "시간 저장 됨")
-        dailyWearingTime.value = wearingInfoRepository.setDailyWearingTime(time)
+        dailyWearingTime.value = WearingInfoRepository.setDailyWearingTime(time)
     }
 
     val dailyWearingTimeToString: String

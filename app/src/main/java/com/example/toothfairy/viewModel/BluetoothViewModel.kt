@@ -26,15 +26,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class BluetoothViewModel private constructor() : ViewModel() {
-    val wearingInfoRepository: WearingInfoRepository = WearingInfoRepository.instance
-
     var bluetoothData = MutableLiveData<String>()
     var wearStatus = MutableLiveData<Boolean>()
     var connected = MutableLiveData<Boolean>()
     var wearingFlag = MutableLiveData(false)
 
     fun init(patientId: String?) {
-        wearingInfoRepository.init(patientId)
+        WearingInfoRepository.init(patientId)
     }
 
     val activity: Activity? = null
@@ -199,13 +197,7 @@ class BluetoothViewModel private constructor() : ViewModel() {
         }
     }
 
-    fun getTime(): String{
-        val now = System.currentTimeMillis()
-        val date = Date(now)
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-
-        return dateFormat.format(dateFormat)
-    }
+    fun getTime(): String = SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Date(System.currentTimeMillis()))
 
 
     companion object {

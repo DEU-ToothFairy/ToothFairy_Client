@@ -1,15 +1,17 @@
 package com.example.toothfairy.model.repository
 
 import com.example.toothfairy.data.WearingStats
-import com.example.toothfairy.model.repository.WearingInfoRepository
 import com.example.toothfairy.util.PreferenceManager
-import lombok.Getter
-import lombok.Setter
 import kotlin.math.abs
 
-@Setter
-@Getter
-class WearingInfoRepository private constructor() {
+object WearingInfoRepository {
+    private const val ON = "on"
+    private const val OFF = "off"
+    private const val DAILY_WEARING_TIME = "dailyWearingTime"
+    private const val AVG_WEARING_TIME = "avgWearingTime"
+    private const val MAX_WEARING_TIME = "maxWearingTime"
+    private const val MIN_WEARING_TIME = "minWearingTime"
+
     private var prefs: PreferenceManager? = null
 
     fun init(patientId: String?) {
@@ -91,15 +93,4 @@ class WearingInfoRepository private constructor() {
 
     val dailyWearingTime: Long
         get() = prefs!!.getLong(DAILY_WEARING_TIME)
-
-    companion object {
-        var instance = WearingInfoRepository()
-
-        private const val ON = "on"
-        private const val OFF = "off"
-        private const val DAILY_WEARING_TIME = "dailyWearingTime"
-        private const val AVG_WEARING_TIME = "avgWearingTime"
-        private const val MAX_WEARING_TIME = "maxWearingTime"
-        private const val MIN_WEARING_TIME = "minWearingTime"
-    }
 }

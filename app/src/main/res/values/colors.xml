@@ -13,4 +13,6 @@
     <color name="gray">#919191</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorAccent">#5384ed</color>
+
+    <color name="background_gray">#f7f8f9</color>
 </resources>

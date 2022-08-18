@@ -16,7 +16,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_gray"
+        android:background="@color/white"
         tools:context=".fragment.HomeFragment">
 
         <!-- TODO: Update blank fragment layout -->
@@ -26,13 +26,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- 전체 레이아웃 -->
+            <!-- LAYOUT 전체 레이아웃 -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
 
-                <!-- 프로필 레이아웃 -->
+                <!-- LAYOUT 프로필 레이아웃 -->
                 <LinearLayout
                     android:id="@+id/profileLayout"
                     android:layout_width="match_parent"
@@ -41,6 +41,7 @@
 
                     app:layout_constraintTop_toTopOf="parent">
 
+                    <!-- LAYOUT 유저 정보 레이아웃 -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -78,7 +79,7 @@
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/username" />
 
-                        <!-- 유저 정보 레이아웃 -->
+
                         <LinearLayout
                             android:id="@+id/userInfoLayout"
                             android:layout_width="wrap_content"
@@ -149,10 +150,10 @@
                                     android:textSize="14dp" />
 
                             </LinearLayout>
-                        </LinearLayout> <!-- 유저 정보 레이아웃 끝 -->
+                        </LinearLayout>
 
-                    </LinearLayout> <!-- 프로필 레이아웃 끝 -->
-
+                    </LinearLayout>
+                    <!-- LAYOUT END 유저 정보 레이아웃 끝 -->
 
                     <View
                         android:layout_width="0dp"
@@ -202,22 +203,23 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
+                <!-- LAYOUT END 프로필 레이아웃 끝 -->
 
 
-                <!--___________________________________________________________________________-->
 
+                <!-- LAYOUT 착용 정보 레이아웃 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@+id/profileLayout">
 
-                    <!-- 당일 착용 시간 그래프 레이아웃 -->
+                    <!-- LAYOUT 당일 착용 시간 그래프 레이아웃 -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
 
-                        app:cardCornerRadius="20dp"
+                        app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         app:cardUseCompatPadding="false"
                         >
@@ -262,7 +264,6 @@
                                 android:src="@drawable/toothstatics" />
 
                             <!-- 오늘 착용 시간 텍스트 뷰 -->
-                            <!--                        android:text="@{homeViewModel.dailyWearingTimeToString, default=`10시간 31분`}"-->
                             <TextView
                                 android:id="@+id/wearTime"
                                 android:layout_width="match_parent"
@@ -303,22 +304,122 @@
                                 android:progress="@{(int)((double)homeViewModel.dailyWearingTime / (double)50400000.0 * 100)}"
                                 android:progressDrawable="@drawable/wearing_progress_bar" />
 
-                        </LinearLayout> <!-- 당일 착용 시간 그래프 레이아웃 끝 -->
+                        </LinearLayout>
+                        <!-- LAYOUT END 당일 착용 시간 그래프 레이아웃 끝 -->
                     </androidx.cardview.widget.CardView>
 
-                    <!-- 교정 장치 착용 통게 레이아웃 -->
+                    <!-- LAYOUT 교정 장치 착용 통계 레이아웃(v2) -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop = "10dp"
-                        android:layout_marginBottom = "10dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp"
-                        app:cardUseCompatPadding="false"
+                        app:cardUseCompatPadding="false">
 
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/wearingGraphLayout">
+                        <LinearLayout
+                            android:layout_width = "match_parent"
+                            android:layout_height = "wrap_content"
+                            android:layout_margin = "20dp"
+                            android:padding="16dp"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/nanumsquare_extra_bold"
+
+                                android:text="하루 평균 착용 시간"
+                                android:textSize="15dp"
+                                android:textColor="@color/black"
+                                />
+
+                            <LinearLayout
+                                android:layout_width = "match_parent"
+                                android:layout_height = "wrap_content"
+                                android:orientation = "horizontal"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                >
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width = "wrap_content"
+                                    android:layout_height = "wrap_content">
+
+                                    <com.dinuscxj.progressbar.CircleProgressBar
+                                        android:id="@+id/circleProgressBar"
+
+                                        android:layout_marginTop = "10dp"
+                                        app:progress_style="solid_line"
+                                        app:progress_stroke_width="7dp"
+
+                                        app:progress_start_color="@color/blue"
+                                        app:progress_end_color="#83E2FF"
+                                        app:progress_stroke_cap="round"
+
+                                        app:progress_text_size="0dp"
+
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
+
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        />
+
+                                    <com.dinuscxj.progressbar.CircleProgressBar
+                                        android:id="@+id/circleProgressBar2"
+
+                                        app:progress_style="solid_line"
+                                        app:progress_stroke_width="7dp"
+
+                                        app:progress_start_color="#83E2FF"
+                                        app:progress_end_color="#B7EEFF"
+                                        app:progress_background_color="@color/white"
+                                        app:progress_stroke_cap="round"
+
+                                        app:progress_text_size="0dp"
+
+                                        android:layout_width="80dp"
+                                        android:layout_height="80dp"
+
+                                        app:layout_constraintTop_toTopOf="@id/circleProgressBar"
+                                        app:layout_constraintLeft_toLeftOf="@id/circleProgressBar"
+                                        app:layout_constraintRight_toRightOf="@id/circleProgressBar"
+                                        app:layout_constraintBottom_toBottomOf="@id/circleProgressBar"
+                                        />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--                                <ProgressBar-->
+<!--                                    android:layout_width="150dp"-->
+<!--                                    android:layout_height="150dp"-->
+<!--                                    android:indeterminateOnly="false"-->
+<!--                                    android:progressDrawable="@drawable/stastics_circle"-->
+
+<!--                                    tools:progress="@{(int)homeViewModel.calibrationProgress}" />-->
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- LAYOUT END 교정 장치 착용 통계 레이아웃(v2) -->
+
+
+                    <!-- LAYOUT 교정 장치 착용 통게 레이아웃 -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop = "10dp"
+                        android:layout_marginBottom = "10dp"
+
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp"
+                        app:cardUseCompatPadding="false">
 
                         <LinearLayout
                             android:layout_width="match_parent"

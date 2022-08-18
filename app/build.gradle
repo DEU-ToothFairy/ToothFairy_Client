@@ -30,6 +30,7 @@ android {
     //Android Studio 4.0 버전 이상일때,
     buildFeatures {
         dataBinding = true
+        viewBinding true
     }
 
     configurations.all {

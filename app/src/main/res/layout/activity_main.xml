@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
+        android:background="@color/background_gray"
         android:orientation="horizontal"
         android:padding="16dp"
         >
@@ -48,18 +48,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
-    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
-        android:id="@+id/bottomNavigation"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id ="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:mbn_backgroundBottomColor="@color/white"
-        app:mbn_circleColor="@color/white"
-        app:mbn_countBackgroundColor="#ff6f00"
-        app:mbn_countTextColor="@color/white"
-        app:mbn_defaultIconColor="@color/blue"
-        app:mbn_selectedIconColor="@color/blue" />
+
+        android:background="@color/background_gray"
+
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/navigation_menu"
+        />
+
+<!--    <com.etebarian.meowbottomnavigation.MeowBottomNavigation-->
+<!--        android:id="@+id/bottomNavigation"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        -->
+<!--        app:mbn_backgroundBottomColor="@color/white"-->
+<!--        app:mbn_circleColor="@color/white"-->
+<!--        app:mbn_countBackgroundColor="#ff6f00"-->
+<!--        app:mbn_countTextColor="@color/white"-->
+<!--        app:mbn_defaultIconColor="@color/blue"-->
+<!--        app:mbn_selectedIconColor="@color/blue" />-->
 
 </LinearLayout>

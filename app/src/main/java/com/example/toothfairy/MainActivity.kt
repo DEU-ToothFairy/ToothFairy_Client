@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation.*
+import com.example.toothfairy.databinding.ActivityMainBinding
 import com.example.toothfairy.entity.Patient
 import com.example.toothfairy.fragment.HomeFragment
 import com.example.toothfairy.fragment.ProfileFragment
@@ -22,10 +23,12 @@ import com.example.toothfairy.fragment.StatsFragment
 import com.example.toothfairy.viewModel.BluetoothViewModel
 import com.example.toothfairy.viewModel.BluetoothViewModel.Companion.instance
 import com.example.toothfairy.viewModel.MainViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     // VARIABLE
-    var bottomNavigation    : MeowBottomNavigation? = null
+    private lateinit var binding: ActivityMainBinding
+    var bottomNavigation    : BottomNavigationView? = null
     var mainViewModel       : MainViewModel?        = null
     var bluetoothViewModel  : BluetoothViewModel?   = null
 
@@ -40,9 +43,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // INIT 초기화 작업
-//        bluetoothViewModel = new ViewModelProvider(this).get(BluetoothViewModel.class);
+
+        // View Binding
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        val view = binding.root
+        setContentView(view)
+
         bluetoothViewModel = instance
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         createNotificationChannel() // 알림 채널 생성
         initBottomNavibar() // 네비바 세팅
@@ -130,39 +139,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initBottomNavibar() {
-        bottomNavigation = findViewById(R.id.bottomNavigation)
-
-        bottomNavigation?.add(MeowBottomNavigation.Model(1, R.drawable.ic_baseline_home_24))
-        bottomNavigation?.add(MeowBottomNavigation.Model(2, R.drawable.ic_baseline_chart_24))
-        bottomNavigation?.add(
-            MeowBottomNavigation.Model(
-                3,
-                R.drawable.ic_baseline_account_circle_24
-            )
-        )
-
-        bottomNavigation?.setOnShowListener(ShowListener { item ->
-            var fragment: Fragment? = null
-
-            when (item.id) {
-                1 -> fragment = HomeFragment() // Home Fragment 초기화
-                2 -> fragment = StatsFragment() // Stats Fragment 초기화
-                3 -> fragment = ProfileFragment() // Profile Fragment 초기화
+        binding.bottomNavigation.run {
+            setOnNavigationItemSelectedListener {
+                var fragment = when (it.itemId) {
+                    R.id.menu_home -> HomeFragment()
+                    R.id.menu_search -> HomeFragment()
+                    R.id.menu_profile -> ProfileFragment()
+                    R.id.menu_stastics -> StatsFragment()
+                    R.id.menu_black -> HomeFragment()
+                    else -> HomeFragment()
+                }
+                loadFragment(fragment)
+                
+                // OnNavigationItemSelectedListner의 반환 값 (람다 함수 형식이라 마지막 라인이 반환 값이 됨)
+                true
             }
+            selectedItemId = R.id.menu_home
+        }
 
-            loadFragment(fragment)
-        })
-
-        // 홈 화면을 기본으로 설정
-        bottomNavigation?.show(1, true)
-
-        // 메뉴 선택시 알림 이벤트
-        bottomNavigation?.setOnClickMenuListener(ClickListener {
-            //Toast.makeText(getApplicationContext(), "You Clicked" + item.getId(), Toast.LENGTH_SHORT).show();
-        })
-        bottomNavigation?.setOnReselectListener(ReselectListener {
-            //Toast.makeText(getApplicationContext(), "You Reselected " + item.getId(), Toast.LENGTH_SHORT).show();
-        })
     }
 
     // Fragment 변경

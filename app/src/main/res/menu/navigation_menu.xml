@@ -4,35 +4,35 @@
     <item
         android:id="@+id/menu_home"
         android:enabled = "true"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="home"
+        android:icon="@drawable/ic_home"
+        android:title="홈"
         />
 
     <item
         android:id="@+id/menu_search"
         android:enabled = "true"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="search"
+        android:icon="@drawable/ic_search"
+        android:title="검색"
         />
 
     <item
         android:id="@+id/menu_stastics"
         android:enabled = "true"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="stastics"
+        android:icon="@drawable/ic_graph_pie"
+        android:title="통계"
         />
 
     <item
         android:id="@+id/menu_black"
         android:enabled = "true"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="black"
+        android:icon="@drawable/ic_bell"
+        android:title="알림"
         />
 
     <item
         android:id="@+id/menu_profile"
         android:enabled = "true"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="profile"
+        android:icon="@drawable/ic_user"
+        android:title="내정보"
         />
 </menu>

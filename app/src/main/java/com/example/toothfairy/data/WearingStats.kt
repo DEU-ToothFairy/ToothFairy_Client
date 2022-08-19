@@ -1,7 +1,6 @@
 package com.example.toothfairy.data
 
 import com.example.toothfairy.util.DateManager
-import lombok.*
 
 class WearingStats(var avgWearingTime: Long, var maxWearingTime: Long, var minWearingTime: Long) {
 

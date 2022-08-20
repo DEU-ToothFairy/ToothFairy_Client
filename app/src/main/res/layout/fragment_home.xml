@@ -16,12 +16,10 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/background_gray"
         tools:context=".fragment.HomeFragment">
 
         <!-- TODO: Update blank fragment layout -->
-
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -37,8 +35,9 @@
                     android:id="@+id/profileLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
 
+                    android:background="@color/white"
+                    android:orientation="horizontal"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <!-- LAYOUT 유저 정보 레이아웃 -->
@@ -72,9 +71,9 @@
                             android:fontFamily="@font/nanumsquare_bold"
                             android:text="@{homeViewModel.patient.id, default=`nickname`}"
 
-                            android:textColor="@color/blue"
-                            android:textSize="14dp"
-
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12dp"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/username" />
@@ -104,7 +103,7 @@
 
                                     android:text="@{(double)homeViewModel.calibrationProgress + `%`, default=`24%`}"
                                     android:textAlignment="center"
-                                    android:textColor="@color/blue"
+                                    android:textColor="@color/black"
                                     android:textSize="18dp" />
 
                                 <TextView
@@ -135,7 +134,7 @@
 
                                     android:text="@{homeViewModel.treatmentDays.toString(), default=`120`}"
                                     android:textAlignment="center"
-                                    android:textColor="@color/blue"
+                                    android:textColor="@color/black"
                                     android:textSize="18dp" />
 
                                 <TextView
@@ -206,7 +205,6 @@
                 <!-- LAYOUT END 프로필 레이아웃 끝 -->
 
 
-
                 <!-- LAYOUT 착용 정보 레이아웃 -->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -218,18 +216,19 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="7dp"
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
-                        app:cardUseCompatPadding="false"
-                        >
+                        app:cardUseCompatPadding="false">
 
 
                         <LinearLayout
                             android:id="@+id/wearingGraphLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
 
                             android:orientation="vertical"
                             android:padding="16dp"
@@ -252,57 +251,187 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginTop="5dp"
+
                                 android:fontFamily="@font/nanumsquare_extra_bold"
                                 android:text="@{homeViewModel.today, default = `18 August`}"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/colorAccent"
                                 android:textSize="20dp" />
 
-                            <ImageView
-                                android:layout_width="175dp"
-                                android:layout_height="175dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/toothstatics" />
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center">
 
-                            <!-- 오늘 착용 시간 텍스트 뷰 -->
-                            <TextView
-                                android:id="@+id/wearTime"
+                                <com.github.lzyzsd.circleprogress.ArcProgress
+                                    android:id="@+id/goalProgressBar"
+                                    android:background="@color/white"
+
+                                    app:arc_unfinished_color="#ececec"
+                                    app:arc_finished_color="#bfbfbf"
+
+                                    android:layout_marginTop="10dp"
+                                    android:layout_width="250dp"
+                                    android:layout_height="250dp"
+
+                                    app:arc_stroke_width="10dp"
+                                    app:arc_progress="60"
+
+                                    app:arc_text_color="@color/white"
+
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    />
+
+                                <com.github.lzyzsd.circleprogress.ArcProgress
+                                    android:id="@+id/wearingProgressBar"
+                                    android:background="#00FFFFFF"
+
+                                    app:arc_unfinished_color="#00ECECEC"
+                                    app:arc_finished_color="@color/colorAccent"
+
+                                    android:layout_marginTop="10dp"
+                                    android:layout_width="250dp"
+                                    android:layout_height="250dp"
+
+                                    app:arc_stroke_width="10dp"
+                                    app:arc_progress="0"
+
+                                    app:arc_text_color="@color/white"
+
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    />
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="vertical"
+
+                                        android:gravity="center"
+                                        app:layout_constraintTop_toTopOf="@+id/wearingProgressBar"
+                                        app:layout_constraintLeft_toLeftOf="@+id/wearingProgressBar"
+                                        app:layout_constraintRight_toRightOf="@+id/wearingProgressBar"
+                                        app:layout_constraintBottom_toBottomOf="@+id/wearingProgressBar"
+                                        >
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="5dp"
+
+                                            android:text="착용 시간"
+                                            android:textSize="10dp"
+                                            android:textColor="@color/gray"
+                                            android:fontFamily="@font/nanumsquare_bold"/>
+
+                                        <TextView
+                                            android:id="@+id/wearTime"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+
+                                            android:text="@{homeViewModel.dailyWearingTimeToString, default=`0 : 31`}"
+                                            android:textSize="30dp"
+                                            android:textColor="@color/colorAccent"
+                                            android:fontFamily="@font/nanumsquare_bold"/>
+
+                                        <View
+                                            android:background="#a2a1a2"
+                                            android:layout_width="50dp"
+                                            android:layout_height="1dp"
+
+                                            android:layout_marginTop="20dp"
+                                            android:layout_marginBottom="20dp"
+                                            />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+
+                                            android:text="14 : 20"
+                                            android:textSize="30dp"
+                                            android:textColor="@color/black_gray"
+                                            android:fontFamily="@font/nanumsquare_bold"/>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="5dp"
+
+                                            android:text="목표 시간"
+                                            android:textSize="10dp"
+                                            android:textColor="@color/gray"
+                                            android:fontFamily="@font/nanumsquare_bold"/>
+
+                                    </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/wearStatus"
+
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+
+                                    android:layout_marginBottom="16dp"
+                                    android:fontFamily="@font/nanumsquare_bold"
+                                    android:text="현재 착용 중"
+                                    android:textAlignment="center"
+
+                                    android:textColor="@color/colorAccent"
+                                    android:textSize="14dp"
+
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+
+                                    app:layout_constraintHorizontal_bias="0.502"
+                                     />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/nanumsquare_bold"
-                                android:text="@{homeViewModel.dailyWearingTimeToString, default=`10시간 31분`}"
-                                android:textAlignment="center"
-                                android:textColor="@color/black"
-                                android:textSize="18dp" />
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                >
 
-                            <TextView
-                                android:id="@+id/wearStatus"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/nanumsquare_regular"
-                                android:text="현재 착용 중"
-                                android:textAlignment="center"
-                                android:textColor="@color/blue"
-                                android:textSize="13dp" />
+                                <View
+                                    android:background="@color/colorAccent"
+                                    android:layout_width="13dp"
+                                    android:layout_height="13dp"
+                                    android:layout_marginRight="10dp"
+                                    />
 
-                            <!-- 오늘 착용 시간 퍼센트 텍스트 뷰 -->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="20dp"
 
-                            <TextView
-                                android:id="@+id/wearPercentage"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:fontFamily="@font/nanumsquare_extra_bold"
-                                android:text="@{(int)((double)homeViewModel.dailyWearingTime / (double)50400000.0 * 100) + `% 달성`, default = `60% 달성`}"
-                                android:textColor="@color/blue"
-                                android:textSize="18dp" />
+                                    android:text="내 착용 시간"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/gray"
+                                    android:fontFamily="@font/nanumsquare_bold"/>
 
-                            <ProgressBar
-                                android:id="@+id/wearingProgressBar"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp"
-                                android:progress="@{(int)((double)homeViewModel.dailyWearingTime / (double)50400000.0 * 100)}"
-                                android:progressDrawable="@drawable/wearing_progress_bar" />
+                                <View
+                                    android:background="#bfbfbf"
+                                    android:layout_width="13dp"
+                                    android:layout_height="13dp"
+                                    android:layout_marginRight="10dp"
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:text="목표 시간"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/gray"
+                                    android:fontFamily="@font/nanumsquare_bold"/>
+                            </LinearLayout>
+
+
+
 
                         </LinearLayout>
                         <!-- LAYOUT END 당일 착용 시간 그래프 레이아웃 끝 -->
@@ -312,17 +441,18 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="20dp"
+                        android:layout_marginBottom="7dp"
+
+                        app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         app:cardUseCompatPadding="false">
 
                         <LinearLayout
-                            android:layout_width = "match_parent"
-                            android:layout_height = "wrap_content"
-                            android:layout_margin = "20dp"
-                            android:padding="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
                             android:orientation="vertical"
-                            >
+                            android:padding="16dp">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -331,74 +461,119 @@
                                 android:fontFamily="@font/nanumsquare_extra_bold"
 
                                 android:text="하루 평균 착용 시간"
-                                android:textSize="15dp"
                                 android:textColor="@color/black"
-                                />
+                                android:textSize="15dp" />
 
                             <LinearLayout
-                                android:layout_width = "match_parent"
-                                android:layout_height = "wrap_content"
-                                android:orientation = "horizontal"
-                                android:paddingLeft="20dp"
-                                android:paddingRight="20dp"
-                                >
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp">
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width = "wrap_content"
-                                    android:layout_height = "wrap_content">
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
 
                                     <com.dinuscxj.progressbar.CircleProgressBar
-                                        android:id="@+id/circleProgressBar"
-
-                                        android:layout_marginTop = "10dp"
-                                        app:progress_style="solid_line"
-                                        app:progress_stroke_width="7dp"
-
-                                        app:progress_start_color="@color/blue"
-                                        app:progress_end_color="#83E2FF"
-                                        app:progress_stroke_cap="round"
-
-                                        app:progress_text_size="0dp"
+                                        android:id="@+id/circleProgressBar3"
 
                                         android:layout_width="100dp"
                                         android:layout_height="100dp"
+                                        android:layout_marginTop="10dp"
 
-                                        app:layout_constraintTop_toTopOf="parent"
                                         app:layout_constraintLeft_toLeftOf="parent"
-                                        />
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:progress_end_color="#83E2FF"
 
-                                    <com.dinuscxj.progressbar.CircleProgressBar
-                                        android:id="@+id/circleProgressBar2"
+                                        app:progress_start_color="@color/blue"
 
-                                        app:progress_style="solid_line"
+                                        app:progress_stroke_cap="round"
                                         app:progress_stroke_width="7dp"
 
-                                        app:progress_start_color="#83E2FF"
-                                        app:progress_end_color="#B7EEFF"
-                                        app:progress_background_color="@color/white"
-                                        app:progress_stroke_cap="round"
+                                        app:progress_style="solid_line"
+                                        app:progress_text_size="0dp" />
 
-                                        app:progress_text_size="0dp"
+                                    <com.dinuscxj.progressbar.CircleProgressBar
+                                        android:id="@+id/circleProgressBar4"
 
                                         android:layout_width="80dp"
                                         android:layout_height="80dp"
 
-                                        app:layout_constraintTop_toTopOf="@id/circleProgressBar"
-                                        app:layout_constraintLeft_toLeftOf="@id/circleProgressBar"
-                                        app:layout_constraintRight_toRightOf="@id/circleProgressBar"
-                                        app:layout_constraintBottom_toBottomOf="@id/circleProgressBar"
-                                        />
+                                        app:layout_constraintBottom_toBottomOf="@id/circleProgressBar3"
+                                        app:layout_constraintLeft_toLeftOf="@id/circleProgressBar3"
+                                        app:layout_constraintRight_toRightOf="@id/circleProgressBar3"
+                                        app:layout_constraintTop_toTopOf="@id/circleProgressBar3"
 
+                                        app:progress_background_color="@color/white"
+
+                                        app:progress_end_color="#B7EEFF"
+                                        app:progress_start_color="#83E2FF"
+
+                                        app:progress_stroke_cap="round"
+                                        app:progress_stroke_width="7dp"
+                                        app:progress_style="solid_line"
+                                        app:progress_text_size="0dp" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
 
-<!--                                <ProgressBar-->
-<!--                                    android:layout_width="150dp"-->
-<!--                                    android:layout_height="150dp"-->
-<!--                                    android:indeterminateOnly="false"-->
-<!--                                    android:progressDrawable="@drawable/stastics_circle"-->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="20dp"
+                                        android:padding="5dp">
 
-<!--                                    tools:progress="@{(int)homeViewModel.calibrationProgress}" />-->
+                                        <View
+                                            android:id="@+id/dailyRectangle"
+                                            android:layout_width="16dp"
+                                            android:layout_height="16dp"
+
+                                            android:layout_marginRight="10dp"
+                                            android:background="@drawable/rectangle_blue" />
+
+                                        <TextView
+                                            android:id="@+id/dailyWearingTime"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+
+                                            android:fontFamily="@font/nanumsquare_extra_bold"
+                                            android:text="하루 평균 착용 시간"
+                                            android:textAlignment="center"
+                                            android:textSize="14dp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="20dp"
+                                        android:padding="5dp">
+
+
+                                        <View
+                                            android:id="@+id/goalRectangle"
+                                            android:layout_width="16dp"
+                                            android:layout_height="16dp"
+                                            android:layout_marginRight="10dp"
+                                            android:background="@drawable/rectangle_cyan"
+                                            android:gravity="left" />
+
+                                        <TextView
+                                            android:id="@+id/goalWearingTime"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+
+                                            android:fontFamily="@font/nanumsquare_extra_bold"
+                                            android:text="목표 착용 시간"
+                                            android:textAlignment="center"
+                                            android:textSize="14dp" />
+                                    </LinearLayout>
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
@@ -414,10 +589,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:layout_marginTop = "10dp"
-                        android:layout_marginBottom = "10dp"
+                        android:layout_marginBottom="10dp"
 
-                        app:cardCornerRadius="20dp"
+                        app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         app:cardUseCompatPadding="false">
 

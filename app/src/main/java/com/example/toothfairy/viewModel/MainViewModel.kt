@@ -23,7 +23,7 @@ class MainViewModel : ViewModel() {
     var calibrationProgress = MutableLiveData<Double>()     // 교정 진행률
 
     var patientStats = MutableLiveData<WearingStats>()      // 환자 착용 통계
-    val dailyWearingTime = MutableLiveData<Long>()          // 당일 착용 시간
+    var dailyWearingTime = MutableLiveData<Long>()          // 당일 착용 시간
 
     // 특정 환자의 정보를 가져옴
     fun loadPatient(id: String?) {

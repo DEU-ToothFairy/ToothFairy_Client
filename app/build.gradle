@@ -29,7 +29,7 @@ android {
 
     //Android Studio 4.0 버전 이상일때,
     buildFeatures {
-        dataBinding = true
+        dataBinding true
         viewBinding true
     }
 
@@ -89,12 +89,12 @@ dependencies {
 
     /* progress bar */
     implementation 'com.dinuscxj:circleprogressbar:1.3.6'
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
 
     testImplementation 'junit:junit:4.+'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
 
     implementation "androidx.core:core-ktx:1.9.0-beta01"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"

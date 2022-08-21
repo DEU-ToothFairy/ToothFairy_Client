@@ -27,13 +27,13 @@ class DateManager {
         }
 
         fun getTimeToString(time: Long?): String {
-            if (time == null) return "%2d : %2d".format(0, 0)
+            if (time == null) return "%00 : %00"
             val hour = (time / (60 * 1000)).toInt() / 60
             val minute = (time / (60 * 1000)).toInt() % 60
 
             Log.i("Time To String", "${hour}시간 ${minute}분") // hour.toString() + "시간" + minute + "분"
             
-            return "%2d : %2d".format(hour, minute) //" " + hour + "시간 " + minute + "분 "
+            return "%02d : %02d".format(hour, minute) //" " + hour + "시간 " + minute + "분 "
         }
     }
 }

@@ -3,16 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/circle.xml" value="0.262" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/cured_progress_bar.xml" value="0.181" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_free_icon_font_youtube_6422215.xml" value="0.285" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/profile_circle.xml" value="0.265" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/rectangle_blue.xml" value="0.181" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/rectangle_cyan.xml" value="0.2405" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/stastics_circle.xml" value="0.181" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/font/fonts.xml" value="0.3921875" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_bluetooth.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_login.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_main.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_profile.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_stats.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/progress_ui.xml" value="0.270703125" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/wearing_progress_layout.xml" value="0.9" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layouts/fragment/layout/fragment_home.xml" value="0.2390625" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layouts/fragment/layout/fragment_profile.xml" value="0.2390625" />
       </map>
     </option>
   </component>

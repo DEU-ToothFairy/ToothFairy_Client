@@ -172,17 +172,15 @@ class BluetoothActivity : AppCompatActivity() {
         var tmp = ""
         var strTime = ""
         @SuppressLint("MissingPermission")
-        override fun onCharacteristicRead(
-            gatt: BluetoothGatt,
-            characteristic: BluetoothGattCharacteristic,
-            status: Int
-        ) {
+        override fun onCharacteristicRead(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, status: Int ) {
             super.onCharacteristicRead(gatt, characteristic, status)
             val strData = characteristic.getStringValue(0)
+
             if (tmp != strData) {
                 tmp = strData
                 strTime = time
             }
+
             runOnUiThread {
                 Log.i("Data", strData + "")
                 if (timeCount >= 60) {
@@ -194,9 +192,12 @@ class BluetoothActivity : AppCompatActivity() {
                         viewModel!!.changeFlag()
                     }
                 }
+
                 timeCount++
                 if ("ON" == strData) onCount++
+
                 Log.i("Count", "Time : $timeCount ON : $onCount")
+
                 viewModel!!.bluetoothData.postValue(strData)
                 btGatt!!.readCharacteristic(ValueCharacteristic_read)
             }

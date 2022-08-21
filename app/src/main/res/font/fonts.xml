@@ -123,10 +123,104 @@
         />
 
     <font
-        android:font="@font/nanumsquare_bold"
+        android:font="@font/fsindustrietrial_black"
         android:fontStyle="normal"
         android:fontWeight="400"
-        app:font="@font/nanumsquare_bold"
+        app:font="@font/fsindustrietrial_black"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        />
+
+    <font
+        android:font="@font/fsindustrietrial_black_italic"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/fsindustrietrial_black_italic"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        />
+    <font
+        android:font="@font/fsindustrietrial_bold"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/fsindustrietrial_bold"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        />
+    <font
+        android:font="@font/fsindustrietrial_bold_italic"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/fsindustrietrial_bold_italic"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        />
+    <font
+        android:font="@font/fsindustrietrial_italic"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/fsindustrietrial_italic"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        />
+    <font
+        android:font="@font/fsindustrietrial_light"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/fsindustrietrial_light"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        />
+    <font
+        android:font="@font/fsindustrietrial_light_italic"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/fsindustrietrial_light_italic"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        />
+
+    <font
+        android:font="@font/fsindustrietrial_medium"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/fsindustrietrial_medium"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        />
+
+    <font
+        android:font="@font/fsindustrietrial_medium_italic"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/fsindustrietrial_medium_italic"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        />
+
+    <font
+        android:font="@font/fsindustrietrial_regular"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/fsindustrietrial_regular"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        />
+
+    <font
+        android:font="@font/fsindustrietrial_thin"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/fsindustrietrial_thin"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        />
+
+    <font
+        android:font="@font/fsindustrietrial_thin_italic"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/fsindustrietrial_thin_italic"
         app:fontStyle="normal"
         app:fontWeight="400"
         />

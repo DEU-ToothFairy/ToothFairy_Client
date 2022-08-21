@@ -6,10 +6,11 @@
             android:thicknessRatio="30"
             android:useLevel="false">
 
-            <solid android:color="#DDD" />
+            <solid android:color="#00DDDDDD" />
         </shape>
     </item>
 
+    <!--    <solid android:color="#DDD" />-->
     <item>
         <rotate
             android:fromDegrees="90"

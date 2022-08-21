@@ -142,12 +142,12 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.run {
             setOnNavigationItemSelectedListener {
                 var fragment = when (it.itemId) {
-                    R.id.menu_home -> HomeFragment()
-                    R.id.menu_search -> HomeFragment()
+                    R.id.menu_home -> HomeFragment.instance
+                    R.id.menu_search -> HomeFragment.instance
                     R.id.menu_profile -> ProfileFragment()
                     R.id.menu_stastics -> StatsFragment()
-                    R.id.menu_black -> HomeFragment()
-                    else -> HomeFragment()
+                    R.id.menu_black -> HomeFragment.instance
+                    else -> HomeFragment.instance
                 }
                 loadFragment(fragment)
                 

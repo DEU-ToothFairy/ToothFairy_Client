@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
 import com.example.toothfairy.databinding.FragmentHomeBinding
+import com.example.toothfairy.databinding.WearingProgressLayoutBinding
 import com.example.toothfairy.entity.CuredInfo
 import com.example.toothfairy.util.DateManager
 import com.example.toothfairy.viewModel.BluetoothViewModel
@@ -30,9 +31,10 @@ class HomeFragment : Fragment() {
 
     // VARIABLE
     lateinit var binding: FragmentHomeBinding // DataBinding
+    lateinit var wearingBinding: WearingProgressLayoutBinding
+
     lateinit var mainViewModel: MainViewModel
     lateinit var bluetoothViewModel: BluetoothViewModel
-    var db: SQLiteDatabase? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +50,8 @@ class HomeFragment : Fragment() {
 
         // 데이터 바인딩
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-
+        wearingBinding = binding.wearingProgressLayout
+        
         val view = binding.root
 
         // ViewModel 객체 연결
@@ -66,13 +69,12 @@ class HomeFragment : Fragment() {
         patientEventAdder()
         curedEventAdder()
         bluetoothEventAdder()
-        progressEventAdder()
+        wearingTimeEventAdder()
 
         return view
     }
-
-    // 컴포넌트들의 이벤트 처리 코드를 모아두는 메소드
-
+    
+    // 사용자 관련 이벤트 등록 메소드
     private fun patientEventAdder(){
         // 환자 정보가 갱신 된 경우
         // 치료 기간 설정 (현재 날짜 - 치료 시작 날짜)
@@ -84,6 +86,7 @@ class HomeFragment : Fragment() {
 
     }
 
+    // 완치 환자 관련 이벤트 등록 메소드
     private fun curedEventAdder(){
         // 완치자 정보가 갱신 된 경우
         mainViewModel.curedInfo.observe(requireActivity()) { curedInfo ->
@@ -91,29 +94,32 @@ class HomeFragment : Fragment() {
         }
     }
 
+    // 블루투스 관련 이벤트 등록 메소드
     private fun bluetoothEventAdder(){
         // 착용 상태 감지
         bluetoothViewModel.wearStatus.observe(requireActivity()) { status: Boolean ->
             if (status) {
-                binding.wearStatus.text = "현재 착용 중"
-                binding.wearStatus.setTextColor(Color.parseColor("#6194f8"))
+                wearingBinding.wearStatus.text = "현재 착용 중"
+                wearingBinding.wearStatus.setTextColor(Color.parseColor("#6194f8"))
             } else {
-                binding.wearStatus.text = "착용 대기 중"
-                binding.wearStatus.setTextColor(Color.parseColor("#919191"))
+                wearingBinding.wearStatus.text = "착용 대기 중"
+                wearingBinding.wearStatus.setTextColor(Color.parseColor("#919191"))
             }
         }
 
+        // 1분이 지났을 때 착용 중이라면 wearingFlag의 값이 바뀌도록 설정되어 있음
         bluetoothViewModel.wearingFlag.observe(requireActivity()) {
-            mainViewModel.setDailyWearingTime(1000 * 20L)
+            mainViewModel.setDailyWearingTime(1000 * 60L)
             // 일일 착용 시간은 DailyWearingTime 변수와 바인딩 된게 아니라 getDailyWearingTimeToString()과 매핑 되어 있으므로
             // 옵저버로 감지 불가
-            binding.wearTime.text = mainViewModel.dailyWearingTimeToString
+            wearingBinding.wearTime.text = mainViewModel.dailyWearingTimeToString
         }
     }
 
-    private fun progressEventAdder(){
+    // 착용 시간 관련 이벤트 등록 메소드
+    private fun wearingTimeEventAdder(){
         mainViewModel.dailyWearingTime.observe(requireActivity()){
-            binding.wearingProgressBar.progress = (it.toDouble() / 50400000.0 * 100).toInt()
+            wearingBinding.wearingProgressBar.progress = (it.toDouble() / 86400000.0 * 100).toInt()
         }
     }
 

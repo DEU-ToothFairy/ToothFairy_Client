@@ -1,6 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <variable
+            name="homeViewModel"
+            type="com.example.toothfairy.viewModel.MainViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/wearingGraphLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- 오늘 날짜 텍스트 뷰 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanumsquare_regular"
+            android:text="Today,"
+            android:textColor="@color/gray"
+            android:textSize="22dp" />
+
+        <!-- 오늘 날짜 텍스트 뷰 -->
+        <TextView
+            android:id="@+id/wearDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+
+            android:fontFamily="@font/nanumsquare_extra_bold"
+            android:text="@{homeViewModel.today, default = `18 August`}"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <com.github.lzyzsd.circleprogress.ArcProgress
+                android:id="@+id/goalProgressBar"
+                android:background="@color/white"
+
+                app:arc_unfinished_color="#ececec"
+                app:arc_finished_color="#bfbfbf"
+
+                android:layout_marginTop="10dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+
+                app:arc_stroke_width="10dp"
+                app:arc_progress="60"
+
+                app:arc_text_color="@color/white"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <com.github.lzyzsd.circleprogress.ArcProgress
+                android:id="@+id/wearingProgressBar"
+                android:background="#00FFFFFF"
+
+                app:arc_unfinished_color="#00ECECEC"
+                app:arc_finished_color="@color/colorAccent"
+
+                android:layout_marginTop="10dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+
+                app:arc_stroke_width="10dp"
+                app:arc_progress="0"
+
+                app:arc_text_color="@color/white"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="@+id/wearingProgressBar"
+                app:layout_constraintLeft_toLeftOf="@+id/wearingProgressBar"
+                app:layout_constraintRight_toRightOf="@+id/wearingProgressBar"
+                app:layout_constraintBottom_toBottomOf="@+id/wearingProgressBar"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+
+                    android:text="착용 시간"
+                    android:textSize="10dp"
+                    android:textColor="@color/gray"
+                    android:fontFamily="@font/nanumsquare_bold"/>
+
+                <TextView
+                    android:id="@+id/wearTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@{homeViewModel.dailyWearingTimeToString, default=`0 : 31`}"
+                    android:textSize="30dp"
+                    android:textColor="@color/colorAccent"
+                    android:fontFamily="@font/fsindustrietrial_medium"/>
+
+                <View
+                    android:background="#a2a1a2"
+                    android:layout_width="50dp"
+                    android:layout_height="1dp"
+
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="14 : 20"
+                    android:textSize="30dp"
+                    android:textColor="@color/black_gray"
+                    android:fontFamily="@font/fsindustrietrial_medium"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+
+                    android:text="목표 시간"
+                    android:textSize="10dp"
+                    android:textColor="@color/gray"
+                    android:fontFamily="@font/nanumsquare_bold"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/wearStatus"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/nanumsquare_bold"
+                android:text="현재 착용 중"
+                android:textAlignment="center"
+
+                android:textColor="@color/colorAccent"
+                android:textSize="14dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                app:layout_constraintHorizontal_bias="0.502"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+
+            <View
+                android:background="@color/colorAccent"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+
+                android:text="내 착용 시간"
+                android:textSize="12dp"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/nanumsquare_bold"/>
+
+            <View
+                android:background="#bfbfbf"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="목표 시간"
+                android:textSize="12dp"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/nanumsquare_bold"/>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</layout>

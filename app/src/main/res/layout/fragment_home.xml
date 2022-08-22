@@ -231,7 +231,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/profileLayout">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
 
                             android:orientation="horizontal">
@@ -247,7 +247,7 @@
                                     android:layout_height="wrap_content"
 
                                     android:text="교정이 처음인 당신을 위한"
-                                    android:textSize="18dp"
+                                    android:textSize="14dp"
                                     android:textColor="@color/gray"
                                     android:fontFamily="@font/fsindustrietrial_bold"
                                     />
@@ -272,15 +272,38 @@
                                 android:layout_height="20dp"
                                 android:layout_marginRight="15dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/ic_baseline_arrow_forward_ios_24"
-                                />
-                            <View
-                                android:layout_width="55dp"
-                                android:layout_height="55dp"
-                                android:layout_gravity="right|center"
-                                android:background="@drawable/ic_youtube"
-                                />
+                                android:background="@drawable/ic_baseline_arrow_forward_ios_24"/>
 
+                            <!-- 정렬용 뷰 -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"></View>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="20dp"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                >
+
+                                <View
+                                    android:layout_width="55dp"
+                                    android:layout_height="55dp"
+                                    android:background="@drawable/ic_youtube"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:text="YOUTUBE 바로가기"
+                                    android:textSize="10dp"
+                                    android:fontFamily="@font/fsindustrietrial_medium"
+                                    />
+
+                            </LinearLayout>
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -292,9 +315,10 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
+                        android:layout_marginBottom="15dp"
 
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="3dp"
+                        app:cardCornerRadius="0dp"
+                        app:cardElevation="1dp"
                         app:cardUseCompatPadding="false">
 
                         <!-- Arc Progress Include -->
@@ -306,6 +330,376 @@
 
                         <!-- LAYOUT END 당일 착용 시간 그래프 레이아웃 끝 -->
                     </androidx.cardview.widget.CardView>
+
+                    <!-- LAYOUT 기타 정보 요약 그래프 레이아웃 -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+
+                        app:cardCornerRadius="0dp"
+                        app:cardElevation="1dp"
+                        app:cardUseCompatPadding="false">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="20dp"
+                            android:orientation="horizontal"
+                            >
+
+                            <!-- VIEW 하루 평균 착용 그래프 -->
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                >
+
+                                <TextView
+                                    android:id="@+id/avgText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:text="평균 착용 시간"
+                                    android:textColor="@color/black"
+                                    android:textSize="12dp"
+
+                                    android:fontFamily="@font/fsindustrietrial_bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+
+                                    app:layout_constraintLeft_toLeftOf="@+id/userAvgProgressBar"
+                                    app:layout_constraintRight_toRightOf="@+id/userAvgProgressBar"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toTopOf="@+id/userAvgProgressBar"
+                                     />
+
+                                <com.github.lzyzsd.circleprogress.ArcProgress
+                                    android:id="@+id/curedAvgProgressBar"
+                                    android:background="@color/white"
+
+                                    app:arc_unfinished_color="#ececec"
+                                    app:arc_finished_color="#bfbfbf"
+
+                                    android:layout_width="75dp"
+                                    android:layout_height="75dp"
+                                    android:layout_marginTop="30dp"
+
+                                    app:arc_stroke_width="5dp"
+                                    app:arc_progress="80"
+
+                                    app:arc_text_color="@color/white"
+
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/avgText"
+                                    />
+
+                                <com.github.lzyzsd.circleprogress.ArcProgress
+                                    android:id="@+id/userAvgProgressBar"
+                                    android:background="#00FFFFFF"
+
+                                    app:arc_unfinished_color="#00ECECEC"
+                                    app:arc_finished_color="@color/colorAccent"
+
+                                    android:layout_width="75dp"
+                                    android:layout_height="75dp"
+                                    android:layout_marginTop="30dp"
+
+                                    app:arc_stroke_width="5dp"
+                                    app:arc_progress="20"
+
+                                    app:arc_text_color="@color/white"
+
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/avgText"
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:text="00:12"
+                                    android:textSize="14dp"
+                                    android:textColor="@color/black"
+
+                                    android:fontFamily="@font/fsindustrietrial_medium"
+                                    app:layout_constraintLeft_toLeftOf="@+id/userAvgProgressBar"
+                                    app:layout_constraintRight_toRightOf="@+id/userAvgProgressBar"
+                                    app:layout_constraintTop_toTopOf="@+id/userAvgProgressBar"
+                                    app:layout_constraintBottom_toBottomOf="@+id/userAvgProgressBar"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/userAvgText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:text="충분"
+                                    android:textSize="10dp"
+                                    android:textColor="@color/colorAccent"
+                                    android:fontFamily="@font/fsindustrietrial_bold"
+
+                                    app:layout_constraintBottom_toBottomOf="@+id/userAvgProgressBar"
+                                    app:layout_constraintLeft_toLeftOf="@+id/userAvgProgressBar"
+                                    app:layout_constraintRight_toRightOf="@+id/userAvgProgressBar"
+                                    />
+
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="권장 14:22"
+                                    android:textColor="@color/gray"
+                                    android:textSize="10dp"
+
+                                    android:fontFamily="@font/fsindustrietrial_regular"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+
+                                    app:layout_constraintLeft_toLeftOf="@+id/userAvgProgressBar"
+                                    app:layout_constraintRight_toRightOf="@+id/userAvgProgressBar"
+                                    app:layout_constraintTop_toBottomOf="@+id/userAvgProgressBar" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                            <!-- VIEW END 하루 평균 착용시간 그래프 끝 -->
+
+                            <!-- VIEW 최대 착용시간 그래프 -->
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                >
+
+                                <TextView
+                                    android:id="@+id/maxText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:text="최대 착용 시간"
+                                    android:textColor="@color/black"
+                                    android:textSize="12dp"
+
+                                    android:fontFamily="@font/fsindustrietrial_bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+
+                                    app:layout_constraintLeft_toLeftOf="@+id/userMaxProgressBar"
+                                    app:layout_constraintRight_toRightOf="@+id/userMaxProgressBar"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toTopOf="@+id/userMaxProgressBar"
+                                    />
+
+                                <com.github.lzyzsd.circleprogress.ArcProgress
+                                    android:id="@+id/curedMaxProgressBar"
+                                    android:background="@color/white"
+
+                                    app:arc_unfinished_color="#ececec"
+                                    app:arc_finished_color="#bfbfbf"
+
+                                    android:layout_marginTop="30dp"
+                                    android:layout_width="75dp"
+                                    android:layout_height="75dp"
+
+                                    app:arc_stroke_width="5dp"
+                                    app:arc_progress="80"
+
+                                    app:arc_text_color="@color/white"
+
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/maxText"
+                                    />
+
+                                <com.github.lzyzsd.circleprogress.ArcProgress
+                                    android:id="@+id/userMaxProgressBar"
+                                    android:background="#00FFFFFF"
+
+                                    app:arc_unfinished_color="#00ECECEC"
+                                    app:arc_finished_color="@color/light_green"
+
+                                    android:layout_marginTop="30dp"
+                                    android:layout_width="75dp"
+                                    android:layout_height="75dp"
+
+                                    app:arc_stroke_width="5dp"
+                                    app:arc_progress="20"
+
+                                    app:arc_text_color="@color/white"
+
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/maxText"
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:text="00:12"
+                                    android:textSize="14dp"
+                                    android:textColor="@color/black"
+
+                                    android:fontFamily="@font/fsindustrietrial_medium"
+                                    app:layout_constraintLeft_toLeftOf="@+id/userMaxProgressBar"
+                                    app:layout_constraintRight_toRightOf="@+id/userMaxProgressBar"
+                                    app:layout_constraintTop_toTopOf="@+id/userMaxProgressBar"
+                                    app:layout_constraintBottom_toBottomOf="@+id/userMaxProgressBar"
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:text="적정"
+                                    android:textSize="10dp"
+                                    android:textColor="@color/light_green"
+                                    android:fontFamily="@font/fsindustrietrial_bold"
+
+                                    app:layout_constraintBottom_toBottomOf="@+id/userMaxProgressBar"
+                                    app:layout_constraintLeft_toLeftOf="@+id/userMaxProgressBar"
+                                    app:layout_constraintRight_toRightOf="@+id/userMaxProgressBar"
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="권장 14:22"
+                                    android:textColor="@color/gray"
+                                    android:textSize="10dp"
+
+                                    android:fontFamily="@font/fsindustrietrial_regular"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+
+                                    app:layout_constraintLeft_toLeftOf="@+id/userMaxProgressBar"
+                                    app:layout_constraintRight_toRightOf="@+id/userMaxProgressBar"
+                                    app:layout_constraintTop_toBottomOf="@+id/userMaxProgressBar" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                            <!-- VIEW END 최대 착용시간 그래프 끝 -->
+
+                            <!-- VIEW 최소 착용 그래프 -->
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:id="@+id/minText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:text="최소 착용 시간"
+                                    android:textColor="@color/black"
+                                    android:textSize="12dp"
+
+                                    android:fontFamily="@font/fsindustrietrial_bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+
+                                    app:layout_constraintLeft_toLeftOf="@+id/userMinProgressBar"
+                                    app:layout_constraintRight_toRightOf="@+id/userMinProgressBar"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toTopOf="@+id/userMinProgressBar"
+                                    />
+
+                                <com.github.lzyzsd.circleprogress.ArcProgress
+                                    android:id="@+id/curedMinProgressBar"
+                                    android:background="@color/white"
+
+                                    app:arc_unfinished_color="#ececec"
+                                    app:arc_finished_color="#bfbfbf"
+
+                                    android:layout_marginTop="30dp"
+                                    android:layout_width="75dp"
+                                    android:layout_height="75dp"
+
+                                    app:arc_stroke_width="5dp"
+                                    app:arc_progress="80"
+
+                                    app:arc_text_color="@color/white"
+
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/minText"
+                                    />
+
+                                <com.github.lzyzsd.circleprogress.ArcProgress
+                                    android:id="@+id/userMinProgressBar"
+                                    android:background="#00FFFFFF"
+
+                                    app:arc_unfinished_color="#00ECECEC"
+                                    app:arc_finished_color="@color/light_red"
+
+                                    android:layout_marginTop="30dp"
+                                    android:layout_width="75dp"
+                                    android:layout_height="75dp"
+
+                                    app:arc_stroke_width="5dp"
+                                    app:arc_progress="20"
+
+                                    app:arc_text_color="@color/white"
+
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/minText"
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:text="00:12"
+                                    android:textSize="14dp"
+                                    android:textColor="@color/black"
+
+                                    android:fontFamily="@font/fsindustrietrial_medium"
+                                    app:layout_constraintLeft_toLeftOf="@+id/userMinProgressBar"
+                                    app:layout_constraintRight_toRightOf="@+id/userMinProgressBar"
+                                    app:layout_constraintTop_toTopOf="@+id/userMinProgressBar"
+                                    app:layout_constraintBottom_toBottomOf="@+id/userMinProgressBar"
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:text="부족"
+                                    android:textSize="10dp"
+                                    android:textColor="@color/light_red"
+
+                                    android:fontFamily="@font/fsindustrietrial_bold"
+
+                                    app:layout_constraintBottom_toBottomOf="@+id/userMinProgressBar"
+                                    app:layout_constraintLeft_toLeftOf="@+id/userMinProgressBar"
+                                    app:layout_constraintRight_toRightOf="@+id/userMinProgressBar"
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="권장 14:22"
+                                    android:textColor="@color/gray"
+                                    android:textSize="10dp"
+
+                                    android:fontFamily="@font/fsindustrietrial_regular"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+
+                                    app:layout_constraintLeft_toLeftOf="@+id/userMinProgressBar"
+                                    app:layout_constraintRight_toRightOf="@+id/userMinProgressBar"
+                                    app:layout_constraintTop_toBottomOf="@+id/userMinProgressBar" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                            <!-- VIEW END 최소 착용시간 그래프 끝 -->
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+                    <!-- LAYOUT END 기타 정보 요약 그래프 레이아웃 끝-->
 
                     <!-- LAYOUT 교정 장치 착용 통계 레이아웃(v2) -->
                     <androidx.cardview.widget.CardView
@@ -423,7 +817,6 @@
                                         android:layout_marginLeft="20dp"
                                         android:padding="5dp">
 
-
                                         <View
                                             android:id="@+id/goalRectangle"
                                             android:layout_width="16dp"
@@ -455,181 +848,181 @@
 
 
                     <!-- LAYOUT 교정 장치 착용 통게 레이아웃 -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
 
-                        android:layout_marginBottom="10dp"
+<!--                        android:layout_marginBottom="10dp"-->
 
-                        app:cardCornerRadius="0dp"
-                        app:cardElevation="0dp"
-                        app:cardUseCompatPadding="false">
+<!--                        app:cardCornerRadius="0dp"-->
+<!--                        app:cardElevation="0dp"-->
+<!--                        app:cardUseCompatPadding="false">-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:orientation="vertical"
-                            android:padding="16dp">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="20dp"-->
+<!--                            android:layout_marginRight="20dp"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:padding="16dp">-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/nanumsquare_regular"
-                                android:text="Statistics"
-                                android:textSize="15dp" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:fontFamily="@font/nanumsquare_regular"-->
+<!--                                android:text="Statistics"-->
+<!--                                android:textSize="15dp" />-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
-                                android:orientation="vertical">
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_margin="10dp"-->
+<!--                                android:orientation="vertical">-->
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="10dp"
-                                    android:fontFamily="@font/nanumsquare_extra_bold"
-                                    android:text="하루 평균 착용 시간"
-                                    android:textSize="15dp" />
+<!--                                <TextView-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_marginBottom="10dp"-->
+<!--                                    android:fontFamily="@font/nanumsquare_extra_bold"-->
+<!--                                    android:text="하루 평균 착용 시간"-->
+<!--                                    android:textSize="15dp" />-->
 
-                                <TextView
-                                    android:id="@+id/userWearAvgTextView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/nanumsquare_bold"
-                                    android:text="@{`사용자 [ ` + homeViewModel.patientStats.avgWearingTimeToString + ` ]`,default =`사용자 [ 12시간 41분 ]`}"
-                                    android:textSize="12dp" />
+<!--                                <TextView-->
+<!--                                    android:id="@+id/userWearAvgTextView"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:fontFamily="@font/nanumsquare_bold"-->
+<!--                                    android:text="@{`사용자 [ ` + homeViewModel.patientStats.avgWearingTimeToString + ` ]`,default =`사용자 [ 12시간 41분 ]`}"-->
+<!--                                    android:textSize="12dp" />-->
 
-                                <ProgressBar
-                                    android:id="@+id/userWearAvgProgressBar"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="5dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:progress="@{(int)((double)homeViewModel.patientStats.avgWearingTime / (double)86400000.0 * 100)}"
-                                    android:progressDrawable="@drawable/wearing_progress_bar" />
+<!--                                <ProgressBar-->
+<!--                                    android:id="@+id/userWearAvgProgressBar"-->
+<!--                                    style="?android:attr/progressBarStyleHorizontal"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="5dp"-->
+<!--                                    android:layout_marginTop="5dp"-->
+<!--                                    android:layout_marginBottom="10dp"-->
+<!--                                    android:progress="@{(int)((double)homeViewModel.patientStats.avgWearingTime / (double)86400000.0 * 100)}"-->
+<!--                                    android:progressDrawable="@drawable/wearing_progress_bar" />-->
 
-                                <TextView
-                                    android:id="@+id/curedWearAvgTextView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/nanumsquare_bold"
-                                    android:text="@{`완치자 [ ` + homeViewModel.curedInfo.avgWearingTimeToString  + ` ]`,default = `완치자 [ 14시간 26분 ]`}"
-                                    android:textSize="12dp" />
+<!--                                <TextView-->
+<!--                                    android:id="@+id/curedWearAvgTextView"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:fontFamily="@font/nanumsquare_bold"-->
+<!--                                    android:text="@{`완치자 [ ` + homeViewModel.curedInfo.avgWearingTimeToString  + ` ]`,default = `완치자 [ 14시간 26분 ]`}"-->
+<!--                                    android:textSize="12dp" />-->
 
-                                <ProgressBar
-                                    android:id="@+id/curedWearAvgProgressBar"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="5dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:max="100"
-                                    android:progress="@{(int)((double)homeViewModel.curedInfo.avgWearingTime / (double)86400000.0 * 100)}"
-                                    android:progressDrawable="@drawable/cured_progress_bar" />
+<!--                                <ProgressBar-->
+<!--                                    android:id="@+id/curedWearAvgProgressBar"-->
+<!--                                    style="?android:attr/progressBarStyleHorizontal"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="5dp"-->
+<!--                                    android:layout_marginTop="5dp"-->
+<!--                                    android:layout_marginBottom="10dp"-->
+<!--                                    android:max="100"-->
+<!--                                    android:progress="@{(int)((double)homeViewModel.curedInfo.avgWearingTime / (double)86400000.0 * 100)}"-->
+<!--                                    android:progressDrawable="@drawable/cured_progress_bar" />-->
 
-                                <!--_________________________________________________________-->
+<!--                                &lt;!&ndash;_________________________________________________________&ndash;&gt;-->
 
-                                <!-- 최대 착용 시간 비교 그래프 -->
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="20dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:fontFamily="@font/nanumsquare_extra_bold"
-                                    android:text="최대 착용 시간"
-                                    android:textSize="15dp" />
+<!--                                &lt;!&ndash; 최대 착용 시간 비교 그래프 &ndash;&gt;-->
+<!--                                <TextView-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_marginTop="20dp"-->
+<!--                                    android:layout_marginBottom="10dp"-->
+<!--                                    android:fontFamily="@font/nanumsquare_extra_bold"-->
+<!--                                    android:text="최대 착용 시간"-->
+<!--                                    android:textSize="15dp" />-->
 
-                                <TextView
-                                    android:id="@+id/userWearMaxTextView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/nanumsquare_bold"
-                                    android:text="@{`사용자 [ ` + homeViewModel.patientStats.maxWearingTimeToString + ` ]` ,default=`사용자 [ 14시간 31분 ]`}"
-                                    android:textSize="12dp" />
+<!--                                <TextView-->
+<!--                                    android:id="@+id/userWearMaxTextView"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:fontFamily="@font/nanumsquare_bold"-->
+<!--                                    android:text="@{`사용자 [ ` + homeViewModel.patientStats.maxWearingTimeToString + ` ]` ,default=`사용자 [ 14시간 31분 ]`}"-->
+<!--                                    android:textSize="12dp" />-->
 
-                                <ProgressBar
-                                    android:id="@+id/userWearMaxProgressBar"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="5dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:progress="@{(int)((double)homeViewModel.patientStats.maxWearingTime / (double)86400000.0 * 100)}"
-                                    android:progressDrawable="@drawable/wearing_progress_bar" />
+<!--                                <ProgressBar-->
+<!--                                    android:id="@+id/userWearMaxProgressBar"-->
+<!--                                    style="?android:attr/progressBarStyleHorizontal"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="5dp"-->
+<!--                                    android:layout_marginTop="5dp"-->
+<!--                                    android:layout_marginBottom="10dp"-->
+<!--                                    android:progress="@{(int)((double)homeViewModel.patientStats.maxWearingTime / (double)86400000.0 * 100)}"-->
+<!--                                    android:progressDrawable="@drawable/wearing_progress_bar" />-->
 
-                                <TextView
-                                    android:id="@+id/curedWearMaxTextView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/nanumsquare_bold"
-                                    android:text="@{`완치자 [ ` + homeViewModel.curedInfo.maxWearingTimeToString + ` ]`,default = `완치자 [ 14 시간 26 분 ]`}"
-                                    android:textSize="12dp" />
+<!--                                <TextView-->
+<!--                                    android:id="@+id/curedWearMaxTextView"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:fontFamily="@font/nanumsquare_bold"-->
+<!--                                    android:text="@{`완치자 [ ` + homeViewModel.curedInfo.maxWearingTimeToString + ` ]`,default = `완치자 [ 14 시간 26 분 ]`}"-->
+<!--                                    android:textSize="12dp" />-->
 
-                                <ProgressBar
-                                    android:id="@+id/curedWearMaxProgressBar"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="5dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:progress="@{(int)((double)homeViewModel.curedInfo.maxWearingTime / (double)86400000.0 * 100)}"
-                                    android:progressDrawable="@drawable/cured_progress_bar" />
+<!--                                <ProgressBar-->
+<!--                                    android:id="@+id/curedWearMaxProgressBar"-->
+<!--                                    style="?android:attr/progressBarStyleHorizontal"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="5dp"-->
+<!--                                    android:layout_marginTop="5dp"-->
+<!--                                    android:layout_marginBottom="10dp"-->
+<!--                                    android:progress="@{(int)((double)homeViewModel.curedInfo.maxWearingTime / (double)86400000.0 * 100)}"-->
+<!--                                    android:progressDrawable="@drawable/cured_progress_bar" />-->
 
-                                <!-- 최소 착용 시간 비교 그래프 -->
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="20dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:fontFamily="@font/nanumsquare_extra_bold"
-                                    android:text="최소 착용 시간"
-                                    android:textSize="15dp" />
+<!--                                &lt;!&ndash; 최소 착용 시간 비교 그래프 &ndash;&gt;-->
+<!--                                <TextView-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_marginTop="20dp"-->
+<!--                                    android:layout_marginBottom="10dp"-->
+<!--                                    android:fontFamily="@font/nanumsquare_extra_bold"-->
+<!--                                    android:text="최소 착용 시간"-->
+<!--                                    android:textSize="15dp" />-->
 
-                                <TextView
-                                    android:id="@+id/userWearMinTextView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/nanumsquare_bold"
-                                    android:text="@{`사용자 [ ` + homeViewModel.patientStats.minWearingTimeToString + ` ]`,default = `사용자 [ 10시간 13분 ]`}"
-                                    android:textSize="12dp" />
+<!--                                <TextView-->
+<!--                                    android:id="@+id/userWearMinTextView"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:fontFamily="@font/nanumsquare_bold"-->
+<!--                                    android:text="@{`사용자 [ ` + homeViewModel.patientStats.minWearingTimeToString + ` ]`,default = `사용자 [ 10시간 13분 ]`}"-->
+<!--                                    android:textSize="12dp" />-->
 
-                                <ProgressBar
-                                    android:id="@+id/userWearMinProgressBar"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="5dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:progress="@{(int)((double)homeViewModel.patientStats.minWearingTime / (double)86400000.0 * 100)}"
-                                    android:progressDrawable="@drawable/wearing_progress_bar" />
+<!--                                <ProgressBar-->
+<!--                                    android:id="@+id/userWearMinProgressBar"-->
+<!--                                    style="?android:attr/progressBarStyleHorizontal"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="5dp"-->
+<!--                                    android:layout_marginTop="5dp"-->
+<!--                                    android:layout_marginBottom="10dp"-->
+<!--                                    android:progress="@{(int)((double)homeViewModel.patientStats.minWearingTime / (double)86400000.0 * 100)}"-->
+<!--                                    android:progressDrawable="@drawable/wearing_progress_bar" />-->
 
-                                <TextView
-                                    android:id="@+id/curedWearMinTextView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/nanumsquare_bold"
-                                    android:text="@{`완치자 [ ` + homeViewModel.curedInfo.minWearingTimeToString + ` ]` ,default = `완치자 [ 12시간 11분 ]`}"
-                                    android:textSize="12dp" />
+<!--                                <TextView-->
+<!--                                    android:id="@+id/curedWearMinTextView"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:fontFamily="@font/nanumsquare_bold"-->
+<!--                                    android:text="@{`완치자 [ ` + homeViewModel.curedInfo.minWearingTimeToString + ` ]` ,default = `완치자 [ 12시간 11분 ]`}"-->
+<!--                                    android:textSize="12dp" />-->
 
-                                <ProgressBar
-                                    android:id="@+id/curedWearMinProgressBar"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="5dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:progress="@{(int)((double)homeViewModel.curedInfo.minWearingTime / (double)86400000.0 * 100)}"
-                                    android:progressDrawable="@drawable/cured_progress_bar" />
+<!--                                <ProgressBar-->
+<!--                                    android:id="@+id/curedWearMinProgressBar"-->
+<!--                                    style="?android:attr/progressBarStyleHorizontal"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="5dp"-->
+<!--                                    android:layout_marginTop="5dp"-->
+<!--                                    android:layout_marginBottom="10dp"-->
+<!--                                    android:progress="@{(int)((double)homeViewModel.curedInfo.minWearingTime / (double)86400000.0 * 100)}"-->
+<!--                                    android:progressDrawable="@drawable/cured_progress_bar" />-->
 
-                            </LinearLayout>
+<!--                            </LinearLayout>-->
 
-                        </LinearLayout> <!-- 교정 장치 착용 통계 레이아웃 끝 -->
+<!--                        </LinearLayout> &lt;!&ndash; 교정 장치 착용 통계 레이아웃 끝 &ndash;&gt;-->
 
-                    </androidx.cardview.widget.CardView>
+<!--                    </androidx.cardview.widget.CardView>-->
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

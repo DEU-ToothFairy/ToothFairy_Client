@@ -136,7 +136,7 @@ class BluetoothViewModel private constructor() : ViewModel() {
                     strAddress = result.device.address
                     stopScanning()
                     if (btAdapter!!.isEnabled) {
-                        Toast.makeText(context, "Stop Scan", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "[VIEWMODEL] Stop Scan", Toast.LENGTH_SHORT).show()
                     } else {
                         val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                         activity!!.startActivityForResult(enableIntent, REQUEST_ENABLE_BT)

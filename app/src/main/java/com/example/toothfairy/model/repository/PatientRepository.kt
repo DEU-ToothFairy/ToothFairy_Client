@@ -15,7 +15,7 @@ import java.sql.Date
 
 object PatientRepository {
     // VARIABLE
-    private val patientService: PatientService
+    private val patientService: PatientService = RetrofitClient.retrofit.create(PatientService::class.java)
 
     // 환자 정보 가져오는 메소드
     fun loadPatient(id: String?): Response<Patient?>? {
@@ -57,14 +57,5 @@ object PatientRepository {
             )
         }
         return dailyWearTimeList
-    }
-
-//    companion object {
-//        var instance = PatientRepository() // 싱글턴 패턴
-//    }
-
-    init {
-        val retrofit = RetrofitClient.instance
-        patientService = retrofit!!.create(PatientService::class.java)
     }
 }

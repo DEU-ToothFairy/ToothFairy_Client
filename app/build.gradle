@@ -91,6 +91,12 @@ dependencies {
     implementation 'com.dinuscxj:circleprogressbar:1.3.6'
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
 
+    /* mpAndroidChart */
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    /* ChartProgressBar */
+    implementation 'com.github.hadiidbouk:ChartProgressBar-Android:2.0.6'
+
     testImplementation 'junit:junit:4.+'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

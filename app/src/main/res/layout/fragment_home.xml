@@ -335,8 +335,10 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
+                        android:layout_marginBottom="15dp"
 
                         app:cardCornerRadius="0dp"
                         app:cardElevation="1dp"
@@ -701,6 +703,24 @@
                     </androidx.cardview.widget.CardView>
                     <!-- LAYOUT END 기타 정보 요약 그래프 레이아웃 끝-->
 
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+
+                        app:cardCornerRadius="0dp"
+                        app:cardElevation="1dp"
+                        app:cardUseCompatPadding="false"
+                        >
+
+                        <com.example.toothfairy.util.ui.RoundedBarChart
+                            android:id="@+id/chart"
+                            app:radius="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </androidx.cardview.widget.CardView>
                     <!-- LAYOUT 교정 장치 착용 통계 레이아웃(v2) -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"

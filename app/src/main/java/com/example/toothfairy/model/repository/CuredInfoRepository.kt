@@ -12,7 +12,8 @@ import java.io.IOException
 
 object CuredInfoRepository {
     // VARIABLE
-    private val curedInfoService: CuredInfoService
+    // service 객체 생성
+    private val curedInfoService: CuredInfoService = RetrofitClient.retrofit.create(CuredInfoService::class.java)
 
     // 완치 환자 정보 로드
     fun loadCuredInfo(age: Int): Response<CuredInfo?>? {
@@ -24,14 +25,5 @@ object CuredInfoRepository {
             e.printStackTrace()
             null
         }
-    }
-
-    init {
-        // retrofit 객체 생성(싱글턴)
-        val retrofit:Retrofit? = RetrofitClient.instance
-
-        // service 객체 생성
-        // curedInfoService가 nullable 변수가 아니므로 ?.를 사용할 수 없음
-        curedInfoService = retrofit!!.create(CuredInfoService::class.java)
     }
 }

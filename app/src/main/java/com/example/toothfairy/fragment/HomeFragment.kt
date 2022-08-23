@@ -22,6 +22,7 @@ import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.hadiidbouk.charts.BarData
@@ -42,6 +43,11 @@ class MyXAxisFormatter : ValueFormatter(){
     }
 }
 
+class TimeAxisValueFormatter : IndexAxisValueFormatter(){
+    override fun getFormattedValue(value: Float): String {
+        return "${value.toInt()} hr"
+    }
+}
 
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
@@ -125,6 +131,7 @@ class HomeFragment : Fragment() {
                 granularity = 6f                // granularity(세분성) 50 단위마다 선을 그림
                 // 위 설정이 20f 였으면 총 5개의 선이 그려짐
 
+                valueFormatter = TimeAxisValueFormatter()
                 setDrawLabels(true)             // 값 표시(0, 50, 100)
                 setDrawAxisLine(false)          // 축 그리기 설정
 
@@ -132,7 +139,7 @@ class HomeFragment : Fragment() {
                 enableGridDashedLine(10f, 10f, 0f)
 
                 axisLineColor = ContextCompat.getColor(context, R.color.colorAccent)    // 축 색깔 설정
-                gridColor = ContextCompat.getColor(context, R.color.semi_gray)         // 격자 색깔 설정
+                gridColor = ContextCompat.getColor(context, R.color.semi_gray)          // 격자 색깔 설정
                 textColor = ContextCompat.getColor(context, R.color.gray)               // 라벨 텍스트 컬러 설정
                 textSize = 12f                                                          // 라벨 텍스트 크기
             }

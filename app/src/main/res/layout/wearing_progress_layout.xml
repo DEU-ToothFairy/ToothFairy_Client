@@ -20,31 +20,21 @@
         android:layout_marginRight="20dp"
 
         android:orientation="vertical"
-        android:padding="16dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- 오늘 날짜 텍스트 뷰 -->
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nanumsquare_regular"
-            android:text="Today,"
-            android:textColor="@color/gray"
-            android:textSize="22dp" />
-
-        <!-- 오늘 날짜 텍스트 뷰 -->
-        <TextView
-            android:id="@+id/wearDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-
+            android:text="당일 착용 시간"
+            android:textSize="16dp"
+            android:textColor="@color/black"
             android:fontFamily="@font/nanumsquare_extra_bold"
-            android:text="@{homeViewModel.today, default = `18 August`}"
-            android:textColor="@color/colorAccent"
-            android:textSize="20dp" />
+            />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -56,7 +46,7 @@
                 android:background="@color/white"
 
                 app:arc_unfinished_color="#ececec"
-                app:arc_finished_color="#bfbfbf"
+                app:arc_finished_color="#D5D5D5"
 
                 android:layout_marginTop="10dp"
                 android:layout_width="250dp"

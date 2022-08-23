@@ -1,6 +1,8 @@
 package com.example.toothfairy.fragment
 
 import android.graphics.Color
+import android.graphics.DashPathEffect
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +36,7 @@ import kotlin.math.roundToInt
  */
 
 class MyXAxisFormatter : ValueFormatter(){
-    private val days = arrayOf("M","T","W","T","F","S","S")
+    private val days = arrayOf("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
         return days.getOrNull(value.toInt()-1) ?: value.toString()
     }
@@ -96,57 +98,59 @@ class HomeFragment : Fragment() {
     private fun chart(){
         val entries = ArrayList<BarEntry>()
 
-        entries.add(BarEntry(1f,20.0f))
-        entries.add(BarEntry(2f,70.0f))
-        entries.add(BarEntry(3f,30.0f))
-        entries.add(BarEntry(4f,90.0f))
-        entries.add(BarEntry(5f,70.0f))
-        entries.add(BarEntry(6f,30.0f))
-        entries.add(BarEntry(7f,90.0f))
+        entries.add(BarEntry(1f,10.0f))
+        entries.add(BarEntry(2f,12.0f))
+        entries.add(BarEntry(3f,0.0f))
+        entries.add(BarEntry(4f,15.0f))
+        entries.add(BarEntry(5f,14.0f))
+        entries.add(BarEntry(6f,24.0f))
+        entries.add(BarEntry(7f,4.0f))
 
         val chart = binding.chart
 
         chart.run {
-            description.isEnabled = true // 차트 옆에 별도로 표기되는 description
+            description.isEnabled = false       // 차트 옆에 별도로 표기되는 description
 
             setMaxVisibleValueCount(7)          // 메뉴 개수
             setPinchZoom(false)                 // 핀치줌(두 손가락으로 줌인) 설정
             setDrawBarShadow(false)             // 그래프의 그림자
             setDrawGridBackground(false)        // 격자구조 설정
+            setTouchEnabled(false)              // 차트 터치 막기
+            animateY(1000)           // 밑에서부터 올라오는 애니매이션 적용
+            extraBottomOffset = 10f             // 하단 여백 설정(이게 있어야 x축 라벨이 안 잘림)
 
             axisLeft.run {                      // Y 방향
-                axisMaximum = 101f              // 100 위치에 선을 그리기 위해 101f로 최댓값 설정
+                axisMaximum = 25f               // 100 위치에 선을 그리기 위해 101f로 최댓값 설정
                 axisMinimum = 0f                // 최소값 0f
-                granularity = 50f               // 50 단위마다 선을 그림
+                granularity = 6f                // granularity(세분성) 50 단위마다 선을 그림
                 // 위 설정이 20f 였으면 총 5개의 선이 그려짐
 
                 setDrawLabels(true)             // 값 표시(0, 50, 100)
-                setDrawGridLines(true)          // 격자 라인 활용
                 setDrawAxisLine(false)          // 축 그리기 설정
 
+                setDrawGridLines(true)          // 격자 라인 활용
+                enableGridDashedLine(10f, 10f, 0f)
+
                 axisLineColor = ContextCompat.getColor(context, R.color.colorAccent)    // 축 색깔 설정
-                gridColor = ContextCompat.getColor(context, R.color.light_gray)         // 격자 색깔 설정
+                gridColor = ContextCompat.getColor(context, R.color.semi_gray)         // 격자 색깔 설정
                 textColor = ContextCompat.getColor(context, R.color.gray)               // 라벨 텍스트 컬러 설정
-                textSize = 14f                                                          // 라벨 텍스트 크기
+                textSize = 12f                                                          // 라벨 텍스트 크기
             }
 
             xAxis.run {
                 position = XAxis.XAxisPosition.BOTTOM       // X 축을 아래에 둠
                 granularity = 1f                            // 간격을 1로 설정
 
-                setDrawAxisLine(true)                       // 축 그림
+                setDrawAxisLine(false)                       // 축 그림
                 setDrawGridLines(false)                     // 격자
 
                 valueFormatter = MyXAxisFormatter()
-                textColor = ContextCompat.getColor(context, R.color.black)  // 라벨 색상
-                textSize = 14f                                              // 텍스트 크기
+                textColor = ContextCompat.getColor(context, R.color.gray)  // 라벨 색상
+                textSize = 12f                                             // 텍스트 크기
+
             }
 
             axisRight.isEnabled = false // 오른쪽 Y축을 안보이게 해줌.
-
-            setTouchEnabled(false) // 그래프 터치해도 아무 변화없게 막음
-            animateY(1000) // 밑에서부터 올라오는 애니매이션 적용
-
             legend.isEnabled = false //차트 범례 설정
         }
 
@@ -157,16 +161,14 @@ class HomeFragment : Fragment() {
         dataSet.add(set)
 
         val data = com.github.mikephil.charting.data.BarData(dataSet)
-        data.barWidth = 0.3f//막대 너비 설정하기
+        data.barWidth = 0.25f //막대 너비 설정하기
 
         chart.run {
             this.data = data //차트의 데이터를 data로 설정해줌.
-            setRadius(30)
+            setRadius(50)
             setFitBars(true)
             invalidate()
         }
-
-
     }
 
     // 사용자 관련 이벤트 등록 메소드

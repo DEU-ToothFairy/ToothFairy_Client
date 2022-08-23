@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/ic_youtube.xml" value="0.341" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/profile_circle.xml" value="0.341" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/wearing_progress_bar.xml" value="0.341" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/activity_main.xml" value="0.30833333333333335" />
-        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_home.xml" value="0.5" />
-        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/wearing_progress_layout.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_profile.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/wearing_progress_layout.xml" value="0.5" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/circle.xml" value="0.262" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/cured_progress_bar.xml" value="0.181" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_free_icon_font_youtube_6422215.xml" value="0.285" />

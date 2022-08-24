@@ -261,6 +261,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
 
                     android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@+id/profileLayout">
@@ -368,7 +369,7 @@
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="15dp"
 
-                        app:cardCornerRadius="0dp"
+                        app:cardCornerRadius="15dp"
                         app:cardElevation="1dp"
                         app:cardUseCompatPadding="false">
 
@@ -391,7 +392,7 @@
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="15dp"
 
-                        app:cardCornerRadius="0dp"
+                        app:cardCornerRadius="15dp"
                         app:cardElevation="1dp"
                         app:cardUseCompatPadding="false">
 
@@ -759,8 +760,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
+                        android:layout_marginBottom="20dp"
 
-                        app:cardCornerRadius="0dp"
+                        app:cardCornerRadius="15dp"
                         app:cardElevation="1dp"
                         app:cardUseCompatPadding="false"
                         >
@@ -786,154 +788,7 @@
                                 android:layout_height="150dp" />
                         </LinearLayout>
 
-
-
                     </androidx.cardview.widget.CardView>
-                    <!-- LAYOUT 교정 장치 착용 통계 레이아웃(v2) -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="7dp"
-
-                        app:cardCornerRadius="0dp"
-                        app:cardElevation="0dp"
-                        app:cardUseCompatPadding="false">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:orientation="vertical"
-                            android:padding="16dp">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:fontFamily="@font/nanumsquare_extra_bold"
-
-                                android:text="하루 평균 착용 시간"
-                                android:textColor="@color/black"
-                                android:textSize="15dp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp">
-
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
-
-                                    <com.dinuscxj.progressbar.CircleProgressBar
-                                        android:id="@+id/circleProgressBar3"
-
-                                        android:layout_width="100dp"
-                                        android:layout_height="100dp"
-                                        android:layout_marginTop="10dp"
-
-                                        app:layout_constraintLeft_toLeftOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:progress_end_color="#83E2FF"
-
-                                        app:progress_start_color="@color/blue"
-
-                                        app:progress_stroke_cap="round"
-                                        app:progress_stroke_width="7dp"
-
-                                        app:progress_style="solid_line"
-                                        app:progress_text_size="0dp" />
-
-                                    <com.dinuscxj.progressbar.CircleProgressBar
-                                        android:id="@+id/circleProgressBar4"
-
-                                        android:layout_width="80dp"
-                                        android:layout_height="80dp"
-
-                                        app:layout_constraintBottom_toBottomOf="@id/circleProgressBar3"
-                                        app:layout_constraintLeft_toLeftOf="@id/circleProgressBar3"
-                                        app:layout_constraintRight_toRightOf="@id/circleProgressBar3"
-                                        app:layout_constraintTop_toTopOf="@id/circleProgressBar3"
-
-                                        app:progress_background_color="@color/white"
-
-                                        app:progress_end_color="#B7EEFF"
-                                        app:progress_start_color="#83E2FF"
-
-                                        app:progress_stroke_cap="round"
-                                        app:progress_stroke_width="7dp"
-                                        app:progress_style="solid_line"
-                                        app:progress_text_size="0dp" />
-                                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="20dp"
-                                        android:padding="5dp">
-
-                                        <View
-                                            android:id="@+id/dailyRectangle"
-                                            android:layout_width="16dp"
-                                            android:layout_height="16dp"
-
-                                            android:layout_marginRight="10dp"
-                                            android:background="@drawable/rectangle_blue" />
-
-                                        <TextView
-                                            android:id="@+id/dailyWearingTime"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-
-                                            android:fontFamily="@font/nanumsquare_extra_bold"
-                                            android:text="하루 평균 착용 시간"
-                                            android:textAlignment="center"
-                                            android:textSize="14dp" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="20dp"
-                                        android:padding="5dp">
-
-                                        <View
-                                            android:id="@+id/goalRectangle"
-                                            android:layout_width="16dp"
-                                            android:layout_height="16dp"
-                                            android:layout_marginRight="10dp"
-                                            android:background="@drawable/rectangle_cyan"
-                                            android:gravity="left" />
-
-                                        <TextView
-                                            android:id="@+id/goalWearingTime"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-
-                                            android:fontFamily="@font/nanumsquare_extra_bold"
-                                            android:text="목표 착용 시간"
-                                            android:textAlignment="center"
-                                            android:textSize="14dp" />
-                                    </LinearLayout>
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- LAYOUT END 교정 장치 착용 통계 레이아웃(v2) -->
-
 
                     <!-- LAYOUT 교정 장치 착용 통게 레이아웃 -->
 <!--                    <androidx.cardview.widget.CardView-->

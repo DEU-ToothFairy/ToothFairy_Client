@@ -16,6 +16,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:padding="16dp"
+        android:gravity="center"
         >
 
         <TextView
@@ -35,6 +36,31 @@
             android:textColor="@color/black"
             android:fontFamily="@font/nanumsquare_extra_bold"
             android:layout_gravity="center"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="10dp"
+
+            android:backgroundTint="@color/black"
+            android:background="@drawable/ic_baseline_notifications_none_24"
+            />
+
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center"
+
+            android:backgroundTint="@color/black"
+            android:background="@drawable/ic_baseline_menu_24"
+            />
 
     </LinearLayout>
 

@@ -1,53 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.StatsFragment">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:text="stats"-->
-<!--        android:textSize="48sp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:layout_gravity="center"-->
-<!--        />-->
+    <data>
 
+        <variable
+            name="statsViewModel"
+            type="com.example.toothfairy.viewModel.MainViewModel" />
+    </data>
 
-    <!--
-        background          : 배경 색상
-        textColorNormal     : 기본 텍스트 색상
-        selectorColor       : 선택된 날짜 하단줄 색상
-        textColorSelected   : 선택된 날짜 텍스트 색상
-     -->
-
-    <devs.mulham.horizontalcalendar.HorizontalCalendarView
-        android:id="@+id/calendarView"
+    <LinearLayout
+        android:id="@+id/testLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:selectorColor="#8ECCFC"
-        app:textColorNormal="#BAE1FF"
-        app:textColorSelected="#BAE1FF" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".fragment.StatsFragment">
 
-    <TextView
-        android:id="@+id/calendarTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="25dp"
-        android:autoSizeTextType="uniform"
-        android:fontFamily="@font/pretendard_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/calendarView"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+        <!-- TODO: Update blank fragment layout -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvGraph"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light_gray"
+                android:scrollbars="horizontal" />
 
+            <View
+                android:layout_width="4dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/colorAccent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+</layout>

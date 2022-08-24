@@ -1,16 +1,23 @@
 package com.example.toothfairy.fragment
 
-import android.widget.TextView
 import android.os.Bundle
-import com.example.toothfairy.fragment.StatsFragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.annotation.NonNull
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.example.toothfairy.R
-import devs.mulham.horizontalcalendar.HorizontalCalendar
-import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
+import com.example.toothfairy.adapter.GraphAdapter
+import com.example.toothfairy.databinding.FragmentStatsBinding
 import java.util.*
+
 
 /**
  * A simple [Fragment] subclass.
@@ -23,10 +30,15 @@ class StatsFragment : Fragment() {
     private var mParam2: String? = null
 
     // VARIABLE
-    var calendarTextView: TextView? = null
-    var year = 0
-    var month = 0
-    var day = 0
+    lateinit var binding: FragmentStatsBinding
+    lateinit var rvGraph:RecyclerView
+    lateinit var graphAdapter: GraphAdapter
+
+    lateinit var data:MutableList<Float>
+    var hours:ArrayList<Float> = ArrayList()
+    var week:Int = 7        // 가로 7일
+    var hour:Int = 24       // 세로 24시간
+    var lineWidth:Int = 30  // 라인 크기 30px
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,56 +51,119 @@ class StatsFragment : Fragment() {
     // Activity의 onCreate와 동일한 역할
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_stats, container, false)
+        // 데이터 바인딩
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stats, container, false)
 
-        calendarTextView = view.findViewById(R.id.calendarTextView)
+        val view = binding.root
+        rvGraph = binding.rvGraph
 
-        initHorizontalCalendar(view)
+        data = sampleData()
+
+        var linearLayoutManager:LinearLayoutManager = LinearLayoutManager(requireContext())
+        linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        linearLayoutManager.stackFromEnd = true
+
+        graphAdapter = GraphAdapter(data)
+        graphAdapter.widthCount = week
+        graphAdapter.heightCount = hour
+        graphAdapter.graphLineWidth = lineWidth
+
+        rvGraph.layoutManager = linearLayoutManager
+        rvGraph.adapter = graphAdapter
+
+        rvGraph.addOnScrollListener(object : OnScrollListener() {
+            override fun onScrollStateChanged(@NonNull recyclerView: RecyclerView, scrollState: Int ) {
+                super.onScrollStateChanged(recyclerView, scrollState)
+                if (scrollState == RecyclerView.SCROLL_STATE_IDLE) {
+                    rvGraph.post { autoScroll() }
+                }
+            }
+
+            override fun onScrolled(@NonNull recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
+
         return view
     }
 
-    fun initHorizontalCalendar(view: View) {
-        // 시작 날짜 (회원 가입 날짜)
-        val startDate = Calendar.getInstance()
-        startDate.add(Calendar.MONTH, -1)
+    private fun sampleData():MutableList<Float> {
+        var data:MutableList<Float> = mutableListOf()
 
-        // 종료 날짜 (현재 날짜)
-        val endDate = Calendar.getInstance()
-        endDate.add(Calendar.MONTH, 1)
+        for (i in 0..100){
+            data.add(i, Math.random().toFloat() * 24)
+        }
 
-        /*
-            INFO 가로 달력 실행
+        return data
+    }
 
-            range(시작 날짜, 종료 날짜)
-            datesNumberOnScreen(보여질 날짜 개수)
-            onDateSelected(날짜 선택하면 실행되는 메소드)
-         */
+    private fun autoScroll() {
+        var graph: FrameLayout? = null
 
-        val calView = view.findViewById<View>(R.id.calendarView)
+        if (data.size > 0) {
+            val xy = IntArray(2)
+            var gap = 0
+            var position = 0
+            var minimumGap = -1
 
-        val horizontalCalendar =
-            HorizontalCalendar.Builder(view /* 액티비티가 아닌 Fragment의 View를 줘야함 */, calView.id)
-                .range(startDate, endDate)
-                .mode(HorizontalCalendar.Mode.DAYS)
-                .datesNumberOnScreen(5)
-                .build()
+            for (i in 0 until rvGraph.childCount) {
+                graph = rvGraph.getChildAt(i) as FrameLayout
 
-        // 날짜 설정
-        year = startDate[Calendar.YEAR]
-        month = startDate[Calendar.MONTH] + 1
-        day = startDate[Calendar.DAY_OF_MONTH]
-        calendarTextView!!.text = "선택한 날짜 : " + year + "년 " + month + "월 " + day + "일"
+                if (graph != null) {
+                    graph.getLocationInWindow(xy)
+                    position = xy[0] + (graph.width + lineWidth) / 2
+                    gap = position - rvGraph.width
 
-        // 날짜 선택 이벤트
-        horizontalCalendar.calendarListener = object : HorizontalCalendarListener() {
-            override fun onDateSelected(date: Calendar, position: Int) {
-                year = date[Calendar.YEAR]
-                month = date[Calendar.MONTH] + 1
-                day = date[Calendar.DAY_OF_MONTH]
-                calendarTextView!!.text = "선택한 날짜 : " + year + "년 " + month + "월 " + day + "일"
+                    if (minimumGap == -1 || Math.abs(gap) < Math.abs(minimumGap)) {
+                        minimumGap = gap
+                    }
+                }
             }
+            rvGraph.smoothScrollBy(minimumGap, 0)
         }
     }
+//    fun initHorizontalCalendar(view: View) {
+//        // 시작 날짜 (회원 가입 날짜)
+//        val startDate = Calendar.getInstance()
+//        startDate.add(Calendar.MONTH, -1)
+//
+//        // 종료 날짜 (현재 날짜)
+//        val endDate = Calendar.getInstance()
+//        endDate.add(Calendar.MONTH, 1)
+//
+//        /*
+//            INFO 가로 달력 실행
+//
+//            range(시작 날짜, 종료 날짜)
+//            datesNumberOnScreen(보여질 날짜 개수)
+//            onDateSelected(날짜 선택하면 실행되는 메소드)
+//         */
+//
+//        val calView = view.findViewById<View>(R.id.calendarView)
+//
+//        val horizontalCalendar =
+//            HorizontalCalendar.Builder(view /* 액티비티가 아닌 Fragment의 View를 줘야함 */, calView.id)
+//                .range(startDate, endDate)
+//                .mode(HorizontalCalendar.Mode.DAYS)
+//                .datesNumberOnScreen(5)
+//                .build()
+//
+//        // 날짜 설정
+//        year = startDate[Calendar.YEAR]
+//        month = startDate[Calendar.MONTH] + 1
+//        day = startDate[Calendar.DAY_OF_MONTH]
+//        calendarTextView!!.text = "선택한 날짜 : " + year + "년 " + month + "월 " + day + "일"
+//
+//        // 날짜 선택 이벤트
+//        horizontalCalendar.calendarListener = object : HorizontalCalendarListener() {
+//            override fun onDateSelected(date: Calendar, position: Int) {
+//                year = date[Calendar.YEAR]
+//                month = date[Calendar.MONTH] + 1
+//                day = date[Calendar.DAY_OF_MONTH]
+//                calendarTextView!!.text = "선택한 날짜 : " + year + "년 " + month + "월 " + day + "일"
+//            }
+//        }
+//    }
 
     companion object {
         // TODO: Rename parameter arguments, choose names that match

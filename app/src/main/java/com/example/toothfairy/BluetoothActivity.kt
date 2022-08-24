@@ -159,15 +159,17 @@ class BluetoothActivity : AppCompatActivity() {
             super.onServicesDiscovered(gatt, status)
             val service = gatt.getService(UUID_Service)
             ValueCharacteristic_read = service.getCharacteristic(UUID_VALUE_READ)
+
             runOnUiThread { //최초 실행
                 btGatt!!.readCharacteristic(ValueCharacteristic_read)
                 Log.i("Data", "PASS:3")
             }
-            val mainIntent = Intent(applicationContext, MainActivity::class.java)
-            mainIntent.putExtra("loginUser", intent.getStringExtra("loginUser"))
-            startActivity(mainIntent)
-            finish()
+
+            // 액티비티 전환
+            changeActivity()
         }
+
+
 
         var tmp = ""
         var strTime = ""
@@ -247,6 +249,13 @@ class BluetoothActivity : AppCompatActivity() {
         }
     }
 
+    fun changeActivity(){
+        val mainIntent = Intent(applicationContext, MainActivity::class.java)
+
+        mainIntent.putExtra("loginUser", intent.getStringExtra("loginUser"))
+        startActivity(mainIntent)
+        finish()
+    }
 
     val time: String
         get() {

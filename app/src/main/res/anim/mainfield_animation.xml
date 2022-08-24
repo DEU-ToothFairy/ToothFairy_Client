@@ -7,7 +7,7 @@
         android:fromYDelta="300%"
         android:toYDelta="0%"
 
-        android:startOffset="2000"
+        android:startOffset="0"
         android:duration="500"
         />
 

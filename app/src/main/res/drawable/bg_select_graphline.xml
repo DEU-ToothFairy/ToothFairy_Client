@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-</selector>
+    <solid android:color="#51FFFFFF" />
+
+    <corners android:radius="20dp" />
+
+    <padding
+        android:bottom="0dp"
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp" />
+
+    <stroke android:width="2dp" android:color="@color/light_gray"/>
+    <!--stroke 선으로 테두리를 그린다. 여기서 색상은 테두리 색상을 의미-->
+</shape>

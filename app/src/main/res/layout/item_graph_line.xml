@@ -12,4 +12,13 @@
         android:background="@drawable/bg_blue_line"
         android:layout_gravity="bottom"/>
 
+    <TextView
+        android:id="@+id/graphDate"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:text="24"
+
+        android:layout_gravity="bottom"
+        />
+
 </FrameLayout>

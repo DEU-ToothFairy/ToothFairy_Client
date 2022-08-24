@@ -111,16 +111,11 @@ class LoginActivity : AppCompatActivity() {
         mainFieldAnim = AnimationUtils.loadAnimation(this, R.anim.mainfield_animation)
 
         // 애니메이션을 세팅
-        binding!!.mainLogo.animation = scaleAnim
         binding!!.userId.animation = mainFieldAnim
         binding!!.password.animation = mainFieldAnim
         binding!!.loginBtn.animation = mainFieldAnim
         binding!!.signUpBtn.animation = mainFieldAnim
         binding!!.autoLoginCheckBox.animation = mainFieldAnim
-        //        image.setAnimation(scaleAnim);
-//        usernameInput.setAnimation(mainFieldAnim);
-//        passwordInput.setAnimation(mainFieldAnim);
-//        loginBtn.setAnimation(mainFieldAnim);
-//        singUpBtn.setAnimation(mainFieldAnim);
+
     }
 }

@@ -22,21 +22,22 @@
         <!-- TODO: Update blank fragment layout -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvGraph"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:background="@color/light_gray"
-                android:scrollbars="horizontal" />
+                android:scrollbars="none" />
 
             <View
-                android:layout_width="4dp"
+                android:layout_width="20dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@color/colorAccent" />
+                android:background="@drawable/bg_select_graphline" />
 
         </FrameLayout>
 

@@ -17,29 +17,50 @@
         tools:context=".MainActivity">
 
         <!-- 메인 로고 이미지 -->
-        <ImageView
-            android:id="@+id/mainLogo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:src="@drawable/dentalcarelogo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- 텍스트 필드 영역 -->
         <LinearLayout
+            android:id="@+id/mainLogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/loginField"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tooth"
+                android:textSize="32dp"
+                android:textColor="@color/blue"
+                android:fontFamily="@font/nanumsquare_extra_bold"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fairy"
+                android:textSize="32dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/nanumsquare_extra_bold"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <!-- 텍스트 필드 영역 -->
+
+        <!-- 로그인 버튼 -->
+
+        <LinearLayout
+            android:id="@+id/loginField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/loginBtn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mainLogo"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toBottomOf="@+id/mainLogo">
 
             <!-- 아이디 필드 -->
             <com.google.android.material.textfield.TextInputLayout
@@ -56,9 +77,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorAccent"
-                    android:singleLine="true"
                     android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/colorAccent"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,19 +93,19 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
 
-                app:passwordToggleEnabled="true"
-
                 app:boxStrokeColor="@color/colorAccent"
-                app:hintTextColor="@color/colorAccent">
+
+                app:hintTextColor="@color/colorAccent"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorAccent"
                     android:hint="Password"
-                    android:singleLine="true"
-                    android:maxLines="1"
                     android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/colorAccent"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,12 +115,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:text="자동 로그인"
                 android:fontFamily="@font/nanumsquare_bold"
-                android:textColor="@color/gray"/>
+                android:text="자동 로그인"
+                android:textColor="@color/gray" />
         </LinearLayout>
 
-        <!-- 로그인 버튼 -->
         <Button
             android:id="@+id/loginBtn"
             android:layout_width="0dp"

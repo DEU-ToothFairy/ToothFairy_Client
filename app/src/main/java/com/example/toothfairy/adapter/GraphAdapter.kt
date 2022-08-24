@@ -19,7 +19,9 @@ class GraphAdapter(data: List<Float>?) : RecyclerView.Adapter<GraphAdapter.ViewH
     @NonNull
     override fun onCreateViewHolder(@NonNull viewGroup: ViewGroup, i: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
+        
         // item_graph_line 레이아웃을 뷰로 설정 (View는 해당 레이아웃을 가지게 됨)
+        // GraphAdapter를 통해 데이터를 item_graph_line 형식으로 생성할 수 있게 됨
         val v: View = inflater.inflate(R.layout.item_graph_line, viewGroup, false)
         
         width = viewGroup.width

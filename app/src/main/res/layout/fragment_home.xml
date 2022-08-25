@@ -441,7 +441,7 @@
                                     android:layout_marginTop="30dp"
 
                                     app:arc_stroke_width="5dp"
-                                    app:arc_progress="80"
+                                    app:arc_progress="60"
 
                                     app:arc_text_color="@color/white"
 
@@ -462,7 +462,7 @@
                                     android:layout_marginTop="30dp"
 
                                     app:arc_stroke_width="5dp"
-                                    app:arc_progress="20"
+                                    app:arc_progress="55"
 
                                     app:arc_text_color="@color/white"
 
@@ -475,7 +475,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
 
-                                    android:text="00:12"
+                                    android:text="13:12"
                                     android:textSize="14dp"
                                     android:textColor="@color/black"
 
@@ -580,7 +580,7 @@
                                     android:layout_height="75dp"
 
                                     app:arc_stroke_width="5dp"
-                                    app:arc_progress="20"
+                                    app:arc_progress="70"
 
                                     app:arc_text_color="@color/white"
 
@@ -593,7 +593,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
 
-                                    android:text="00:12"
+                                    android:text="16:34"
                                     android:textSize="14dp"
                                     android:textColor="@color/black"
 
@@ -622,7 +622,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
-                                    android:text="권장 14:22"
+                                    android:text="권장 20:00"
                                     android:textColor="@color/gray"
                                     android:textSize="10dp"
 
@@ -672,7 +672,7 @@
                                     android:layout_height="75dp"
 
                                     app:arc_stroke_width="5dp"
-                                    app:arc_progress="80"
+                                    app:arc_progress="50"
 
                                     app:arc_text_color="@color/white"
 
@@ -693,7 +693,7 @@
                                     android:layout_height="75dp"
 
                                     app:arc_stroke_width="5dp"
-                                    app:arc_progress="20"
+                                    app:arc_progress="30"
 
                                     app:arc_text_color="@color/white"
 
@@ -706,7 +706,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
 
-                                    android:text="00:12"
+                                    android:text="08:12"
                                     android:textSize="14dp"
                                     android:textColor="@color/black"
 
@@ -736,7 +736,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
-                                    android:text="권장 14:22"
+                                    android:text="권장 12:00"
                                     android:textColor="@color/gray"
                                     android:textSize="10dp"
 

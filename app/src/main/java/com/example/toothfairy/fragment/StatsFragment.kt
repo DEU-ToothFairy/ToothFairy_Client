@@ -17,6 +17,7 @@ import com.example.toothfairy.R
 import com.example.toothfairy.adapter.GraphAdapter
 import com.example.toothfairy.databinding.FragmentStatsBinding
 import java.util.*
+import kotlin.math.abs
 
 
 /**
@@ -71,6 +72,7 @@ class StatsFragment : Fragment() {
         rvGraph.layoutManager = linearLayoutManager
         rvGraph.adapter = graphAdapter
 
+
         rvGraph.addOnScrollListener(object : OnScrollListener() {
             override fun onScrollStateChanged(@NonNull recyclerView: RecyclerView, scrollState: Int ) {
                 super.onScrollStateChanged(recyclerView, scrollState)
@@ -107,14 +109,14 @@ class StatsFragment : Fragment() {
             var minimumGap = -1
 
             for (i in 0 until rvGraph.childCount) {
-                graph = rvGraph.getChildAt(i) as FrameLayout
+                graph = rvGraph.getChildAt(i) as FrameLayout // 리사이클러뷰 안의 막대를 하나씩 가져옴
 
                 if (graph != null) {
-                    graph.getLocationInWindow(xy)
-                    position = xy[0] + (graph.width + lineWidth) / 2
+                    graph.getLocationInWindow(xy) // 해당 그래프의 좌표 값
+                    position = xy[0] + (graph.width + lineWidth) / 2  // (프레임의 넓이 + 막대기의 넓이) / 2 -> 중간으로 설정 됨 + x 좌표
                     gap = position - rvGraph.width
 
-                    if (minimumGap == -1 || Math.abs(gap) < Math.abs(minimumGap)) {
+                    if (minimumGap == -1 || abs(gap) < abs(minimumGap)) {
                         minimumGap = gap
                     }
                 }

@@ -15,7 +15,7 @@ object CuredInfoRepository {
     // service 객체 생성
     private val curedInfoService: CuredInfoService = RetrofitClient.retrofit.create(CuredInfoService::class.java)
 
-    // 완치 환자 정보 로드
+    /** 나이에 맞는 완치 환자의 정보를 가져오는 메소드 */
     fun loadCuredInfo(age: Int): Response<CuredInfo?>? {
         val curedInfoCall: Call<CuredInfo?>? = curedInfoService.getCuredInfo(age)
 

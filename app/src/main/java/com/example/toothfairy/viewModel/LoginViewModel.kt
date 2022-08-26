@@ -13,7 +13,7 @@ class LoginViewModel private constructor() : ViewModel() {
     val loginUser = MutableLiveData<String?>()
     val error = MutableLiveData<Event<String>>()
 
-    // 기본 로그인 로직
+    /** 아이디와 비밀 번호를 받아 로그인하는 메소드 */
     fun login(id: String?, password: String?) {
         // 이미 저장되어 있는 정보가 있으면 자동 로그인
         Executors.newSingleThreadExecutor().execute {

@@ -2,23 +2,28 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/bg_layout_border"
     android:layout_gravity="center_horizontal|bottom">
 
-    <View
-        android:id="@+id/graphLine"
-        android:layout_width="5dp"
-        android:layout_height="0dp"
-        android:background="@drawable/bg_blue_line"
-        android:layout_gravity="bottom"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
 
-    <TextView
-        android:id="@+id/graphDate"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:text="24"
+        <View
+            android:id="@+id/graphLine"
+            android:layout_width="5dp"
+            android:layout_height="100dp"
+            android:background="@drawable/bg_blue_line"
+            android:layout_gravity="center"/>
 
-        android:layout_gravity="bottom"
-        />
-
+        <TextView
+            android:id="@+id/graphDate"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:text="30"
+            android:gravity="center"
+            />
+    </LinearLayout>
 </FrameLayout>

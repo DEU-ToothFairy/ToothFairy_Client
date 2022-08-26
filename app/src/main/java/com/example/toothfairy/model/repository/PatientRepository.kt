@@ -17,7 +17,7 @@ object PatientRepository {
     // VARIABLE
     private val patientService: PatientService = RetrofitClient.retrofit.create(PatientService::class.java)
 
-    // 환자 정보 가져오는 메소드
+    /** 아이디를 받아 환자의 정보를 가져오는 메소드 */
     fun loadPatient(id: String?): Response<Patient?>? {
         val patientCall: Call<Patient?>? = patientService.findByPatientNum(id)
 

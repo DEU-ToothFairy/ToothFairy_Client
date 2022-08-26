@@ -1,12 +1,14 @@
 package com.example.toothfairy.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.annotation.NonNull
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -36,7 +38,6 @@ class StatsFragment : Fragment() {
     lateinit var graphAdapter: GraphAdapter
 
     lateinit var data:MutableList<Float>
-    var hours:ArrayList<Float> = ArrayList()
     var week:Int = 7        // 가로 7일
     var hour:Int = 24       // 세로 24시간
     var lineWidth:Int = 30  // 라인 크기 30px
@@ -94,13 +95,14 @@ class StatsFragment : Fragment() {
 
         for (i in 0..100){
             data.add(i, Math.random().toFloat() * 24)
+            Log.i("RANDOM", data[i].toString())
         }
 
         return data
     }
 
     private fun autoScroll() {
-        var graph: FrameLayout? = null
+        lateinit var graph: FrameLayout
 
         if (data.size > 0) {
             val xy = IntArray(2)
@@ -112,16 +114,24 @@ class StatsFragment : Fragment() {
                 graph = rvGraph.getChildAt(i) as FrameLayout // 리사이클러뷰 안의 막대를 하나씩 가져옴
 
                 if (graph != null) {
-                    graph.getLocationInWindow(xy) // 해당 그래프의 좌표 값
+                    graph.getLocationInWindow(xy) // 해당 그래프의 절대 좌표 값
+
+
                     position = xy[0] + (graph.width + lineWidth) / 2  // (프레임의 넓이 + 막대기의 넓이) / 2 -> 중간으로 설정 됨 + x 좌표
                     gap = position - rvGraph.width
+                    Log.i("$i 번 그래프", "x = ${xy[0]} graph.width = ${graph.width} lineWidth = ${lineWidth} position = ${position} gap = ${gap}")
 
+                    // 가장 가까운 그래프까지의 거리 차이를 저장
                     if (minimumGap == -1 || abs(gap) < abs(minimumGap)) {
                         minimumGap = gap
                     }
                 }
             }
-            rvGraph.smoothScrollBy(minimumGap, 0)
+
+            Log.i("리사이클러 뷰 넓이", rvGraph.width.toString())
+            Log.i("이동 할 넓이", minimumGap.toString())
+
+            rvGraph.smoothScrollBy(minimumGap, 0) // minimumGap 만큼 이동
         }
     }
 //    fun initHorizontalCalendar(view: View) {

@@ -3,6 +3,7 @@ package com.example.toothfairy.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.example.toothfairy.R
@@ -16,6 +17,7 @@ class GraphAdapter(data: List<Float>?) : RecyclerView.Adapter<GraphAdapter.ViewH
     var heightCount = 24            // 세로 항목의 길이 설정
     var graphLineWidth = 15
 
+    /** ViewHolder 객체를 생성 후 리턴 */
     @NonNull
     override fun onCreateViewHolder(@NonNull viewGroup: ViewGroup, i: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
@@ -42,13 +44,12 @@ class GraphAdapter(data: List<Float>?) : RecyclerView.Adapter<GraphAdapter.ViewH
     }
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, i: Int) {
-        val workHour: Int = data!![i].toInt()
+        val wearingTime: Int = data!![i].toInt()
 
-        val currentHeight: Int = if (workHour > 0) { height * workHour / heightCount } else { 0 }
+        val currentHeight: Int = if (wearingTime > 0) { height * wearingTime / heightCount } else { 0 }
 
-        
         val line1_param = holder.graphLine.layoutParams
-
+        
         line1_param.width = graphLineWidth
         line1_param.height = currentHeight
 
@@ -61,9 +62,11 @@ class GraphAdapter(data: List<Float>?) : RecyclerView.Adapter<GraphAdapter.ViewH
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val graphLine: View
+        val graphDate: TextView
 
         init {
             graphLine = itemView.findViewById(R.id.graphLine)
+            graphDate = itemView.findViewById(R.id.graphDate)
         }
     }
 

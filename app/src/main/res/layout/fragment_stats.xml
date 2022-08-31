@@ -8,38 +8,90 @@
     <data>
         <variable
             name="statsViewModel"
-            type="com.example.toothfairy.viewmodel.MainViewModel" />
+            type="com.example.toothfairy.viewModel.MainViewModel" />
     </data>
 
+    <!-- LAYOUT 전체 레이아웃 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".fragment.StatsFragment">
 
+        <!-- LAYOUT 선택 날짜 레이아웃 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/selectDateTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
 
                 android:text="14 Aug 2022  sun"
                 android:textSize="20dp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_regular"
+
+                android:bufferType="spannable"
                 />
         </LinearLayout>
+        <!-- LAYOUT END 선택 날짜 레이아웃 -->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/calendarView"
+        <!-- LAYOUT 리사이클러뷰 캘린더 레이아웃 -->
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:overScrollMode="never"
-            />
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/calendar_select" />
+        </FrameLayout>
+        <!-- LAYOUT END 리사이클러뷰 캘린더 레이아웃 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2022년 8월 14일"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_medium"
+                />
+
+            <TextView
+                android:id="@+id/userScoreTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="김잼민 님의 교정 점수는 84 점 입니다."
+                android:textSize="18dp"
+                android:textColor="@color/black"
+
+                android:fontFamily="@font/poppins_semi_bold"
+                android:bufferType="spannable"
+                />
+        </LinearLayout>
     </LinearLayout>
+    <!-- LAYOUT END 전체 레이아웃 -->
 </layout>

@@ -1,4 +1,4 @@
-package com.example.toothfairy.viewmodel
+package com.example.toothfairy.viewModel
 
 import androidx.lifecycle.ViewModel
 import com.example.toothfairy.model.repository.WearingInfoRepository

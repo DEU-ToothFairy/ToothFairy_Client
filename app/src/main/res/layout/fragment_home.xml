@@ -10,7 +10,7 @@
 
         <variable
             name="homeViewModel"
-            type="com.example.toothfairy.viewmodel.MainViewModel" />
+            type="com.example.toothfairy.viewModel.MainViewModel" />
     </data>
 
 

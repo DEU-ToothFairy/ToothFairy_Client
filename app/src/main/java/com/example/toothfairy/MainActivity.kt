@@ -17,15 +17,14 @@ import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.etebarian.meowbottomnavigation.MeowBottomNavigation.*
 import com.example.toothfairy.databinding.ActivityMainBinding
 import com.example.toothfairy.entity.Patient
 import com.example.toothfairy.fragment.HomeFragment
 import com.example.toothfairy.fragment.ProfileFragment
 import com.example.toothfairy.fragment.StatsFragment
-import com.example.toothfairy.viewmodel.BluetoothViewModel
-import com.example.toothfairy.viewmodel.BluetoothViewModel.Companion.instance
-import com.example.toothfairy.viewmodel.MainViewModel
+import com.example.toothfairy.viewModel.BluetoothViewModel
+import com.example.toothfairy.viewModel.BluetoothViewModel.Companion.instance
+import com.example.toothfairy.viewModel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

@@ -1,31 +1,33 @@
 package com.example.toothfairy.fragment
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
+import android.text.style.TypefaceSpan
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.annotation.NonNull
-import androidx.core.view.get
+import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.example.toothfairy.R
 import com.example.toothfairy.adapter.CalendarAdapter
-import com.example.toothfairy.adapter.GraphAdapter
 import com.example.toothfairy.data.CalendarDate
 import com.example.toothfairy.databinding.FragmentStatsBinding
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
-import java.time.temporal.TemporalAdjuster
 import java.time.temporal.TemporalAdjusters
 import java.util.*
 import kotlin.math.abs
@@ -71,14 +73,83 @@ class StatsFragment : Fragment() {
         binding.calendarView.layoutManager = layoutManager
 
         setListView()
+        calendarEventAdder()
+
+        // selectDateTv Spannable로 폰트 스타일 변경
+        selectDateTvSetting()
+        // userScoreTv Spannable로 폰트 스타일 변경
+        userScoreTvSetting()
+
 
         return view
     }
 
+    private fun userScoreTvSetting(){
+        val userScore:String = binding.userScoreTv.text.toString()
+        val builder = SpannableStringBuilder(userScore)
+
+        val colorBlueSpan = ForegroundColorSpan(resources.getColor(R.color.colorAccent))
+        builder.setSpan(colorBlueSpan, userScore.length - 9, userScore.length - 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        binding.userScoreTv.text = builder
+    }
+
+    private fun selectDateTvSetting(){
+        val selectDate:String = binding.selectDateTv.text.toString()
+        val builder = SpannableStringBuilder(selectDate)
+
+        builder.setSpan(StyleSpan(Typeface.BOLD), selectDate.length - 3, selectDate.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        val sizeBigSpan = RelativeSizeSpan(0.8f)
+        builder.setSpan(sizeBigSpan, selectDate.length - 3, selectDate.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        binding.selectDateTv.text = builder
+    }
+
+    private fun calendarEventAdder(){
+        binding.calendarView.addOnScrollListener(object : OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    binding.calendarView.post{ autoScroll() }
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
+    }
+    private fun autoScroll() {
+        lateinit var date: LinearLayout
+        val calendar = binding.calendarView
+
+        val xy = IntArray(2)
+        var gap = 0
+        var position = 0
+        var minimumGap = -1
+
+        for (i in 0 until calendar.childCount) {
+            date = calendar.getChildAt(i) as LinearLayout // 리사이클러뷰 안의 날짜를 하나씩 가져옴
+
+            if (date != null) {
+                date.getLocationInWindow(xy) // 해당 날짜의 절대 좌표 값
+
+                position = xy[0] + (date.width) / 4  // (프레임의 넓이 + 날짜 뷰의 넓이) / 2 -> 중간으로 설정 됨 + x 좌표
+                gap = position - calendar.width
+
+                // 가장 가까운 그래프까지의 거리 차이를 저장
+                if (minimumGap == -1 || abs(gap) < abs(minimumGap)) {
+                    minimumGap = gap
+                }
+            }
+        }
+
+        calendar.smoothScrollBy(minimumGap, 0) // minimumGap 만큼 이동
+    }
+
     private fun setListView(){
         // 현재 달의 마지막 날짜
-        val yearMonth = YearMonth.of(2022, 1)
-
         val lastDayOfMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth())
         lastDayOfMonth.format(DateTimeFormatter.ofPattern("dd"))
 

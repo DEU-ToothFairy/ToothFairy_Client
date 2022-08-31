@@ -14,8 +14,8 @@ import com.example.toothfairy.databinding.FragmentHomeBinding
 import com.example.toothfairy.databinding.WearingProgressLayoutBinding
 import com.example.toothfairy.entity.CuredInfo
 import com.example.toothfairy.util.DateManager
-import com.example.toothfairy.viewmodel.BluetoothViewModel
-import com.example.toothfairy.viewmodel.MainViewModel
+import com.example.toothfairy.viewModel.BluetoothViewModel
+import com.example.toothfairy.viewModel.MainViewModel
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarDataSet

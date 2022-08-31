@@ -13,7 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.toothfairy.databinding.ActivityLoginBinding
 import com.example.toothfairy.util.Event
-import com.example.toothfairy.viewmodel.LoginViewModel.Companion.instance
+import com.example.toothfairy.viewModel.LoginViewModel.Companion.instance
 import java.util.*
 
 class LoginActivity : AppCompatActivity() {

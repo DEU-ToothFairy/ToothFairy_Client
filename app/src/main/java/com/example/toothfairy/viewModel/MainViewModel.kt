@@ -1,4 +1,4 @@
-package com.example.toothfairy.viewmodel
+package com.example.toothfairy.viewModel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

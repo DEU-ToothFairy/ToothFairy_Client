@@ -19,23 +19,17 @@
         android:gravity="center"
         >
 
+        <!-- ToothFairy -->
         <TextView
+            android:id="@+id/appTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tooth"
-            android:textSize="22dp"
-            android:textColor="@color/blue"
-            android:fontFamily="@font/nanumsquare_extra_bold"
-            android:layout_gravity="center"/>
+            android:bufferType="spannable"
+            android:text="@string/toothfairy"
+            android:textAppearance="@style/toothfairy"
+            android:includeFontPadding="false"
+            android:gravity="top"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fairy"
-            android:textSize="22dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/nanumsquare_extra_bold"
-            android:layout_gravity="center"/>
 
         <View
             android:layout_width="0dp"
@@ -44,22 +38,22 @@
             />
 
         <Button
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="22dp"
             android:layout_gravity="right|center"
             android:layout_marginRight="10dp"
 
             android:backgroundTint="@color/black"
-            android:background="@drawable/ic_baseline_notifications_none_24"
+            android:background="@drawable/ic_bell"
             />
 
         <Button
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="22dp"
+            android:layout_height="15dp"
             android:layout_gravity="right|center"
 
             android:backgroundTint="@color/black"
-            android:background="@drawable/ic_baseline_menu_24"
+            android:background="@drawable/ic_menu"
             />
 
     </LinearLayout>

@@ -1,26 +1,9 @@
-package com.example.toothfairy.viewModel
+package com.example.toothfairy.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.example.toothfairy.model.repository.WearingInfoRepository
 import androidx.lifecycle.MutableLiveData
-import android.app.Activity
-import android.bluetooth.BluetoothManager
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.le.BluetoothLeScanner
-import android.bluetooth.BluetoothGatt
-import android.bluetooth.BluetoothGattCharacteristic
-import android.annotation.SuppressLint
-import android.content.Intent
-import com.example.toothfairy.viewModel.BluetoothViewModel
-import android.bluetooth.BluetoothDevice
-import android.widget.Toast
-import android.bluetooth.le.ScanCallback
-import android.bluetooth.BluetoothGattCallback
-import android.bluetooth.BluetoothProfile
-import android.bluetooth.BluetoothGattService
-import android.bluetooth.le.ScanResult
 import android.content.Context
-import android.util.Log
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*

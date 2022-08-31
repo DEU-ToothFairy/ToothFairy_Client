@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="light_gray">#ECECEC</color>
     <color name="skyblue">#8ECCFC</color>
     <color name="blue">#5384ed</color>
     <color name="colorAccent">#6194f8</color>
+    <color name="text_gray">#8696BB</color>
+
+    <!-- Light 계열 -->
+    <color name="light_blue">#E9F2FF</color>
+    <color name="light_green">#E7F4E8</color>
+    <color name="light_yellow">#FFF4E4</color>
+    <color name="light_red">#FFE2E5</color>
+    <color name="light_gray">#ECECEC</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
@@ -15,7 +22,5 @@
     <color name="gray">#919191</color>
     <color name="semi_gray">#CCCCCC</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="light_red">#FF6969</color>
-    <color name="light_green">#97FFA2</color>
     <color name="background_gray">#f4f4f4</color>
 </resources>

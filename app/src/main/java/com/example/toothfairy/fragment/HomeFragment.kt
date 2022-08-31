@@ -14,8 +14,8 @@ import com.example.toothfairy.databinding.FragmentHomeBinding
 import com.example.toothfairy.databinding.WearingProgressLayoutBinding
 import com.example.toothfairy.entity.CuredInfo
 import com.example.toothfairy.util.DateManager
-import com.example.toothfairy.viewModel.BluetoothViewModel
-import com.example.toothfairy.viewModel.MainViewModel
+import com.example.toothfairy.viewmodel.BluetoothViewModel
+import com.example.toothfairy.viewmodel.MainViewModel
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarDataSet
@@ -23,7 +23,6 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
-import com.hadiidbouk.charts.BarData
 import java.util.*
 import kotlin.math.roundToInt
 

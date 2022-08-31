@@ -5,17 +5,15 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.example.toothfairy.BluetoothActivity
 import com.example.toothfairy.databinding.ActivityLoginBinding
 import com.example.toothfairy.util.Event
-import com.example.toothfairy.viewModel.LoginViewModel.Companion.instance
+import com.example.toothfairy.viewmodel.LoginViewModel.Companion.instance
 import java.util.*
 
 class LoginActivity : AppCompatActivity() {

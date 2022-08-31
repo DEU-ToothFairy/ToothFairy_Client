@@ -10,7 +10,7 @@
 
         <variable
             name="homeViewModel"
-            type="com.example.toothfairy.viewModel.MainViewModel" />
+            type="com.example.toothfairy.viewmodel.MainViewModel" />
     </data>
 
 
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
 
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginBottom="30dp"
                     android:layout_marginTop="10dp"
 
@@ -63,9 +63,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/nanumsquare_regular"
-                                android:text="Today,"
-                                android:textColor="@color/gray"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:text="Hello,"
+                                android:textColor="#8696BB"
                                 android:textSize="22dp" />
 
                             <!-- 오늘 날짜 텍스트 뷰 -->
@@ -73,13 +73,15 @@
                                 android:id="@+id/wearDate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
                                 android:layout_marginTop="5dp"
 
-                                android:fontFamily="@font/nanumsquare_extra_bold"
-                                android:text="@{homeViewModel.today, default = `18 August`}"
-                                android:textColor="@color/colorAccent"
-                                android:textSize="20dp" />
+                                android:text="김잼민 님 반갑습니다."
+                                android:textColor="@color/black"
+                                android:textSize="20dp"
+                                android:fontFamily="@font/noto_sans_kr_bold"
+
+                                android:includeFontPadding="false"
+                                />
                         </LinearLayout>
 
                         <View
@@ -91,18 +93,19 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right">
+                            android:layout_gravity="right"
+                            >
 
                             <ProgressBar
                                 android:id="@+id/profileProgressBar"
-                                android:layout_width="75dp"
-                                android:layout_height="75dp"
-
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
                                 android:indeterminateOnly="false"
-                                android:progressDrawable="@drawable/profile_circle"
 
+                                android:progressDrawable="@drawable/profile_circle"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
+
                                 tools:progress="@{(int)homeViewModel.calibrationProgress}" />
 
                             <!-- 프로필 사진 -->
@@ -113,8 +116,9 @@
                                  - scaleType : centerCrop으로 해야 꽉찬 원이 나옴
                              -->
                             <androidx.cardview.widget.CardView
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+
                                 app:cardCornerRadius="75dp"
                                 app:cardElevation="0dp"
                                 app:layout_constraintBottom_toBottomOf="@id/profileProgressBar"
@@ -131,124 +135,6 @@
                             </androidx.cardview.widget.CardView>
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </LinearLayout>
-
-
-<!--                    &lt;!&ndash; LAYOUT 유저 정보 레이아웃 &ndash;&gt;-->
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-
-<!--                        android:layout_marginLeft="10dp"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        &lt;!&ndash; 유저 이름 텍스트 뷰 &ndash;&gt;-->
-<!--                        <TextView-->
-<!--                            android:id="@+id/username"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:fontFamily="@font/nanumsquare_extra_bold"-->
-<!--                            android:text="@{homeViewModel.patient.name + `님 반갑습니다`, default = `김잼민님 반갑습니다.`}"-->
-
-<!--                            android:textColor="@color/black_gray"-->
-<!--                            android:textSize="18dp"-->
-
-<!--                            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                            app:layout_constraintRight_toRightOf="parent"-->
-<!--                            app:layout_constraintTop_toBottomOf="@+id/profileProgressBar" />-->
-
-<!--                        &lt;!&ndash; 유저 닉네임 텍스트 뷰 &ndash;&gt;-->
-<!--                        <TextView-->
-<!--                            android:id="@+id/userNickname"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:fontFamily="@font/nanumsquare_bold"-->
-<!--                            android:text="@{homeViewModel.patient.id, default=`nickname`}"-->
-
-<!--                            android:textAllCaps="true"-->
-<!--                            android:textColor="@color/colorAccent"-->
-<!--                            android:textSize="12dp"-->
-<!--                            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                            app:layout_constraintRight_toRightOf="parent"-->
-<!--                            app:layout_constraintTop_toBottomOf="@+id/username" />-->
-
-
-<!--                        <LinearLayout-->
-<!--                            android:id="@+id/userInfoLayout"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginTop="20dp"-->
-
-<!--                            android:orientation="horizontal">-->
-
-<!--                            &lt;!&ndash; 교정 진행률 레이아웃 &ndash;&gt;-->
-<!--                            <LinearLayout-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginRight="50dp"-->
-<!--                                android:orientation="vertical">-->
-
-<!--                                <TextView-->
-<!--                                    android:id="@+id/wearingProgress"-->
-<!--                                    android:layout_width="match_parent"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_gravity="center"-->
-<!--                                    android:fontFamily="@font/nanumsquare_bold"-->
-
-<!--                                    android:text="@{(double)homeViewModel.calibrationProgress + `%`, default=`24%`}"-->
-<!--                                    android:textAlignment="center"-->
-<!--                                    android:textColor="@color/black"-->
-<!--                                    android:textSize="18dp" />-->
-
-<!--                                <TextView-->
-<!--                                    android:id="@+id/wearingProgressField"-->
-<!--                                    android:layout_width="match_parent"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_gravity="center"-->
-<!--                                    android:fontFamily="@font/nanumsquare_extra_bold"-->
-
-<!--                                    android:text="교정 진행률"-->
-<!--                                    android:textColor="@color/gray"-->
-<!--                                    android:textSize="14dp" />-->
-
-<!--                            </LinearLayout>-->
-
-<!--                            &lt;!&ndash; 교정 일수 레이아웃 &ndash;&gt;-->
-<!--                            <LinearLayout-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:orientation="vertical">-->
-
-<!--                                <TextView-->
-<!--                                    android:id="@+id/wearingDays"-->
-<!--                                    android:layout_width="match_parent"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_gravity="center"-->
-<!--                                    android:fontFamily="@font/nanumsquare_bold"-->
-
-<!--                                    android:text="@{homeViewModel.treatmentDays.toString(), default=`120`}"-->
-<!--                                    android:textAlignment="center"-->
-<!--                                    android:textColor="@color/black"-->
-<!--                                    android:textSize="18dp" />-->
-
-<!--                                <TextView-->
-<!--                                    android:id="@+id/wearingDaysField"-->
-<!--                                    android:layout_width="match_parent"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_gravity="center"-->
-<!--                                    android:fontFamily="@font/nanumsquare_extra_bold"-->
-
-<!--                                    android:text="교정 일수"-->
-<!--                                    android:textColor="@color/gray"-->
-<!--                                    android:textSize="14dp" />-->
-
-<!--                            </LinearLayout>-->
-<!--                        </LinearLayout>-->
-
-<!--                    </LinearLayout>-->
-<!--                    &lt;!&ndash; LAYOUT END 유저 정보 레이아웃 끝 &ndash;&gt;-->
-
-
-
                 </LinearLayout>
                 <!-- LAYOUT END 프로필 레이아웃 끝 -->
 
@@ -263,8 +149,279 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
 
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+
                     android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@+id/profileLayout">
+
+
+                    <!-- LAYOUT 목표 착용 시간 알림 레이아웃 -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginBottom="30dp"
+                        app:cardBackgroundColor="#F0F5FF"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="0dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+
+                            android:padding="10dp"
+                            android:gravity="center"
+                            >
+
+                            <View
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/ic_info_line"
+                                android:layout_gravity="left"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+
+                                android:text="오늘의 목표 착용 시간은 16시간 30분 입니다."
+                                android:textColor="@color/black"
+                                android:textSize="12dp"
+                                android:fontFamily="@font/poppins_regular"
+                                />
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+                    <!-- LAYOUT END 목표 착용 시간 알림 레이아웃 -->
+
+                    <!-- LAYOUT 교정기 착용 시간 레이아웃 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+
+                        android:orientation="vertical"
+                        >
+
+                        <!-- LAYOUT 상단 텍스트 레이아웃 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="교정기 착용 시간"
+                                android:textSize="16dp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/noto_sans_kr_bold"
+                                android:includeFontPadding="false"
+                                />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                />
+
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                app:cardBackgroundColor="#F0F5FF"
+                                app:cardCornerRadius="20dp"
+                                app:cardElevation="0dp"
+                                android:layout_gravity="right"
+                                >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp"
+
+                                    android:text="착용 중"
+                                    android:textSize="14dp"
+                                    android:textColor="#0250EC"
+
+                                    android:fontFamily="@font/noto_sans_kr_bold"
+                                    android:includeFontPadding="false"/>
+
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
+                        <!-- LAYOUT END 상단 텍스트 레이아웃 -->
+
+
+                        <!-- LAYOUT 착용 시간, 퍼센트 레이아웃 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="12 H 30 m"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="14dp"
+
+                                android:fontFamily="@font/poppins_regular"
+                                android:includeFontPadding="false"
+                                />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="80%"
+                                android:textSize="14dp"
+                                android:textColor="@color/colorAccent"
+
+                                android:fontFamily="@font/poppins_regular"
+                                android:includeFontPadding="false"
+                                />
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/userWearMaxProgressBar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="2.5dp"
+
+                            android:layout_marginBottom="20dp"
+
+                            android:progress="80"
+                            android:progressDrawable="@drawable/wearing_progress_bar" />
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="1.5dp"
+                            android:background="@color/light_gray"
+                            android:layout_gravity="center"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            >
+
+                            <View
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:background="@drawable/ic_calendar"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="Sunday, 12 June"
+                                android:textSize="12dp"
+                                android:textColor="@color/black"
+
+                                android:fontFamily="@font/poppins_regular"
+                                android:includeFontPadding="false"
+                                />
+
+                            <View
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_marginLeft="50dp"
+                                android:background="@drawable/ic_clock"
+                                android:layout_gravity="right"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_gravity="right"
+
+                                android:text="04 시간 30 분 남음"
+                                android:textSize="12dp"
+                                android:textColor="@color/black"
+
+                                android:fontFamily="@font/poppins_regular"
+                                android:includeFontPadding="false"
+                                />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- LAYOUT END 교정기 착용 레이아웃 -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            >
+
+                            <View
+                                android:layout_width="70dp"
+                                android:layout_height="5dp"
+                                android:layout_marginBottom="1dp"
+
+                                android:background="#BC92C0FF"
+                                android:layout_gravity="center_horizontal | bottom"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="체크리스트"
+                                android:textSize="16dp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/noto_sans_kr_bold"
+                                android:includeFontPadding="false"
+                                />
+                        </FrameLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:orientation="vertical">
+
+                            <include layout="@layout/checklist_layout" />
+
+                            <include layout="@layout/checklist_layout" />
+
+                            <include layout="@layout/checklist_layout" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
 
                     <!-- LAYOUT 유튜브 레이아웃 -->
                     <androidx.cardview.widget.CardView
@@ -272,8 +429,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
                         android:layout_marginBottom="15dp"
 
                         app:cardBackgroundColor="#111f42"
@@ -365,8 +520,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
+
                         android:layout_marginBottom="15dp"
 
                         app:cardCornerRadius="15dp"
@@ -388,8 +542,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
 
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
                         android:layout_marginBottom="15dp"
 
                         app:cardCornerRadius="15dp"
@@ -758,8 +910,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
+
                         android:layout_marginBottom="20dp"
 
                         app:cardCornerRadius="15dp"

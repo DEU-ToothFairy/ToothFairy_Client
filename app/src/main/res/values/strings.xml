@@ -4,4 +4,20 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="channel_name">ToothFairy</string>
     <string name="channel_description">ToothFairy Description</string>
+
+    <!--
+        Font family: Montserrat
+        Line height: 25sp
+    -->
+    <!-- styles.xml -->
+    <style name="toothfairy">
+        <item name="android:textSize">
+            24sp
+        </item>
+        <item name="android:textColor">
+            #4894FE
+        </item>
+    </style>
+    <!-- strings.xml -->
+    <string name="toothfairy">ToothFairy</string>
 </resources>

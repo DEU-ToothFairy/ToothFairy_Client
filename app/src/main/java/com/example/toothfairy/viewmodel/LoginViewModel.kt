@@ -1,4 +1,4 @@
-package com.example.toothfairy.viewModel
+package com.example.toothfairy.viewmodel
 
 import android.content.SharedPreferences
 import android.util.Log

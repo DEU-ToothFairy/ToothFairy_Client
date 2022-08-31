@@ -5,24 +5,27 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation.*
 import com.example.toothfairy.databinding.ActivityMainBinding
 import com.example.toothfairy.entity.Patient
 import com.example.toothfairy.fragment.HomeFragment
 import com.example.toothfairy.fragment.ProfileFragment
 import com.example.toothfairy.fragment.StatsFragment
-import com.example.toothfairy.viewModel.BluetoothViewModel
-import com.example.toothfairy.viewModel.BluetoothViewModel.Companion.instance
-import com.example.toothfairy.viewModel.MainViewModel
+import com.example.toothfairy.viewmodel.BluetoothViewModel
+import com.example.toothfairy.viewmodel.BluetoothViewModel.Companion.instance
+import com.example.toothfairy.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -55,6 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         createNotificationChannel() // 알림 채널 생성
         initBottomNavibar() // 네비바 세팅
+        textSetting()
 
         dateChangedReceiver = DateChangedReceiver()
 
@@ -73,6 +77,14 @@ class MainActivity : AppCompatActivity() {
             mainViewModel!!.loadWearingStats()
         })
 
+
+        bluetoothViewModel!!.bluetoothData.observe(this) { value: String ->
+            Log.i("Main Activity", value)
+
+            if (value == "ON") bluetoothViewModel!!.wearStatus.setValue(true)
+            else bluetoothViewModel!!.wearStatus.setValue(false)
+        }
+
 //        Timer timer = new Timer();
 //        TimerTask task = new TimerTask() {
 //            @Override
@@ -85,12 +97,6 @@ class MainActivity : AppCompatActivity() {
 //        timer.schedule(task, 0, 1000); //Timer 실행
 
         // timer.cancel();//타이머 종료
-        bluetoothViewModel!!.bluetoothData.observe(this) { value: String ->
-            Log.i("Main Activity", value)
-
-            if (value == "ON") bluetoothViewModel!!.wearStatus.setValue(true)
-            else bluetoothViewModel!!.wearStatus.setValue(false)
-        }
     } // onCreate
 
     override fun onResume() {
@@ -101,6 +107,23 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(dateChangedReceiver, filter)
     }
 
+    private fun textSetting(){
+
+        // 1. TextView 참조
+
+        // 2. String 문자열 데이터 취득
+        val textData = binding.appTitle.text
+
+        // 3. SpannableStringBuilder 타입으로 변환
+        val builder = SpannableStringBuilder(textData)
+
+        // 4-3 index=4에 해당하는 문자열(4)에 빨간색 적용
+        val colorBlueSpan = ForegroundColorSpan(Color.BLACK)
+        builder.setSpan(colorBlueSpan, 5, 10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        // 5. TextView에 적용
+        binding.appTitle.text = builder
+    }
     private fun createNotification(title: String, content: String) {
         // Notivication에 대한 ID 생성
         val notifyBuilder = NotificationCompat.Builder(this, "ToothFairy")

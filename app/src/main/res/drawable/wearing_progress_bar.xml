@@ -3,7 +3,7 @@
     <item android:id="@android:id/background">
         <shape android:shape="rectangle">
             <corners android:radius="6dp"/>
-            <solid android:color="#D2EDFC"/>
+            <solid android:color="@color/light_gray"/>
         </shape>
     </item>
 
@@ -14,13 +14,17 @@
                 <gradient
                     android:angle="45"
                     android:type="linear"
-                    android:startColor="@color/blue"
-                    android:centerColor="#9CBBFF"
-                    android:endColor="#83E2FF"
+                    android:startColor="@color/colorAccent"
+                    android:centerColor="@color/colorAccent"
+                    android:endColor="@color/colorAccent"
                     />
 <!--                <solid android:color="#287CF6"/>-->
             </shape>
         </scale>
     </item>
 
+<!--    그라데이션 색상 코드 -->
+<!--    android:startColor="@color/colorAccent"-->
+<!--    android:centerColor="#9CBBFF"-->
+<!--    android:endColor="#83E2FF"-->
 </layer-list>

@@ -1,4 +1,4 @@
-package com.example.toothfairy.viewModel
+package com.example.toothfairy.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +13,7 @@ import com.example.toothfairy.util.DateManager
 import retrofit2.Response
 import java.util.concurrent.Executors
 
-class MainViewModel : ViewModel() {
+open class MainViewModel : ViewModel() {
     // VARIABLE
     var patient = MutableLiveData<Patient?>()               // 환자 정보
     var curedInfo = MutableLiveData<CuredInfo?>()           // 완치자 정보

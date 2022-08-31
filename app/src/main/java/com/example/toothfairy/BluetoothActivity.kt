@@ -15,8 +15,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.toothfairy.databinding.ActivityBluetoothBinding
-import com.example.toothfairy.viewModel.BluetoothViewModel
-import com.example.toothfairy.viewModel.BluetoothViewModel.Companion.instance
+import com.example.toothfairy.viewmodel.BluetoothViewModel
+import com.example.toothfairy.viewmodel.BluetoothViewModel.Companion.instance
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*

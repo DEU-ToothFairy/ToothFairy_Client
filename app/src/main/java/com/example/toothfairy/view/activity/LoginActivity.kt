@@ -1,4 +1,4 @@
-package com.example.toothfairy
+package com.example.toothfairy.view.activity
 
 import android.Manifest
 import android.content.Intent
@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.example.toothfairy.R
 import com.example.toothfairy.databinding.ActivityLoginBinding
 import com.example.toothfairy.util.Event
 import com.example.toothfairy.viewModel.LoginViewModel.Companion.instance

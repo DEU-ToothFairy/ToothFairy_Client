@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.example.toothfairy.util.MyApplication
 
-// Context를 전역적으로 받기 위한 클래스
+/** Context를 전역적으로 받기 위한 클래스 */
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()

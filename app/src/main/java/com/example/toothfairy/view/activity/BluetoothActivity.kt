@@ -1,4 +1,4 @@
-package com.example.toothfairy
+package com.example.toothfairy.view.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.toothfairy.R
 import com.example.toothfairy.databinding.ActivityBluetoothBinding
 import com.example.toothfairy.viewModel.BluetoothViewModel
 import com.example.toothfairy.viewModel.BluetoothViewModel.Companion.instance

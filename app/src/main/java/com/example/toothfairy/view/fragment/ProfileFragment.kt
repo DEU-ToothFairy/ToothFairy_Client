@@ -1,18 +1,16 @@
-package com.example.toothfairy.fragment
+package com.example.toothfairy.view.fragment
 
 import android.content.Context
 import android.os.Bundle
-import com.example.toothfairy.fragment.ProfileFragment
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.toothfairy.R
-import android.content.SharedPreferences
 import androidx.core.app.ActivityCompat
 import android.content.Intent
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.toothfairy.LoginActivity
+import com.example.toothfairy.view.activity.LoginActivity
 import com.example.toothfairy.databinding.FragmentProfileBinding
 
 /**

@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".fragment.StatsFragment">
+        tools:context=".view.fragment.StatsFragment">
 
         <!-- LAYOUT 선택 날짜 레이아웃 -->
         <LinearLayout
@@ -62,6 +62,7 @@
         </FrameLayout>
         <!-- LAYOUT END 리사이클러뷰 캘린더 레이아웃 -->
 
+        <!-- LAYOUT 점수 텍스트뷰 레이아웃 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,7 +92,18 @@
                 android:fontFamily="@font/poppins_semi_bold"
                 android:bufferType="spannable"
                 />
+
+            <LinearLayout
+                android:id="@+id/scoreboardLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
         </LinearLayout>
+        <!-- LAYOUT END 점수 텍스트뷰 레이아웃 -->
+
+
     </LinearLayout>
     <!-- LAYOUT END 전체 레이아웃 -->
 </layout>

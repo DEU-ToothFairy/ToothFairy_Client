@@ -23,4 +23,10 @@
     <color name="semi_gray">#CCCCCC</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background_gray">#f4f4f4</color>
+
+    <color name="excellent">#E9F2FF</color>
+    <color name="good">#E7F4E8</color>
+    <color name="normal">#FFF4E4</color>
+    <color name="bad">#FFE2E5</color>
+
 </resources>

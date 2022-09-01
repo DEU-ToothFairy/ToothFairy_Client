@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".BluetoothActivity">
+        tools:context=".view.activity.BluetoothActivity">
 
         <!-- 당일 착용 시간 그래프 레이아웃 -->
         <LinearLayout

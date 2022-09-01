@@ -45,7 +45,7 @@
         </receiver>
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".view.activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,15 +56,15 @@
 
 
         <activity
-            android:name=".BluetoothActivity"
+            android:name=".view.activity.BluetoothActivity"
             android:exported="false" /> <!-- 로그인 액티비티 -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.activity.LoginActivity"
             android:exported="true">
         </activity>
         <!-- 착용 통계 액티비티 -->
         <activity
-            android:name=".MainActivity"
+            android:name=".view.activity.MainActivity"
             android:exported="true" />
     </application>
 

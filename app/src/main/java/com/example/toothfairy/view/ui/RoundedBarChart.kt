@@ -1,4 +1,4 @@
-package com.example.toothfairy.util.ui
+package com.example.toothfairy.view.ui
 
 
 import android.content.Context
@@ -24,11 +24,7 @@ class RoundedBarChart : BarChart {
         readRadiusAttr(context, attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
-        context,
-        attrs,
-        defStyle
-    ) {
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle ) {
         readRadiusAttr(context, attrs)
     }
 

@@ -1,4 +1,4 @@
-package com.example.toothfairy
+package com.example.toothfairy.view.activity
 
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
@@ -17,11 +17,13 @@ import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.toothfairy.DateChangedReceiver
+import com.example.toothfairy.R
 import com.example.toothfairy.databinding.ActivityMainBinding
 import com.example.toothfairy.entity.Patient
-import com.example.toothfairy.fragment.HomeFragment
-import com.example.toothfairy.fragment.ProfileFragment
-import com.example.toothfairy.fragment.StatsFragment
+import com.example.toothfairy.view.fragment.HomeFragment
+import com.example.toothfairy.view.fragment.ProfileFragment
+import com.example.toothfairy.view.fragment.StatsFragment
 import com.example.toothfairy.viewModel.BluetoothViewModel
 import com.example.toothfairy.viewModel.BluetoothViewModel.Companion.instance
 import com.example.toothfairy.viewModel.MainViewModel

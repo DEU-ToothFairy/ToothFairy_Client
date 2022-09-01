@@ -1,4 +1,4 @@
-package com.example.toothfairy.fragment
+package com.example.toothfairy.view.fragment
 
 import android.graphics.Color
 import android.os.Bundle

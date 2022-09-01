@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".fragment.HomeFragment">
+        tools:context=".view.fragment.HomeFragment">
 
         <!-- TODO: Update blank fragment layout -->
         <ScrollView
@@ -932,7 +932,7 @@
                                 android:fontFamily="@font/nanumsquare_extra_bold"
                                 />
 
-                            <com.example.toothfairy.util.ui.RoundedBarChart
+                            <com.example.toothfairy.view.ui.RoundedBarChart
                                 android:id="@+id/chart"
                                 app:radius="4dp"
                                 android:layout_width="match_parent"

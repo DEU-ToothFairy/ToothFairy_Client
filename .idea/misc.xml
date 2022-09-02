@@ -3,55 +3,48 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.238" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/bg_blue_line.xml" value="0.2235" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/bg_layout_border.xml" value="0.2235" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/bg_select_graphline.xml" value="0.2235" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/circle.xml" value="0.2235" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/cured_progress_bar.xml" value="0.2235" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/gradient_blue.xml" value="0.2235" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/ic_baseline_notifications_none_24.xml" value="0.27" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/ic_bell.xml" value="0.27" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/ic_excellent.xml" value="0.27" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/ic_good.xml" value="0.27" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/ic_menu.xml" value="0.27" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/ic_normal.xml" value="0.27" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/profile_circle.xml" value="0.2235" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/rectangle_blue.xml" value="0.2235" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/rectangle_cyan.xml" value="0.2235" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/stastics_circle.xml" value="0.2235" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/drawable/wearing_progress_bar.xml" value="0.2235" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/activity_splash.xml" value="0.2442982456140351" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/checklist_layout.xml" value="0.5" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_home.xml" value="0.5" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_stats.xml" value="0.33" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/item_graph_line.xml" value="0.30432900432900434" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/score_board_layout.xml" value="0.25" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/bg_blue_line.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/bg_layout_border.xml" value="0.238" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/bg_select_graphline.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/calendar_select.xml" value="0.3205" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/checklist_circle.xml" value="0.3205" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/circle.xml" value="0.262" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/cured_progress_bar.xml" value="0.181" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/gradient_blue.xml" value="0.245" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_baseline_chart_24.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_baseline_notifications_none_24.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_bell.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_calendar.xml" value="0.245" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_clock.xml" value="0.245" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_free_icon_font_youtube_6422215.xml" value="0.285" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_gear.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_graph_bar.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_graph_pie.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_home.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_info_line.xml" value="0.245" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_launcher_background.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_menu.xml" value="0.245" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_search.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_user.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/ic_youtube.xml" value="0.238" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/profile_circle.xml" value="0.265" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/rectangle_blue.xml" value="0.181" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/rectangle_cyan.xml" value="0.2405" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/stastics_circle.xml" value="0.181" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/vector_menu.xml" value="0.238" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/wearing_progress_bar.xml" value="0.3205" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/font/fonts.xml" value="0.3921875" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_bluetooth.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_login.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_main.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_splash.xml" value="0.3609375" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/calendar_cell.xml" value="0.33" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/checklist_layout.xml" value="0.5" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_home.xml" value="0.3924336533032185" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_profile.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_stats.xml" value="0.33" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_stats.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/item_graph_line.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/progress_ui.xml" value="0.270703125" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/score_board_layout.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/wearing_progress_layout.xml" value="0.33" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layouts/fragment/layout/fragment_home.xml" value="0.2390625" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layouts/fragment/layout/fragment_profile.xml" value="0.2390625" />

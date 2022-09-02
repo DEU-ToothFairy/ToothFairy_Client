@@ -368,7 +368,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_gravity="right"
 
-                                android:text="04 시간 30 분 남음"
+                                android:text="00 시간 00 분 남음"
                                 android:textSize="12dp"
                                 android:textColor="@color/black"
 

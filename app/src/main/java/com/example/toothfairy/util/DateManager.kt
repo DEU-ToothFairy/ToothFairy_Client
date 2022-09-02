@@ -4,6 +4,7 @@ import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.util.Log
 import java.sql.Date
+import java.util.concurrent.TimeUnit
 
 class DateManager {
     companion object {
@@ -45,6 +46,16 @@ class DateManager {
             var minute = (time - time.toInt()) * 60 // 0.5면 * 60해서 30분
 
             return ((hour * 60 * 60 * 1000) + (minute * 60 * 1000)).toLong()
+        }
+
+        /** 밀리세컨드를 받아 시간을 반환하는 메소드 */
+        fun getHour(time:Long): Long{
+            return TimeUnit.MICROSECONDS.toHours(time)
+        }
+
+        /** */
+        fun getMinutes(time:Long): Long{
+            return TimeUnit.MICROSECONDS.toMinutes(time) % 60
         }
     }
 }

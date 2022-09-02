@@ -186,6 +186,14 @@ class HomeFragment : Fragment() {
             setCalibrationProgress(mainViewModel.treatmentDays.value, mainViewModel.curedInfo.value)
         }
 
+        // 남은 착용 시간 갱신
+        mainViewModel.dailyWearingTime.observe(requireActivity()){daily ->
+            homeViewModel.remainWearingTime.value?.let {
+                mainViewModel.targetWearingTime.value?.minus(daily) // 목표 착용 시간 - 일일 착용 시간 = 남은 착용 시간
+            }
+
+            binding.remainWearingTimeTv.text = homeViewModel.remainWearingTimeToString()
+        }
     }
 
     /** 완치 환자 관련 이벤트 등록 메소드 */

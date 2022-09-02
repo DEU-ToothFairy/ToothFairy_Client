@@ -27,11 +27,9 @@ open class MainViewModel : ViewModel() {
 
     var dailyWearingTime = MutableLiveData<Long>()          // 당일 착용 시간
     var targetWearingTime = MutableLiveData<Long>(DateManager.parseTime(16.5f)) // 목표 착용 시간(사용자가 설정에서 변경할 수 있도록 함) -> 목표 시간을 잘 지킬 경우 목표 시간을 늘리라는 알림도 주면 좋을 듯
-    var remainWearingTime = MutableLiveData<Long>(
-        dailyWearingTime.value?.let {
-                targetWearingTime.value?.minus(it.toLong())
-            }
-        ) // 남은 착용 시간 (목표 착용 시간 - 일일 착용 시간으로 계산)
+
+
+
 
     /** 환자의 ID로 환자의 정보를 가져오는 메소드 */
     fun loadPatient(id: String?) {

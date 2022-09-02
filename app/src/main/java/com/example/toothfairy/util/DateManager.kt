@@ -17,7 +17,7 @@ class DateManager {
                 return date.toString() + " " + monthNames[month - 1]
             }
 
-        // 특정 날짜로부터 지난 날짜 계산
+        /** 전달 받은 날짜로부터 지난 날짜를 계산(교정 일 수를 계산)하는 메소드 */
         fun getElapsedDate(startDate: Date): Long {
             val cal = Calendar.getInstance()
             val elapsed = cal.timeInMillis - startDate.time
@@ -26,14 +26,25 @@ class DateManager {
             return elapsed / (24 * 60 * 60 * 1000)
         }
 
+        /** Long 타입의 시간을 "시간 H 분 m" 형태로 반환하는 메소드 */
         fun getTimeToString(time: Long?): String {
-            if (time == null) return "%00 : %00"
+            var time = time
+            if (time == null) time = 0
+
             val hour = (time / (60 * 1000)).toInt() / 60
             val minute = (time / (60 * 1000)).toInt() % 60
 
             Log.i("Time To String", "${hour}시간 ${minute}분") // hour.toString() + "시간" + minute + "분"
             
-            return "%02d : %02d".format(hour, minute) //" " + hour + "시간 " + minute + "분 "
+            return "%02d H %02d m".format(hour, minute) //" " + hour + "시간 " + minute + "분 "
+        }
+
+        /** Float로 시간을 받아 Long(밀리세컨드)로 변경해주는 메소드 */
+        fun parseTime(time:Float): Long{
+            var hour = time.toInt()
+            var minute = (time - time.toInt()) * 60 // 0.5면 * 60해서 30분
+
+            return ((hour * 60 * 60 * 1000) + (minute * 60 * 1000)).toLong()
         }
     }
 }

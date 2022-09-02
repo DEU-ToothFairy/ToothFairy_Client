@@ -15,6 +15,7 @@ import com.example.toothfairy.databinding.WearingProgressLayoutBinding
 import com.example.toothfairy.entity.CuredInfo
 import com.example.toothfairy.util.DateManager
 import com.example.toothfairy.viewModel.BluetoothViewModel
+import com.example.toothfairy.viewModel.HomeViewModel
 import com.example.toothfairy.viewModel.MainViewModel
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
@@ -53,9 +54,9 @@ class HomeFragment : Fragment() {
 
     // VARIABLE
     lateinit var binding: FragmentHomeBinding // DataBinding
-    lateinit var wearingBinding: WearingProgressLayoutBinding
 
     lateinit var mainViewModel: MainViewModel
+    lateinit var homeViewModel: HomeViewModel
     lateinit var bluetoothViewModel: BluetoothViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,26 +73,26 @@ class HomeFragment : Fragment() {
 
         // 데이터 바인딩
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        wearingBinding = binding.wearingProgressLayout
-        
+
         val view = binding.root
 
         // ViewModel 객체 연결
         bluetoothViewModel = BluetoothViewModel.instance
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
 
         // 데이터를 관리하는 뷰 모델을 binding에 연결해줘야 적용 됨
         binding.lifecycleOwner = requireActivity()
-        binding.homeViewModel = mainViewModel
+        binding.mainViewModel = mainViewModel
+        binding.homeViewModel = homeViewModel
 
         // 오늘 날짜 설정
-        mainViewModel.today.value = DateManager.today
+        //mainViewModel.today.value = DateManager.today
 
         // 이벤트 등록 메소드
         patientEventAdder()
         curedEventAdder()
         bluetoothEventAdder()
-        wearingTimeEventAdder()
 
         chart()
 
@@ -175,7 +176,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    // 사용자 관련 이벤트 등록 메소드
+    /** 사용자 관련 이벤트 등록 메소드 */
     private fun patientEventAdder(){
         // 환자 정보가 갱신 된 경우
         // 치료 기간 설정 (현재 날짜 - 치료 시작 날짜)
@@ -187,7 +188,7 @@ class HomeFragment : Fragment() {
 
     }
 
-    // 완치 환자 관련 이벤트 등록 메소드
+    /** 완치 환자 관련 이벤트 등록 메소드 */
     private fun curedEventAdder(){
         // 완치자 정보가 갱신 된 경우
         mainViewModel.curedInfo.observe(requireActivity()) { curedInfo ->
@@ -195,16 +196,18 @@ class HomeFragment : Fragment() {
         }
     }
 
-    // 블루투스 관련 이벤트 등록 메소드
+    /** 블루투스 관련 이벤트 등록 메소드 */
     private fun bluetoothEventAdder(){
         // 착용 상태 감지
         bluetoothViewModel.wearStatus.observe(requireActivity()) { status: Boolean ->
             if (status) {
-                wearingBinding.wearStatus.text = "현재 착용 중"
-                wearingBinding.wearStatus.setTextColor(Color.parseColor("#6194f8"))
+                binding.wearingStatTv.text = "착용 중"
+                binding.wearingStatTv.setTextColor(Color.parseColor("#6194f8"))
+                binding.wearingStatusView.setCardBackgroundColor(Color.parseColor("#E9F2FF"))
             } else {
-                wearingBinding.wearStatus.text = "착용 대기 중"
-                wearingBinding.wearStatus.setTextColor(Color.parseColor("#919191"))
+                binding.wearingStatTv.text = "착용 대기 중"
+                binding.wearingStatTv.setTextColor(Color.parseColor("#919191"))
+                binding.wearingStatusView.setCardBackgroundColor(Color.parseColor("#ECECEC"))
             }
         }
 
@@ -213,18 +216,18 @@ class HomeFragment : Fragment() {
             mainViewModel.setDailyWearingTime(1000 * 60L)
             // 일일 착용 시간은 DailyWearingTime 변수와 바인딩 된게 아니라 getDailyWearingTimeToString()과 매핑 되어 있으므로
             // 옵저버로 감지 불가
-            wearingBinding.wearTime.text = mainViewModel.dailyWearingTimeToString
+            binding.wearingTimeTv.text = mainViewModel.dailyWearingTimeToString
         }
     }
 
     // 착용 시간 관련 이벤트 등록 메소드
-    private fun wearingTimeEventAdder(){
-        mainViewModel.dailyWearingTime.observe(requireActivity()){
-            wearingBinding.wearingProgressBar.progress = (it.toDouble() / 86400000.0 * 100).toInt()
-        }
-    }
+//    private fun wearingTimeEventAdder(){
+//        mainViewModel.dailyWearingTime.observe(requireActivity()){
+//            wearingBinding.wearingProgressBar.progress = (it.toDouble() / 86400000.0 * 100).toInt()
+//        }
+//    }
 
-    // METHOD : 교정 진행률 프로그래스바 초기화 메소드
+    /** 교정 진행률(치료일 수 / 완치 환자의 평균 치료일 수) 프로그래스바 초기화 메소드 */
     private fun setCalibrationProgress(treatmentDays: Long?, curedInfo: CuredInfo?) {
         if (Objects.isNull(treatmentDays) || Objects.isNull(curedInfo)) return
 

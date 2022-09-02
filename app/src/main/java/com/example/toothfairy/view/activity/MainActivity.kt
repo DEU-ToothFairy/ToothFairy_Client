@@ -125,6 +125,7 @@ class MainActivity : AppCompatActivity() {
         // 5. TextView에 적용
         binding.appTitle.text = builder
     }
+
     private fun createNotification(title: String, content: String) {
         // Notivication에 대한 ID 생성
         val notifyBuilder = NotificationCompat.Builder(this, "ToothFairy")

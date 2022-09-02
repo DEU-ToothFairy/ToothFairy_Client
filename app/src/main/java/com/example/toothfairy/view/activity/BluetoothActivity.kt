@@ -113,6 +113,7 @@ class BluetoothActivity : AppCompatActivity() {
     }
 
     // Device scan callback.
+    /** 블루투스 장치를 스캔하는 콜백 메소드 */
     private val leScanCallback: ScanCallback = object : ScanCallback() {
         @SuppressLint("MissingPermission")
         override fun onScanResult(callbackType: Int, result: ScanResult) {
@@ -126,7 +127,7 @@ class BluetoothActivity : AppCompatActivity() {
                     strAddress = result.device.address
                     stopScanning()
                     if (btAdapter!!.isEnabled) {
-                        Toast.makeText(applicationContext, "Stop Scan", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "장치가 연결 되었습니다.", Toast.LENGTH_SHORT).show()
                     } else {
                         val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                         startActivityForResult(enableIntent, REQUEST_ENABLE_BT)
@@ -139,6 +140,7 @@ class BluetoothActivity : AppCompatActivity() {
             Log.d("LOG ", "$strAddress  : $strDevicename")
         }
     }
+
     private val connectecallabck: BluetoothGattCallback = object : BluetoothGattCallback() {
         @SuppressLint("MissingPermission")
         override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
@@ -169,8 +171,6 @@ class BluetoothActivity : AppCompatActivity() {
             // 액티비티 전환
             changeActivity()
         }
-
-
 
         var tmp = ""
         var strTime = ""

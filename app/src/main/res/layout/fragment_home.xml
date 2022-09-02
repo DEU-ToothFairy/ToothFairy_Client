@@ -9,8 +9,12 @@
     <data>
 
         <variable
-            name="homeViewModel"
+            name="mainViewModel"
             type="com.example.toothfairy.viewModel.MainViewModel" />
+
+        <variable
+            name="homeViewModel"
+            type="com.example.toothfairy.viewModel.HomeViewModel" />
     </data>
 
 
@@ -75,7 +79,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
 
-                                android:text="김잼민 님 반갑습니다."
+                                android:text="@{mainViewModel.patient.name + ` 님 반갑습니다.`, default=`박잼민 님 반갑습니다.`}"
                                 android:textColor="@color/black"
                                 android:textSize="20dp"
                                 android:fontFamily="@font/noto_sans_kr_bold"
@@ -106,7 +110,7 @@
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
 
-                                tools:progress="@{(int)homeViewModel.calibrationProgress}" />
+                                tools:progress="@{(int)mainViewModel.calibrationProgress}" />
 
                             <!-- 프로필 사진 -->
                             <!--
@@ -239,16 +243,18 @@
 
 
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/wearingStatusView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
 
-                                app:cardBackgroundColor="#F0F5FF"
+                                app:cardBackgroundColor="@color/light_blue"
                                 app:cardCornerRadius="20dp"
                                 app:cardElevation="0dp"
                                 android:layout_gravity="right"
                                 >
 
                                 <TextView
+                                    android:id="@+id/wearingStatTv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="10dp"
@@ -274,10 +280,11 @@
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/wearingTimeTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
 
-                                android:text="12 H 30 m"
+                                android:text="@{mainViewModel.dailyWearingTimeToString, default=`12 H 30 m`}"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="14dp"
 
@@ -294,7 +301,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
 
-                                android:text="80%"
+                                android:text="@{(int)((double)mainViewModel.dailyWearingTime / (double)86400000.0 * 100) + `%`, default=`80%`}"
                                 android:textSize="14dp"
                                 android:textColor="@color/colorAccent"
 
@@ -311,7 +318,7 @@
 
                             android:layout_marginBottom="20dp"
 
-                            android:progress="80"
+                            android:progress="@{(int)((double)mainViewModel.dailyWearingTime / (double)86400000.0 * 100)}"
                             android:progressDrawable="@drawable/wearing_progress_bar" />
 
                         <View
@@ -339,7 +346,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:text="Sunday, 12 June"
+                                android:text="@{homeViewModel.today, default=`Sunday, 12 June`}"
                                 android:textSize="12dp"
                                 android:textColor="@color/black"
 
@@ -355,6 +362,7 @@
                                 android:layout_gravity="right"
                                 />
                             <TextView
+                                android:id="@+id/remainWearingTimeTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
@@ -528,11 +536,11 @@
                         app:cardUseCompatPadding="false">
 
                         <!-- Arc Progress Include -->
-                        <include
-                            android:id="@+id/wearingProgressLayout"
-                            layout="@layout/wearing_progress_layout"
-                            bind:homeViewModel="@{homeViewModel}"
-                            />
+<!--                        <include-->
+<!--                            android:id="@+id/wearingProgressLayout"-->
+<!--                            layout="@layout/wearing_progress_layout"-->
+<!--                            bind:homeViewModel="@{homeViewModel}"-->
+<!--                            />-->
 
                         <!-- LAYOUT END 당일 착용 시간 그래프 레이아웃 끝 -->
                     </androidx.cardview.widget.CardView>

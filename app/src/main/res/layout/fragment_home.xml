@@ -342,17 +342,17 @@
                                 android:layout_height="18dp"
                                 android:background="@drawable/ic_calendar"
                                 />
+
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_marginLeft="10dp"
-                                android:text="@{homeViewModel.today, default=`Sunday, 12 June`}"
-                                android:textSize="12dp"
-                                android:textColor="@color/black"
-
                                 android:fontFamily="@font/poppins_regular"
                                 android:includeFontPadding="false"
-                                />
+                                android:text="@{homeViewModel.today, default=`Sunday, 12 June`}"
+
+                                android:textColor="@color/black"
+                                android:textSize="12dp" />
 
                             <View
                                 android:layout_width="18dp"

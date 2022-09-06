@@ -19,7 +19,6 @@ open class MainViewModel : ViewModel() {
     var patient = MutableLiveData<Patient?>()               // 환자 정보
     var curedInfo = MutableLiveData<CuredInfo?>()           // 완치자 정보
 
-    var today = MutableLiveData<String>()                   // 오늘 날짜
     var treatmentDays = MutableLiveData<Long>()             // 교정 일 수
     var calibrationProgress = MutableLiveData<Double>()     // 교정 진행률
 

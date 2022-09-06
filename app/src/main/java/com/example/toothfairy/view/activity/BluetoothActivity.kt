@@ -14,10 +14,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
 import com.example.toothfairy.databinding.ActivityBluetoothBinding
 import com.example.toothfairy.viewModel.BluetoothViewModel
-import com.example.toothfairy.viewModel.BluetoothViewModel.Companion.instance
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
@@ -50,7 +50,7 @@ class BluetoothActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_bluetooth)
         binding?.bluetoothPulse?.startRippleAnimation()
 
-        viewModel = instance
+        viewModel = ViewModelProvider(this)[BluetoothViewModel::class.java]
         viewModel!!.init(intent.getStringExtra("loginUser"))
 
         Log.i("BluetoothInstance", viewModel.toString())
@@ -99,6 +99,7 @@ class BluetoothActivity : AppCompatActivity() {
             if(connected) binding?.initText?.visibility = View.VISIBLE
         }
 
+        changeActivity()
         // 펄스 애니메이션 멈추기
         // binding.bluetoothPulse.stopRippleAnimation();
     } // onCreate

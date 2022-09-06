@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
 import com.example.toothfairy.databinding.FragmentHomeBinding
@@ -77,9 +78,9 @@ class HomeFragment : Fragment() {
         val view = binding.root
 
         // ViewModel 객체 연결
-        bluetoothViewModel = BluetoothViewModel.instance
-        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
+        bluetoothViewModel = ViewModelProvider(requireActivity())[BluetoothViewModel::class.java]
 
         // 데이터를 관리하는 뷰 모델을 binding에 연결해줘야 적용 됨
         binding.lifecycleOwner = requireActivity()

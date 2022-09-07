@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.example.toothfairy.R
 import com.example.toothfairy.data.ScoreBoard
@@ -23,7 +22,7 @@ class ScoreBoardLayout(context: Context) : LinearLayout(context) {
         val inflater:LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         // score_board_layout을 인플레이션(메모리에 등록)
-        inflater.inflate(R.layout.score_board_layout, this, true)
+        inflater.inflate(R.layout.sub_score_board_layout, this, true)
 
         var scoreBoard:CardView = findViewById(R.id.scoreboard)
 

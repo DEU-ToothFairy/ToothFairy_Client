@@ -8,7 +8,7 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
 
-object BluetoothViewModel : ViewModel() {
+class BluetoothViewModel : ViewModel() {
     var bluetoothData = MutableLiveData<String>()
     var wearStatus = MutableLiveData<Boolean>()
     var connected = MutableLiveData<Boolean>()

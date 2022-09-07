@@ -25,7 +25,6 @@ import com.example.toothfairy.view.fragment.HomeFragment
 import com.example.toothfairy.view.fragment.ProfileFragment
 import com.example.toothfairy.view.fragment.StatsFragment
 import com.example.toothfairy.viewModel.BluetoothViewModel
-import com.example.toothfairy.viewModel.BluetoothViewModel.Companion.instance
 import com.example.toothfairy.viewModel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -54,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        bluetoothViewModel = instance
+        bluetoothViewModel = ViewModelProvider(this)[BluetoothViewModel::class.java]
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         createNotificationChannel() // 알림 채널 생성
@@ -109,10 +108,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun textSetting(){
-
-        // 1. TextView 참조
-
-        // 2. String 문자열 데이터 취득
         val textData = binding.appTitle.text
 
         // 3. SpannableStringBuilder 타입으로 변환
@@ -126,6 +121,7 @@ class MainActivity : AppCompatActivity() {
         binding.appTitle.text = builder
     }
 
+    /** 알림 생성 */
     private fun createNotification(title: String, content: String) {
         // Notivication에 대한 ID 생성
         val notifyBuilder = NotificationCompat.Builder(this, "ToothFairy")
@@ -137,7 +133,7 @@ class MainActivity : AppCompatActivity() {
         mNotificationManager!!.notify(NOTIFICATION_ID, notifyBuilder.build())
     }
 
-    // 알림 채널 생성
+    /** 알림 채널 생성 */
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library

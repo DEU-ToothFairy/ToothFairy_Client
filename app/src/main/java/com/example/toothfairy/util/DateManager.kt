@@ -53,7 +53,7 @@ class DateManager {
             return TimeUnit.MICROSECONDS.toHours(time)
         }
 
-        /** */
+        /** 밀리세컨드를 받아 분을 반환하는 메소드 HH:mm에서 mm 부분*/
         fun getMinutes(time:Long): Long{
             return TimeUnit.MICROSECONDS.toMinutes(time) % 60
         }

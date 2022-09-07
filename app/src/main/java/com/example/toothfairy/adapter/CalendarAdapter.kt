@@ -24,7 +24,7 @@ class CalendarAdapter(private val dataSet: ArrayList<CalendarDate>): RecyclerVie
 
     // ViewHolder를 생성하는 메소드
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.calendar_cell, viewGroup, false)
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.sub_calendar_cell, viewGroup, false)
 
         drawable = ContextCompat.getDrawable(view.context, R.drawable.calendar_select)
 

@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="statsViewModel"
             type="com.example.toothfairy.viewModel.MainViewModel" />
@@ -28,16 +29,15 @@
                 android:id="@+id/selectDateTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
-
-                android:text="14 Aug 2022  sun"
-                android:textSize="20dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserrat_regular"
+                android:layout_marginTop="10dp"
 
                 android:bufferType="spannable"
-                />
+                android:fontFamily="@font/montserrat_regular"
+                android:text="14 Aug 2022  sun"
+                android:textColor="@color/black"
+
+                android:textSize="20dp" />
         </LinearLayout>
         <!-- LAYOUT END 선택 날짜 레이아웃 -->
 
@@ -52,7 +52,7 @@
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never"/>
+                android:overScrollMode="never" />
 
             <View
                 android:layout_width="40dp"
@@ -62,47 +62,177 @@
         </FrameLayout>
         <!-- LAYOUT END 리사이클러뷰 캘린더 레이아웃 -->
 
-        <!-- LAYOUT 점수 텍스트뷰 레이아웃 -->
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            >
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2022년 8월 14일"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/poppins_medium"
-                />
-
-            <TextView
-                android:id="@+id/userScoreTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:text="김잼민 님의 교정 점수는 84 점 입니다."
-                android:textSize="18dp"
-                android:textColor="@color/black"
-
-                android:fontFamily="@font/poppins_semi_bold"
-                android:bufferType="spannable"
-                />
-
+            <!-- LAYOUT 점수 텍스트뷰 레이아웃 -->
             <LinearLayout
-                android:id="@+id/scoreboardLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="2022년 8월 14일"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/userScoreTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:bufferType="spannable"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="김잼민 님의 교정 점수는 84 점 입니다."
+
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <LinearLayout
+                    android:id="@+id/scoreboardLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/sub_score_board_layout" />
+
+                    <include layout="@layout/sub_score_board_layout" />
+
+                    <include layout="@layout/sub_score_board_layout" />
+                </LinearLayout>
+
+                <!-- LAYOUT 교정기 착용 시간 레이아웃 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+
+
+                    android:orientation="vertical">
+
+                    <!-- LAYOUT 상단 텍스트 레이아웃 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/noto_sans_kr_bold"
+                            android:includeFontPadding="false"
+                            android:text="교정기 총 착용 시간"
+                            android:textColor="@color/black"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                    <!-- LAYOUT END 상단 텍스트 레이아웃 -->
+
+
+                    <!-- LAYOUT 착용 시간, 퍼센트 레이아웃 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/wearingTimeTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/poppins_regular"
+                            android:includeFontPadding="false"
+                            android:text="12 H 30 m"
+
+                            android:textColor="@color/colorAccent"
+                            android:textSize="14dp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/poppins_regular"
+                            android:includeFontPadding="false"
+                            android:text="80%"
+
+                            android:textColor="@color/colorAccent"
+                            android:textSize="14dp" />
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/userWearMaxProgressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="2.5dp"
+
+                        android:layout_marginBottom="20dp"
+
+                        android:progress="80"
+                        android:progressDrawable="@drawable/wearing_progress_bar" />
+
+                    <View
+                        android:layout_width="300dp"
+                        android:layout_height="1.5dp"
+                        android:layout_gravity="center"
+                        android:background="@color/light_gray" />
+
+                </LinearLayout>
+                <!-- LAYOUT END 교정기 착용 레이아웃 -->
+
+                <!-- LAYOUT 체크리스트 레이아웃 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+
+                        android:fontFamily="@font/noto_sans_kr_bold"
+                        android:includeFontPadding="false"
+                        android:text="체크리스트 완료 항목"
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
+
+                    <!-- LAYOUT 체크리스트 항목 레이아웃 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/sub_checklist_result"/>
+                        <include layout="@layout/sub_checklist_result"/>
+                        <include layout="@layout/sub_checklist_result"/>
+                        <include layout="@layout/sub_checklist_result"/>
+                        <include layout="@layout/sub_checklist_result"/>
+                        <include layout="@layout/sub_checklist_result"/>
+                        <include layout="@layout/sub_checklist_result"/>
+                        <include layout="@layout/sub_checklist_result"/>
+                        <include layout="@layout/sub_checklist_result"/>
+                    </LinearLayout>
+                    <!-- LAYOUT END 체크리스트 항목 레이아웃 -->
+
+                </LinearLayout>
+                <!-- LAYOUT END 체크리스트-->
 
             </LinearLayout>
-        </LinearLayout>
-        <!-- LAYOUT END 점수 텍스트뷰 레이아웃 -->
-
+            <!-- LAYOUT END 점수 텍스트뷰 레이아웃 -->
+        </ScrollView>
 
     </LinearLayout>
     <!-- LAYOUT END 전체 레이아웃 -->

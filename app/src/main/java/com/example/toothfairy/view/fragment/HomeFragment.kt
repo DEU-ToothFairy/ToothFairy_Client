@@ -8,11 +8,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
 import com.example.toothfairy.databinding.FragmentHomeBinding
-import com.example.toothfairy.databinding.WearingProgressLayoutBinding
 import com.example.toothfairy.entity.CuredInfo
 import com.example.toothfairy.util.DateManager
 import com.example.toothfairy.viewModel.BluetoothViewModel

@@ -11,7 +11,7 @@ import java.util.*
 @Getter
 object RetrofitClient {
     // 기본 URL
-    private const val BASE_URL = "http://218.147.21.24:8080" //"http://113.198.236.99:8080" //"http://220.92.179.244:8080";
+    private const val BASE_URL = "http://113.198.236.99:8080" //"http://220.92.179.244:8080";
     var retrofit: Retrofit
 
     init{

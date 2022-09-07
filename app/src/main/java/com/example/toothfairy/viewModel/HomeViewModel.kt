@@ -1,5 +1,6 @@
 package com.example.toothfairy.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.toothfairy.util.DateManager
@@ -22,12 +23,14 @@ class HomeViewModel : MainViewModel() {
         val day = localDate.dayOfMonth
         var month = localDate.month.toString()
 
-        month = month.substring(0,1) + month.substring(1).toLowerCase()
+        month = month.substring(0,1) + month.substring(1,3).toLowerCase()
 
         return "$week, $day $month"
     }
 
     fun remainWearingTimeToString():String {
+        Log.i("REMAIN", "${dailyWearingTime.value}, ${remainWearingTime.value}")
+
         val hour = remainWearingTime.value?.let { DateManager.getHour(it) }
         val minute = remainWearingTime.value?.let { DateManager.getMinutes(it) }
 

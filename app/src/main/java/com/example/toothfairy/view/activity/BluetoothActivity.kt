@@ -7,6 +7,7 @@ import android.bluetooth.le.BluetoothLeScanner
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -53,8 +54,6 @@ class BluetoothActivity : AppCompatActivity() {
         viewModel = BluetoothViewModel
         viewModel!!.init(intent.getStringExtra("loginUser"))
 
-        Log.i("BLUE Activity", "${viewModel.toString()}")
-
         // 검색 버튼 초기화 (숨기기)
         binding?.scanBtn?.visibility = View.INVISIBLE
         binding?.scanBtn?.isEnabled = false
@@ -62,25 +61,8 @@ class BluetoothActivity : AppCompatActivity() {
         binding?.initText?.visibility = View.INVISIBLE
 
         /*------------------------------------------------------------------------------------------------*/
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            requestPermissions(
-                arrayOf(
-                    Manifest.permission.BLUETOOTH,
-                    Manifest.permission.BLUETOOTH_SCAN,
-                    Manifest.permission.BLUETOOTH_ADVERTISE,
-                    Manifest.permission.BLUETOOTH_CONNECT,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ),
-                1)
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(
-                arrayOf(
-                    Manifest.permission.BLUETOOTH
-                ),
-                1
-            )
-        }
+
+        checkPermission()
 
         btManager = getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
         btAdapter = btManager!!.adapter
@@ -93,6 +75,7 @@ class BluetoothActivity : AppCompatActivity() {
         btScanner = btAdapter?.bluetoothLeScanner
 
         startScanning()
+
         /*------------------------------------------------------------------------------------------------*/
         viewModel!!.connected.observe(this ) { connected: Boolean ->
             // 연결이 되면 장치 초기화 중 텍스트 출력
@@ -104,12 +87,66 @@ class BluetoothActivity : AppCompatActivity() {
         // binding.bluetoothPulse.stopRippleAnimation();
     } // onCreate
 
+    /** 권한을 체크하는 메소드 */
+    private fun checkPermission(){
+        // 필요한 권한 목록
+        val permissionList:Array<String> = arrayOf(
+                                    Manifest.permission.BLUETOOTH,
+                                    Manifest.permission.BLUETOOTH_SCAN,
+                                    Manifest.permission.BLUETOOTH_ADVERTISE,
+                                    Manifest.permission.BLUETOOTH_CONNECT,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                                    Manifest.permission.ACCESS_FINE_LOCATION
+                                )
+
+        for (permission in permissionList){
+            if(checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED){
+                requestPermission(permissionList)
+            }
+        }
+    }
+
+    /** 퍼미션 리스트를 받아서 권한을 요청하는 메소드 */
+    private fun requestPermission(permissionList: Array<String>){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            requestPermissions(permissionList,1)
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(arrayOf( Manifest.permission.BLUETOOTH),1)
+        }
+    }
+
     @SuppressLint("MissingPermission")
     override fun onResume() {
         super.onResume()
         if (btAdapter == null || !btAdapter!!.isEnabled) {
             val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT)
+        }
+    }
+
+
+    @SuppressLint("MissingPermission")
+    fun startScanning() {
+        btScanner!!.startScan(leScanCallback)
+        bScanON = true
+    }
+
+    @SuppressLint("MissingPermission")
+    fun stopScanning() {
+        btScanner!!.stopScan(leScanCallback)
+        bScanON = false
+    }
+
+    @SuppressLint("MissingPermission")
+    fun connection() {
+        if (strDevicename != null) {
+            if (strDevicename == TEST_BLE_DEVICE_NAME) {
+                val device = btAdapter!!.getRemoteDevice(strAddress)
+                device.connectGatt(applicationContext, false, connectecallabck)
+            } else {
+                Toast.makeText(applicationContext, "device not found", Toast.LENGTH_SHORT).show()
+            }
+        } else {
         }
     }
 
@@ -123,7 +160,9 @@ class BluetoothActivity : AppCompatActivity() {
             } else {
                 result.scanRecord!!.deviceName
             }
+            // 스캔 상태일 경우
             if (bScanON) {
+                // 기기의 이름을 찾을 때까지 스캔
                 if (strDevicename == TEST_BLE_DEVICE_NAME) {
                     strAddress = result.device.address
                     stopScanning()
@@ -142,7 +181,9 @@ class BluetoothActivity : AppCompatActivity() {
         }
     }
 
-    private val connectecallabck: BluetoothGattCallback = object : BluetoothGattCallback() {
+
+    /** 장치가 연결되면 해당 콜백 메소드가 실행 됨 */
+    private val connectecallabck: BluetoothGattCallback = object : BluetoothGattCallback() { // 익명 클래스
         @SuppressLint("MissingPermission")
         override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
             super.onConnectionStateChange(gatt, status, newState)
@@ -151,6 +192,7 @@ class BluetoothActivity : AppCompatActivity() {
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 gatt.discoverServices() // onServicesDiscovered() 호출 (서비스 연결 위해 꼭 필요)
                 Log.i("Data", "PASS:1")
+
                 viewModel!!.connected.postValue(true)
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                 // Can't see.
@@ -204,30 +246,8 @@ class BluetoothActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("MissingPermission")
-    fun startScanning() {
-        btScanner!!.startScan(leScanCallback)
-        bScanON = true
-    }
 
-    @SuppressLint("MissingPermission")
-    fun stopScanning() {
-        btScanner!!.stopScan(leScanCallback)
-        bScanON = false
-    }
 
-    @SuppressLint("MissingPermission")
-    fun connection() {
-        if (strDevicename != null) {
-            if (strDevicename == TEST_BLE_DEVICE_NAME) {
-                val device = btAdapter!!.getRemoteDevice(strAddress)
-                device.connectGatt(applicationContext, false, connectecallabck)
-            } else {
-                Toast.makeText(applicationContext, "device not found", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-        }
-    }
 
     @SuppressLint("MissingPermission")
     fun deconnection() {

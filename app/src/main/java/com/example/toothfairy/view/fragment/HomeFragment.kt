@@ -2,6 +2,7 @@ package com.example.toothfairy.view.fragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,18 +34,6 @@ import kotlin.math.roundToInt
  * create an instance of this fragment.
  */
 
-class MyXAxisFormatter : ValueFormatter(){
-    private val days = arrayOf("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
-    override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-        return days.getOrNull(value.toInt()-1) ?: value.toString()
-    }
-}
-
-class TimeAxisValueFormatter : IndexAxisValueFormatter(){
-    override fun getFormattedValue(value: Float): String {
-        return "${value.toInt()} hr"
-    }
-}
 
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
@@ -78,7 +67,7 @@ class HomeFragment : Fragment() {
         // ViewModel 객체 연결
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
-        bluetoothViewModel = ViewModelProvider(requireActivity())[BluetoothViewModel::class.java]
+        bluetoothViewModel = BluetoothViewModel //ViewModelProvider(requireActivity())[BluetoothViewModel::class.java]
 
         // 데이터를 관리하는 뷰 모델을 binding에 연결해줘야 적용 됨
         binding.lifecycleOwner = requireActivity()
@@ -93,87 +82,15 @@ class HomeFragment : Fragment() {
         curedEventAdder()
         bluetoothEventAdder()
 
-        chart()
+        binding.checklistEditBtn.setOnClickListener {
+            var bottomSheet = ChecklistBottomSheetFragment()
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+        }
 
         return view
     }
 
-    private fun chart(){
-        val entries = ArrayList<BarEntry>()
 
-        entries.add(BarEntry(1f,10.0f))
-        entries.add(BarEntry(2f,12.0f))
-        entries.add(BarEntry(3f,0.0f))
-        entries.add(BarEntry(4f,15.0f))
-        entries.add(BarEntry(5f,14.0f))
-        entries.add(BarEntry(6f,24.0f))
-        entries.add(BarEntry(7f,4.0f))
-
-        val chart = binding.chart
-
-        chart.run {
-            description.isEnabled = false       // 차트 옆에 별도로 표기되는 description
-
-            setMaxVisibleValueCount(7)          // 메뉴 개수
-            setPinchZoom(false)                 // 핀치줌(두 손가락으로 줌인) 설정
-            setDrawBarShadow(false)             // 그래프의 그림자
-            setDrawGridBackground(false)        // 격자구조 설정
-            setTouchEnabled(false)              // 차트 터치 막기
-            animateY(1000)           // 밑에서부터 올라오는 애니매이션 적용
-            extraBottomOffset = 10f             // 하단 여백 설정(이게 있어야 x축 라벨이 안 잘림)
-
-            axisLeft.run {                      // Y 방향
-                axisMaximum = 25f               // 100 위치에 선을 그리기 위해 101f로 최댓값 설정
-                axisMinimum = 0f                // 최소값 0f
-                granularity = 6f                // granularity(세분성) 50 단위마다 선을 그림
-                // 위 설정이 20f 였으면 총 5개의 선이 그려짐
-
-                valueFormatter = TimeAxisValueFormatter()
-                setDrawLabels(true)             // 값 표시(0, 50, 100)
-                setDrawAxisLine(false)          // 축 그리기 설정
-
-                setDrawGridLines(true)          // 격자 라인 활용
-                enableGridDashedLine(10f, 10f, 0f)
-
-                axisLineColor = ContextCompat.getColor(context, R.color.colorAccent)    // 축 색깔 설정
-                gridColor = ContextCompat.getColor(context, R.color.semi_gray)          // 격자 색깔 설정
-                textColor = ContextCompat.getColor(context, R.color.gray)               // 라벨 텍스트 컬러 설정
-                textSize = 12f                                                          // 라벨 텍스트 크기
-            }
-
-            xAxis.run {
-                position = XAxis.XAxisPosition.BOTTOM       // X 축을 아래에 둠
-                granularity = 1f                            // 간격을 1로 설정
-
-                setDrawAxisLine(false)                       // 축 그림
-                setDrawGridLines(false)                     // 격자
-
-                valueFormatter = MyXAxisFormatter()
-                textColor = ContextCompat.getColor(context, R.color.gray)  // 라벨 색상
-                textSize = 12f                                             // 텍스트 크기
-
-            }
-
-            axisRight.isEnabled = false // 오른쪽 Y축을 안보이게 해줌.
-            legend.isEnabled = false //차트 범례 설정
-        }
-
-        var set = BarDataSet(entries,"DataSet")//데이터셋 초기화 하기
-        set.color = ContextCompat.getColor(requireContext()!!, R.color.colorAccent)
-
-        val dataSet :ArrayList<IBarDataSet> = ArrayList()
-        dataSet.add(set)
-
-        val data = com.github.mikephil.charting.data.BarData(dataSet)
-        data.barWidth = 0.25f //막대 너비 설정하기
-
-        chart.run {
-            this.data = data //차트의 데이터를 data로 설정해줌.
-            setRadius(50)
-            setFitBars(true)
-            invalidate()
-        }
-    }
 
     /** 사용자 관련 이벤트 등록 메소드 */
     private fun patientEventAdder(){
@@ -205,8 +122,15 @@ class HomeFragment : Fragment() {
 
     /** 블루투스 관련 이벤트 등록 메소드 */
     private fun bluetoothEventAdder(){
+        bluetoothViewModel.bluetoothData.observe(requireActivity()) { value: String ->
+            Log.i("이벤트", value)
+            if (value == "ON") bluetoothViewModel!!.wearStatus.setValue(true)
+            else bluetoothViewModel!!.wearStatus.setValue(false)
+        }
+
         // 착용 상태 감지
         bluetoothViewModel.wearStatus.observe(requireActivity()) { status: Boolean ->
+            Log.i("STATUS", "$status")
             if (status) {
                 binding.wearingStatTv.text = "착용 중"
                 binding.wearingStatTv.setTextColor(Color.parseColor("#6194f8"))
@@ -226,13 +150,6 @@ class HomeFragment : Fragment() {
             binding.wearingTimeTv.text = mainViewModel.dailyWearingTimeToString
         }
     }
-
-    // 착용 시간 관련 이벤트 등록 메소드
-//    private fun wearingTimeEventAdder(){
-//        mainViewModel.dailyWearingTime.observe(requireActivity()){
-//            wearingBinding.wearingProgressBar.progress = (it.toDouble() / 86400000.0 * 100).toInt()
-//        }
-//    }
 
     /** 교정 진행률(치료일 수 / 완치 환자의 평균 치료일 수) 프로그래스바 초기화 메소드 */
     private fun setCalibrationProgress(treatmentDays: Long?, curedInfo: CuredInfo?) {

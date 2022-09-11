@@ -50,10 +50,10 @@ class BluetoothActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_bluetooth)
         binding?.bluetoothPulse?.startRippleAnimation()
 
-        viewModel = ViewModelProvider(this)[BluetoothViewModel::class.java]
+        viewModel = BluetoothViewModel
         viewModel!!.init(intent.getStringExtra("loginUser"))
 
-        Log.i("BluetoothInstance", viewModel.toString())
+        Log.i("BLUE Activity", "${viewModel.toString()}")
 
         // 검색 버튼 초기화 (숨기기)
         binding?.scanBtn?.visibility = View.INVISIBLE
@@ -99,7 +99,7 @@ class BluetoothActivity : AppCompatActivity() {
             if(connected) binding?.initText?.visibility = View.VISIBLE
         }
 
-        changeActivity()
+
         // 펄스 애니메이션 멈추기
         // binding.bluetoothPulse.stopRippleAnimation();
     } // onCreate
@@ -173,20 +173,15 @@ class BluetoothActivity : AppCompatActivity() {
             changeActivity()
         }
 
-        var tmp = ""
-        var strTime = ""
+
+
         @SuppressLint("MissingPermission")
         override fun onCharacteristicRead(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, status: Int ) {
             super.onCharacteristicRead(gatt, characteristic, status)
             val strData = characteristic.getStringValue(0)
 
-            if (tmp != strData) {
-                tmp = strData
-                strTime = time
-            }
-
             runOnUiThread {
-                Log.i("Data", strData + "")
+                Log.i("Data", strData)
                 if (timeCount >= 60) {
                     timeCount = 0
                     if (onCount >= 40) {

@@ -32,8 +32,9 @@
                 android:background="@drawable/checklist_circle" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
 
@@ -57,6 +58,14 @@
                     android:textColor="#494A50"
                     android:textSize="12dp" />
             </LinearLayout>
+
+            <View
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="right | center"
+                android:background="@drawable/ic_close"
+                />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

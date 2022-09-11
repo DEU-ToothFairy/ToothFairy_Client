@@ -9,21 +9,21 @@
         />
 
     <item
-        android:id="@+id/menu_search"
-        android:enabled = "true"
-        android:icon="@drawable/ic_search"
-        android:title="검색"
-        />
-
-    <item
         android:id="@+id/menu_stastics"
         android:enabled = "true"
-        android:icon="@drawable/ic_graph_pie"
+        android:icon="@drawable/ic_graph"
         android:title="통계"
         />
 
     <item
-        android:id="@+id/menu_black"
+        android:id="@+id/menu_report"
+        android:enabled = "true"
+        android:icon="@drawable/ic_report"
+        android:title="보고서"
+        />
+
+    <item
+        android:id="@+id/menu_notice"
         android:enabled = "true"
         android:icon="@drawable/ic_bell"
         android:title="알림"
@@ -32,7 +32,7 @@
     <item
         android:id="@+id/menu_profile"
         android:enabled = "true"
-        android:icon="@drawable/ic_user"
+        android:icon="@drawable/ic_profile"
         android:title="내정보"
         />
 </menu>

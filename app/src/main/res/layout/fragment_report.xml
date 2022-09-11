@@ -1,14 +1,457 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ReportFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="reportViewmodel"
+            type="com.example.toothfairy.viewModel.MainViewModel" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+
+        <!-- LAYOUT 전체 레이아웃 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <!-- LAYOUT 보고서 타이틀 레이아웃 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <!-- 보고서 로고 이미지 -->
+                <View
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/ic_report_img" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="NICKNAME"
+                    android:textColor="@color/blue_gray"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"
+                    android:text="김잼민 님의 교정 보고서"
+
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+
+                    android:fontFamily="@font/montserrat_medium"
+                    android:includeFontPadding="false"
+                    android:text="교정 326일차 회원님의 교정 데이터 자료 입니다."
+                    android:textColor="@color/black"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+            <!-- LAYOUT END 보고서 타이틀 레이아웃 -->
+
+            <!-- LAYOUT 교정 완료일 예측 결과 레이아웃 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/img_calendar_ellipse" />
+
+                <!-- LAYOUT 교정 완료일 예측 결과 타이틀 레이아웃 -->
+                <!-- 해당 부분을 클릭하면 컨텐츠가 펼쳐져야함 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/noto_sans_kr_bold"
+                        android:includeFontPadding="false"
+                        android:text="교정 완료일 예측 결과"
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+
+                        android:fontFamily="@font/montserrat_regular"
+                        android:includeFontPadding="false"
+                        android:text="완치자 데이터를 통해 예측한 결과입니다."
+                        android:textColor="@color/blue_gray"
+                        android:textSize="12dp" />
+                </LinearLayout>
+                <!-- LAYOUT END 교정 완료일 예측 결과 타이틀 레이아웃 -->
+
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_check_down" />
+            </LinearLayout>
+            <!-- LAYOUT END 교정 완료일 예측 결과 레이아웃 -->
+
+            <!-- LAYOUT 교정 완료일 컨텐츠 레이아웃 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:text="2023년 04월 03일 완치 예정"
+                            android:textColor="@color/black"
+                            android:textSize="14dp" />
+
+                        <!-- 여백용 뷰 -->
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/montserrat_regular"
+                            android:text="235일 남음"
+                            android:textColor="@color/blue_gray"
+                            android:textSize="12dp" />
+
+                        <!-- 여백용 뷰 -->
+                        <View
+                            android:layout_width="24dp"
+                            android:layout_height="24dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="11dp"
+                            android:layout_height="11dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_info" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+
+                            android:fontFamily="@font/montserrat_regular"
+                            android:text="오차나 변동이 있을 수 있습니다."
+                            android:textColor="@color/colorAccent"
+
+                            android:textSize="12dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- LAYOUT END 교정 완료일 컨텐츠 레이아웃 -->
+
+
+            <!-- LAYOUT 착용 시간 결과 레이아웃 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/img_clock_ellipse" />
+
+                <!-- LAYOUT 착용 시간 결과 타이틀 레이아웃 -->
+                <!-- 해당 부분을 클릭하면 컨텐츠가 펼쳐져야함 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/noto_sans_kr_bold"
+                        android:includeFontPadding="false"
+                        android:text="착용 시간 결과"
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+
+                        android:fontFamily="@font/montserrat_regular"
+                        android:includeFontPadding="false"
+                        android:text="완치자의 데이터와 비교한 결과 입니다."
+                        android:textColor="@color/blue_gray"
+                        android:textSize="12dp" />
+                </LinearLayout>
+                <!-- LAYOUT END 착용 시간 결과 타이틀 레이아웃 -->
+
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_check_down" />
+            </LinearLayout>
+            <!-- LAYOUT END 착용 시간 결과 레이아웃 -->
+
+            <!-- LAYOUT 착용 시간 컨텐츠 레이아웃 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:text="평균 착용 시간"
+                            android:textColor="@color/black"
+                            android:textSize="14dp" />
+
+                        <!-- 여백용 뷰 -->
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/montserrat_regular"
+                            android:text="14 시간 30 분"
+                            android:textColor="@color/blue_gray"
+                            android:textSize="12dp" />
+
+                        <!-- 여백용 뷰 -->
+                        <View
+                            android:layout_width="24dp"
+                            android:layout_height="24dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="11dp"
+                            android:layout_height="11dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_info" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+
+                            android:fontFamily="@font/montserrat_regular"
+                            android:text="완치자보다 1시간 20분 적습니다."
+                            android:textColor="@color/red"
+
+                            android:textSize="12dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- LAYOUT END 착용 시간 컨텐츠 레이아웃 -->
+
+            <!-- LAYOUT 착용 시간 컨텐츠 레이아웃 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:text="최대 착용 시간"
+                            android:textColor="@color/black"
+                            android:textSize="14dp" />
+
+                        <!-- 여백용 뷰 -->
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/montserrat_regular"
+                            android:text="16 시간 30 분"
+                            android:textColor="@color/blue_gray"
+                            android:textSize="12dp" />
+
+                        <!-- 여백용 뷰 -->
+                        <View
+                            android:layout_width="24dp"
+                            android:layout_height="24dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="11dp"
+                            android:layout_height="11dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_info" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+
+                            android:fontFamily="@font/montserrat_regular"
+                            android:text="완치자보다 0시간 16분 많습니다."
+                            android:textColor="@color/colorAccent"
+
+                            android:textSize="12dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- LAYOUT END 착용 시간 컨텐츠 레이아웃 -->
+
+            <!-- LAYOUT 착용 시간 그래프 레이아웃 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#00FFFFFF"
+                app:cardUseCompatPadding="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="최근 7일 착용 통계"
+                        android:textColor="@color/black"
+                        android:textSize="12dp" />
+
+                    <com.example.toothfairy.view.ui.RoundedBarChart
+                        android:id="@+id/chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        app:radius="4dp" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+            <!-- LAYOUT END 착용 시간 그래프 레이아웃 -->
+        </LinearLayout>
+        <!-- LAYOUT END 전체 레이아웃 -->
+    </ScrollView>
+</layout>

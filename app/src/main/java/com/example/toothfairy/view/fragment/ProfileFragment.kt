@@ -39,10 +39,13 @@ class ProfileFragment : Fragment() {
         val view = binding?.root
 
         // Inflate the layout for this fragment
-        binding?.logoutBtn?.setOnClickListener { v: View? ->
-            val prefs = this.requireActivity()
-                .getSharedPreferences("autoLogin", Context.MODE_PRIVATE)
 
+        // 로그아웃 클릭 이벤트
+        binding?.logoutBtn?.setOnClickListener { v: View? ->
+            // autuLogin 이름의 Preferences를 가져옴
+            val prefs = this.requireActivity().getSharedPreferences("autoLogin", Context.MODE_PRIVATE)
+
+            // 저장 되어있던 id, password 삭제
             val editor = prefs.edit()
             editor.remove("id")
             editor.remove("password")

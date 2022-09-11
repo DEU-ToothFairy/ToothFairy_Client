@@ -387,32 +387,70 @@
                         android:layout_marginBottom="15dp"
                         android:orientation="vertical">
 
-                        <FrameLayout
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="20dp"
-                            >
+                            android:orientation="horizontal">
+
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <View
+                                    android:layout_width="70dp"
+                                    android:layout_height="5dp"
+                                    android:layout_marginBottom="1dp"
+
+                                    android:background="#BC92C0FF"
+                                    android:layout_gravity="center_horizontal | bottom"
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:text="체크리스트"
+                                    android:textSize="16dp"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/noto_sans_kr_bold"
+                                    android:includeFontPadding="false"
+                                    />
+                            </FrameLayout>
 
                             <View
-                                android:layout_width="70dp"
-                                android:layout_height="5dp"
-                                android:layout_marginBottom="1dp"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"/>
 
-                                android:background="#BC92C0FF"
-                                android:layout_gravity="center_horizontal | bottom"
-                                />
-
-                            <TextView
+                            <LinearLayout
+                                android:id="@+id/checklist_edit_btn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:orientation="horizontal">
 
-                                android:text="체크리스트"
-                                android:textSize="16dp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/noto_sans_kr_bold"
-                                android:includeFontPadding="false"
-                                />
-                        </FrameLayout>
+                                <View
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/ic_edit"
+                                    />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:text="수정"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/gray"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:includeFontPadding="false"
+                                    />
+                            </LinearLayout>
+                        </LinearLayout>
+
+
 
 
                         <LinearLayout
@@ -916,39 +954,7 @@
                     </androidx.cardview.widget.CardView>
                     <!-- LAYOUT END 기타 정보 요약 그래프 레이아웃 끝-->
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
 
-                        android:layout_marginBottom="20dp"
-
-                        app:cardCornerRadius="15dp"
-                        app:cardElevation="1dp"
-                        app:cardUseCompatPadding="false"
-                        >
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="20dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="최근 7일 착용 통계"
-                                android:textSize="14dp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/nanumsquare_extra_bold"
-                                />
-
-                            <com.example.toothfairy.view.ui.RoundedBarChart
-                                android:id="@+id/chart"
-                                app:radius="4dp"
-                                android:layout_width="match_parent"
-                                android:layout_height="150dp" />
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
 
                     <!-- LAYOUT 교정 장치 착용 통게 레이아웃 -->
 <!--                    <androidx.cardview.widget.CardView-->

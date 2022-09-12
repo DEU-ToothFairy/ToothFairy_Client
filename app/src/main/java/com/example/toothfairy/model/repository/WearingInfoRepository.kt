@@ -14,6 +14,7 @@ object WearingInfoRepository {
 
     private var prefs: PreferenceManager? = null
 
+    /** 사용자 아이디를 DB 이름으로 SharedPreferences 생성 */
     fun init(patientId: String?) {
         // 사용자 이름의 아이디로 내부 DB 생성
         if (prefs == null) prefs = PreferenceManager(patientId)
@@ -21,7 +22,6 @@ object WearingInfoRepository {
 
     // 교정 장치 착용 감지 시
     fun setOn() {
-        // ON을 받은
         prefs!!.setLong(ON, System.currentTimeMillis())
     }
 
@@ -77,7 +77,7 @@ object WearingInfoRepository {
         val minTime = prefs!!.getLong(MIN_WEARING_TIME)
 
         if (minTime == 0L) prefs!!.setLong(MIN_WEARING_TIME, time!!)
-        else prefs!!.setLong(MIN_WEARING_TIME, Math.min(minTime, time!!))
+        else prefs!!.setLong(MIN_WEARING_TIME, minTime.coerceAtMost(time!!)) // 둘 중 작은 값으로 세팅
 
         return prefs!!.getLong(MIN_WEARING_TIME)
     }

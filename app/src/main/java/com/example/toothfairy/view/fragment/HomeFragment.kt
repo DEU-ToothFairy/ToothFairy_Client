@@ -6,24 +6,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
 import com.example.toothfairy.databinding.FragmentHomeBinding
 import com.example.toothfairy.entity.CuredInfo
-import com.example.toothfairy.util.DateManager
+import com.example.toothfairy.util.TimeManager
 import com.example.toothfairy.viewModel.BluetoothViewModel
 import com.example.toothfairy.viewModel.HomeViewModel
 import com.example.toothfairy.viewModel.MainViewModel
-import com.github.mikephil.charting.components.AxisBase
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -41,11 +34,11 @@ class HomeFragment : Fragment() {
     private var mParam2: String? = null
 
     // VARIABLE
-    lateinit var binding: FragmentHomeBinding // DataBinding
+    private lateinit var binding: FragmentHomeBinding // DataBinding
 
-    lateinit var mainViewModel: MainViewModel
-    lateinit var homeViewModel: HomeViewModel
-    lateinit var bluetoothViewModel: BluetoothViewModel
+    private lateinit var mainVM: MainViewModel
+    private lateinit var homeVM: HomeViewModel
+    private lateinit var blueVM: BluetoothViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,20 +57,17 @@ class HomeFragment : Fragment() {
 
         val view = binding.root
 
-        // ViewModel 객체 연결
-        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
-        bluetoothViewModel = BluetoothViewModel //ViewModelProvider(requireActivity())[BluetoothViewModel::class.java]
+        /** ViewModel 객체 연결 */
+        mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        homeVM = ViewModelProvider(this)[HomeViewModel::class.java]
+        blueVM = BluetoothViewModel //ViewModelProvider(requireActivity())[BluetoothViewModel::class.java]
 
-        // 데이터를 관리하는 뷰 모델을 binding에 연결해줘야 적용 됨
+        /** 데이터를 관리하는 뷰 모델을 binding에 연결해줘야 적용 됨 */
         binding.lifecycleOwner = requireActivity()
-        binding.mainViewModel = mainViewModel
-        binding.homeViewModel = homeViewModel
+        binding.mainVM = mainVM
+        binding.homeVM = homeVM
 
-        // 오늘 날짜 설정
-        //mainViewModel.today.value = DateManager.today
-
-        // 이벤트 등록 메소드
+        /** 이벤트 등록 */
         patientEventAdder()
         curedEventAdder()
         bluetoothEventAdder()
@@ -90,47 +80,36 @@ class HomeFragment : Fragment() {
         return view
     }
 
-
-
     /** 사용자 관련 이벤트 등록 메소드 */
     private fun patientEventAdder(){
         // 환자 정보가 갱신 된 경우
         // 치료 기간 설정 (현재 날짜 - 치료 시작 날짜)
-        mainViewModel.patient.observe(requireActivity()){ patient ->
-            mainViewModel.treatmentDays.value = patient?.startDate?.let { it -> DateManager.getElapsedDate(it) }
+        mainVM.patient.observe(requireActivity()){ patient ->
+            mainVM.treatmentDays.value = patient?.startDate?.let { it -> TimeManager.getElapsedDate(it) }
 
-            setCalibrationProgress(mainViewModel.treatmentDays.value, mainViewModel.curedInfo.value)
-        }
-
-        // 남은 착용 시간 갱신
-        mainViewModel.dailyWearingTime.observe(requireActivity()){daily ->
-            homeViewModel.remainWearingTime.value?.let {
-                mainViewModel.targetWearingTime.value?.minus(daily) // 목표 착용 시간 - 일일 착용 시간 = 남은 착용 시간
-            }
-
-            binding.remainWearingTimeTv.text = homeViewModel.remainWearingTimeToString()
+            setCalibrationProgress(mainVM.treatmentDays.value, mainVM.curedInfo.value)
         }
     }
 
     /** 완치 환자 관련 이벤트 등록 메소드 */
     private fun curedEventAdder(){
         // 완치자 정보가 갱신 된 경우
-        mainViewModel.curedInfo.observe(requireActivity()) { curedInfo ->
-            setCalibrationProgress(mainViewModel.treatmentDays.value, curedInfo )
+        mainVM.curedInfo.observe(requireActivity()) { curedInfo ->
+            setCalibrationProgress(mainVM.treatmentDays.value, curedInfo )
         }
     }
 
     /** 블루투스 관련 이벤트 등록 메소드 */
     private fun bluetoothEventAdder(){
-        bluetoothViewModel.bluetoothData.observe(requireActivity()) { value: String ->
-            Log.i("이벤트", value)
-            if (value == "ON") bluetoothViewModel!!.wearStatus.setValue(true)
-            else bluetoothViewModel!!.wearStatus.setValue(false)
+        // 블루투스 데이터 값에 따라 wearStatus 값을 변경
+        // 이후 블루투스 데이터의 형식을 변경해야 할 수 있으므로 이벤트를 따로 분리
+        blueVM.bluetoothData.observe(requireActivity()) { value: String ->
+            if (value == "ON") blueVM!!.wearStatus.setValue(true)
+            else blueVM!!.wearStatus.setValue(false)
         }
 
         // 착용 상태 감지
-        bluetoothViewModel.wearStatus.observe(requireActivity()) { status: Boolean ->
-            Log.i("STATUS", "$status")
+        blueVM.wearStatus.observe(requireActivity()) { status: Boolean ->
             if (status) {
                 binding.wearingStatTv.text = "착용 중"
                 binding.wearingStatTv.setTextColor(Color.parseColor("#6194f8"))
@@ -143,11 +122,17 @@ class HomeFragment : Fragment() {
         }
 
         // 1분이 지났을 때 착용 중이라면 wearingFlag의 값이 바뀌도록 설정되어 있음
-        bluetoothViewModel.wearingFlag.observe(requireActivity()) {
-            mainViewModel.setDailyWearingTime(1000 * 60L)
+        blueVM.wearingFlag.observe(requireActivity()) {
+            mainVM.setDailyWearingTime(1000 * 60L)
+
             // 일일 착용 시간은 DailyWearingTime 변수와 바인딩 된게 아니라 getDailyWearingTimeToString()과 매핑 되어 있으므로
             // 옵저버로 감지 불가
-            binding.wearingTimeTv.text = mainViewModel.dailyWearingTimeToString
+            binding.wearingTimeTv.text = mainVM.dailyWearingTimeToString
+            
+            // 일일 착용 시간이 갱신 될 때 남은 착용 시간도 같이 갱신
+            mainVM.dailyWearingTime.value?.let { it -> homeVM.updateRemainTime(it) }
+            Log.i("REMAIN TO STRING", homeVM.remainWearingTimeToString())
+            binding.remainWearingTimeTv.text = homeVM.remainWearingTimeToString()
         }
     }
 
@@ -160,7 +145,7 @@ class HomeFragment : Fragment() {
             (treatmentDays!! / curedInfo!!.totalTreatmentDate.toDouble() * 100).roundToInt().toDouble()
 
         // 교정 진행률 설정
-        mainViewModel.calibrationProgress.value = progress
+        mainVM.calibrationProgress.value = progress
     }
 
     companion object {

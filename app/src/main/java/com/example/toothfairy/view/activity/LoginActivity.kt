@@ -11,10 +11,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
 import com.example.toothfairy.databinding.ActivityLoginBinding
 import com.example.toothfairy.util.Event
-import com.example.toothfairy.viewModel.LoginViewModel.Companion.instance
+import com.example.toothfairy.viewModel.LoginViewModel
 import java.util.*
 
 class LoginActivity : AppCompatActivity() {
@@ -24,34 +25,14 @@ class LoginActivity : AppCompatActivity() {
     var mainFieldAnim: Animation? = null
     
     // VARIABLE : 데이터 바인딩 변수
-    var binding: ActivityLoginBinding? = null
-    var loginViewModel = instance
+    lateinit var binding: ActivityLoginBinding
+    lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //        setContentView(R.layout.activity_login);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            requestPermissions(
-                arrayOf(
-                    Manifest.permission.BLUETOOTH,
-                    Manifest.permission.BLUETOOTH_SCAN,
-                    Manifest.permission.BLUETOOTH_ADVERTISE,
-                    Manifest.permission.BLUETOOTH_CONNECT,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ),
-                1
-            )
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(
-                arrayOf(
-                    Manifest.permission.BLUETOOTH
-                ),
-                1
-            )
-        }
+        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
         setAnimation()
         login()

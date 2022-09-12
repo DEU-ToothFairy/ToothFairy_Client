@@ -52,7 +52,7 @@ class BluetoothActivity : AppCompatActivity() {
         binding?.bluetoothPulse?.startRippleAnimation()
 
         viewModel = BluetoothViewModel
-        viewModel!!.init(intent.getStringExtra("loginUser"))
+//        viewModel!!.init(intent.getStringExtra("loginUser"))
 
         // 검색 버튼 초기화 (숨기기)
         binding?.scanBtn?.visibility = View.INVISIBLE
@@ -201,8 +201,9 @@ class BluetoothActivity : AppCompatActivity() {
 
         @SuppressLint("MissingPermission")
         override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
-            Log.i("Data", "PASS:2")
             super.onServicesDiscovered(gatt, status)
+
+            Log.i("Data", "PASS:2")
             val service = gatt.getService(UUID_Service)
             ValueCharacteristic_read = service.getCharacteristic(UUID_VALUE_READ)
 
@@ -222,6 +223,7 @@ class BluetoothActivity : AppCompatActivity() {
             super.onCharacteristicRead(gatt, characteristic, status)
             val strData = characteristic.getStringValue(0)
 
+            /** 블루투스 모듈의 데이터 전송 속도와 맞춰지는듯 */
             runOnUiThread {
                 Log.i("Data", strData)
                 if (timeCount >= 60) {
@@ -229,7 +231,7 @@ class BluetoothActivity : AppCompatActivity() {
                     if (onCount >= 40) {
                         onCount = 0
 
-                        // 시간 저장 플래그
+                        // 착용 상태 플래그
                         viewModel!!.changeFlag()
                     }
                 }
@@ -255,8 +257,9 @@ class BluetoothActivity : AppCompatActivity() {
             btGatt!!.disconnect()
             btGatt!!.close()
             if (btAdapter!!.isEnabled) {
-                Toast.makeText(applicationContext, "Disconnect the BLE Device.", Toast.LENGTH_SHORT)
-                    .show()
+                viewModel!!.connected.postValue(false) // 연결 해제 표시
+
+                Toast.makeText(applicationContext, "장치 연결이 해제 되었습니다.", Toast.LENGTH_SHORT).show()
             } else {
                 val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                 startActivityForResult(enableIntent, REQUEST_ENABLE_BT)

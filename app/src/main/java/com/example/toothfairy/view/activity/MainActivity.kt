@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
@@ -27,18 +26,16 @@ import com.example.toothfairy.view.fragment.ReportFragment
 import com.example.toothfairy.view.fragment.StatsFragment
 import com.example.toothfairy.viewModel.BluetoothViewModel
 import com.example.toothfairy.viewModel.MainViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     // VARIABLE
-    private lateinit var binding: ActivityMainBinding
-    var bottomNavigation    : BottomNavigationView? = null
-    var mainViewModel       : MainViewModel?        = null
-    var bluetoothViewModel  : BluetoothViewModel?   = null
+    private lateinit var binding : ActivityMainBinding
+    private lateinit var mainVM  : MainViewModel
+    private lateinit var blueVM  : BluetoothViewModel
 
     // Notification Channel을 생성 및 전달해 줄 수 있는 Manager 생성
-    private var mNotificationManager    : NotificationManager? = null
-    private var dateChangedReceiver     : DateChangedReceiver? = null
+    private lateinit var mNotificationManager    : NotificationManager
+    private lateinit var dateChangedReceiver     : DateChangedReceiver
 
 
     @SuppressLint("ResourceAsColor")
@@ -54,13 +51,13 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        bluetoothViewModel = BluetoothViewModel //ViewModelProvider(this)[BluetoothViewModel::class.java]
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        mainVM = ViewModelProvider(this)[MainViewModel::class.java]
+        blueVM = BluetoothViewModel //ViewModelProvider(this)[BluetoothViewModel::class.java]
 
         createNotificationChannel() // 알림 채널 생성
         initBottomNavibar() // 네비바 세팅
-        textSetting()
         loadData()
+        settingAppTitle()
 
         dateChangedReceiver = DateChangedReceiver()
         /* INIT End */
@@ -69,6 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
         val filter = IntentFilter()
 
         filter.addAction(Intent.ACTION_TIME_CHANGED)
@@ -78,20 +76,20 @@ class MainActivity : AppCompatActivity() {
     private fun loadData(){
 
         // 로그인한 유저의 정보를 가져옴
-        mainViewModel!!.loadPatient(intent.getStringExtra("loginUser"))
+        mainVM!!.loadPatient(intent.getStringExtra("loginUser"))
 
         // 환자 정보가 로드되면 해당 환자의 나이에 맞는 완치자 정보를 로드
-        mainViewModel!!.patient.observe(this, Observer { patient: Patient? ->
+        mainVM!!.patient.observe(this, Observer { patient: Patient? ->
             // 같은 나이의 완치 환자 정보 로드
-            patient?.let { mainViewModel!!.loadCuredInfo(it.age) }
+            patient?.let { mainVM!!.loadCuredInfo(it.age) }
 
             // 착용 시간 데이터 로드
-            mainViewModel!!.loadWearingStats()
+            mainVM!!.loadWearingStats()
         })
 
     }
 
-    private fun textSetting(){
+    private fun settingAppTitle(){
         val textData = binding.appTitle.text
 
         // 3. SpannableStringBuilder 타입으로 변환

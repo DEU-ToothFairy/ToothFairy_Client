@@ -24,7 +24,7 @@ class ProfileFragment : Fragment() {
     private var mParam2: String? = null
     
     // 데이터 바인딩 변수
-    var binding: FragmentProfileBinding? = null
+    lateinit var binding: FragmentProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

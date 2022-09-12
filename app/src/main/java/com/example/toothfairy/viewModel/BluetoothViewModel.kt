@@ -14,10 +14,6 @@ object BluetoothViewModel : ViewModel() {
     var connected = MutableLiveData<Boolean>()
     var wearingFlag = MutableLiveData(false)
 
-    fun init(patientId: String?) {
-        WearingInfoRepository.init(patientId)
-    }
-
     fun changeFlag() { wearingFlag.value = !wearingFlag.value!! }
 
     fun getTime(): String =

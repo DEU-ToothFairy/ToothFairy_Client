@@ -6,38 +6,37 @@ import com.example.toothfairy.entity.DailyWearTime
 import java.sql.Date
 
 class Patient {
-    @Expose @SerializedName("patientNum")
+    @Expose
+    @SerializedName("patientNum")
     var patientNum: String? = null
-        private set
 
-    @Expose @SerializedName("id")
+    @Expose
+    @SerializedName("id")
     var id: String? = null
-        private set
 
-    @Expose @SerializedName("password")
+    @Expose
+    @SerializedName("password")
     var password: String? = null
-        private set
 
-    @Expose @SerializedName("name")
+    @Expose
+    @SerializedName("name")
     var name: String? = null
-        private set
 
-    @Expose @SerializedName("birthDate")
+    @Expose
+    @SerializedName("birthDate")
     var birthDate: Date? = null
-        private set
 
-    @Expose @SerializedName("startDate")
+    @Expose
+    @SerializedName("startDate")
     var startDate: Date? = null
-        private set
 
-    @Expose @SerializedName("endDate")
+    @Expose
+    @SerializedName("endDate")
     var endDate: Date? = null
-        private set
 
-    @Expose @SerializedName("dailyWearTimeList") // 안되면 DailyWearTime[]으로 바꾸기
+    @Expose
+    @SerializedName("dailyWearTimeList") // 안되면 DailyWearTime[]으로 바꾸기
     var dailyWearTimeList: List<DailyWearTime>? = null // 환자의 일별 착용 시간 리스트
-        private set
-
 
     constructor(
         patientNum: String?,

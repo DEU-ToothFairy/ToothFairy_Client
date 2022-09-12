@@ -10,7 +10,9 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,12 +22,12 @@ import com.example.toothfairy.R
 import com.example.toothfairy.adapter.CalendarAdapter
 import com.example.toothfairy.data.CalendarDate
 import com.example.toothfairy.databinding.FragmentStatsBinding
+import java.text.FieldPosition
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAdjusters
-import java.util.*
 import kotlin.math.abs
 
 
@@ -41,9 +43,9 @@ class StatsFragment : Fragment() {
 
     // VARIABLE
     lateinit var binding: FragmentStatsBinding
+    lateinit var layoutManager: LinearLayoutManager
     val itemList = arrayListOf<CalendarDate>()
     val calendarAdapter = CalendarAdapter(itemList)
-    lateinit var layoutManager: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,15 +74,16 @@ class StatsFragment : Fragment() {
         calendarEventAdder()
 
         // selectDateTv Spannable로 폰트 스타일 변경
-        selectDateTvSetting()
+        styleChangeSelectDateTv()
         // userScoreTv Spannable로 폰트 스타일 변경
-        userScoreTvSetting()
+        styleChangeUserScoreTV()
 
 
         return view
     }
 
-    private fun userScoreTvSetting(){
+    /** 사용자 교정 점수 Textview 스타일 변경 */
+    private fun styleChangeUserScoreTV(){
         val userScore:String = binding.userScoreTv.text.toString()
         val builder = SpannableStringBuilder(userScore)
 
@@ -90,7 +93,8 @@ class StatsFragment : Fragment() {
         binding.userScoreTv.text = builder
     }
 
-    private fun selectDateTvSetting(){
+    /** 선택 날짜 Textview 스타일 변경 */
+    private fun styleChangeSelectDateTv(){
         val selectDate:String = binding.selectDateTv.text.toString()
         val builder = SpannableStringBuilder(selectDate)
 
@@ -102,6 +106,7 @@ class StatsFragment : Fragment() {
         binding.selectDateTv.text = builder
     }
 
+    /** 캘린더 이벤트 */
     private fun calendarEventAdder(){
         binding.calendarView.addOnScrollListener(object : OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -116,6 +121,7 @@ class StatsFragment : Fragment() {
             }
         })
     }
+
     private fun autoScroll() {
         lateinit var date: LinearLayout
         val calendar = binding.calendarView
@@ -156,10 +162,23 @@ class StatsFragment : Fragment() {
                 val localDate = LocalDate.of(year, i, j)
                 val dayOfWeek: DayOfWeek = localDate.dayOfWeek // MONDAY, TUESDAY 같은 요일의 이름을 가져옴
 
-                itemList.add(CalendarDate(dayOfWeek.toString().substring(0,1), j.toString()))
+                itemList.add(CalendarDate(
+                                        dayOfWeek.toString().substring(0,1), // 요일
+                                        localDate // 날짜 YYYY-MM-DD
+                            )
+                        )
             }
         }
 
+        // RecyclerView Item 클릭 이벤트 리스너 등록
+        // calendarAdapter 내에 onItemClickListener 인터페이스를 선언
+        // 외부에서 리스너 인터페이스를 구현할 수 있게하여 좀 더 다양한 작업이 가능하게 함
+        calendarAdapter.onItemClickListener = object : CalendarAdapter.OnItemClickListener{
+            override fun onClick(view: View, position: Int) {
+                val item:CalendarDate = itemList[position]
+                Toast.makeText(context, "CLICK ${item.date}, ${item.day}", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         binding.calendarView.adapter = calendarAdapter
     }

@@ -50,12 +50,12 @@ class TimeManager {
 
         /** 밀리세컨드를 받아 시간을 반환하는 메소드 */
         fun getHour(time:Long): Long{
-            return TimeUnit.MICROSECONDS.toHours(time)
+            return TimeUnit.MILLISECONDS.toHours(time)
         }
 
         /** 밀리세컨드를 받아 분을 반환하는 메소드 HH:mm에서 mm 부분*/
         fun getMinutes(time:Long): Long{
-            return TimeUnit.MICROSECONDS.toMinutes(time) % 60
+            return TimeUnit.MILLISECONDS.toMinutes(time) % 60
         }
     }
 }

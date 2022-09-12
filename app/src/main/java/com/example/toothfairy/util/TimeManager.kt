@@ -6,7 +6,7 @@ import android.util.Log
 import java.sql.Date
 import java.util.concurrent.TimeUnit
 
-class DateManager {
+class TimeManager {
     companion object {
         val today: String
             get() {
@@ -41,7 +41,7 @@ class DateManager {
         }
 
         /** Float로 시간을 받아 Long(밀리세컨드)로 변경해주는 메소드 */
-        fun parseTime(time:Float): Long{
+        fun parseMillisecond(time:Float): Long{
             var hour = time.toInt()
             var minute = (time - time.toInt()) * 60 // 0.5면 * 60해서 30분
 

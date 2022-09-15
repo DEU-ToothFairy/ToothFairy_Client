@@ -80,23 +80,7 @@
         android:background="@color/white"
         app:labelVisibilityMode="labeled"
 
-        app:itemIconSize="22dp"
+        app:itemIconSize="24dp"
         app:menu="@menu/navigation_menu"
         />
-
-<!--    <com.etebarian.meowbottomnavigation.MeowBottomNavigation-->
-<!--        android:id="@+id/bottomNavigation"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        -->
-<!--        app:mbn_backgroundBottomColor="@color/white"-->
-<!--        app:mbn_circleColor="@color/white"-->
-<!--        app:mbn_countBackgroundColor="#ff6f00"-->
-<!--        app:mbn_countTextColor="@color/white"-->
-<!--        app:mbn_defaultIconColor="@color/blue"-->
-<!--        app:mbn_selectedIconColor="@color/blue" />-->
-
 </LinearLayout>

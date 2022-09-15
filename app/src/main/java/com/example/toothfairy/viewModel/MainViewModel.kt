@@ -9,24 +9,24 @@ import com.example.toothfairy.entity.Patient
 import com.example.toothfairy.model.repository.CuredInfoRepository
 import com.example.toothfairy.model.repository.PatientRepository
 import com.example.toothfairy.model.repository.WearingInfoRepository
-import com.example.toothfairy.util.DateManager
+import com.example.toothfairy.util.TimeManager
 import retrofit2.Response
-import java.util.*
 import java.util.concurrent.Executors
 
-open class MainViewModel : ViewModel() {
+/** 여러 Fragment에서 공유 되어야하는 데이터는 MainViewModel에서 유지 */
+class MainViewModel : ViewModel() {
     // VARIABLE
-    var patient = MutableLiveData<Patient?>()               // 환자 정보
-    var curedInfo = MutableLiveData<CuredInfo?>()           // 완치자 정보
+    var patient = MutableLiveData<Patient>()                // 환자 정보
+    var curedInfo = MutableLiveData<CuredInfo>()            // 완치자 정보
 
     var treatmentDays = MutableLiveData<Long>()             // 교정 일 수
     var calibrationProgress = MutableLiveData<Double>()     // 교정 진행률
 
     var patientStats = MutableLiveData<WearingStats>()      // 환자 착용 통계
 
-    var dailyWearingTime = MutableLiveData<Long>()          // 당일 착용 시간
-    var targetWearingTime = MutableLiveData<Long>(DateManager.parseTime(16.5f)) // 목표 착용 시간(사용자가 설정에서 변경할 수 있도록 함) -> 목표 시간을 잘 지킬 경우 목표 시간을 늘리라는 알림도 주면 좋을 듯
-
+    var dailyWearingTime = MutableLiveData<Long>(WearingInfoRepository.dailyWearingTime)    // 당일 착용 시간
+    val dailyWearingTimeToString: String
+        get() = TimeManager.getTimeToString(dailyWearingTime.value)
 
     /** 환자의 ID로 환자의 정보를 가져오는 메소드 */
     fun loadPatient(id: String?) {
@@ -67,8 +67,7 @@ open class MainViewModel : ViewModel() {
         dailyWearingTime.value = WearingInfoRepository.setDailyWearingTime(time)
     }
 
-    val dailyWearingTimeToString: String
-        get() = DateManager.getTimeToString(dailyWearingTime.value)
+
 
     /** 교정 장치 착용 상태일 때를 처리하는 메소드 */
     fun detectedOn() {

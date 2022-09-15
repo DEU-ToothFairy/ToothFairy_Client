@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
@@ -23,21 +22,20 @@ import com.example.toothfairy.databinding.ActivityMainBinding
 import com.example.toothfairy.entity.Patient
 import com.example.toothfairy.view.fragment.HomeFragment
 import com.example.toothfairy.view.fragment.ProfileFragment
+import com.example.toothfairy.view.fragment.ReportFragment
 import com.example.toothfairy.view.fragment.StatsFragment
 import com.example.toothfairy.viewModel.BluetoothViewModel
 import com.example.toothfairy.viewModel.MainViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     // VARIABLE
-    private lateinit var binding: ActivityMainBinding
-    var bottomNavigation    : BottomNavigationView? = null
-    var mainViewModel       : MainViewModel?        = null
-    var bluetoothViewModel  : BluetoothViewModel?   = null
+    private lateinit var binding : ActivityMainBinding
+    private lateinit var mainVM  : MainViewModel
+    private lateinit var blueVM  : BluetoothViewModel
 
     // Notification Channel을 생성 및 전달해 줄 수 있는 Manager 생성
-    private var mNotificationManager    : NotificationManager? = null
-    private var dateChangedReceiver     : DateChangedReceiver? = null
+    private lateinit var mNotificationManager    : NotificationManager
+    private lateinit var dateChangedReceiver     : DateChangedReceiver
 
 
     @SuppressLint("ResourceAsColor")
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // INIT 초기화 작업
+        /* INIT 초기화 작업 */
 
         // View Binding
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -53,61 +51,45 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        bluetoothViewModel = ViewModelProvider(this)[BluetoothViewModel::class.java]
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        mainVM = ViewModelProvider(this)[MainViewModel::class.java]
+        blueVM = BluetoothViewModel //ViewModelProvider(this)[BluetoothViewModel::class.java]
 
         createNotificationChannel() // 알림 채널 생성
         initBottomNavibar() // 네비바 세팅
-        textSetting()
+        loadData()
+        settingAppTitle()
 
         dateChangedReceiver = DateChangedReceiver()
+        /* INIT End */
 
-        // INIT End
-
-        // 로그인한 유저의 정보를 가져옴
-        mainViewModel!!.loadPatient(intent.getStringExtra("loginUser"))
-
-
-        // 환자 정보가 로드되면 해당 환자의 나이에 맞는 완치자 정보를 로드
-        mainViewModel!!.patient.observe(this, Observer { patient: Patient? ->
-            // 같은 나이의 완치 환자 정보 로드
-            patient?.let { mainViewModel!!.loadCuredInfo(it.age) }
-
-            // 착용 시간 데이터 로드
-            mainViewModel!!.loadWearingStats()
-        })
-
-
-        bluetoothViewModel!!.bluetoothData.observe(this) { value: String ->
-            Log.i("Main Activity", value)
-
-            if (value == "ON") bluetoothViewModel!!.wearStatus.setValue(true)
-            else bluetoothViewModel!!.wearStatus.setValue(false)
-        }
-
-//        Timer timer = new Timer();
-//        TimerTask task = new TimerTask() {
-//            @Override
-//            public void run() {
-//                // 반복실행할 구문
-//                createNotification("착용 시간 부족 알림", "착용 시간 부족");
-//            }
-//        };
-//
-//        timer.schedule(task, 0, 1000); //Timer 실행
-
-        // timer.cancel();//타이머 종료
     } // onCreate
 
     override fun onResume() {
         super.onResume()
+
         val filter = IntentFilter()
 
         filter.addAction(Intent.ACTION_TIME_CHANGED)
         registerReceiver(dateChangedReceiver, filter)
     }
 
-    private fun textSetting(){
+    private fun loadData(){
+
+        // 로그인한 유저의 정보를 가져옴
+        mainVM!!.loadPatient(intent.getStringExtra("loginUser"))
+
+        // 환자 정보가 로드되면 해당 환자의 나이에 맞는 완치자 정보를 로드
+        mainVM!!.patient.observe(this, Observer { patient: Patient? ->
+            // 같은 나이의 완치 환자 정보 로드
+            patient?.let { mainVM!!.loadCuredInfo(it.age) }
+
+            // 착용 시간 데이터 로드
+            mainVM!!.loadWearingStats()
+        })
+
+    }
+
+    private fun settingAppTitle(){
         val textData = binding.appTitle.text
 
         // 3. SpannableStringBuilder 타입으로 변환
@@ -164,10 +146,10 @@ class MainActivity : AppCompatActivity() {
             setOnNavigationItemSelectedListener {
                 var fragment = when (it.itemId) {
                     R.id.menu_home -> HomeFragment.instance
-                    R.id.menu_search -> HomeFragment.instance
-                    R.id.menu_profile -> ProfileFragment()
                     R.id.menu_stastics -> StatsFragment()
-                    R.id.menu_black -> HomeFragment.instance
+                    R.id.menu_report -> ReportFragment()
+                    R.id.menu_notice -> StatsFragment()
+                    R.id.menu_profile -> ProfileFragment()
                     else -> HomeFragment.instance
                 }
                 loadFragment(fragment)

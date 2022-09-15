@@ -49,12 +49,13 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/calendarView"
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never" />
 
             <View
+                android:id="@+id/selector"
                 android:layout_width="40dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
@@ -174,9 +175,9 @@
                     <ProgressBar
                         android:id="@+id/userWearMaxProgressBar"
                         style="?android:attr/progressBarStyleHorizontal"
+
                         android:layout_width="match_parent"
                         android:layout_height="2.5dp"
-
                         android:layout_marginBottom="20dp"
 
                         android:progress="80"

@@ -1,18 +1,13 @@
 package com.example.toothfairy.entity
 
-import com.example.toothfairy.util.DateManager
+import com.example.toothfairy.util.TimeManager
 
 class CuredInfo {
     var age = 0
-        private set
     var totalTreatmentDate = 0// 총 치료 기간 (일 수)
-        private set
     var totalWearTime: Long? = null // 총 착용 시간 (milliseconds)
-        private set
     var maxWearingTime: Long? = null // 최대 착용 시간 (milliseconds)
-        private set
     var minWearingTime: Long? = null // 최소 착용 시간 (milliseconds)
-        private set
 
     constructor(
         age: Int,
@@ -35,11 +30,11 @@ class CuredInfo {
      *   => 시간 당 교정 일 수 예측 가능
      * */
     val maxWearingTimeToString: String
-        get() = DateManager.getTimeToString(maxWearingTime)
+        get() = TimeManager.getTimeToString(maxWearingTime)
     val minWearingTimeToString: String
-        get() = DateManager.getTimeToString(minWearingTime)
+        get() = TimeManager.getTimeToString(minWearingTime)
     val avgWearingTimeToString: String
-        get() = DateManager.getTimeToString(totalWearTime!! / totalTreatmentDate)
+        get() = TimeManager.getTimeToString(totalWearTime!! / totalTreatmentDate)
     val avgWearingTime: Long
         get() = totalWearTime!! / totalTreatmentDate
 

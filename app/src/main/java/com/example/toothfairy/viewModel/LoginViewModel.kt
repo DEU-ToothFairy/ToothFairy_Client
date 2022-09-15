@@ -6,15 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.toothfairy.dto.LoginDto
 import com.example.toothfairy.model.repository.PatientRepository
+import com.example.toothfairy.model.repository.WearingInfoRepository
 import com.example.toothfairy.util.Event
 import java.util.concurrent.Executors
 
-class LoginViewModel private constructor() : ViewModel() {
-    val loginUser = MutableLiveData<String?>()
+class LoginViewModel : ViewModel() {
+    val loginUser = MutableLiveData<String>()
     val error = MutableLiveData<Event<String>>()
 
     /** 아이디와 비밀 번호를 받아 로그인하는 메소드 */
-    fun login(id: String?, password: String?) {
+    fun login(id: String, password: String) {
         // 이미 저장되어 있는 정보가 있으면 자동 로그인
         Executors.newSingleThreadExecutor().execute {
             // 로그인 요청
@@ -24,6 +25,9 @@ class LoginViewModel private constructor() : ViewModel() {
                 val patient = response.body()
                 loginUser.postValue(patient!!.id)
 
+                // 사용자 이름의 DB 생성
+                WearingInfoRepository.init(patient.id)
+                
                 Log.i("Login", patient.toString())
             } else {
                 Log.e("Login Error", "로그인 실패")
@@ -47,13 +51,9 @@ class LoginViewModel private constructor() : ViewModel() {
         val password = sharedPreferences.getString("password", null)
         
         if (id != null || password != null) {
-            login(id, password)
+            login(id!!, password!!)
             return true
         }
         return false
-    }
-
-    companion object {
-        var instance = LoginViewModel()
     }
 }

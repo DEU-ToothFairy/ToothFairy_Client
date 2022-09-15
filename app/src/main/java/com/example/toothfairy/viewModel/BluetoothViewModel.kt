@@ -8,15 +8,11 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BluetoothViewModel : ViewModel() {
+object BluetoothViewModel : ViewModel() {
     var bluetoothData = MutableLiveData<String>()
     var wearStatus = MutableLiveData<Boolean>()
     var connected = MutableLiveData<Boolean>()
     var wearingFlag = MutableLiveData(false)
-
-    fun init(patientId: String?) {
-        WearingInfoRepository.init(patientId)
-    }
 
     fun changeFlag() { wearingFlag.value = !wearingFlag.value!! }
 

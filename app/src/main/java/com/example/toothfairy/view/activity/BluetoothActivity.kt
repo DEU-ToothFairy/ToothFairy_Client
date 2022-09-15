@@ -7,6 +7,7 @@ import android.bluetooth.le.BluetoothLeScanner
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -50,10 +51,8 @@ class BluetoothActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_bluetooth)
         binding?.bluetoothPulse?.startRippleAnimation()
 
-        viewModel = ViewModelProvider(this)[BluetoothViewModel::class.java]
-        viewModel!!.init(intent.getStringExtra("loginUser"))
-
-        Log.i("BluetoothInstance", viewModel.toString())
+        viewModel = BluetoothViewModel
+//        viewModel!!.init(intent.getStringExtra("loginUser"))
 
         // 검색 버튼 초기화 (숨기기)
         binding?.scanBtn?.visibility = View.INVISIBLE
@@ -62,25 +61,8 @@ class BluetoothActivity : AppCompatActivity() {
         binding?.initText?.visibility = View.INVISIBLE
 
         /*------------------------------------------------------------------------------------------------*/
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            requestPermissions(
-                arrayOf(
-                    Manifest.permission.BLUETOOTH,
-                    Manifest.permission.BLUETOOTH_SCAN,
-                    Manifest.permission.BLUETOOTH_ADVERTISE,
-                    Manifest.permission.BLUETOOTH_CONNECT,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ),
-                1)
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(
-                arrayOf(
-                    Manifest.permission.BLUETOOTH
-                ),
-                1
-            )
-        }
+
+        checkPermission()
 
         btManager = getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
         btAdapter = btManager!!.adapter
@@ -93,16 +75,45 @@ class BluetoothActivity : AppCompatActivity() {
         btScanner = btAdapter?.bluetoothLeScanner
 
         startScanning()
+
         /*------------------------------------------------------------------------------------------------*/
         viewModel!!.connected.observe(this ) { connected: Boolean ->
             // 연결이 되면 장치 초기화 중 텍스트 출력
             if(connected) binding?.initText?.visibility = View.VISIBLE
         }
 
-        changeActivity()
+
         // 펄스 애니메이션 멈추기
         // binding.bluetoothPulse.stopRippleAnimation();
     } // onCreate
+
+    /** 권한을 체크하는 메소드 */
+    private fun checkPermission(){
+        // 필요한 권한 목록
+        val permissionList:Array<String> = arrayOf(
+                                    Manifest.permission.BLUETOOTH,
+                                    Manifest.permission.BLUETOOTH_SCAN,
+                                    Manifest.permission.BLUETOOTH_ADVERTISE,
+                                    Manifest.permission.BLUETOOTH_CONNECT,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                                    Manifest.permission.ACCESS_FINE_LOCATION
+                                )
+
+        for (permission in permissionList){
+            if(checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED){
+                requestPermission(permissionList)
+            }
+        }
+    }
+
+    /** 퍼미션 리스트를 받아서 권한을 요청하는 메소드 */
+    private fun requestPermission(permissionList: Array<String>){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            requestPermissions(permissionList,1)
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(arrayOf( Manifest.permission.BLUETOOTH),1)
+        }
+    }
 
     @SuppressLint("MissingPermission")
     override fun onResume() {
@@ -113,101 +124,6 @@ class BluetoothActivity : AppCompatActivity() {
         }
     }
 
-    // Device scan callback.
-    /** 블루투스 장치를 스캔하는 콜백 메소드 */
-    private val leScanCallback: ScanCallback = object : ScanCallback() {
-        @SuppressLint("MissingPermission")
-        override fun onScanResult(callbackType: Int, result: ScanResult) {
-            strDevicename = if (result.scanRecord!!.deviceName == null) {
-                "Unknown"
-            } else {
-                result.scanRecord!!.deviceName
-            }
-            if (bScanON) {
-                if (strDevicename == TEST_BLE_DEVICE_NAME) {
-                    strAddress = result.device.address
-                    stopScanning()
-                    if (btAdapter!!.isEnabled) {
-                        Toast.makeText(applicationContext, "장치가 연결 되었습니다.", Toast.LENGTH_SHORT).show()
-                    } else {
-                        val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-                        startActivityForResult(enableIntent, REQUEST_ENABLE_BT)
-                    }
-                    connection()
-                } else {
-//                    tvStatus.setText("Device not found");
-                }
-            }
-            Log.d("LOG ", "$strAddress  : $strDevicename")
-        }
-    }
-
-    private val connectecallabck: BluetoothGattCallback = object : BluetoothGattCallback() {
-        @SuppressLint("MissingPermission")
-        override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
-            super.onConnectionStateChange(gatt, status, newState)
-            btGatt = gatt
-            //gatt.discoverServices();
-            if (newState == BluetoothProfile.STATE_CONNECTED) {
-                gatt.discoverServices() // onServicesDiscovered() 호출 (서비스 연결 위해 꼭 필요)
-                Log.i("Data", "PASS:1")
-                viewModel!!.connected.postValue(true)
-            } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                // Can't see.
-            }
-        }
-
-        @SuppressLint("MissingPermission")
-        override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
-            Log.i("Data", "PASS:2")
-            super.onServicesDiscovered(gatt, status)
-            val service = gatt.getService(UUID_Service)
-            ValueCharacteristic_read = service.getCharacteristic(UUID_VALUE_READ)
-
-            runOnUiThread { //최초 실행
-                btGatt!!.readCharacteristic(ValueCharacteristic_read)
-                Log.i("Data", "PASS:3")
-            }
-
-            // 액티비티 전환
-            changeActivity()
-        }
-
-        var tmp = ""
-        var strTime = ""
-        @SuppressLint("MissingPermission")
-        override fun onCharacteristicRead(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, status: Int ) {
-            super.onCharacteristicRead(gatt, characteristic, status)
-            val strData = characteristic.getStringValue(0)
-
-            if (tmp != strData) {
-                tmp = strData
-                strTime = time
-            }
-
-            runOnUiThread {
-                Log.i("Data", strData + "")
-                if (timeCount >= 60) {
-                    timeCount = 0
-                    if (onCount >= 40) {
-                        onCount = 0
-
-                        // 시간 저장 플래그
-                        viewModel!!.changeFlag()
-                    }
-                }
-
-                timeCount++
-                if ("ON" == strData) onCount++
-
-                Log.i("Count", "Time : $timeCount ON : $onCount")
-
-                viewModel!!.bluetoothData.postValue(strData)
-                btGatt!!.readCharacteristic(ValueCharacteristic_read)
-            }
-            super.onCharacteristicRead(gatt, characteristic, status)
-        }
-    }
 
     @SuppressLint("MissingPermission")
     fun startScanning() {
@@ -234,14 +150,116 @@ class BluetoothActivity : AppCompatActivity() {
         }
     }
 
+    // Device scan callback.
+    /** 블루투스 장치를 스캔하는 콜백 메소드 */
+    private val leScanCallback: ScanCallback = object : ScanCallback() {
+        @SuppressLint("MissingPermission")
+        override fun onScanResult(callbackType: Int, result: ScanResult) {
+            strDevicename = if (result.scanRecord!!.deviceName == null) {
+                "Unknown"
+            } else {
+                result.scanRecord!!.deviceName
+            }
+            // 스캔 상태일 경우
+            if (bScanON) {
+                // 기기의 이름을 찾을 때까지 스캔
+                if (strDevicename == TEST_BLE_DEVICE_NAME) {
+                    strAddress = result.device.address
+                    stopScanning()
+                    if (btAdapter!!.isEnabled) {
+                        Toast.makeText(applicationContext, "장치가 연결 되었습니다.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                        startActivityForResult(enableIntent, REQUEST_ENABLE_BT)
+                    }
+                    connection()
+                } else {
+//                    tvStatus.setText("Device not found");
+                }
+            }
+            Log.d("LOG ", "$strAddress  : $strDevicename")
+        }
+    }
+
+
+    /** 장치가 연결되면 해당 콜백 메소드가 실행 됨 */
+    private val connectecallabck: BluetoothGattCallback = object : BluetoothGattCallback() { // 익명 클래스
+        @SuppressLint("MissingPermission")
+        override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
+            super.onConnectionStateChange(gatt, status, newState)
+            btGatt = gatt
+            //gatt.discoverServices();
+            if (newState == BluetoothProfile.STATE_CONNECTED) {
+                gatt.discoverServices() // onServicesDiscovered() 호출 (서비스 연결 위해 꼭 필요)
+                Log.i("Data", "PASS:1")
+
+                viewModel!!.connected.postValue(true)
+            } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                // Can't see.
+            }
+        }
+
+        @SuppressLint("MissingPermission")
+        override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
+            super.onServicesDiscovered(gatt, status)
+
+            Log.i("Data", "PASS:2")
+            val service = gatt.getService(UUID_Service)
+            ValueCharacteristic_read = service.getCharacteristic(UUID_VALUE_READ)
+
+            runOnUiThread { //최초 실행
+                btGatt!!.readCharacteristic(ValueCharacteristic_read)
+                Log.i("Data", "PASS:3")
+            }
+
+            // 액티비티 전환
+            changeActivity()
+        }
+
+
+
+        @SuppressLint("MissingPermission")
+        override fun onCharacteristicRead(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, status: Int ) {
+            super.onCharacteristicRead(gatt, characteristic, status)
+            val strData = characteristic.getStringValue(0)
+
+            /** 블루투스 모듈의 데이터 전송 속도와 맞춰지는듯 */
+            runOnUiThread {
+                Log.i("Data", strData)
+                if (timeCount >= 60) {
+                    timeCount = 0
+                    if (onCount >= 40) {
+                        onCount = 0
+
+                        // 착용 상태 플래그
+                        viewModel!!.changeFlag()
+                    }
+                }
+
+                timeCount++
+                if ("ON" == strData) onCount++
+
+                Log.i("Count", "Time : $timeCount ON : $onCount")
+
+                viewModel!!.bluetoothData.postValue(strData)
+                btGatt!!.readCharacteristic(ValueCharacteristic_read)
+            }
+            super.onCharacteristicRead(gatt, characteristic, status)
+        }
+    }
+
+
+
+
     @SuppressLint("MissingPermission")
     fun deconnection() {
         if (strDevicename == TEST_BLE_DEVICE_NAME && btGatt != null) {
             btGatt!!.disconnect()
             btGatt!!.close()
             if (btAdapter!!.isEnabled) {
-                Toast.makeText(applicationContext, "Disconnect the BLE Device.", Toast.LENGTH_SHORT)
-                    .show()
+                viewModel!!.connected.postValue(false) // 연결 해제 표시
+
+                Toast.makeText(applicationContext, "장치 연결이 해제 되었습니다.", Toast.LENGTH_SHORT).show()
             } else {
                 val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                 startActivityForResult(enableIntent, REQUEST_ENABLE_BT)

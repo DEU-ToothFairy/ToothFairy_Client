@@ -10,7 +10,9 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +27,6 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAdjusters
-import java.util.*
 import kotlin.math.abs
 
 
@@ -41,9 +42,11 @@ class StatsFragment : Fragment() {
 
     // VARIABLE
     lateinit var binding: FragmentStatsBinding
+    lateinit var layoutManager: LinearLayoutManager
+
     val itemList = arrayListOf<CalendarDate>()
     val calendarAdapter = CalendarAdapter(itemList)
-    lateinit var layoutManager: LinearLayoutManager
+    var selectorPosition:Int = itemList.size - 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,21 +69,21 @@ class StatsFragment : Fragment() {
         layoutManager = LinearLayoutManager(requireContext())
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
 
-        binding.calendarView.layoutManager = layoutManager
+        binding.recyclerView.layoutManager = layoutManager
 
-        setListView()
+        setRecyclerView()
         calendarEventAdder()
 
         // selectDateTv Spannable로 폰트 스타일 변경
-        selectDateTvSetting()
+        styleChangeSelectDateTv()
         // userScoreTv Spannable로 폰트 스타일 변경
-        userScoreTvSetting()
-
+        styleChangeUserScoreTV()
 
         return view
     }
 
-    private fun userScoreTvSetting(){
+    /** 사용자 교정 점수 Textview 스타일 변경 */
+    private fun styleChangeUserScoreTV(){
         val userScore:String = binding.userScoreTv.text.toString()
         val builder = SpannableStringBuilder(userScore)
 
@@ -90,7 +93,8 @@ class StatsFragment : Fragment() {
         binding.userScoreTv.text = builder
     }
 
-    private fun selectDateTvSetting(){
+    /** 선택 날짜 Textview 스타일 변경 */
+    private fun styleChangeSelectDateTv(){
         val selectDate:String = binding.selectDateTv.text.toString()
         val builder = SpannableStringBuilder(selectDate)
 
@@ -102,12 +106,19 @@ class StatsFragment : Fragment() {
         binding.selectDateTv.text = builder
     }
 
+    /** 캘린더 이벤트 */
     private fun calendarEventAdder(){
-        binding.calendarView.addOnScrollListener(object : OnScrollListener(){
+        binding.recyclerView.addOnScrollListener(object : OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if(newState == RecyclerView.SCROLL_STATE_IDLE){
-                    binding.calendarView.post{ autoScroll() }
+                    binding.recyclerView.post{ autoScroll() }
+
+                    // 완전히 보이는 아이템의 Position + SelectorPosition 
+                    val item = itemList[
+                                        (binding.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition() + selectorPosition]
+
+                    Toast.makeText(context, "${item.date}, ${item.date}", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -116,9 +127,52 @@ class StatsFragment : Fragment() {
             }
         })
     }
+
+
+    private fun setRecyclerView(){
+        // 현재 달의 마지막 날짜
+        val lastDayOfMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth())
+        lastDayOfMonth.format(DateTimeFormatter.ofPattern("dd"))
+
+        val today = LocalDate.now()
+
+        /* NEED FIX 교정 시작일 부터 현재까지로 바꿔야함 */
+        for(i in 1..today.monthValue){ // 1월부터 12월 까지
+            for (j in 1..YearMonth.of(today.year, i).lengthOfMonth()){ // 해당 년도, 해당 월의 마지막 달까지 반복
+                val localDate = LocalDate.of(today.year, i, j)
+                val dayOfWeek: DayOfWeek = localDate.dayOfWeek // MONDAY, TUESDAY 같은 요일의 이름을 가져옴
+
+                itemList.add(CalendarDate(
+                                        dayOfWeek.toString().substring(0,1), // 요일
+                                        localDate // 날짜 YYYY-MM-DD
+                            )
+                        )
+            }
+        }
+
+        // RecyclerView Item 클릭 이벤트 리스너 등록
+        // calendarAdapter 내에 onItemClickListener 인터페이스를 선언
+        // 외부에서 리스너 인터페이스를 구현할 수 있게하여 좀 더 다양한 작업이 가능하게 함
+        calendarAdapter.onItemClickListener = object : CalendarAdapter.OnItemClickListener{
+            override fun onClick(view: View, position: Int) {
+                val item:CalendarDate = itemList[position]
+                
+                binding.selector.x = view.x + (view.paddingLeft / 2)
+
+                // selectorPosition은 완전히 보이는 아이템의 Position으로부터 셀렉터가 얼만큼 떨어져있는지를 저장해둠
+                selectorPosition = position - (binding.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+
+                Toast.makeText(context, "CLICK ${item.date}, ${item.day} x = ${view.x} width = ${view.width}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.recyclerView.adapter = calendarAdapter
+        binding.recyclerView.scrollToPosition(itemList.size - 1)
+    }
+
     private fun autoScroll() {
         lateinit var date: LinearLayout
-        val calendar = binding.calendarView
+        val calendar = binding.recyclerView
 
         val xy = IntArray(2)
         var gap = 0
@@ -142,26 +196,6 @@ class StatsFragment : Fragment() {
         }
 
         calendar.smoothScrollBy(minimumGap, 0) // minimumGap 만큼 이동
-    }
-
-    private fun setListView(){
-        // 현재 달의 마지막 날짜
-        val lastDayOfMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth())
-        lastDayOfMonth.format(DateTimeFormatter.ofPattern("dd"))
-
-        val year = LocalDate.now().year
-
-        for(i in 1..12){ // 1월부터 12월 까지
-            for (j in 1..YearMonth.of(year, i).lengthOfMonth()){ // 해당 년도, 해당 월의 마지막 달까지 반복
-                val localDate = LocalDate.of(year, i, j)
-                val dayOfWeek: DayOfWeek = localDate.dayOfWeek // MONDAY, TUESDAY 같은 요일의 이름을 가져옴
-
-                itemList.add(CalendarDate(dayOfWeek.toString().substring(0,1), j.toString()))
-            }
-        }
-
-
-        binding.calendarView.adapter = calendarAdapter
     }
 
     companion object {

@@ -1,5 +1,7 @@
 package com.example.toothfairy.viewModel
 
-class StatsViewModel : MainViewModel() {
+import androidx.lifecycle.ViewModel
+
+class StatsViewModel : ViewModel() {
 
 }

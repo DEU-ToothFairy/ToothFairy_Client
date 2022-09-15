@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/calendarCell"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -8,7 +9,7 @@
     android:padding="15dp">
 
     <TextView
-        android:id="@+id/day_cell"
+        android:id="@+id/dayTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="S"
@@ -18,7 +19,7 @@
         />
 
     <TextView
-        android:id="@+id/date_cell"
+        android:id="@+id/dateTextView"
         android:layout_width="25dp"
         android:layout_height="25dp"
 

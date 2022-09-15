@@ -4,6 +4,7 @@
     <color name="blue">#5384ed</color>
     <color name="colorAccent">#6194f8</color>
     <color name="text_gray">#8696BB</color>
+    <color name="red">#FF5C5C</color>
 
     <!-- Light 계열 -->
     <color name="light_blue">#E9F2FF</color>
@@ -21,6 +22,7 @@
     <color name="black_gray">#6a6a6a</color>
     <color name="gray">#919191</color>
     <color name="semi_gray">#CCCCCC</color>
+    <color name="blue_gray">#8696BB</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background_gray">#f4f4f4</color>
 

@@ -62,8 +62,6 @@ class BluetoothActivity : AppCompatActivity() {
 
         /*------------------------------------------------------------------------------------------------*/
 
-        checkPermission()
-
         btManager = getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
         btAdapter = btManager!!.adapter
 
@@ -87,33 +85,9 @@ class BluetoothActivity : AppCompatActivity() {
         // binding.bluetoothPulse.stopRippleAnimation();
     } // onCreate
 
-    /** 권한을 체크하는 메소드 */
-    private fun checkPermission(){
-        // 필요한 권한 목록
-        val permissionList:Array<String> = arrayOf(
-                                    Manifest.permission.BLUETOOTH,
-                                    Manifest.permission.BLUETOOTH_SCAN,
-                                    Manifest.permission.BLUETOOTH_ADVERTISE,
-                                    Manifest.permission.BLUETOOTH_CONNECT,
-                                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                                    Manifest.permission.ACCESS_FINE_LOCATION
-                                )
 
-        for (permission in permissionList){
-            if(checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED){
-                requestPermission(permissionList)
-            }
-        }
-    }
 
-    /** 퍼미션 리스트를 받아서 권한을 요청하는 메소드 */
-    private fun requestPermission(permissionList: Array<String>){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            requestPermissions(permissionList,1)
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(arrayOf( Manifest.permission.BLUETOOTH),1)
-        }
-    }
+
 
     @SuppressLint("MissingPermission")
     override fun onResume() {

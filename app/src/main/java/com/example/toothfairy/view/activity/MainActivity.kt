@@ -37,6 +37,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mNotificationManager    : NotificationManager
     private lateinit var dateChangedReceiver     : DateChangedReceiver
 
+    private var homeFragment:HomeFragment? = null
+    private var statsFragment:StatsFragment? = null
+    private var reportFragment:ReportFragment? = null
+    private var profileFragment:ProfileFragment? = null
+    private var fragmentList = arrayListOf(homeFragment, statsFragment, reportFragment, profileFragment)
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -145,30 +150,89 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.run {
             setOnNavigationItemSelectedListener {
                 var fragment = when (it.itemId) {
-                    R.id.menu_home -> HomeFragment.instance
-                    R.id.menu_stastics -> StatsFragment()
-                    R.id.menu_report -> ReportFragment()
+                    R.id.menu_home -> {
+                        if(homeFragment == null){
+                            homeFragment = HomeFragment()
+                            addFragment(homeFragment)
+                        }
+
+                        homeFragment?.let { it -> showFragment(it) }
+                        statsFragment?.let { it -> hideFragment(it) }
+                        reportFragment?.let { it -> hideFragment(it) }
+                        profileFragment?.let { it -> hideFragment(it) }
+                    }
+                    R.id.menu_stastics -> {
+                        if(statsFragment == null){
+                            statsFragment = StatsFragment()
+                            addFragment(statsFragment)
+                        }
+
+                        homeFragment?.let { it -> hideFragment(it) }
+                        statsFragment?.let { it -> showFragment(it) }
+                        reportFragment?.let { it -> hideFragment(it) }
+                        profileFragment?.let { it -> hideFragment(it) }
+                    }
+                    R.id.menu_report -> {
+                        if(reportFragment == null){
+                            reportFragment = ReportFragment()
+                            addFragment(reportFragment)
+                        }
+
+                        homeFragment?.let { it -> hideFragment(it) }
+                        statsFragment?.let { it -> hideFragment(it) }
+                        reportFragment?.let { it -> showFragment(it) }
+                        profileFragment?.let { it -> hideFragment(it) }
+                    }
                     R.id.menu_notice -> StatsFragment()
-                    R.id.menu_profile -> ProfileFragment()
-                    else -> HomeFragment.instance
+                    R.id.menu_profile -> {
+                        if(profileFragment == null){
+                            profileFragment = ProfileFragment()
+                            addFragment(profileFragment)
+                        }
+
+                        homeFragment?.let { it -> hideFragment(it) }
+                        statsFragment?.let { it -> hideFragment(it) }
+                        reportFragment?.let { it -> hideFragment(it) }
+                        profileFragment?.let { it -> showFragment(it) }
+                    }
+                    else -> HomeFragment()
                 }
-                loadFragment(fragment)
+//                loadFragment(fragment)
                 
                 // OnNavigationItemSelectedListner의 반환 값 (람다 함수 형식이라 마지막 라인이 반환 값이 됨)
                 true
             }
             selectedItemId = R.id.menu_home
         }
-
     }
 
     // Fragment 변경
-    private fun loadFragment(fragment: Fragment?) {
+    private fun<T: Fragment> addFragment(fragment: T?) {
         // 이전 버전까지 호환 가능하도록 getSupportFragmentManager() 사용
-        supportFragmentManager
-            .beginTransaction() // 프래그먼트 변경을 위한 트랜잭션을 시작
-            .replace(R.id.frameLayout, fragment!!) // FrameLayout에 전달 받은 프래그먼트로 교체
-            .commit() // 변경 사항 적용
+        fragment?.let {
+            supportFragmentManager
+                .beginTransaction() // 프래그먼트 변경을 위한 트랜잭션을 시작
+                .add(R.id.frameLayout, it) // FrameLayout에 전달 받은 프래그먼트로 교체
+                .commit() // 변경 사항 적용
+        }
+    }
+
+    private fun<T: Fragment> showFragment(fragment: T?){
+        fragment?.let {
+            supportFragmentManager
+                .beginTransaction()
+                .show(it)
+                .commit()
+        }
+    }
+
+    private fun<T: Fragment> hideFragment(fragment: T?){
+        fragment?.let {
+            supportFragmentManager
+                .beginTransaction()
+                .hide(it)
+                .commit()
+        }
     }
 
     override fun onDestroy() {

@@ -10,7 +10,6 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -41,7 +40,7 @@ class StatsFragment : Fragment() {
     private var mParam2: String? = null
 
     // VARIABLE
-    lateinit var binding: FragmentStatsBinding
+    lateinit var bind: FragmentStatsBinding
     lateinit var layoutManager: LinearLayoutManager
 
     val itemList = arrayListOf<CalendarDate>()
@@ -60,8 +59,8 @@ class StatsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         // 데이터 바인딩
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stats, container, false)
-        val view = binding.root
+        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_stats, container, false)
+        val view = bind.root
 
 //        // 데이터를 관리하는 뷰 모델을 binding에 연결해줘야 적용 됨
 //        binding.lifecycleOwner = requireActivity()
@@ -69,13 +68,13 @@ class StatsFragment : Fragment() {
         layoutManager = LinearLayoutManager(requireContext())
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
 
-        binding.recyclerView.layoutManager = layoutManager
+        bind.recyclerView.layoutManager = layoutManager
 
-        setRecyclerView()
+        initRecyclerView()
         calendarEventAdder()
 
-        // selectDateTv Spannable로 폰트 스타일 변경
-        styleChangeSelectDateTv()
+        // todayTv Spannable로 폰트 스타일 변경
+        styleChangeTodayTv()
         // userScoreTv Spannable로 폰트 스타일 변경
         styleChangeUserScoreTV()
 
@@ -84,18 +83,18 @@ class StatsFragment : Fragment() {
 
     /** 사용자 교정 점수 Textview 스타일 변경 */
     private fun styleChangeUserScoreTV(){
-        val userScore:String = binding.userScoreTv.text.toString()
+        val userScore:String = bind.userScoreTv.text.toString()
         val builder = SpannableStringBuilder(userScore)
 
         val colorBlueSpan = ForegroundColorSpan(resources.getColor(R.color.colorAccent))
         builder.setSpan(colorBlueSpan, userScore.length - 9, userScore.length - 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-        binding.userScoreTv.text = builder
+        bind.userScoreTv.text = builder
     }
 
     /** 선택 날짜 Textview 스타일 변경 */
-    private fun styleChangeSelectDateTv(){
-        val selectDate:String = binding.selectDateTv.text.toString()
+    private fun styleChangeTodayTv(){
+        val selectDate:String = bind.todayTv.text.toString()
         val builder = SpannableStringBuilder(selectDate)
 
         builder.setSpan(StyleSpan(Typeface.BOLD), selectDate.length - 3, selectDate.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -103,33 +102,11 @@ class StatsFragment : Fragment() {
         val sizeBigSpan = RelativeSizeSpan(0.8f)
         builder.setSpan(sizeBigSpan, selectDate.length - 3, selectDate.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-        binding.selectDateTv.text = builder
+        bind.todayTv.text = builder
     }
 
-    /** 캘린더 이벤트 */
-    private fun calendarEventAdder(){
-        binding.recyclerView.addOnScrollListener(object : OnScrollListener(){
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if(newState == RecyclerView.SCROLL_STATE_IDLE){
-                    binding.recyclerView.post{ autoScroll() }
-
-                    // 완전히 보이는 아이템의 Position + SelectorPosition 
-                    val item = itemList[
-                                        (binding.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition() + selectorPosition]
-
-                    Toast.makeText(context, "${item.date}, ${item.date}", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-            }
-        })
-    }
-
-
-    private fun setRecyclerView(){
+    /** 리사이클러뷰 초기화 */
+    private fun initRecyclerView(){
         // 현재 달의 마지막 날짜
         val lastDayOfMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth())
         lastDayOfMonth.format(DateTimeFormatter.ofPattern("dd"))
@@ -143,10 +120,10 @@ class StatsFragment : Fragment() {
                 val dayOfWeek: DayOfWeek = localDate.dayOfWeek // MONDAY, TUESDAY 같은 요일의 이름을 가져옴
 
                 itemList.add(CalendarDate(
-                                        dayOfWeek.toString().substring(0,1), // 요일
-                                        localDate // 날짜 YYYY-MM-DD
-                            )
-                        )
+                        dayOfWeek.toString().substring(0,1), // 요일
+                        localDate // 날짜 YYYY-MM-DD
+                    )
+                )
             }
         }
 
@@ -156,23 +133,46 @@ class StatsFragment : Fragment() {
         calendarAdapter.onItemClickListener = object : CalendarAdapter.OnItemClickListener{
             override fun onClick(view: View, position: Int) {
                 val item:CalendarDate = itemList[position]
-                
-                binding.selector.x = view.x + (view.paddingLeft / 2)
+
+                bind.selector.x = view.x + (view.paddingLeft / 2)
 
                 // selectorPosition은 완전히 보이는 아이템의 Position으로부터 셀렉터가 얼만큼 떨어져있는지를 저장해둠
-                selectorPosition = position - (binding.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                selectorPosition = position - (bind.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
 
-                Toast.makeText(context, "CLICK ${item.date}, ${item.day} x = ${view.x} width = ${view.width}", Toast.LENGTH_SHORT).show()
+                bind.selectDateTv.text = "${item.date.year}년 ${item.date.monthValue}월 ${item.date.dayOfMonth}일"
             }
         }
 
-        binding.recyclerView.adapter = calendarAdapter
-        binding.recyclerView.scrollToPosition(itemList.size - 1)
+        bind.recyclerView.adapter = calendarAdapter
+        bind.recyclerView.scrollToPosition(itemList.size - 1)
+    }
+
+    /** 캘린더 리사이클러뷰 이벤트 */
+    private fun calendarEventAdder(){
+        bind.recyclerView.addOnScrollListener(object : OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    bind.recyclerView.post{ autoScroll() }
+
+
+                    // 완전히 보이는 아이템의 Position + SelectorPosition
+                    val item = itemList[
+                            (bind.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition() + selectorPosition]
+
+                    bind.selectDateTv.text = "${item.date.year}년 ${item.date.monthValue}월 ${item.date.dayOfMonth}일"
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
     }
 
     private fun autoScroll() {
         lateinit var date: LinearLayout
-        val calendar = binding.recyclerView
+        val calendar = bind.recyclerView
 
         val xy = IntArray(2)
         var gap = 0

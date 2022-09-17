@@ -26,7 +26,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/selectDateTv"
+                android:id="@+id/todayTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -76,6 +76,7 @@
                 android:paddingRight="30dp">
 
                 <TextView
+                    android:id="@+id/selectDateTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"

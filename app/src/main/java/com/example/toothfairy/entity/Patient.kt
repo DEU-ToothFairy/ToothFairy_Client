@@ -7,12 +7,12 @@ import java.sql.Date
 
 class Patient {
     @Expose
-    @SerializedName("patientNum")
-    var patientNum: String? = null
-
-    @Expose
     @SerializedName("id")
     var id: String? = null
+
+    @Expose
+    @SerializedName("patientId")
+    var patientId: String? = null
 
     @Expose
     @SerializedName("password")
@@ -39,8 +39,8 @@ class Patient {
     var dailyWearTimeList: List<DailyWearTime>? = null // 환자의 일별 착용 시간 리스트
 
     constructor(
-        patientNum: String?,
         id: String?,
+        patientId: String?,
         password: String?,
         name: String?,
         birthDate: Date?,
@@ -48,8 +48,8 @@ class Patient {
         endDate: Date?,
         dailyWearTimeList: List<DailyWearTime>?
     ) {
-        this.patientNum = patientNum
         this.id = id
+        this.patientId = patientId
         this.password = password
         this.name = name
         this.birthDate = birthDate
@@ -64,6 +64,6 @@ class Patient {
         get() = ((startDate!!.time - birthDate!!.time) / (1000L * 365L * 60L * 60L * 24L)).toInt()
 
     override fun toString(): String {
-        return "Patient(patientNum=$patientNum, id=$id, password=$password, name=$name, birthDate=$birthDate, startDate=$startDate, endDate=$endDate, dailyWearTimeList=$dailyWearTimeList)"
+        return "Patient(id=$id, patientId=$patientId, password=$password, name=$name, birthDate=$birthDate, startDate=$startDate, endDate=$endDate, dailyWearTimeList=$dailyWearTimeList)"
     }
 }

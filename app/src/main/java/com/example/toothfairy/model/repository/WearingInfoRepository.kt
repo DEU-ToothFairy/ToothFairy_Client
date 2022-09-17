@@ -2,17 +2,21 @@ package com.example.toothfairy.model.repository
 
 import com.example.toothfairy.data.WearingStats
 import com.example.toothfairy.util.PreferenceManager
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.math.abs
 
 object WearingInfoRepository {
-    private const val ON = "on"
-    private const val OFF = "off"
-    private const val DAILY_WEARING_TIME = "dailyWearingTime"
-    private const val AVG_WEARING_TIME = "avgWearingTime"
-    private const val MAX_WEARING_TIME = "maxWearingTime"
-    private const val MIN_WEARING_TIME = "minWearingTime"
+    private const val ON                    = "on"
+    private const val OFF                   = "off"
+    private const val DAILY_WEARING_TIME    = "dailyWearingTime"
+    private const val AVG_WEARING_TIME      = "avgWearingTime"
+    private const val MAX_WEARING_TIME      = "maxWearingTime"
+    private const val MIN_WEARING_TIME      = "minWearingTime"
+    private var prefs: PreferenceManager?   = null
 
-    private var prefs: PreferenceManager? = null
+    val dailyWearingTime: Long
+        get() = prefs!!.getLong(DAILY_WEARING_TIME)
 
     /** 사용자 아이디를 DB 이름으로 SharedPreferences 생성 */
     fun init(patientId: String?) {
@@ -20,25 +24,21 @@ object WearingInfoRepository {
         if (prefs == null) prefs = PreferenceManager(patientId)
     }
 
-    // 교정 장치 착용 감지 시
-    fun setOn() {
-        prefs!!.setLong(ON, System.currentTimeMillis())
+    fun saveDailyWearingTime(){
+        var today:String = SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance())
+
+        // 오늘 날짜의 착용 시간 데이터가 이미 저장되어 있는지 확인
+        val savedTime = prefs!!.getLong(today)
+        
+        if(savedTime == 0L){
+            val dailyWearTime = prefs!!.getLong(DAILY_WEARING_TIME)
+
+            prefs!!.setLong(today, dailyWearTime)
+            prefs!!.setLong(DAILY_WEARING_TIME, 0L)
+        }
     }
 
-    // 교정 장치 착용 해제 시
-    fun setOff(): Long {
-        val onTime = prefs!!.getLong(ON)
-        val currentTime = System.currentTimeMillis()
-
-        if (onTime == 0L) return dailyWearingTime
-
-        // OFF를 받으면 이전의 ON은 지워줌
-        prefs!!.removeKey(ON)
-
-        // 착용 시간 저장
-        return setDailyWearingTime(abs(currentTime - onTime))
-    }
-
+    /** 일일 착용 시간 저장 */
     fun setDailyWearingTime(time: Long): Long {
         val savedTime = prefs!!.getLong(DAILY_WEARING_TIME)
         prefs!!.setLong(DAILY_WEARING_TIME, savedTime + time)
@@ -46,7 +46,7 @@ object WearingInfoRepository {
         return prefs!!.getLong(DAILY_WEARING_TIME)
     }
 
-    // 하루 평균 착용 시간 저장
+    /** 하루 평균 착용 시간 저장 */
     fun setAvgWearingTime(time: Long): Long {
         var avgTime = prefs!!.getLong(AVG_WEARING_TIME)
 
@@ -63,7 +63,7 @@ object WearingInfoRepository {
         }
     }
 
-    // 최대 착용 시간 저장
+    /** 최대 착용 시간 저장 */
     fun setMaxWearingTime(time: Long?): Long {
         val maxTime = prefs!!.getLong(MAX_WEARING_TIME)
 
@@ -72,7 +72,7 @@ object WearingInfoRepository {
         return prefs!!.getLong(MAX_WEARING_TIME)
     }
     
-    // 최소 착용 시간 저장
+    /** 최소 착용 시간 저장 */
     fun setMinWearingTime(time: Long?): Long {
         val minTime = prefs!!.getLong(MIN_WEARING_TIME)
 
@@ -80,6 +80,25 @@ object WearingInfoRepository {
         else prefs!!.setLong(MIN_WEARING_TIME, minTime.coerceAtMost(time!!)) // 둘 중 작은 값으로 세팅
 
         return prefs!!.getLong(MIN_WEARING_TIME)
+    }
+
+    /** 교정 장치 착용 감지 시 */
+    fun setOn() {
+        prefs!!.setLong(ON, System.currentTimeMillis())
+    }
+
+    /** 교정 장치 착용 해제 시 */
+    fun setOff(): Long {
+        val onTime = prefs!!.getLong(ON)
+        val currentTime = System.currentTimeMillis()
+
+        if (onTime == 0L) return dailyWearingTime
+
+        // OFF를 받으면 이전의 ON은 지워줌
+        prefs!!.removeKey(ON)
+
+        // 착용 시간 저장
+        return setDailyWearingTime(abs(currentTime - onTime))
     }
 
     val wearingStats: WearingStats
@@ -90,7 +109,4 @@ object WearingInfoRepository {
 
             return WearingStats(avg, max, min)
         }
-
-    val dailyWearingTime: Long
-        get() = prefs!!.getLong(DAILY_WEARING_TIME)
 }

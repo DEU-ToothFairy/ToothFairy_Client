@@ -50,7 +50,7 @@ object PatientRepository {
 
             dailyWearTimeList.add(
                 DailyWearTime(id = data.getInt("id"),
-                              patientNum = data.getString("patientNum"),
+                              patientId = data.getString("patientId"),
                               wearDate = Date.valueOf(data.getString("wearDate")),
                               totalWearTime = data.getLong("totalWearTime"))
 

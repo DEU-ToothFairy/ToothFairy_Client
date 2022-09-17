@@ -1,7 +1,6 @@
 package com.example.toothfairy.util
 
 import android.content.Context
-import com.example.toothfairy.util.MyApplication.Companion.ApplicationContext
 import android.content.SharedPreferences
 import com.example.toothfairy.util.MyApplication
 
@@ -137,7 +136,7 @@ class PreferenceManager(dbName: String?) {
     }
 
     init {
-        val context = ApplicationContext()
+        val context = MyApplication.ApplicationContext()
         prefs = context!!.getSharedPreferences(dbName, Context.MODE_PRIVATE)
     }
 }

@@ -23,10 +23,10 @@ class LoginViewModel : ViewModel() {
             
             if (response!!.isSuccessful) {
                 val patient = response.body()
-                loginUser.postValue(patient!!.id)
+                loginUser.postValue(patient!!.patientId)
 
                 // 사용자 이름의 DB 생성
-                WearingInfoRepository.init(patient.id)
+                WearingInfoRepository.init(patient.patientId)
                 
                 Log.i("Login", patient.toString())
             } else {

@@ -10,8 +10,8 @@ class DailyWearTime {
     var id = 0
 
     @Expose
-    @SerializedName("patientNum")
-    var patientNum: String? = null
+    @SerializedName("patientId")
+    var patientId: String? = null
 
     @Expose
     @SerializedName("wearDate")
@@ -21,9 +21,9 @@ class DailyWearTime {
     @SerializedName("totalWearTime")
     var totalWearTime: Long? = null // 하루 총 착용 시간 (milliseconds)
 
-    constructor(id: Int, patientNum: String?, wearDate: Date?, totalWearTime: Long?): this() {
+    constructor(id: Int, patientId: String?, wearDate: Date?, totalWearTime: Long?): this() {
         this.id = id
-        this.patientNum = patientNum
+        this.patientId = patientId
         this.wearDate = wearDate
         this.totalWearTime = totalWearTime
     }
@@ -31,6 +31,6 @@ class DailyWearTime {
     constructor() {}
 
     override fun toString(): String {
-        return "DailyWearTime(id=$id, patientNum=$patientNum, wearDate=$wearDate, totalWearTime=$totalWearTime)"
+        return "DailyWearTime(id=$id, patientId=$patientId, wearDate=$wearDate, totalWearTime=$totalWearTime)"
     }
 }

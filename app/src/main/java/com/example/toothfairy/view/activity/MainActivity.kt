@@ -41,7 +41,12 @@ class MainActivity : AppCompatActivity() {
     private var statsFragment:StatsFragment? = null
     private var reportFragment:ReportFragment? = null
     private var profileFragment:ProfileFragment? = null
-    private var fragmentList = arrayListOf(homeFragment, statsFragment, reportFragment, profileFragment)
+    private var fragmentMap: HashMap<Int, Fragment?>? = hashMapOf(
+            R.id.menu_home to homeFragment,
+            R.id.menu_stastics to statsFragment,
+            R.id.menu_report to reportFragment,
+            R.id.menu_profile to profileFragment
+        )
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -150,59 +155,42 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.run {
             setOnNavigationItemSelectedListener {
                 var fragment = when (it.itemId) {
-                    R.id.menu_home -> {
-                        if(homeFragment == null){
-                            homeFragment = HomeFragment()
-                            addFragment(homeFragment)
-                        }
-
-                        homeFragment?.let { it -> showFragment(it) }
-                        statsFragment?.let { it -> hideFragment(it) }
-                        reportFragment?.let { it -> hideFragment(it) }
-                        profileFragment?.let { it -> hideFragment(it) }
-                    }
-                    R.id.menu_stastics -> {
-                        if(statsFragment == null){
-                            statsFragment = StatsFragment()
-                            addFragment(statsFragment)
-                        }
-
-                        homeFragment?.let { it -> hideFragment(it) }
-                        statsFragment?.let { it -> showFragment(it) }
-                        reportFragment?.let { it -> hideFragment(it) }
-                        profileFragment?.let { it -> hideFragment(it) }
-                    }
-                    R.id.menu_report -> {
-                        if(reportFragment == null){
-                            reportFragment = ReportFragment()
-                            addFragment(reportFragment)
-                        }
-
-                        homeFragment?.let { it -> hideFragment(it) }
-                        statsFragment?.let { it -> hideFragment(it) }
-                        reportFragment?.let { it -> showFragment(it) }
-                        profileFragment?.let { it -> hideFragment(it) }
-                    }
-                    R.id.menu_notice -> StatsFragment()
-                    R.id.menu_profile -> {
-                        if(profileFragment == null){
-                            profileFragment = ProfileFragment()
-                            addFragment(profileFragment)
-                        }
-
-                        homeFragment?.let { it -> hideFragment(it) }
-                        statsFragment?.let { it -> hideFragment(it) }
-                        reportFragment?.let { it -> hideFragment(it) }
-                        profileFragment?.let { it -> showFragment(it) }
-                    }
-                    else -> HomeFragment()
+                    R.id.menu_home -> changetFragment(R.id.menu_home)
+                    R.id.menu_stastics -> changetFragment(R.id.menu_stastics)
+                    R.id.menu_report -> changetFragment(R.id.menu_report)
+                    R.id.menu_notice -> changetFragment(R.id.menu_notice)
+                    R.id.menu_profile -> changetFragment(R.id.menu_profile)
+                    else -> changetFragment(R.id.menu_home)
                 }
-//                loadFragment(fragment)
-                
+
                 // OnNavigationItemSelectedListner의 반환 값 (람다 함수 형식이라 마지막 라인이 반환 값이 됨)
                 true
             }
             selectedItemId = R.id.menu_home
+        }
+    }
+
+    private fun changetFragment(fragmentId: Int){
+        fragmentMap?.forEach { (key, value) ->
+            if(key == fragmentId){
+                if(fragmentMap!![key] == null){
+                    fragmentMap!![key] = fragmentFactory(fragmentId)
+                    addFragment(fragmentMap!![key])
+                }
+                showFragment(fragmentMap!![key])
+            }
+            else hideFragment(fragmentMap!![key])
+        }
+    }
+
+    private fun fragmentFactory(fragmentId: Int): Fragment {
+        return when (fragmentId) {
+            R.id.menu_home -> HomeFragment()
+            R.id.menu_stastics -> StatsFragment()
+            R.id.menu_report -> ReportFragment()
+            R.id.menu_notice -> ProfileFragment()
+            R.id.menu_profile -> ProfileFragment()
+            else -> HomeFragment()
         }
     }
 

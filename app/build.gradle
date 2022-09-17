@@ -97,6 +97,9 @@ dependencies {
     /* ChartProgressBar */
     implementation 'com.github.hadiidbouk:ChartProgressBar-Android:2.0.6'
 
+    // 코틀린을 쓰는 경우
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
+
     testImplementation 'junit:junit:4.+'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

@@ -11,7 +11,7 @@ class MyApplication : Application() {
         context = applicationContext
     }
 
-    companion object {
+    companion object{
         private var context: Context? = null
 
         @JvmStatic
@@ -19,4 +19,5 @@ class MyApplication : Application() {
             return context
         }
     }
+
 }

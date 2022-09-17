@@ -1,16 +1,21 @@
 package com.example.toothfairy.view.activity
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
@@ -26,6 +31,8 @@ import com.example.toothfairy.view.fragment.ReportFragment
 import com.example.toothfairy.view.fragment.StatsFragment
 import com.example.toothfairy.viewModel.BluetoothViewModel
 import com.example.toothfairy.viewModel.MainViewModel
+import java.util.*
+import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity() {
     // VARIABLE
@@ -64,12 +71,12 @@ class MainActivity : AppCompatActivity() {
         mainVM = ViewModelProvider(this)[MainViewModel::class.java]
         blueVM = BluetoothViewModel //ViewModelProvider(this)[BluetoothViewModel::class.java]
 
-        createNotificationChannel() // 알림 채널 생성
+        dateChangedReceiver = DateChangedReceiver()
+
+        createAlarmManager()
         initBottomNavibar() // 네비바 세팅
         loadData()
         settingAppTitle()
-
-        dateChangedReceiver = DateChangedReceiver()
         /* INIT End */
 
     } // onCreate
@@ -77,9 +84,11 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        /** 브로드캐스트 리시버에 감지할 액션을 전달해줌 */
         val filter = IntentFilter()
 
         filter.addAction(Intent.ACTION_TIME_CHANGED)
+        filter.addAction(Intent.ACTION_POWER_CONNECTED)
         registerReceiver(dateChangedReceiver, filter)
     }
 
@@ -113,42 +122,36 @@ class MainActivity : AppCompatActivity() {
         binding.appTitle.text = builder
     }
 
-    /** 알림 생성 */
-    private fun createNotification(title: String, content: String) {
-        // Notivication에 대한 ID 생성
-        val notifyBuilder = NotificationCompat.Builder(this, "ToothFairy")
-            .setContentTitle(title)
-            .setContentText(content)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(content))
-            .setSmallIcon(R.drawable.appnamelogo)
+    private fun createAlarmManager(){
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
 
-        mNotificationManager!!.notify(NOTIFICATION_ID, notifyBuilder.build())
-    }
+        val intent = Intent(this, DateChangedReceiver::class.java)  // 1
+        val pendingIntent = PendingIntent.getBroadcast(     // 2
+            this,
+            NOTIFICATION_ID, // 알람 여러개를 등록하려면 requestCode를 다르게해야 함
+            intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
 
-    /** 알림 채널 생성 */
-    private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-
-        //notification manager 생성
-        mNotificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-
-        // 기기(device)의 SDK 버전 확인 ( SDK 26 버전 이상인지 - VERSION_CODES.O = 26)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            //Channel 정의 생성자( construct 이용 )
-            val notificationChannel = NotificationChannel(
-                CHANNEL_ID,
-                "ToothFairy Notification",
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            //Channel에 대한 기본 설정
-            notificationChannel.enableLights(true)
-            notificationChannel.enableVibration(true)
-            notificationChannel.description = "Notification from ToothFairy"
-
-            // Manager을 이용하여 Channel 생성
-            mNotificationManager!!.createNotificationChannel(notificationChannel)
+        // Set the alarm to start at time and minute
+        val calendar: Calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, 22)
+            set(Calendar.MINUTE, 46)
+            set(Calendar.SECOND, 0)
         }
+
+        if(calendar.before(Calendar.getInstance()))
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+
+        Log.i("현재 날짜", "$calendar")
+
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
     }
 
     private fun initBottomNavibar() {

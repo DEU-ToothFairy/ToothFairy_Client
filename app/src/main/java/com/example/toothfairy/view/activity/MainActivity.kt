@@ -64,9 +64,7 @@ class MainActivity : AppCompatActivity() {
 
         // View Binding
         binding = ActivityMainBinding.inflate(layoutInflater)
-
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         mainVM = ViewModelProvider(this)[MainViewModel::class.java]
         blueVM = BluetoothViewModel //ViewModelProvider(this)[BluetoothViewModel::class.java]

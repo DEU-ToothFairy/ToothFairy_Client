@@ -43,14 +43,18 @@
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_login.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_main.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_splash.xml" value="0.3609375" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_checklist_bottom_sheet.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_home.xml" value="0.3816584294343767" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_profile.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_report.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_stats.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/item_graph_line.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/progress_ui.xml" value="0.270703125" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/sub_checklist_layout.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/wearing_progress_layout.xml" value="0.33" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layouts/fragment/layout/fragment_home.xml" value="0.2390625" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layouts/fragment/layout/fragment_profile.xml" value="0.2390625" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/menu/navigation_menu.xml" value="0.3619791666666667" />
       </map>
     </option>
   </component>

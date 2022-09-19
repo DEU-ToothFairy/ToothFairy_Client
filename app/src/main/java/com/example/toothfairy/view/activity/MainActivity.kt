@@ -31,6 +31,7 @@ import com.example.toothfairy.view.fragment.ReportFragment
 import com.example.toothfairy.view.fragment.StatsFragment
 import com.example.toothfairy.viewModel.BluetoothViewModel
 import com.example.toothfairy.viewModel.MainViewModel
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -70,11 +71,14 @@ class MainActivity : AppCompatActivity() {
         blueVM = BluetoothViewModel //ViewModelProvider(this)[BluetoothViewModel::class.java]
 
         dateChangedReceiver = DateChangedReceiver()
+        Log.i("리시버", "$dateChangedReceiver")
 
         createAlarmManager()
         initBottomNavibar() // 네비바 세팅
         loadData()
         settingAppTitle()
+
+
         /* INIT End */
 
     } // onCreate
@@ -102,6 +106,11 @@ class MainActivity : AppCompatActivity() {
 
             // 착용 시간 데이터 로드
             mainVM!!.loadWearingStats()
+
+            val list = mainVM.getSavedWearingTimes()
+            for (i in list.indices){
+                Log.i("List", "${list[i]}")
+            }
         })
 
     }
@@ -131,19 +140,27 @@ class MainActivity : AppCompatActivity() {
             PendingIntent.FLAG_IMMUTABLE
         )
 
-        // Set the alarm to start at time and minute
+        // 매일 24시에 알람 매니저가 실행 됨
         val calendar: Calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 22)
-            set(Calendar.MINUTE, 46)
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
         }
+
+        Log.i("현재 시간", "${SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().timeInMillis)}")
+        Log.i("예약 시간", "${SimpleDateFormat("yyyy-MM-dd HH:mm").format(calendar.timeInMillis)}")
 
         if(calendar.before(Calendar.getInstance()))
             calendar.add(Calendar.DAY_OF_MONTH, 1)
 
-        Log.i("현재 날짜", "$calendar")
-
+//        정확한 시간에 알람 매니저를 작동하기 위한 메소드
+//        alarmManager.setExactAndAllowWhileIdle(
+//            AlarmManager.RTC_WAKEUP,
+//            calendar.timeInMillis,
+//            pendingIntent
+//        )
+        
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,

@@ -4,17 +4,23 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.toothfairy.data.WearingStats
+import com.example.toothfairy.dto.DailyWearTimeDto
 import com.example.toothfairy.entity.CuredInfo
 import com.example.toothfairy.entity.Patient
 import com.example.toothfairy.model.repository.CuredInfoRepository
 import com.example.toothfairy.model.repository.PatientRepository
 import com.example.toothfairy.model.repository.WearingInfoRepository
 import com.example.toothfairy.util.TimeManager
+import org.json.JSONArray
 import retrofit2.Response
+import java.sql.Date
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.Executors
 
 /** 여러 Fragment에서 공유 되어야하는 데이터는 MainViewModel에서 유지 */
-class MainViewModel : ViewModel() {
+class MainViewModel() : ViewModel() {
+
     // VARIABLE
     var patient = MutableLiveData<Patient>()                // 환자 정보
     var curedInfo = MutableLiveData<CuredInfo>()            // 완치자 정보
@@ -68,6 +74,28 @@ class MainViewModel : ViewModel() {
     }
 
 
+    fun getSavedWearingTimes(): List<DailyWearTimeDto> {
+        var jsonArray: JSONArray = JSONArray(WearingInfoRepository.savedWearTime)
+
+        var wearingDatas: MutableList<DailyWearTimeDto> = mutableListOf()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+
+        Log.i("JSON", "$jsonArray")
+
+        for (i in 0 until jsonArray.length()) {
+            val data = jsonArray.getJSONObject(i)
+
+            wearingDatas.add(
+                    DailyWearTimeDto(
+                        patient.value?.patientId!!,
+                        java.sql.Date(dateFormat.parse(data["date"].toString()).time),
+                        data["time"].toString().toLong()
+                    )
+            )
+        }
+
+        return wearingDatas
+    }
 
     /** 교정 장치 착용 상태일 때를 처리하는 메소드 */
     fun detectedOn() {

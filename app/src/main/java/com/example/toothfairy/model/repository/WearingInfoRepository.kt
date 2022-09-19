@@ -1,7 +1,12 @@
 package com.example.toothfairy.model.repository
 
 import com.example.toothfairy.data.WearingStats
+import com.example.toothfairy.dto.DailyWearTimeDto
+import com.example.toothfairy.entity.DailyWearTime
 import com.example.toothfairy.util.PreferenceManager
+import org.json.JSONArray
+import org.json.JSONObject
+import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
@@ -9,14 +14,16 @@ import kotlin.math.abs
 object WearingInfoRepository {
     private const val ON                    = "on"
     private const val OFF                   = "off"
+
+    /** 일일 착용 시간 */
     private const val DAILY_WEARING_TIME    = "dailyWearingTime"
+    private const val SAVED_WEARING_TIME    = "savedWearingTime"
     private const val AVG_WEARING_TIME      = "avgWearingTime"
     private const val MAX_WEARING_TIME      = "maxWearingTime"
     private const val MIN_WEARING_TIME      = "minWearingTime"
+
     private var prefs: PreferenceManager?   = null
 
-    val dailyWearingTime: Long
-        get() = prefs!!.getLong(DAILY_WEARING_TIME)
 
     /** 사용자 아이디를 DB 이름으로 SharedPreferences 생성 */
     fun init(patientId: String?) {
@@ -24,19 +31,7 @@ object WearingInfoRepository {
         if (prefs == null) prefs = PreferenceManager(patientId)
     }
 
-    fun saveDailyWearingTime(){
-        var today:String = SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance())
 
-        // 오늘 날짜의 착용 시간 데이터가 이미 저장되어 있는지 확인
-        val savedTime = prefs!!.getLong(today)
-        
-        if(savedTime == 0L){
-            val dailyWearTime = prefs!!.getLong(DAILY_WEARING_TIME)
-
-            prefs!!.setLong(today, dailyWearTime)
-            prefs!!.setLong(DAILY_WEARING_TIME, 0L)
-        }
-    }
 
     /** 일일 착용 시간 저장 */
     fun setDailyWearingTime(time: Long): Long {
@@ -101,6 +96,29 @@ object WearingInfoRepository {
         return setDailyWearingTime(abs(currentTime - onTime))
     }
 
+    /** 서버로 전송할 착용 시간 데이터를 저장해두는 메소드 */
+    fun saveDailyWearingTime() {
+        var today: String = SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().timeInMillis)
+        var dailyWearTime = prefs!!.getLong(DAILY_WEARING_TIME)
+
+        // 착용 시간을 JSON 형태로 변경
+        var jsonObject = JSONObject()
+        jsonObject.put("date", today)
+        jsonObject.put("time", dailyWearTime)
+
+        val saved = prefs!!.getString(SAVED_WEARING_TIME)
+
+        // 저장된 JSON이 있으면 해당 JSON을 JSONArray로 변경
+        var savedJsonArray: JSONArray = if(saved == "") JSONArray() else JSONArray(saved)
+
+        // JSONArray에 당일 착용 시간을 삽입
+        savedJsonArray.put(jsonObject)
+
+        prefs!!.setString(SAVED_WEARING_TIME, savedJsonArray.toString())
+        // 기존의 당일 착용 시간은 0으로 초기화
+        prefs!!.setLong(DAILY_WEARING_TIME, 0L)
+    }
+
     val wearingStats: WearingStats
         get() {
             val avg = prefs!!.getLong(AVG_WEARING_TIME)
@@ -109,4 +127,11 @@ object WearingInfoRepository {
 
             return WearingStats(avg, max, min)
         }
+
+    val dailyWearingTime: Long
+        get() = prefs!!.getLong(DAILY_WEARING_TIME)
+
+    val savedWearTime: String
+        get() = prefs!!.getString(SAVED_WEARING_TIME)!!
+
 }

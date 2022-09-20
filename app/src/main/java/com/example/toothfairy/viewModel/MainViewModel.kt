@@ -89,8 +89,6 @@ class MainViewModel() : ViewModel() {
                 Log.e("착용 시간 전송 에러", response.message())
             }
         }
-
-
     }
 
     /** 시간을 전달받아 당일 착용 시간에 저장하는 메소드 */

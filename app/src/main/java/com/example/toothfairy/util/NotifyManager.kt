@@ -16,11 +16,10 @@ object NotifyManager {
 
     /** 알림 전송 */
     fun sendNotification(context: Context, title: String, content: String) {
-        val contentIntent = Intent(context, MainActivity::class.java)
         val contentPendingIntent = PendingIntent.getActivity(
             context,
             NOTIFICATION_ID,
-            contentIntent, // 알림 클릭시 이동할 인텐트
+            null, // 알림 클릭시 이동할 인텐트
             PendingIntent.FLAG_IMMUTABLE
         )
 
@@ -37,8 +36,13 @@ object NotifyManager {
         notificationManager.notify(NOTIFICATION_ID, notifyBuilder.build())
     }
 
-    /** 알림 채널 생성 */
-    fun createNotificationChannel(context: Context) {
+    /**
+     *  알림 채널 생성
+     *  @param context: Context
+     *  @param chanelId: String
+     *  @param notifyName: String
+     * */
+    fun createNotificationChannel(context: Context, chanelId:String, notifyName:String) {
         if(!::notificationManager.isInitialized)
             notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -46,10 +50,11 @@ object NotifyManager {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //Channel 정의 생성자( construct 이용 )
             val notificationChannel = NotificationChannel(
-                PRIMARY_CHANNEL_ID,
-                "ToothFairy Notification",
+                chanelId,
+                notifyName,
                 NotificationManager.IMPORTANCE_HIGH
             )
+
             //Channel에 대한 기본 설정
             notificationChannel.enableLights(true)
             notificationChannel.enableVibration(true)
@@ -63,4 +68,6 @@ object NotifyManager {
     const val TAG = "AlarmReceiver"
     const val NOTIFICATION_ID = 0
     const val PRIMARY_CHANNEL_ID = "ToothFairy"
+    const val WEARING_NOTIFY_ID = "Wearing Notification"              // 교정기 착용 알림 채널
+    const val WEAR_RECOMMEND_NOTIFY_ID = "Wearing Time Notification"  // 교정기 착용 권장 알림 채널
 }

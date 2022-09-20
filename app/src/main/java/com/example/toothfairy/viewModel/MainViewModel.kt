@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import com.example.toothfairy.data.WearingStats
 import com.example.toothfairy.dto.DailyWearTimeDto
 import com.example.toothfairy.entity.CuredInfo
+import com.example.toothfairy.entity.DailyWearTime
 import com.example.toothfairy.entity.Patient
 import com.example.toothfairy.model.repository.CuredInfoRepository
+import com.example.toothfairy.model.repository.DailyWearinTimeRepository
 import com.example.toothfairy.model.repository.PatientRepository
 import com.example.toothfairy.model.repository.WearingInfoRepository
 import com.example.toothfairy.util.TimeManager
@@ -44,7 +46,10 @@ class MainViewModel() : ViewModel() {
 
                 // 환자의 ID로 내부 DB 초기화
                 WearingInfoRepository.init(response.body()!!.id)
-                Log.i("Response [Patient]", response.body().toString())
+                Log.i("환자 정보 로드 성공", "Response [Patient] = ${response.body().toString()}")
+            }
+            else{
+                Log.e("환자 정보 로드 에러", response.message())
             }
         }
     }
@@ -56,7 +61,10 @@ class MainViewModel() : ViewModel() {
 
             if (response!!.isSuccessful) {
                 curedInfo.postValue(response.body())
-                Log.i("Reponse [CuredInfo]", response.body().toString())
+                Log.i("완치 환저 정보 로드 성공", "Reponse [CuredInfo] : ${response.body().toString()}")
+            }
+            else{
+                Log.e("완치 환자 정보 로드 에러", response.message())
             }
         }
     }
@@ -65,6 +73,24 @@ class MainViewModel() : ViewModel() {
     fun loadWearingStats() {
         dailyWearingTime.value = WearingInfoRepository.dailyWearingTime
         patientStats.value = WearingInfoRepository.wearingStats
+    }
+
+    fun sendSavedWearingTimes(){
+        Executors.newSingleThreadExecutor().execute {
+            val response:Response<List<DailyWearTime>?>? = DailyWearinTimeRepository.saveDailyWearTimes(getSavedWearingTimes())
+
+            if (response!!.isSuccessful) {
+                /** 요청 성공시 저장되어있던 착용 시간 데이터 삭제 */
+                WearingInfoRepository.clearSavedWearingTimes()
+                
+                Log.i("착용 시간 전송 완료", "Response [List<DailyWearTimes>] = ${response.body().toString()}")
+            }
+            else{
+                Log.e("착용 시간 전송 에러", response.message())
+            }
+        }
+
+
     }
 
     /** 시간을 전달받아 당일 착용 시간에 저장하는 메소드 */

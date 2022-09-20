@@ -28,9 +28,9 @@ class LoginViewModel : ViewModel() {
                 // 사용자 이름의 DB 생성
                 WearingInfoRepository.init(patient.patientId)
                 
-                Log.i("Login", patient.toString())
+                Log.i("로그인 성공", "로그인 사용자 = $patient, Message = ${response.message()}")
             } else {
-                Log.e("Login Error", "로그인 실패")
+                Log.e("로그인 실패", response.message())
                 error.postValue(Event("입력 값을 확인해주세요."))
             }
         }

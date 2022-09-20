@@ -11,5 +11,5 @@ import retrofit2.http.Path
 
 interface DailyWearingTimeService {
     @POST("api/dailyWearTimes")
-    fun saveAll(@Body dailyWearTimes:List<DailyWearTimeDto>): Call<List<DailyWearTime>?>?
+    fun saveAll(@Body dailyWearTimes:List<DailyWearTimeDto>?): Call<List<DailyWearTime>?>?
 }

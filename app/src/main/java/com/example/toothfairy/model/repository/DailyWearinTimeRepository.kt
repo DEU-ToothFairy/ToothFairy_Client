@@ -13,7 +13,7 @@ object DailyWearinTimeRepository {
     // VARIABLE
     private val dailyService: DailyWearingTimeService = RetrofitClient.retrofit.create(DailyWearingTimeService::class.java)
 
-    fun saveDailyWearTimes(wearTimeLists:List<DailyWearTimeDto>):Response<List<DailyWearTime>?>?{
+    fun saveDailyWearTimes(wearTimeLists:List<DailyWearTimeDto>?):Response<List<DailyWearTime>?>?{
         val wearTimesCall: Call<List<DailyWearTime>?>? = dailyService.saveAll(wearTimeLists)
 
         return try{

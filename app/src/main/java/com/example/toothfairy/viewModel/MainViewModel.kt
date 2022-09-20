@@ -100,13 +100,14 @@ class MainViewModel() : ViewModel() {
     }
 
 
-    fun getSavedWearingTimes(): List<DailyWearTimeDto> {
-        var jsonArray: JSONArray = JSONArray(WearingInfoRepository.savedWearTime)
+    fun getSavedWearingTimes(): List<DailyWearTimeDto>? {
+        val savedTime = WearingInfoRepository.savedWearTime
+        if(savedTime == "") return null
+
+        var jsonArray: JSONArray = JSONArray(savedTime)
 
         var wearingDatas: MutableList<DailyWearTimeDto> = mutableListOf()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-
-        Log.i("JSON", "$jsonArray")
 
         for (i in 0 until jsonArray.length()) {
             val data = jsonArray.getJSONObject(i)

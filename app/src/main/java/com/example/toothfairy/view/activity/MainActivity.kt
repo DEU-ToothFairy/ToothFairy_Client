@@ -100,12 +100,8 @@ class MainActivity : AppCompatActivity() {
             mainVM!!.loadWearingStats()
 
             val list = mainVM.getSavedWearingTimes()
-            if(list.isNotEmpty()){
+            if(list != null){
                 mainVM.sendSavedWearingTimes()
-            }
-
-            for (i in list.indices){
-                Log.i("List", "${list[i]}")
             }
         })
 
@@ -139,9 +135,9 @@ class MainActivity : AppCompatActivity() {
         // 매일 24시에 알람 매니저가 실행 됨
         val calendar: Calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 19)
-            set(Calendar.MINUTE, 45)
-            set(Calendar.SECOND, 30)
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
         }
 
         Log.i("현재 시간", "${SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().timeInMillis)}")
@@ -151,18 +147,18 @@ class MainActivity : AppCompatActivity() {
             calendar.add(Calendar.DAY_OF_MONTH, 1)
 
 //        정확한 시간에 알람 매니저를 작동하기 위한 메소드
-//        alarmManager.setExactAndAllowWhileIdle(
-//            AlarmManager.RTC_WAKEUP,
-//            calendar.timeInMillis,
-//            pendingIntent
-//        )
-        
-        alarmManager.setRepeating(
+        alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
             pendingIntent
         )
+        
+//        alarmManager.setRepeating(
+//            AlarmManager.RTC_WAKEUP,
+//            calendar.timeInMillis,
+//            AlarmManager.INTERVAL_DAY,
+//            pendingIntent
+//        )
     }
 
     private fun initBottomNavibar() {

@@ -2,22 +2,17 @@ package com.example.toothfairy.view.activity
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.os.SystemClock
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -70,14 +65,10 @@ class MainActivity : AppCompatActivity() {
         mainVM = ViewModelProvider(this)[MainViewModel::class.java]
         blueVM = BluetoothViewModel //ViewModelProvider(this)[BluetoothViewModel::class.java]
 
-        dateChangedReceiver = DateChangedReceiver()
-        Log.i("리시버", "$dateChangedReceiver")
-
-        createAlarmManager()
         initBottomNavibar() // 네비바 세팅
-        loadData()
+        initData()
         settingAppTitle()
-
+        createAlarmManager()
 
         /* INIT End */
 
@@ -87,14 +78,15 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         /** 브로드캐스트 리시버에 감지할 액션을 전달해줌 */
-        val filter = IntentFilter()
-
-        filter.addAction(Intent.ACTION_TIME_CHANGED)
-        filter.addAction(Intent.ACTION_POWER_CONNECTED)
-        registerReceiver(dateChangedReceiver, filter)
+//        val filter = IntentFilter()
+//
+//        filter.addAction(Intent.ACTION_TIME_CHANGED)
+//        filter.addAction(Intent.ACTION_POWER_CONNECTED)
+//        registerReceiver(dateChangedReceiver, filter)
     }
 
-    private fun loadData(){
+    /** 뷰가 생설 될 때 필요한 초기 작업을 처리하는 메소드 */
+    private fun initData(){
 
         // 로그인한 유저의 정보를 가져옴
         mainVM!!.loadPatient(intent.getStringExtra("loginUser"))
@@ -108,6 +100,10 @@ class MainActivity : AppCompatActivity() {
             mainVM!!.loadWearingStats()
 
             val list = mainVM.getSavedWearingTimes()
+            if(list.isNotEmpty()){
+                mainVM.sendSavedWearingTimes()
+            }
+
             for (i in list.indices){
                 Log.i("List", "${list[i]}")
             }
@@ -143,9 +139,9 @@ class MainActivity : AppCompatActivity() {
         // 매일 24시에 알람 매니저가 실행 됨
         val calendar: Calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
+            set(Calendar.HOUR_OF_DAY, 19)
+            set(Calendar.MINUTE, 45)
+            set(Calendar.SECOND, 30)
         }
 
         Log.i("현재 시간", "${SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().timeInMillis)}")

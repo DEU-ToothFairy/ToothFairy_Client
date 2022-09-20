@@ -119,6 +119,12 @@ object WearingInfoRepository {
         prefs!!.setLong(DAILY_WEARING_TIME, 0L)
     }
 
+
+    /** 서버로 전송된 착용 시간을 삭제하는 메소드 */
+    fun clearSavedWearingTimes(){
+        prefs!!.setString(SAVED_WEARING_TIME, "")
+    }
+
     val wearingStats: WearingStats
         get() {
             val avg = prefs!!.getLong(AVG_WEARING_TIME)

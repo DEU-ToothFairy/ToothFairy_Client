@@ -1,5 +1,6 @@
 package com.example.toothfairy.view.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,10 +10,11 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.toothfairy.R
 import com.example.toothfairy.databinding.FragmentReportBinding
+import com.github.mikephil.charting.charts.RadarChart
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
@@ -28,6 +30,9 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ReportFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+private lateinit var radarChart:RadarChart
+
 class MyXAxisFormatter : ValueFormatter(){
     private val days = arrayOf("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
@@ -46,7 +51,7 @@ class ReportFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    lateinit var binding:FragmentReportBinding
+    lateinit var bind:FragmentReportBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,13 +63,63 @@ class ReportFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_report, container, false)
-        val view = binding?.root
+        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_report, container, false)
+        val view = bind?.root
 
         chart()
+        makeRadarChart()
         return view
     }
 
+    private fun makeRadarChart(){
+        radarChart = bind.radarChart
+
+        radarChart.webColor = resources.getColor(R.color.light_gray)
+        radarChart.webColorInner = resources.getColor(R.color.light_gray)
+        radarChart.webLineWidth = 2f
+        radarChart.webLineWidthInner = 2f
+        radarChart.isRotationEnabled = false       // 회전 안되게 설정
+        radarChart.isClickable = false
+        radarChart.onTouchListener = null
+
+        var dataSet:RadarDataSet = RadarDataSet(radarChatDatas(), "DATA")
+        
+        
+        dataSet.setDrawFilled(true)                                  // 데이터 그래프 색으로 채울지 설정 
+        dataSet.color = resources.getColor(R.color.colorAccent)      // 라인 색상
+        dataSet.fillColor = resources.getColor(R.color.colorAccent)  // 내부 색상
+        dataSet.setDrawValues(false)                                 // 그래프 밸류 값 표시 설정
+        dataSet.lineWidth = 2f                                       // 데이터 그래프 선 굵기 설정
+
+
+        var data: RadarData = RadarData()
+        data.addDataSet(dataSet)
+        
+        val labels:Array<String> = arrayOf("착용 시간", "착용 점수", "체크리스트", "실천") // 라벨 설정
+        var xAxis:XAxis = radarChart.xAxis                              
+
+        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        xAxis.setLabelCount(5, false)
+        xAxis.textSize = 12f
+
+        var yAxis:YAxis = radarChart.yAxis
+        yAxis.setDrawLabels(false)
+        yAxis.axisMaximum = 10f
+        yAxis.axisMinimum = 0f
+
+        radarChart.data = data;
+    }
+
+    private fun radarChatDatas(): ArrayList<RadarEntry> {
+        var datas:ArrayList<RadarEntry> = arrayListOf()
+
+        datas.add(RadarEntry(8f))
+        datas.add(RadarEntry(8f))
+        datas.add(RadarEntry(6f))
+        datas.add(RadarEntry(7f))
+
+        return  datas;
+    }
     private fun chart(){
         val entries = ArrayList<BarEntry>()
 
@@ -76,7 +131,7 @@ class ReportFragment : Fragment() {
         entries.add(BarEntry(6f,24.0f))
         entries.add(BarEntry(7f,4.0f))
 
-        val chart = binding.chart
+        val chart = bind.chart
 
         chart.run {
             description.isEnabled = false       // 차트 옆에 별도로 표기되는 description

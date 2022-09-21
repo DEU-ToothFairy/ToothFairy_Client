@@ -21,6 +21,7 @@ import com.example.toothfairy.R
 import com.example.toothfairy.adapter.CalendarAdapter
 import com.example.toothfairy.data.CalendarDate
 import com.example.toothfairy.databinding.FragmentStatsBinding
+import com.example.toothfairy.util.NotifyManager
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -77,7 +78,12 @@ class StatsFragment : Fragment() {
         styleChangeTodayTv()
         // userScoreTv Spannable로 폰트 스타일 변경
         styleChangeUserScoreTV()
-
+        NotifyManager.sendNotification(
+            context = requireContext(),
+            NotifyManager.WEARING_NOTIFY_ID,
+            "착용 상태 알림",
+            "교정기 착용 중"
+        )
         return view
     }
 

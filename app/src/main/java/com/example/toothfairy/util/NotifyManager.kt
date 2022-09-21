@@ -2,47 +2,48 @@ package com.example.toothfairy.util
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.example.toothfairy.DateChangedReceiver
 import com.example.toothfairy.R
-import com.example.toothfairy.view.activity.MainActivity
 
 object NotifyManager {
     private lateinit var notificationManager: NotificationManager
 
-    /** 알림 전송 */
-    fun sendNotification(context: Context, title: String, content: String) {
-        val contentPendingIntent = PendingIntent.getActivity(
-            context,
-            NOTIFICATION_ID,
-            null, // 알림 클릭시 이동할 인텐트
-            PendingIntent.FLAG_IMMUTABLE
-        )
+    /**
+     * 알림 전송
+     * @param context: Context
+     * @param channelId: String
+     * @param title: String
+     * @param content: String
+     * */
+    fun sendNotification(context: Context, channelId: String, title: String, content: String) {
+//        val contentPendingIntent = PendingIntent.getActivity(
+//            context,
+//            NOTIFICATION_ID, // requestCode
+//            null, // 알림 클릭시 이동할 인텐트
+//            PendingIntent.FLAG_IMMUTABLE
+//        )
 
         // Notivication에 대한 ID 생성
         val notifyBuilder =
-            NotificationCompat.Builder(context, PRIMARY_CHANNEL_ID)
+            NotificationCompat.Builder(context, channelId)
                 .setContentTitle(title)
                 .setContentText(content)
-                .setContentIntent(contentPendingIntent)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(content))
                 .setSmallIcon(R.drawable.appnamelogo)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
 
-        notificationManager.notify(NOTIFICATION_ID, notifyBuilder.build())
+            notificationManager.notify(System.currentTimeMillis().toInt(), notifyBuilder.build())
     }
 
     /**
      *  알림 채널 생성
      *  @param context: Context
-     *  @param chanelId: String
+     *  @param channelId: String
      *  @param notifyName: String
      * */
-    fun createNotificationChannel(context: Context, chanelId:String, notifyName:String) {
+    fun createNotificationChannel(context: Context, channelId:String, notifyName:String) {
         if(!::notificationManager.isInitialized)
             notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -50,7 +51,7 @@ object NotifyManager {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //Channel 정의 생성자( construct 이용 )
             val notificationChannel = NotificationChannel(
-                chanelId,
+                channelId,
                 notifyName,
                 NotificationManager.IMPORTANCE_HIGH
             )
@@ -65,8 +66,6 @@ object NotifyManager {
         }
     }
 
-    const val TAG = "AlarmReceiver"
-    const val NOTIFICATION_ID = 0
     const val PRIMARY_CHANNEL_ID = "ToothFairy"
     const val WEARING_NOTIFY_ID = "Wearing Notification"              // 교정기 착용 알림 채널
     const val WEAR_RECOMMEND_NOTIFY_ID = "Wearing Time Notification"  // 교정기 착용 권장 알림 채널

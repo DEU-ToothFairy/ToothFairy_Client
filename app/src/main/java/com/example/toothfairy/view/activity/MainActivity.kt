@@ -20,6 +20,8 @@ import com.example.toothfairy.DateChangedReceiver
 import com.example.toothfairy.R
 import com.example.toothfairy.databinding.ActivityMainBinding
 import com.example.toothfairy.entity.Patient
+import com.example.toothfairy.util.MyApplication
+import com.example.toothfairy.util.NotifyManager
 import com.example.toothfairy.view.fragment.HomeFragment
 import com.example.toothfairy.view.fragment.ProfileFragment
 import com.example.toothfairy.view.fragment.ReportFragment
@@ -65,24 +67,18 @@ class MainActivity : AppCompatActivity() {
         mainVM = ViewModelProvider(this)[MainViewModel::class.java]
         blueVM = BluetoothViewModel //ViewModelProvider(this)[BluetoothViewModel::class.java]
 
+
+        
         initBottomNavibar() // 네비바 세팅
         initData()
         settingAppTitle()
         createAlarmManager()
-
         /* INIT End */
 
     } // onCreate
 
     override fun onResume() {
         super.onResume()
-
-        /** 브로드캐스트 리시버에 감지할 액션을 전달해줌 */
-//        val filter = IntentFilter()
-//
-//        filter.addAction(Intent.ACTION_TIME_CHANGED)
-//        filter.addAction(Intent.ACTION_POWER_CONNECTED)
-//        registerReceiver(dateChangedReceiver, filter)
     }
 
     /** 뷰가 생설 될 때 필요한 초기 작업을 처리하는 메소드 */
@@ -103,6 +99,7 @@ class MainActivity : AppCompatActivity() {
             if(list != null){
                 mainVM.sendSavedWearingTimes()
             }
+
         })
 
     }
@@ -136,8 +133,8 @@ class MainActivity : AppCompatActivity() {
         val calendar: Calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
             set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
+            set(Calendar.MINUTE, 46)
+            set(Calendar.SECOND, 30)
         }
 
         Log.i("현재 시간", "${SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().timeInMillis)}")
@@ -146,7 +143,7 @@ class MainActivity : AppCompatActivity() {
         if(calendar.before(Calendar.getInstance()))
             calendar.add(Calendar.DAY_OF_MONTH, 1)
 
-//        정확한 시간에 알람 매니저를 작동하기 위한 메소드
+        // 정확한 시간에 알람 매니저를 작동하기 위한 메소드
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,

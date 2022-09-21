@@ -314,9 +314,9 @@
                             android:id="@+id/userWearMaxProgressBar"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="2.5dp"
-
-                            android:layout_marginBottom="20dp"
+                            android:layout_height="6dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="15dp"
 
                             android:progress="@{(int)((double)mainVM.dailyWearingTime / (double)86400000.0 * 100)}"
                             android:progressDrawable="@drawable/wearing_progress_bar" />

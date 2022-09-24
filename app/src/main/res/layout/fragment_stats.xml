@@ -103,11 +103,7 @@
                     android:layout_marginTop="20dp"
                     android:orientation="vertical">
 
-                    <include layout="@layout/sub_score_board_layout" />
 
-                    <include layout="@layout/sub_score_board_layout" />
-
-                    <include layout="@layout/sub_score_board_layout" />
                 </LinearLayout>
 
                 <!-- LAYOUT 교정기 착용 시간 레이아웃 -->

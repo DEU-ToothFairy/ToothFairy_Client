@@ -22,7 +22,7 @@
             android:orientation="horizontal">
 
             <View
-                android:id="@+id/ic_score"
+                android:id="@+id/scoreIcon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
@@ -37,7 +37,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/scoreTitleTv"
+                    android:id="@+id/scoreTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -48,7 +48,7 @@
                     android:textSize="12dp" />
 
                 <TextView
-                    android:id="@+id/scoreContentTv"
+                    android:id="@+id/scoreContent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"

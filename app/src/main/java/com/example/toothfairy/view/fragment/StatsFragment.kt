@@ -11,7 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -84,7 +85,41 @@ class StatsFragment : Fragment() {
             "착용 상태 알림",
             "교정기 착용 중"
         )
+
+        createScoreBoard(container, R.drawable.ic_excellent, "착용 시간 우수", "잘 했어요 ! 앞으로도 잘 착용해주세요 :)")
+        createScoreBoard(container, R.drawable.ic_good, "체크리스트 양호", "체크리스트 5개 중 4개 완료 !")
+        createScoreBoard(container, R.drawable.ic_bad, "착용 시간 감소", "전날 보다 1시간 30분 감소했어요")
+
         return view
+    }
+
+    private fun createScoreBoard(container: ViewGroup?, scoreIcon:Int, scoreTitle:String, scoreContent:String){
+        val scoreLayout = bind.scoreboardLayout
+
+        var inflater = requireActivity().layoutInflater
+        var scoreView = inflater.inflate(R.layout.sub_score_board_layout, container, false)
+        var scoreIconView = scoreView.findViewById<View>(R.id.scoreIcon)
+
+        scoreIconView.background = resources.getDrawable(scoreIcon)
+
+        val color = when(scoreIcon){
+            R.drawable.ic_excellent -> resources.getColor(R.color.light_blue)
+            R.drawable.ic_good -> resources.getColor(R.color.light_green)
+            R.drawable.ic_normal -> resources.getColor(R.color.light_yellow)
+            R.drawable.ic_bad -> resources.getColor(R.color.light_red)
+            else -> 0
+        }
+
+        scoreView.findViewById<CardView>(R.id.scoreboard).setCardBackgroundColor(color)
+
+
+        var scoreTitleView = scoreView.findViewById<TextView>(R.id.scoreTitle)
+        scoreTitleView.text = scoreTitle
+
+        var scoreContentView = scoreView.findViewById<TextView>(R.id.scoreContent)
+        scoreContentView.text = scoreContent
+
+        scoreLayout.addView(scoreView)
     }
 
     /** 사용자 교정 점수 Textview 스타일 변경 */

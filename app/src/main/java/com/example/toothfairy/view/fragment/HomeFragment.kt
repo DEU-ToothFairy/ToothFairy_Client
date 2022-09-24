@@ -2,17 +2,16 @@ package com.example.toothfairy.view.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
 import com.example.toothfairy.databinding.FragmentHomeBinding
 import com.example.toothfairy.entity.CuredInfo
+import com.example.toothfairy.util.NotifyManager
 import com.example.toothfairy.util.TimeManager
 import com.example.toothfairy.viewModel.BluetoothViewModel
 import com.example.toothfairy.viewModel.HomeViewModel
@@ -34,11 +33,12 @@ class HomeFragment : Fragment() {
     private var mParam2: String? = null
 
     // VARIABLE
-    private lateinit var binding: FragmentHomeBinding // DataBinding
+    private lateinit var bind: FragmentHomeBinding // DataBinding
 
     private lateinit var mainVM: MainViewModel
     private lateinit var homeVM: HomeViewModel
     private lateinit var blueVM: BluetoothViewModel
+    private var notifyFlag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,9 +53,9 @@ class HomeFragment : Fragment() {
         // View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // 데이터 바인딩
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
-        val view = binding.root
+        val view = bind.root
 
         /** ViewModel 객체 연결 */
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
@@ -63,16 +63,16 @@ class HomeFragment : Fragment() {
         blueVM = BluetoothViewModel //ViewModelProvider(requireActivity())[BluetoothViewModel::class.java]
 
         /** 데이터를 관리하는 뷰 모델을 binding에 연결해줘야 적용 됨 */
-        binding.lifecycleOwner = requireActivity()
-        binding.mainVM = mainVM
-        binding.homeVM = homeVM
+        bind.lifecycleOwner = requireActivity()
+        bind.mainVM = mainVM
+        bind.homeVM = homeVM
 
         /** 이벤트 등록 */
         patientEventAdder()
         curedEventAdder()
         bluetoothEventAdder()
 
-        binding.checklistEditBtn.setOnClickListener {
+        bind.checklistEditBtn.setOnClickListener {
             var bottomSheet = ChecklistBottomSheetFragment()
             bottomSheet.show(parentFragmentManager, bottomSheet.tag)
         }
@@ -111,13 +111,26 @@ class HomeFragment : Fragment() {
         // 착용 상태 감지
         blueVM.wearStatus.observe(requireActivity()) { status: Boolean ->
             if (status) {
-                binding.wearingStatTv.text = "착용 중"
-                binding.wearingStatTv.setTextColor(Color.parseColor("#6194f8"))
-                binding.wearingStatusView.setCardBackgroundColor(Color.parseColor("#E9F2FF"))
+                bind.wearingStatTv.text = "착용 중"
+                bind.wearingStatTv.setTextColor(Color.parseColor("#6194f8"))
+                bind.wearingStatusView.setCardBackgroundColor(Color.parseColor("#E9F2FF"))
+
+                if(!notifyFlag){
+                    NotifyManager.sendNotification(
+                        requireContext(),
+                        NotifyManager.WEARING_NOTIFY_ID,
+                        "교정기 착용 알림",
+                        "교정기 착용이 감지 되었습니다."
+                    )
+
+                    notifyFlag = true
+                }
             } else {
-                binding.wearingStatTv.text = "착용 대기 중"
-                binding.wearingStatTv.setTextColor(Color.parseColor("#919191"))
-                binding.wearingStatusView.setCardBackgroundColor(Color.parseColor("#ECECEC"))
+                bind.wearingStatTv.text = "착용 대기 중"
+                bind.wearingStatTv.setTextColor(Color.parseColor("#919191"))
+                bind.wearingStatusView.setCardBackgroundColor(Color.parseColor("#ECECEC"))
+
+                notifyFlag = false
             }
         }
 
@@ -127,12 +140,11 @@ class HomeFragment : Fragment() {
 
             // 일일 착용 시간은 DailyWearingTime 변수와 바인딩 된게 아니라 getDailyWearingTimeToString()과 매핑 되어 있으므로
             // 옵저버로 감지 불가
-            binding.wearingTimeTv.text = mainVM.dailyWearingTimeToString
+            bind.wearingTimeTv.text = mainVM.dailyWearingTimeToString
             
             // 일일 착용 시간이 갱신 될 때 남은 착용 시간도 같이 갱신
             mainVM.dailyWearingTime.value?.let { it -> homeVM.updateRemainTime(it) }
-            Log.i("REMAIN TO STRING", homeVM.remainWearingTimeToString())
-            binding.remainWearingTimeTv.text = homeVM.remainWearingTimeToString()
+            bind.remainWearingTimeTv.text = homeVM.remainWearingTimeToString()
         }
     }
 

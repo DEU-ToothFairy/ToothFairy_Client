@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
+import com.example.toothfairy.application.MyApplication
 import com.example.toothfairy.databinding.ActivityLoginBinding
 import com.example.toothfairy.util.Event
 import com.example.toothfairy.viewModel.LoginViewModel
@@ -75,12 +76,14 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // 로그인 성공 시
-        loginViewModel.loginUser.observe(this, Observer { value: String? ->
+        loginViewModel.loginFlag.observe(this, Observer {
             // 블루투스 화면으로 전환
-            val bluetoothIntent = Intent(applicationContext, BluetoothActivity::class.java)
-            bluetoothIntent.putExtra("loginUser", value)
+//            val bluetoothIntent = Intent(applicationContext, BluetoothActivity::class.java)
+//            bluetoothIntent.putExtra("loginUser", value)
 
-            startActivity(bluetoothIntent)
+            val mainIntent = Intent(applicationContext, MainActivity::class.java)
+
+            startActivity(mainIntent)
             this.finish()
         })
     }

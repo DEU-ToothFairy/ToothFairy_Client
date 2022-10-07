@@ -52,7 +52,6 @@ class BluetoothActivity : AppCompatActivity() {
         binding?.bluetoothPulse?.startRippleAnimation()
 
         viewModel = BluetoothViewModel
-//        viewModel!!.init(intent.getStringExtra("loginUser"))
 
         // 검색 버튼 초기화 (숨기기)
         binding?.scanBtn?.visibility = View.INVISIBLE
@@ -84,9 +83,6 @@ class BluetoothActivity : AppCompatActivity() {
         // 펄스 애니메이션 멈추기
         // binding.bluetoothPulse.stopRippleAnimation();
     } // onCreate
-
-
-
 
 
     @SuppressLint("MissingPermission")
@@ -246,7 +242,7 @@ class BluetoothActivity : AppCompatActivity() {
     fun changeActivity(){
         val mainIntent = Intent(applicationContext, MainActivity::class.java)
 
-        mainIntent.putExtra("loginUser", intent.getStringExtra("loginUser"))
+//        mainIntent.putExtra("loginUser", intent.getStringExtra("loginUser"))
         startActivity(mainIntent)
         finish()
     }

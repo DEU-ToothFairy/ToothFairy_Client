@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
+import com.example.toothfairy.application.MyApplication
 import com.example.toothfairy.databinding.FragmentHomeBinding
 import com.example.toothfairy.entity.CuredInfo
 import com.example.toothfairy.util.NotifyManager
@@ -84,11 +85,17 @@ class HomeFragment : Fragment() {
     private fun patientEventAdder(){
         // 환자 정보가 갱신 된 경우
         // 치료 기간 설정 (현재 날짜 - 치료 시작 날짜)
-        mainVM.patient.observe(requireActivity()){ patient ->
-            mainVM.treatmentDays.value = patient?.startDate?.let { it -> TimeManager.getElapsedDate(it) }
-
-            setCalibrationProgress(mainVM.treatmentDays.value, mainVM.curedInfo.value)
+        mainVM.treatmentDays.value = MyApplication.patient?.startDate?.let {
+                it -> TimeManager.getElapsedDate(it)
         }
+
+        setCalibrationProgress(mainVM.treatmentDays.value, mainVM.curedInfo.value)
+
+//        mainVM.patient.observe(requireActivity()){ patient ->
+//            mainVM.treatmentDays.value = patient?.startDate?.let { it -> TimeManager.getElapsedDate(it) }
+//
+//
+//        }
     }
 
     /** 완치 환자 관련 이벤트 등록 메소드 */

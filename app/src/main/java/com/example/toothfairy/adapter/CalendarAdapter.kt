@@ -1,19 +1,16 @@
 package com.example.toothfairy.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.toothfairy.R
 import com.example.toothfairy.data.CalendarDate
-import com.example.toothfairy.util.MyApplication
 import kotlin.collections.ArrayList
 
 class CalendarAdapter(private val dataSet: ArrayList<CalendarDate>): RecyclerView.Adapter<CalendarAdapter.ViewHolder>(){
@@ -26,6 +23,10 @@ class CalendarAdapter(private val dataSet: ArrayList<CalendarDate>): RecyclerVie
     lateinit var onItemClickListener: OnItemClickListener
     var drawable: Drawable? = null
 
+    /** 
+     * ViewHolder 클래스를 InnerClass로 생성
+     * 해당 클래스에서 데이터를 연결해줌
+     * */
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val dateTextView: TextView = view.findViewById(R.id.dateTextView)
         val dayTextView: TextView = view.findViewById(R.id.dayTextView)
@@ -33,6 +34,7 @@ class CalendarAdapter(private val dataSet: ArrayList<CalendarDate>): RecyclerVie
     }
 
     // ViewHolder를 생성하는 메소드
+    // ViewHolder는 위에서 Inner Class로 생성해줌
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.sub_calendar_cell, viewGroup, false)
 

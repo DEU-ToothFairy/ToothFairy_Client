@@ -3,6 +3,7 @@ package com.example.toothfairy.viewModel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.toothfairy.application.MyApplication
 import com.example.toothfairy.data.WearingStats
 import com.example.toothfairy.dto.DailyWearTimeDto
 import com.example.toothfairy.entity.CuredInfo
@@ -36,16 +37,18 @@ class MainViewModel() : ViewModel() {
     val dailyWearingTimeToString: String
         get() = TimeManager.getTimeToString(dailyWearingTime.value)
 
+    init {
+        patient.value = MyApplication.patient
+    }
+
     /** 환자의 ID로 환자의 정보를 가져오는 메소드 */
     fun loadPatient(id: String?) {
         Executors.newSingleThreadExecutor().execute {
             val response: Response<Patient?>? = PatientRepository.loadPatient(id)
 
             if (response!!.isSuccessful) {
-                patient.postValue(response.body())
+                MyApplication.patient = response.body()
 
-                // 환자의 ID로 내부 DB 초기화
-                WearingInfoRepository.init(response.body()!!.id)
                 Log.i("환자 정보 로드 성공", "Response [Patient] = ${response.body().toString()}")
             }
             else{
@@ -112,7 +115,7 @@ class MainViewModel() : ViewModel() {
 
             wearingDatas.add(
                     DailyWearTimeDto(
-                        patient.value?.patientId!!,
+                        patient.value!!.patientId!!,
                         java.sql.Date(dateFormat.parse(data["date"].toString()).time),
                         data["time"].toString().toLong()
                     )

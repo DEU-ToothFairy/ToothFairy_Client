@@ -44,7 +44,6 @@
 
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginBottom="30dp"
                     android:layout_marginTop="10dp"
 
                     android:background="@color/white"
@@ -72,9 +71,7 @@
                                 android:textColor="#8696BB"
                                 android:textSize="22dp" />
 
-                            <!-- 오늘 날짜 텍스트 뷰 -->
                             <TextView
-                                android:id="@+id/wearDate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"

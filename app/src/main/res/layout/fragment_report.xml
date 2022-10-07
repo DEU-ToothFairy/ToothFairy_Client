@@ -452,10 +452,7 @@
             </androidx.cardview.widget.CardView>
             <!-- LAYOUT END 착용 시간 그래프 레이아웃 -->
 
-            <com.github.mikephil.charting.charts.RadarChart
-                android:id="@+id/radarChart"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"/>
+
         </LinearLayout>
         <!-- LAYOUT END 전체 레이아웃 -->
     </ScrollView>

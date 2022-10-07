@@ -9,9 +9,21 @@ import com.example.toothfairy.R
 import androidx.core.app.ActivityCompat
 import android.content.Intent
 import android.view.View
+import android.view.animation.Animation
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.view.activity.LoginActivity
 import com.example.toothfairy.databinding.FragmentProfileBinding
+import com.example.toothfairy.viewModel.MainViewModel
+import com.github.mikephil.charting.charts.RadarChart
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.RadarData
+import com.github.mikephil.charting.data.RadarDataSet
+import com.github.mikephil.charting.data.RadarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import java.util.ArrayList
 
 /**
  * A simple [Fragment] subclass.
@@ -24,7 +36,9 @@ class ProfileFragment : Fragment() {
     private var mParam2: String? = null
     
     // 데이터 바인딩 변수
-    lateinit var binding: FragmentProfileBinding
+    private lateinit var bind: FragmentProfileBinding
+    private lateinit var mainVM: MainViewModel
+    private lateinit var radarChart: RadarChart
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,13 +49,30 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
-        val view = binding?.root
+        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
 
-        // Inflate the layout for this fragment
+        mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
+        bind.lifecycleOwner = requireActivity()
+        bind.mainVM = mainVM
+
+        addLogoutBtnEvent()
+        makeRadarChart()
+
+        bind.faqBtn.setOnClickListener(View.OnClickListener {
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayout, FaqFragment())
+                .addToBackStack(null)
+                .commit()
+        })
+
+        return bind.root
+    }
+
+    private fun addLogoutBtnEvent(){
         // 로그아웃 클릭 이벤트
-        binding?.logoutBtn?.setOnClickListener { v: View? ->
+        bind?.logoutBtn?.setOnClickListener { v: View? ->
             // autuLogin 이름의 Preferences를 가져옴
             val prefs = this.requireActivity().getSharedPreferences("autoLogin", Context.MODE_PRIVATE)
 
@@ -58,7 +89,62 @@ class ProfileFragment : Fragment() {
 
             startActivity(intent)
         }
-        return view
+    }
+
+    private fun makeRadarChart() {
+        radarChart = bind.radarChart
+
+        radarChart.apply {
+            webColor = resources.getColor(R.color.light_gray)
+            webColorInner = resources.getColor(R.color.light_gray)
+            webLineWidth = 1f
+            webLineWidthInner = 1f
+            isRotationEnabled = false       // 회전 안되게 설정
+            isClickable = false
+            onTouchListener = null
+            description = null
+            legend.isEnabled = false        // description label, Data 라벨 제거
+        }
+
+        var dataSet: RadarDataSet = RadarDataSet(radarChatDatas(), "DATA")
+
+        dataSet.apply {
+            setDrawFilled(true)                                  // 데이터 그래프 색으로 채울지 설정
+            color = resources.getColor(R.color.colorAccent)      // 라인 색상
+            fillColor = resources.getColor(R.color.colorAccent)  // 내부 색상
+            setDrawValues(false)                                 // 그래프 밸류 값 표시 설정
+            lineWidth = 2f                                       // 데이터 그래프 선 굵기 설정
+        }
+
+        var data: RadarData = RadarData()
+        data.addDataSet(dataSet)
+
+        val labels: Array<String> = arrayOf("착용 시간", "착용 점수", "체크리스트", "실천") // 라벨 설정
+
+        radarChart.xAxis.apply {
+            valueFormatter = IndexAxisValueFormatter(labels)
+            textSize = 12f
+        }
+
+        radarChart.yAxis.apply {
+            setDrawLabels(false)
+            axisMaximum = 10f
+            axisMinimum = 0f
+            setLabelCount(4,false) // 그래프 라인 갯수
+        }
+        radarChart.data = data;
+
+    }
+
+    private fun radarChatDatas(): ArrayList<RadarEntry> {
+        var datas: ArrayList<RadarEntry> = arrayListOf()
+
+        datas.add(RadarEntry(8f))
+        datas.add(RadarEntry(10f))
+        datas.add(RadarEntry(6f))
+        datas.add(RadarEntry(7f))
+
+        return  datas;
     }
 
     companion object {

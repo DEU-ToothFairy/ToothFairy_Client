@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.toothfairy.application.MyApplication
 import com.example.toothfairy.dto.LoginDto
 import com.example.toothfairy.model.repository.PatientRepository
 import com.example.toothfairy.model.repository.WearingInfoRepository
@@ -11,7 +12,7 @@ import com.example.toothfairy.util.Event
 import java.util.concurrent.Executors
 
 class LoginViewModel : ViewModel() {
-    val loginUser = MutableLiveData<String>()
+    val loginFlag = MutableLiveData<Boolean>()
     val error = MutableLiveData<Event<String>>()
 
     /** 아이디와 비밀 번호를 받아 로그인하는 메소드 */
@@ -23,14 +24,16 @@ class LoginViewModel : ViewModel() {
             
             if (response!!.isSuccessful) {
                 val patient = response.body()
-                loginUser.postValue(patient!!.patientId)
+
+                loginFlag.postValue(true)
+                MyApplication.patient = patient
 
                 // 사용자 이름의 DB 생성
-                WearingInfoRepository.init(patient.patientId)
+                WearingInfoRepository.init(patient!!.patientId)
                 
                 Log.i("로그인 성공", "로그인 사용자 = $patient, Message = ${response.message()}")
             } else {
-                Log.e("로그인 실패", response.message())
+                response.errorBody()?.let { Log.e("로그인 실패", it.string()) }
                 error.postValue(Event("입력 값을 확인해주세요."))
             }
         }

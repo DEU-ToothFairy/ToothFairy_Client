@@ -174,7 +174,7 @@
                         style="?android:attr/progressBarStyleHorizontal"
 
                         android:layout_width="match_parent"
-                        android:layout_height="2.5dp"
+                        android:layout_height="6dp"
                         android:layout_marginBottom="20dp"
 
                         android:progress="80"

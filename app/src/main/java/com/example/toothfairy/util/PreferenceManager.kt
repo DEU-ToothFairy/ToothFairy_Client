@@ -2,7 +2,7 @@ package com.example.toothfairy.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.toothfairy.util.MyApplication
+import com.example.toothfairy.application.MyApplication
 
 class PreferenceManager(dbName: String?) {
     private val prefs: SharedPreferences

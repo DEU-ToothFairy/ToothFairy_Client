@@ -5,7 +5,6 @@ import android.app.AlarmManager
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
-import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableStringBuilder
@@ -14,14 +13,11 @@ import android.text.style.ForegroundColorSpan
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.DateChangedReceiver
 import com.example.toothfairy.R
+import com.example.toothfairy.application.MyApplication
 import com.example.toothfairy.databinding.ActivityMainBinding
-import com.example.toothfairy.entity.Patient
-import com.example.toothfairy.util.MyApplication
-import com.example.toothfairy.util.NotifyManager
 import com.example.toothfairy.view.fragment.HomeFragment
 import com.example.toothfairy.view.fragment.ProfileFragment
 import com.example.toothfairy.view.fragment.ReportFragment
@@ -34,7 +30,7 @@ import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity() {
     // VARIABLE
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var bind : ActivityMainBinding
     private lateinit var mainVM  : MainViewModel
     private lateinit var blueVM  : BluetoothViewModel
 
@@ -61,14 +57,12 @@ class MainActivity : AppCompatActivity() {
         /* INIT 초기화 작업 */
 
         // View Binding
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        bind = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(bind.root)
 
         mainVM = ViewModelProvider(this)[MainViewModel::class.java]
         blueVM = BluetoothViewModel //ViewModelProvider(this)[BluetoothViewModel::class.java]
 
-
-        
         initBottomNavibar() // 네비바 세팅
         initData()
         settingAppTitle()
@@ -83,29 +77,23 @@ class MainActivity : AppCompatActivity() {
 
     /** 뷰가 생설 될 때 필요한 초기 작업을 처리하는 메소드 */
     private fun initData(){
-
-        // 로그인한 유저의 정보를 가져옴
-        mainVM!!.loadPatient(intent.getStringExtra("loginUser"))
-
         // 환자 정보가 로드되면 해당 환자의 나이에 맞는 완치자 정보를 로드
-        mainVM!!.patient.observe(this, Observer { patient: Patient? ->
-            // 같은 나이의 완치 환자 정보 로드
-            patient?.let { mainVM!!.loadCuredInfo(it.age) }
+        val patient = MyApplication.patient
 
-            // 착용 시간 데이터 로드
-            mainVM!!.loadWearingStats()
+        patient?.let {
+            mainVM.loadCuredInfo(it.age)
+            mainVM.loadWearingStats()
 
+            // 내부 DB에 저장되어있는 착용 시간 데이터가 있는지 확인
             val list = mainVM.getSavedWearingTimes()
-            if(list != null){
-                mainVM.sendSavedWearingTimes()
-            }
-
-        })
-
+            
+            // 남아있는게 있으면 서버로 전송
+            if(list != null) mainVM.sendSavedWearingTimes()
+        }
     }
 
     private fun settingAppTitle(){
-        val textData = binding.appTitle.text
+        val textData = bind.appTitle.text
 
         // 3. SpannableStringBuilder 타입으로 변환
         val builder = SpannableStringBuilder(textData)
@@ -115,7 +103,7 @@ class MainActivity : AppCompatActivity() {
         builder.setSpan(colorBlueSpan, 5, 10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         // 5. TextView에 적용
-        binding.appTitle.text = builder
+        bind.appTitle.text = builder
     }
 
     private fun createAlarmManager(){
@@ -159,7 +147,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initBottomNavibar() {
-        binding.bottomNavigation.run {
+        bind.bottomNavigation.run {
             setOnNavigationItemSelectedListener {
                 var fragment = when (it.itemId) {
                     R.id.menu_home -> changetFragment(R.id.menu_home)

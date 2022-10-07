@@ -4,13 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.model.repository.WearingInfoRepository
-import com.example.toothfairy.util.MyApplication
 import com.example.toothfairy.util.NotifyManager
-import com.example.toothfairy.view.activity.MainActivity
-import com.example.toothfairy.viewModel.MainViewModel
 import java.lang.Exception
 
 /** 날짜 변경을 감지하는 리시버 클래스 */

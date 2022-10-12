@@ -1,5 +1,6 @@
 package com.example.toothfairy.view.fragment
 
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableStringBuilder
@@ -23,6 +24,11 @@ import com.example.toothfairy.adapter.CalendarAdapter
 import com.example.toothfairy.data.CalendarDate
 import com.example.toothfairy.databinding.FragmentStatsBinding
 import com.example.toothfairy.util.NotifyManager
+import com.github.mikephil.charting.components.XAxis
+import ted.gun0912.rangebarchart.RangeBarChart
+import ted.gun0912.rangebarchart.RangeBarData
+import ted.gun0912.rangebarchart.RangeBarDataSet
+import ted.gun0912.rangebarchart.RangeBarEntry
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -44,6 +50,8 @@ class StatsFragment : Fragment() {
     // VARIABLE
     lateinit var bind: FragmentStatsBinding
     lateinit var layoutManager: LinearLayoutManager
+
+
 
     val itemList = arrayListOf<CalendarDate>()
     val calendarAdapter = CalendarAdapter(itemList)
@@ -79,6 +87,7 @@ class StatsFragment : Fragment() {
         styleChangeTodayTv()
         // userScoreTv Spannable로 폰트 스타일 변경
         styleChangeUserScoreTV()
+
         NotifyManager.sendNotification(
             context = requireContext(),
             NotifyManager.WEARING_NOTIFY_ID,
@@ -93,6 +102,11 @@ class StatsFragment : Fragment() {
         return view
     }
 
+
+
+    /**
+     * 체크리스트 완료 목룍 생성 메소드
+     */
     private fun createScoreBoard(container: ViewGroup?, scoreIcon:Int, scoreTitle:String, scoreContent:String){
         val scoreLayout = bind.scoreboardLayout
 
@@ -112,7 +126,6 @@ class StatsFragment : Fragment() {
 
         scoreView.findViewById<CardView>(R.id.scoreboard).setCardBackgroundColor(color)
 
-
         var scoreTitleView = scoreView.findViewById<TextView>(R.id.scoreTitle)
         scoreTitleView.text = scoreTitle
 
@@ -122,29 +135,7 @@ class StatsFragment : Fragment() {
         scoreLayout.addView(scoreView)
     }
 
-    /** 사용자 교정 점수 Textview 스타일 변경 */
-    private fun styleChangeUserScoreTV(){
-        val userScore:String = bind.userScoreTv.text.toString()
-        val builder = SpannableStringBuilder(userScore)
 
-        val colorBlueSpan = ForegroundColorSpan(resources.getColor(R.color.colorAccent))
-        builder.setSpan(colorBlueSpan, userScore.length - 9, userScore.length - 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-        bind.userScoreTv.text = builder
-    }
-
-    /** 선택 날짜 Textview 스타일 변경 */
-    private fun styleChangeTodayTv(){
-        val selectDate:String = bind.todayTv.text.toString()
-        val builder = SpannableStringBuilder(selectDate)
-
-        builder.setSpan(StyleSpan(Typeface.BOLD), selectDate.length - 3, selectDate.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-        val sizeBigSpan = RelativeSizeSpan(0.8f)
-        builder.setSpan(sizeBigSpan, selectDate.length - 3, selectDate.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-        bind.todayTv.text = builder
-    }
 
     /** 리사이클러뷰 초기화 */
     private fun initRecyclerView(){
@@ -237,6 +228,31 @@ class StatsFragment : Fragment() {
         }
 
         calendar.smoothScrollBy(minimumGap, 0) // minimumGap 만큼 이동
+    }
+
+
+    /** 사용자 교정 점수 Textview 스타일 변경 */
+    private fun styleChangeUserScoreTV(){
+        val userScore:String = bind.userScoreTv.text.toString()
+        val builder = SpannableStringBuilder(userScore)
+
+        val colorBlueSpan = ForegroundColorSpan(resources.getColor(R.color.colorAccent))
+        builder.setSpan(colorBlueSpan, userScore.length - 9, userScore.length - 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        bind.userScoreTv.text = builder
+    }
+
+    /** 선택 날짜 Textview 스타일 변경 */
+    private fun styleChangeTodayTv(){
+        val selectDate:String = bind.todayTv.text.toString()
+        val builder = SpannableStringBuilder(selectDate)
+
+        builder.setSpan(StyleSpan(Typeface.BOLD), selectDate.length - 3, selectDate.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        val sizeBigSpan = RelativeSizeSpan(0.8f)
+        builder.setSpan(sizeBigSpan, selectDate.length - 3, selectDate.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        bind.todayTv.text = builder
     }
 
     companion object {

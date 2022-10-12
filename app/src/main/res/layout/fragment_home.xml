@@ -400,7 +400,7 @@
                                     android:layout_marginBottom="1dp"
 
                                     android:background="#BC92C0FF"
-                                    android:layout_gravity="center_horizontal | bottom"
+                                    android:layout_gravity="center_horizontal|bottom"
                                     />
 
                                 <TextView
@@ -458,9 +458,9 @@
 
                             <include layout="@layout/sub_checklist_layout" />
 
-                            <include layout="@layout/sub_checklist_layout" />
+                            <include layout="@layout/sub_checklist_layout_old_version" />
 
-                            <include layout="@layout/sub_checklist_layout" />
+                            <include layout="@layout/sub_checklist_layout_old_version" />
                         </LinearLayout>
 
                     </LinearLayout>

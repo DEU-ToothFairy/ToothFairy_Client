@@ -18,6 +18,10 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import ted.gun0912.rangebarchart.RangeBarChart
+import ted.gun0912.rangebarchart.RangeBarData
+import ted.gun0912.rangebarchart.RangeBarDataSet
+import ted.gun0912.rangebarchart.RangeBarEntry
 import java.util.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
@@ -52,6 +56,7 @@ class ReportFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var bind:FragmentReportBinding
+    private val rangeBarChart: RangeBarChart by lazy { bind.rangeBarChart }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,9 +74,100 @@ class ReportFragment : Fragment() {
         bind.lifecycleOwner = requireActivity()
 
         chart()
+
+        rangeBarChart.setup()
+        rangeBarChart.addData()
+
         return bind.root
     }
 
+    /**
+     * RangeBarChart 세팅
+     */
+    private fun RangeBarChart.setup(){
+        setScaleEnabled(false)
+        setDrawGridBackground(false)
+        setBackgroundColor(Color.TRANSPARENT)
+
+        isAutoScaleMinMaxEnabled = false
+        description.isEnabled = false
+
+        xAxis.apply {
+            isEnabled = false
+            position = XAxis.XAxisPosition.BOTTOM
+            setDrawGridLines(false)
+        }
+
+        axisLeft.apply {
+            setDrawGridLines(false)
+            axisLeft.axisLineColor = Color.TRANSPARENT
+            axisMinimum = 0f
+            axisMaximum = 24f
+
+            setLabelCount(4, true) // Y축 라벨 개수 설정 (true로 해야 최대 최소 값이 다 나옴)
+        }
+
+        axisRight.isEnabled = false
+        legend.isEnabled = false
+
+        // 데이터 초기화
+        data = RangeBarData(createSet())
+    }
+
+    /**
+     * RangeBarChart 데이터셋 세팅
+     */
+    private fun createSet(): RangeBarDataSet =
+        RangeBarDataSet(null, "RangeBar").apply {
+            color = resources.getColor(R.color.colorAccent)
+
+            barWidth = 0.2f
+
+            isHighlightEnabled = false      // 클릭했을 때 하이라이트 표시 비활성화
+            isMinMaxEnabled = false         // 최대, 최소 표시 비활성화
+
+            setDrawValues(false)
+            valueTextSize = 12f
+            valueFormatter = null
+        }
+
+    private fun RangeBarChart.addData(){
+        val data = data ?: return
+        val rangeBarDataSet = data.getDataSetByIndex(0) ?: return
+
+        val values = getDataEntries()
+
+        rangeBarDataSet.values = values
+        data.notifyDataChanged()
+        notifyDataSetChanged()
+    }
+
+    private fun getDataEntries(): List<RangeBarEntry>{
+        val values = mutableListOf<RangeBarEntry>()
+
+        values.add(RangeBarEntry(1f, 9f, 16f))
+        values.add(RangeBarEntry(1f, 18f, 23f))
+
+        values.add(RangeBarEntry(2f, 7f, 18f))
+
+        values.add(RangeBarEntry(3f, 6f, 9f))
+        values.add(RangeBarEntry(3f, 11f, 20f))
+
+        values.add(RangeBarEntry(4f, 9f, 18f))
+
+        values.add(RangeBarEntry(5f, 2f, 6f))
+        values.add(RangeBarEntry(5f, 13f, 16f))
+        values.add(RangeBarEntry(5f, 18f, 22f))
+
+        values.add(RangeBarEntry(6f, 12f, 18f))
+        values.add(RangeBarEntry(7f, 8f, 16f))
+
+        return values
+    }
+
+    /**
+     * Rounded Bar Chart
+     */
     private fun chart(){
         val entries = ArrayList<BarEntry>()
 

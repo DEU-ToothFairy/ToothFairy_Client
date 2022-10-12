@@ -141,14 +141,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/sub_checklist_layout" />
+            <include layout="@layout/sub_checklist_layout_old_version" />
 
-            <include layout="@layout/sub_checklist_layout" />
+            <include layout="@layout/sub_checklist_layout_old_version" />
 
-            <include layout="@layout/sub_checklist_layout" />
-            <include layout="@layout/sub_checklist_layout" />
-            <include layout="@layout/sub_checklist_layout" />
-            <include layout="@layout/sub_checklist_layout" />
+            <include layout="@layout/sub_checklist_layout_old_version" />
+            <include layout="@layout/sub_checklist_layout_old_version" />
+            <include layout="@layout/sub_checklist_layout_old_version" />
+            <include layout="@layout/sub_checklist_layout_old_version" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

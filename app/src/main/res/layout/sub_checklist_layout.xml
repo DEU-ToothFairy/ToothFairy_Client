@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
 
@@ -10,63 +10,127 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="0dp"
         app:cardBackgroundColor="#F3F8FF"
-        >
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+        <RelativeLayout
+            android:id="@+id/contentRelative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:orientation="horizontal">
+            android:layout_marginBottom="12dp">
 
             <View
+                android:id="@+id/check"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
-
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
+                android:layout_alignParentLeft="true"
                 android:background="@drawable/checklist_circle" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <!-- LAYOUT 체크리스트 콘텐츠 레이아웃 -->
+            <RelativeLayout
+                android:id="@+id/contentLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_toRightOf="@+id/check"
+                android:orientation="horizontal">
+
+                <!-- LAYOUT 체크리스트 내용 레이아웃 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/noto_sans_kr_bold"
+                        android:includeFontPadding="false"
+                        android:text="양치질"
+                        android:textColor="@color/black"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:includeFontPadding="false"
+                        android:text="양치질 3분 지키기"
+                        android:textColor="#494A50"
+                        android:textSize="12dp" />
+                </LinearLayout>
+                <!-- LAYOUT END 체크리스트 내용 레이아웃 -->
+
+<!--                <View-->
+<!--                    android:layout_width="12dp"-->
+<!--                    android:layout_height="12dp"-->
+<!--                    android:layout_alignParentRight="true"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:layout_gravity="right|center"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/ic_close" />-->
+            </RelativeLayout>
+            <!-- LAYOUT END 체크리스트 콘텐츠 레이아웃 -->
+
+
+
+            <!-- LAYOUT 하단 레이아웃 -->
+            <LinearLayout
+                android:id="@+id/completeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/contentLayout"
+                android:layout_alignLeft="@+id/contentLayout"
                 android:orientation="vertical">
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#EDEDED"/>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    android:fontFamily="@font/noto_sans_kr_bold"
-                    android:includeFontPadding="false"
-                    android:text="양치질"
-                    android:textColor="@color/black"
-                    android:textSize="12dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2회째 실천 중 !"
+                        android:textSize="12dp"
+                        android:textColor="@color/black_gray"
+                        />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:includeFontPadding="false"
-                    android:text="양치질 3분 지키기"
-                    android:textColor="#494A50"
-                    android:textSize="12dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="2022-10-13 01:36"
+                        android:textSize="10dp"
+                        android:textColor="@color/gray"
+                        android:fontFamily="@font/poppins_medium"
+                        />
+                </LinearLayout>
+
             </LinearLayout>
+            <!-- LAYOUT END 하단 레이아웃 -->
 
-            <View
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginRight="20dp"
-                android:layout_gravity="right | center"
-                android:background="@drawable/ic_close"
-                />
-        </LinearLayout>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 

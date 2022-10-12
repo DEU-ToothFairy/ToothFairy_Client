@@ -412,7 +412,7 @@
             </LinearLayout>
             <!-- LAYOUT END 착용 시간 컨텐츠 레이아웃 -->
 
-            <!-- LAYOUT 착용 시간 그래프 레이아웃 -->
+            <!-- LAYOUT RangeBar Chart 레이아웃 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -425,32 +425,40 @@
                 app:cardBackgroundColor="#00FFFFFF"
                 app:cardUseCompatPadding="false">
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingTop="20dp"
-                    android:paddingBottom="20dp"
-                    >
+                    android:paddingBottom="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/montserrat_medium"
+                        android:fontFamily="@font/poppins_semi_bold"
                         android:text="최근 7일 착용 통계"
                         android:textColor="@color/black"
-                        android:textSize="12dp" />
+                        android:textSize="14dp" />
+
+
+                    <ted.gun0912.rangebarchart.RangeBarChart
+                        android:id="@+id/rangeBarChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="20dp"/>
 
                     <com.example.toothfairy.view.ui.RoundedBarChart
                         android:id="@+id/chart"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        app:radius="4dp" />
+                        app:radius="4dp"
+                        android:visibility="gone"/>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-            <!-- LAYOUT END 착용 시간 그래프 레이아웃 -->
+            <!-- LAYOUT END RangeBar Chart 레이아웃 -->
 
 
         </LinearLayout>

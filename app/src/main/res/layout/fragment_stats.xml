@@ -228,6 +228,7 @@
                 </LinearLayout>
                 <!-- LAYOUT END 체크리스트-->
 
+
             </LinearLayout>
             <!-- LAYOUT END 점수 텍스트뷰 레이아웃 -->
         </ScrollView>

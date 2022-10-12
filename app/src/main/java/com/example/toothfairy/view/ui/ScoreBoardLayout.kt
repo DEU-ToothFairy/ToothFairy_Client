@@ -25,7 +25,5 @@ class ScoreBoardLayout(context: Context) : LinearLayout(context) {
         inflater.inflate(R.layout.sub_score_board_layout, this, true)
 
         var scoreBoard:CardView = findViewById(R.id.scoreboard)
-
-
     }
 }

@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
+
 apply plugin: 'kotlin-android'
 
 android {
@@ -95,6 +99,9 @@ dependencies {
 
     /** Logging-Interceptor */
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
+
+    /* RangeBar Chart */
+    implementation 'io.github.ParkSangGwon:range-bar-chart:0.0.6'
 
     // 코틀린을 쓰는 경우
     implementation 'androidx.work:work-runtime-ktx:2.7.1'

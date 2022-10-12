@@ -24,11 +24,18 @@
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/activity_splash.xml" value="0.2442982456140351" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/checklist_layout.xml" value="0.5" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_checklist_bottom_sheet.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_faq.xml" value="0.30833333333333335" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_profile.xml" value="0.30833333333333335" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/fragment_stats.xml" value="0.33" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/item_graph_line.xml" value="0.30432900432900434" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/score_board_layout.xml" value="0.25" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/sub_calendar_cell.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/sub_checklist_layout.xml" value="0.5" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/sub_checklist_layout_newversion.xml" value="0.5" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/sub_checklist_result.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/sub_faq_item_row.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/Dong/StudioProjects/ToothFairy/app/src/main/res/layout/sub_item_graph_line.xml" value="0.30833333333333335" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy_Client/app/src/main/res/drawable/bg_layout_border.xml" value="0.2475" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy_Client/app/src/main/res/drawable/bg_rounded_dialog.xml" value="0.2475" />
         <entry key="..\:/Users/Dong/StudioProjects/ToothFairy_Client/app/src/main/res/drawable/bg_select_graphline.xml" value="0.2475" />
@@ -64,22 +71,17 @@
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/drawable/stastics_circle.xml" value="0.181" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/font/fonts.xml" value="0.3921875" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_bluetooth.xml" value="0.33" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_login.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_main.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/activity_splash.xml" value="0.3609375" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_checklist_bottom_sheet.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_faq.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_home.xml" value="0.33" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_profile.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_report.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/fragment_stats.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/item_graph_line.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/progress_ui.xml" value="0.270703125" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/sub_checklist_layout.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/sub_checklist_result.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/sub_faq_item_row.xml" value="0.5" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/sub_item_graph_line.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/sub_wearing_progress_layout.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layout/wearing_progress_layout.xml" value="0.33" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layouts/fragment/layout/fragment_home.xml" value="0.2390625" />
         <entry key="..\:/Users/dongh/AndroidStudioProjects/ToothFairy/app/src/main/res/layouts/fragment/layout/fragment_profile.xml" value="0.2390625" />

@@ -24,7 +24,6 @@ object WearingInfoRepository {
 
     private var prefs: PreferenceManager?   = null
 
-
     /** 사용자 아이디를 DB 이름으로 SharedPreferences 생성 */
     fun init(patientId: String?) {
         // 사용자 이름의 아이디로 내부 DB 생성

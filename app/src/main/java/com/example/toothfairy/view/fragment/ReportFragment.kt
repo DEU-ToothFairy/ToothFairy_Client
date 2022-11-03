@@ -146,18 +146,21 @@ class ReportFragment : Fragment() {
         val values = mutableListOf<RangeBarEntry>()
 
         values.add(RangeBarEntry(1f, 9f, 16f))
-        values.add(RangeBarEntry(1f, 18f, 23f))
+//        values.add(RangeBarEntry(1f, 18f, 23f))
 
         values.add(RangeBarEntry(2f, 7f, 18f))
 
         values.add(RangeBarEntry(3f, 6f, 9f))
-        values.add(RangeBarEntry(3f, 11f, 20f))
+//        values.add(RangeBarEntry(3f, 11f, 20f))
 
         values.add(RangeBarEntry(4f, 9f, 18f))
 
-        values.add(RangeBarEntry(5f, 2f, 6f))
+
+
+
+//        values.add(RangeBarEntry(5f, 2f, 6f))
         values.add(RangeBarEntry(5f, 13f, 16f))
-        values.add(RangeBarEntry(5f, 18f, 22f))
+//        values.add(RangeBarEntry(5f, 18f, 22f))
 
         values.add(RangeBarEntry(6f, 12f, 18f))
         values.add(RangeBarEntry(7f, 8f, 16f))

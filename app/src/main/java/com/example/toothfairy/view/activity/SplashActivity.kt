@@ -9,6 +9,8 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.toothfairy.R
+import com.example.toothfairy.application.MyApplication
+import com.example.toothfairy.model.repository.WearingInfoRepository
 
 
 class SplashActivity : AppCompatActivity() {
@@ -55,4 +57,20 @@ class SplashActivity : AppCompatActivity() {
             requestPermissions(arrayOf(Manifest.permission.BLUETOOTH),1)
         }
     }
+
+//    override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<out String>,grantResults: IntArray) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        var checkResult = true
+//
+//        if(requestCode == 1){
+//            for(i in grantResults){
+//                if(i != PackageManager.PERMISSION_GRANTED){
+//                    checkResult = false
+//                    break
+//                }
+//            }
+//        }
+//
+//        if(!checkResult) finish()
+//    }
 }

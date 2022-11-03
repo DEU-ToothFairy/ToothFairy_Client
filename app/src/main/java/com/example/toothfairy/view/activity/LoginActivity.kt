@@ -78,12 +78,12 @@ class LoginActivity : AppCompatActivity() {
         // 로그인 성공 시
         loginViewModel.loginFlag.observe(this, Observer {
             // 블루투스 화면으로 전환
-//            val bluetoothIntent = Intent(applicationContext, BluetoothActivity::class.java)
+            val bluetoothIntent = Intent(applicationContext, BluetoothActivity::class.java)
 //            bluetoothIntent.putExtra("loginUser", value)
 
-            val mainIntent = Intent(applicationContext, MainActivity::class.java)
+//            val mainIntent = Intent(applicationContext, MainActivity::class.java)
 
-            startActivity(mainIntent)
+            startActivity(bluetoothIntent)
             this.finish()
         })
     }

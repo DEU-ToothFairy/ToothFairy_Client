@@ -5,6 +5,8 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.example.toothfairy.entity.Patient
 import com.example.toothfairy.util.NotifyManager
+import java.sql.Date
+import java.util.Calendar
 
 /** Context를 전역적으로 받기 위한 클래스 */
 class MyApplication : Application() {

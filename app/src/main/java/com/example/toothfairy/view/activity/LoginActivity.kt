@@ -32,21 +32,13 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //        setContentView(R.layout.activity_login);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
-
         setAnimation()
+        login()
 
-        // 사용자 이름의 DB 생성
-        WearingInfoRepository.init("patient1")
-        val mainIntent = Intent(applicationContext, MainActivity::class.java)
-
-        startActivity(mainIntent)
         this.finish()
-
-//        login()
     }
 
     private fun login() {
@@ -104,11 +96,12 @@ class LoginActivity : AppCompatActivity() {
         mainFieldAnim = AnimationUtils.loadAnimation(this, R.anim.mainfield_animation)
 
         // 애니메이션을 세팅
-        binding!!.userId.animation = mainFieldAnim
-        binding!!.password.animation = mainFieldAnim
-        binding!!.loginBtn.animation = mainFieldAnim
-        binding!!.signUpBtn.animation = mainFieldAnim
-        binding!!.autoLoginCheckBox.animation = mainFieldAnim
-
+        binding.apply {
+            userId.animation = mainFieldAnim
+            password.animation = mainFieldAnim
+            loginBtn.animation = mainFieldAnim
+            signUpBtn.animation = mainFieldAnim
+            autoLoginCheckBox.animation = mainFieldAnim
+        }
     }
 }

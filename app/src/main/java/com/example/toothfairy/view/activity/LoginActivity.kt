@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
 import com.example.toothfairy.application.MyApplication
 import com.example.toothfairy.databinding.ActivityLoginBinding
+import com.example.toothfairy.model.repository.WearingInfoRepository
 import com.example.toothfairy.util.Event
 import com.example.toothfairy.viewModel.LoginViewModel
 import java.util.*
@@ -35,8 +36,17 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
+
         setAnimation()
-        login()
+
+        // 사용자 이름의 DB 생성
+        WearingInfoRepository.init("patient1")
+        val mainIntent = Intent(applicationContext, MainActivity::class.java)
+
+        startActivity(mainIntent)
+        this.finish()
+
+//        login()
     }
 
     private fun login() {

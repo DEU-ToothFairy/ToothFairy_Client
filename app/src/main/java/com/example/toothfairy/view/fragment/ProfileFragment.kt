@@ -1,29 +1,24 @@
 package com.example.toothfairy.view.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import com.example.toothfairy.R
-import androidx.core.app.ActivityCompat
-import android.content.Intent
 import android.view.View
-import android.view.animation.Animation
+import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import com.example.toothfairy.view.activity.LoginActivity
+import com.example.toothfairy.R
 import com.example.toothfairy.databinding.FragmentProfileBinding
+import com.example.toothfairy.view.activity.LoginActivity
 import com.example.toothfairy.viewModel.MainViewModel
 import com.github.mikephil.charting.charts.RadarChart
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.RadarData
 import com.github.mikephil.charting.data.RadarDataSet
 import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import java.util.ArrayList
 
 /**
  * A simple [Fragment] subclass.

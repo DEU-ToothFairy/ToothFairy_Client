@@ -1,6 +1,5 @@
 package com.example.toothfairy.view.fragment
 
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableStringBuilder
@@ -24,11 +23,6 @@ import com.example.toothfairy.adapter.CalendarAdapter
 import com.example.toothfairy.data.CalendarDate
 import com.example.toothfairy.databinding.FragmentStatsBinding
 import com.example.toothfairy.util.NotifyManager
-import com.github.mikephil.charting.components.XAxis
-import ted.gun0912.rangebarchart.RangeBarChart
-import ted.gun0912.rangebarchart.RangeBarData
-import ted.gun0912.rangebarchart.RangeBarDataSet
-import ted.gun0912.rangebarchart.RangeBarEntry
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth

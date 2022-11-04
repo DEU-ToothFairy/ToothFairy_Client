@@ -7,13 +7,13 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.toothfairy.R
-import com.example.toothfairy.application.MyApplication
-import com.example.toothfairy.model.repository.WearingInfoRepository
+import com.example.toothfairy.util.ExceptionHandler
+import kotlin.system.exitProcess
 
 
 class SplashActivity : AppCompatActivity() {
+
     // 필요한 권한 목록
     private val permissionList:Array<String> = arrayOf(
         Manifest.permission.BLUETOOTH,
@@ -21,15 +21,15 @@ class SplashActivity : AppCompatActivity() {
         Manifest.permission.BLUETOOTH_ADVERTISE,
         Manifest.permission.BLUETOOTH_CONNECT,
         Manifest.permission.ACCESS_COARSE_LOCATION,
-        Manifest.permission.ACCESS_FINE_LOCATION
+        Manifest.permission.ACCESS_FINE_LOCATION,
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        Thread.setDefaultUncaughtExceptionHandler(ExceptionHandler())
 
         if(!checkPermission()) requestPermission()
-
         splashLogo(3L)
     }
 

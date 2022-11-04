@@ -18,17 +18,16 @@ import com.example.toothfairy.DateChangedReceiver
 import com.example.toothfairy.R
 import com.example.toothfairy.application.MyApplication
 import com.example.toothfairy.databinding.ActivityMainBinding
-import com.example.toothfairy.view.fragment.HomeFragment
-import com.example.toothfairy.view.fragment.ProfileFragment
-import com.example.toothfairy.view.fragment.ReportFragment
-import com.example.toothfairy.view.fragment.StatsFragment
+import com.example.toothfairy.view.fragment.*
 import com.example.toothfairy.viewModel.BluetoothViewModel
 import com.example.toothfairy.viewModel.MainViewModel
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
+
+
     // VARIABLE
     private lateinit var bind : ActivityMainBinding
     private lateinit var mainVM  : MainViewModel
@@ -53,6 +52,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         /* INIT 초기화 작업 */
 
@@ -125,8 +126,8 @@ class MainActivity : AppCompatActivity() {
             set(Calendar.SECOND, 30)
         }
 
-        Log.i("현재 시간", "${SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().timeInMillis)}")
-        Log.i("예약 시간", "${SimpleDateFormat("yyyy-MM-dd HH:mm").format(calendar.timeInMillis)}")
+        Log.i("현재 시간",SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().timeInMillis))
+        Log.i("예약 시간", SimpleDateFormat("yyyy-MM-dd HH:mm").format(calendar.timeInMillis))
 
         if(calendar.before(Calendar.getInstance()))
             calendar.add(Calendar.DAY_OF_MONTH, 1)

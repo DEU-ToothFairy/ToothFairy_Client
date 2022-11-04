@@ -1,23 +1,20 @@
 package com.example.toothfairy.view.activity
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.bluetooth.*
 import android.bluetooth.le.BluetoothLeScanner
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
 import com.example.toothfairy.databinding.ActivityBluetoothBinding
+import com.example.toothfairy.util.ExceptionHandler
 import com.example.toothfairy.viewModel.BluetoothViewModel
 import java.sql.Date
 import java.text.SimpleDateFormat
@@ -46,6 +43,7 @@ class BluetoothActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Thread.setDefaultUncaughtExceptionHandler(ExceptionHandler())
 
         // INIT
         binding = DataBindingUtil.setContentView(this, R.layout.activity_bluetooth)

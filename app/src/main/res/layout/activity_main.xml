@@ -48,6 +48,7 @@
             />
 
         <Button
+            android:id="@+id/menu"
             android:layout_width="22dp"
             android:layout_height="15dp"
             android:layout_gravity="right|center"

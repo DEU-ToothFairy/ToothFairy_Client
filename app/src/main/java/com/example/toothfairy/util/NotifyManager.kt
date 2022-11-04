@@ -1,5 +1,6 @@
 package com.example.toothfairy.util
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -17,6 +18,7 @@ object NotifyManager {
      * @param title: String
      * @param content: String
      * */
+    @SuppressLint("SuspiciousIndentation")
     fun sendNotification(context: Context, channelId: String, title: String, content: String) {
 //        val contentPendingIntent = PendingIntent.getActivity(
 //            context,

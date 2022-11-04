@@ -1,9 +1,7 @@
 package com.example.toothfairy.view.activity
 
-import android.Manifest
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -13,10 +11,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
-import com.example.toothfairy.application.MyApplication
 import com.example.toothfairy.databinding.ActivityLoginBinding
-import com.example.toothfairy.model.repository.WearingInfoRepository
 import com.example.toothfairy.util.Event
+import com.example.toothfairy.util.ExceptionHandler
 import com.example.toothfairy.viewModel.LoginViewModel
 import java.util.*
 
@@ -32,6 +29,8 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Thread.setDefaultUncaughtExceptionHandler(ExceptionHandler())
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 

@@ -7,16 +7,27 @@ import android.hardware.Camera.PictureCallback
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import android.widget.Toast
+import com.example.toothfairy.view.fragment.CameraFragment
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
 
 class CameraSurfaceView : SurfaceView, SurfaceHolder.Callback {
     lateinit var surfaceHolder: SurfaceHolder
     var camera: Camera? = null
+    var cameraFacing: Int = Camera.CameraInfo.CAMERA_FACING_FRONT // 전면 or 후면 카메라 상태 저장 (초기값 전면)
 
     constructor(context: Context) : super(context) {
         init(context)
     }
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+        init(context)
+    }
+
+    constructor(context: Context, cameraFacing: Int) : super(context){
+        this.cameraFacing = cameraFacing
         init(context)
     }
 
@@ -35,7 +46,7 @@ class CameraSurfaceView : SurfaceView, SurfaceHolder.Callback {
      */
     override fun surfaceCreated(surfaceHolder: SurfaceHolder) {
         //만들어지는시점
-        camera = Camera.open() //카메라 객체 참조
+        camera = Camera.open(cameraFacing) //카메라 객체 참조
 
         try {
             camera?.setPreviewDisplay(holder)
@@ -70,9 +81,10 @@ class CameraSurfaceView : SurfaceView, SurfaceHolder.Callback {
         camera = null
     }
 
-    fun capture(callback: PictureCallback?): Boolean {
+    fun capture(): Boolean {
         return if (camera != null) {
-            camera!!.takePicture(null, null, callback)
+            // imageView에 사진을 출력하고 싶으면 fragment쪽에서 callback을 구현해서 인자에 추가로 넣어주면 됨
+            camera!!.takePicture(null, null, null, jpegCallback)
             true
         } else {
             false
@@ -87,4 +99,38 @@ class CameraSurfaceView : SurfaceView, SurfaceHolder.Callback {
             false
         }
     }
+
+    
+    private val jpegCallback = PictureCallback { data, camera ->
+        var photoPath:String? = null
+
+        try {
+            // 이미지를 파일로 저장
+            photoPath = String.format("/sdcard/DCIM/Pictures/%d.jpg",System.currentTimeMillis())
+
+            FileOutputStream(photoPath).apply {
+                write(data)
+                close()
+            }
+        }
+        catch (e: FileNotFoundException) { e.printStackTrace()}
+        catch (e: IOException) { e.printStackTrace() }
+
+        Toast.makeText(context,"Picture Saved", Toast.LENGTH_LONG).show()
+
+        /**
+         * 바이트 배열에 담긴 이미지를 비트맵으로 변경 후
+         * 비트맵을 이미지뷰로 출력하는 코드
+         *
+         * val options = BitmapFactory.Options().apply { inSampleSize = 4 } // inSampleSize를 줄이면 화질 좋아짐
+         * val bmp = BitmapFactory.decodeFile(photoPath, options)
+         * val matrix = Matrix().apply { preRotate(90F) }
+         *
+         * val adjustBitmap = Bitmap.createBitmap(bmp, 0,0, bmp.width, bmp.height, matrix, true)
+         * bind.imageView.setImageBitmap(adjustBitmap)
+         */
+
+        camera.startPreview()
+    }
+
 }

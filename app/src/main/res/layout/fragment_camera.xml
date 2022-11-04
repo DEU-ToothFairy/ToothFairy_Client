@@ -11,15 +11,16 @@
 
 
         <FrameLayout
+            android:id="@+id/surfaceLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="500dp"
             android:layout_gravity="center"
             android:layout_marginTop="50dp">
 
             <com.example.toothfairy.view.customview.CameraSurfaceView
                 android:id="@+id/surfaceView"
                 android:layout_width="match_parent"
-                android:layout_height="500dp" />
+                android:layout_height="match_parent" />
         </FrameLayout>
 
 
@@ -57,6 +58,7 @@
                 android:layout_weight="1"/>
 
             <View
+                android:id="@+id/cameraChangeBtn"
                 android:layout_width="25dp"
                 android:layout_height="23dp"
                 android:layout_marginRight="75dp"

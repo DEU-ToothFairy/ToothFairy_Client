@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".CameraFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp">
+
+            <com.example.toothfairy.view.customview.CameraSurfaceView
+                android:id="@+id/surfaceView"
+                android:layout_width="match_parent"
+                android:layout_height="500dp" />
+        </FrameLayout>
+
+
+        <!--LAYOUT 카메라 버튼 레이아웃 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="26dp"
+                android:layout_height="19dp"
+                android:layout_marginLeft="75dp"
+                android:layout_gravity="left|center"
+                android:background="@drawable/back"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/button"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center"
+                android:background="@drawable/camera_btn_background"
+                android:src="@drawable/camera"
+                android:text="사진찍기" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <View
+                android:layout_width="25dp"
+                android:layout_height="23dp"
+                android:layout_marginRight="75dp"
+                android:layout_gravity="right|center"
+                android:background="@drawable/refresh"/>
+        </LinearLayout>
+        <!--LAYOUT END 카메라 버튼 레이아웃 -->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_gravity="left"-->
+<!--            android:src="@mipmap/ic_launcher" />-->
+    </LinearLayout>
+</layout>

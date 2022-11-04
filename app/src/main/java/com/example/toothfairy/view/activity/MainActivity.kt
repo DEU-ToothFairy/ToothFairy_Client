@@ -18,6 +18,7 @@ import com.example.toothfairy.DateChangedReceiver
 import com.example.toothfairy.R
 import com.example.toothfairy.application.MyApplication
 import com.example.toothfairy.databinding.ActivityMainBinding
+import com.example.toothfairy.util.ExceptionHandler
 import com.example.toothfairy.view.fragment.*
 import com.example.toothfairy.viewModel.BluetoothViewModel
 import com.example.toothfairy.viewModel.MainViewModel
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        Thread.setDefaultUncaughtExceptionHandler(ExceptionHandler())
 
         /* INIT 초기화 작업 */
 
@@ -70,6 +71,13 @@ class MainActivity : AppCompatActivity() {
         createAlarmManager()
         /* INIT End */
 
+        bind.menu.setOnClickListener{
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayout, CameraFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     } // onCreate
 
     override fun onResume() {
@@ -107,6 +115,7 @@ class MainActivity : AppCompatActivity() {
         bind.appTitle.text = builder
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun createAlarmManager(){
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
 

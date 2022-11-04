@@ -3,6 +3,7 @@ package com.example.toothfairy.view.activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -36,8 +37,6 @@ class LoginActivity : AppCompatActivity() {
 
         setAnimation()
         login()
-
-        this.finish()
     }
 
     private fun login() {

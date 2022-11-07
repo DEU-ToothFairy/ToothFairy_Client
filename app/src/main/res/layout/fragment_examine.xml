@@ -1,13 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ExamineFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    <View
+    tools:context=".view.fragment.ExamineFragment">
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="420dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/half_card_background"/>
-</FrameLayout>
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="420dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/half_card_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:layout_gravity="center"
+                android:paddingStart="70dp"
+                android:paddingEnd="70dp"
+
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                />
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+
+                app:dotsColor="@color/light_gray"
+                app:dotsCornerRadius="8dp"
+                app:dotsSize="10dp"
+                app:dotsSpacing="4dp"
+                app:dotsWidthFactor="3"
+                app:selectedDotColor="@color/colorAccent"
+                app:progressMode="false"
+                />
+
+        </LinearLayout>
+    </FrameLayout>
+
+</layout>

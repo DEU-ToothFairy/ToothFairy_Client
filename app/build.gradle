@@ -103,6 +103,10 @@ dependencies {
     /* RangeBar Chart */
     implementation 'io.github.ParkSangGwon:range-bar-chart:0.0.6'
 
+    /* ViewPager2 & Indicator */
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'com.tbuonomo:dotsindicator:4.3'
+
     // 코틀린을 쓰는 경우
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
 

@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.DateChangedReceiver
-import com.example.toothfairy.ExamineFragment
 import com.example.toothfairy.R
 import com.example.toothfairy.application.MyApplication
 import com.example.toothfairy.databinding.ActivityMainBinding

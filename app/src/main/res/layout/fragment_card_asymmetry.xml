@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#00FFFFFF">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="243dp"
+        android:layout_height="418dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:elevation="1dp"
+        android:background="@drawable/bg_rounded_rect_white"
+        >
+
+        <FrameLayout
+            android:id="@+id/illustrationLayout"
+            android:layout_width="match_parent"
+            android:layout_height="268dp"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:background="@drawable/bg_rounded_rect_yellow" />
+
+            <ImageView
+                android:layout_width="205dp"
+                android:layout_height="178dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/facial_asymmetry" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+
+            app:layout_constraintTop_toBottomOf="@+id/illustrationLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="안면비대칭 검사"
+                android:textSize="17dp"
+                android:textColor="#202020"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+
+                android:text="인공지능을 이용하여 안면 비대칭 여부를 판별하고 비대칭 정도를 알려드려요"
+                android:textSize="12dp"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:includeFontPadding="false"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

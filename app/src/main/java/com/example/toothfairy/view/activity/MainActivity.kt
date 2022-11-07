@@ -42,10 +42,11 @@ class MainActivity : AppCompatActivity() {
     private var statsFragment:StatsFragment? = null
     private var reportFragment:ReportFragment? = null
     private var profileFragment:ProfileFragment? = null
+
     private var fragmentMap: HashMap<Int, Fragment?>? = hashMapOf(
             R.id.menu_home to homeFragment,
             R.id.menu_stastics to statsFragment,
-            R.id.menu_report to reportFragment,
+            R.id.menu_examine to reportFragment,
             R.id.menu_profile to profileFragment
         )
 
@@ -159,14 +160,7 @@ class MainActivity : AppCompatActivity() {
     private fun initBottomNavibar() {
         bind.bottomNavigation.run {
             setOnNavigationItemSelectedListener {
-                var fragment = when (it.itemId) {
-                    R.id.menu_home -> changetFragment(R.id.menu_home)
-                    R.id.menu_stastics -> changetFragment(R.id.menu_stastics)
-                    R.id.menu_report -> changetFragment(R.id.menu_report)
-                    R.id.menu_notice -> changetFragment(R.id.menu_notice)
-                    R.id.menu_profile -> changetFragment(R.id.menu_profile)
-                    else -> changetFragment(R.id.menu_home)
-                }
+                changetFragment(it.itemId)
 
                 // OnNavigationItemSelectedListner의 반환 값 (람다 함수 형식이라 마지막 라인이 반환 값이 됨)
                 true
@@ -192,8 +186,7 @@ class MainActivity : AppCompatActivity() {
         return when (fragmentId) {
             R.id.menu_home -> HomeFragment()
             R.id.menu_stastics -> StatsFragment()
-            R.id.menu_report -> ReportFragment()
-            R.id.menu_notice -> ProfileFragment()
+            R.id.menu_examine -> ProfileFragment()
             R.id.menu_profile -> ProfileFragment()
             else -> HomeFragment()
         }

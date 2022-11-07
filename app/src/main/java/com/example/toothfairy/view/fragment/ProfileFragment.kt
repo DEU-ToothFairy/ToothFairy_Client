@@ -54,6 +54,14 @@ class ProfileFragment : Fragment() {
         addLogoutBtnEvent()
         makeRadarChart()
 
+        bind.reportBtn.setOnClickListener {
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayout, ReportFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
         bind.faqBtn.setOnClickListener(View.OnClickListener {
             requireActivity().supportFragmentManager
                 .beginTransaction()
@@ -67,7 +75,7 @@ class ProfileFragment : Fragment() {
 
     private fun addLogoutBtnEvent(){
         // 로그아웃 클릭 이벤트
-        bind?.logoutBtn?.setOnClickListener { v: View? ->
+        bind.logoutBtn.setOnClickListener { v: View? ->
             // autuLogin 이름의 Preferences를 가져옴
             val prefs = this.requireActivity().getSharedPreferences("autoLogin", Context.MODE_PRIVATE)
 

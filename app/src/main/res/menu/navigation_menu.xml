@@ -9,25 +9,26 @@
         />
 
     <item
+        android:id="@+id/menu_examine"
+        android:enabled = "true"
+        android:icon="@drawable/ic_search_2"
+        android:title="검사"
+        />
+
+    <item
         android:id="@+id/menu_stastics"
         android:enabled = "true"
         android:icon="@drawable/ic_graph"
         android:title="통계"
         />
 
-    <item
-        android:id="@+id/menu_report"
-        android:enabled = "true"
-        android:icon="@drawable/ic_report"
-        android:title="보고서"
-        />
 
-    <item
-        android:id="@+id/menu_notice"
-        android:enabled = "true"
-        android:icon="@drawable/ic_bell"
-        android:title="알림"
-        />
+<!--    <item-->
+<!--        android:id="@+id/menu_notice"-->
+<!--        android:enabled = "true"-->
+<!--        android:icon="@drawable/ic_bell"-->
+<!--        android:title="알림"-->
+<!--        />-->
 
     <item
         android:id="@+id/menu_profile"

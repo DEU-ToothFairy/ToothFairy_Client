@@ -38,6 +38,7 @@
             />
 
         <Button
+            android:id="@+id/notification"
             android:layout_width="20dp"
             android:layout_height="22dp"
             android:layout_gravity="right|center"

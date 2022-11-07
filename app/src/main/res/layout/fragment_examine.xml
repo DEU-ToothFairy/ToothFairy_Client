@@ -22,6 +22,12 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <!--
+                뷰페이저에 들어갈 아이템의 width가 ViewPager 전체를 덮지 않는 경우
+                뷰페이저를 match_parent로 하지 않으면 옆이 짤려버림
+                옆의 요소들이 보여야하는데 뷰페이저 자체가 짤리면 안되므로 뷰 페이저는 match_parent로 고정
+                그 대신 뷰페이저에 패딩을 주면 뷰페이저 크기는 그대로고 내부 영역이 줄어들어서 옆의 요소까지 잘 보이게 됨
+            -->
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.example.toothfairy.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ class ExpandableFaqAdapter(private val faqList: List<Faq>) : RecyclerView.Adapte
         /**
          * 데이터를 뷰에 연결하는 메소드
          */
+        @SuppressLint("SetTextI18n")
         fun bind(position: Int, faq:Faq){
             val questionIdx = itemView.findViewById<TextView>(R.id.questionIdx)
             val question = itemView.findViewById<TextView>(R.id.questionTv)

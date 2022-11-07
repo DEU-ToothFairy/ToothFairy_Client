@@ -78,6 +78,14 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
         }
+
+        bind.notification.setOnClickListener {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayout, InspectResultFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     } // onCreate
 
     override fun onResume() {

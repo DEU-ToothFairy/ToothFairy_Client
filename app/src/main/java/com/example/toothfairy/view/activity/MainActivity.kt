@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.DateChangedReceiver
+import com.example.toothfairy.ExamineFragment
 import com.example.toothfairy.R
 import com.example.toothfairy.application.MyApplication
 import com.example.toothfairy.databinding.ActivityMainBinding
@@ -24,7 +25,6 @@ import com.example.toothfairy.viewModel.BluetoothViewModel
 import com.example.toothfairy.viewModel.MainViewModel
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,13 +40,13 @@ class MainActivity : AppCompatActivity() {
 
     private var homeFragment:HomeFragment? = null
     private var statsFragment:StatsFragment? = null
-    private var reportFragment:ReportFragment? = null
+    private var examineFragment:ExamineFragment? = null
     private var profileFragment:ProfileFragment? = null
 
     private var fragmentMap: HashMap<Int, Fragment?>? = hashMapOf(
             R.id.menu_home to homeFragment,
             R.id.menu_stastics to statsFragment,
-            R.id.menu_examine to reportFragment,
+            R.id.menu_examine to examineFragment,
             R.id.menu_profile to profileFragment
         )
 
@@ -186,7 +186,7 @@ class MainActivity : AppCompatActivity() {
         return when (fragmentId) {
             R.id.menu_home -> HomeFragment()
             R.id.menu_stastics -> StatsFragment()
-            R.id.menu_examine -> ProfileFragment()
+            R.id.menu_examine -> ExamineFragment()
             R.id.menu_profile -> ProfileFragment()
             else -> HomeFragment()
         }

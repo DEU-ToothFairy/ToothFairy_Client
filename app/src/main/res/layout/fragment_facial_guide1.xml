@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".FacialGuide1Fragment">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="60dp"
+        android:adjustViewBounds="true"
+
+        android:layout_gravity="center"
+        android:src="@drawable/facial_asymmetry"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:text="안면 비대칭 검사란 ?"
+        android:textColor="@color/text_black"
+        android:textSize="18dp"
+
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="30dp"
+
+        android:fontFamily="@font/noto_sans_kr_regular"
+
+        android:includeFontPadding="false"
+        android:text="인공지능을 통해 얼굴의 특징점을 추출하여 안면 비대칭을 측정하는 기술 입니다.
+\n\n눈으로 쉽게 확인할 수 있고, 치료가 필요한 상태인 지 알 수 있습니다."
+        android:textAlignment="center"
+        android:textColor="@color/text_black_gray"
+        android:textSize="14dp" />
+</LinearLayout>

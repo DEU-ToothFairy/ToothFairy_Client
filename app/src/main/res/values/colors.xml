@@ -16,6 +16,7 @@
     <!-- Text 컬러 -->
     <color name="text_gray">#8696BB</color>
     <color name="text_black_gray">#4E5969</color>
+    <color name="text_black">#202020</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

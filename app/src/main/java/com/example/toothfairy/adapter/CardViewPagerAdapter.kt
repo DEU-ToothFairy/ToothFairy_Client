@@ -8,13 +8,12 @@ import com.example.toothfairy.view.fragment.CardToothbrushFragment
 
 class CardViewPagerAdapter(fragment: Fragment, var count:Int) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {
-        return 3
+        return count
     }
 
     override fun createFragment(position: Int): Fragment {
-        val idx = getRealPosition(position)
 
-        return when(idx){
+        return when(getRealPosition(position)){
             0 -> CardAsymmetryFragment()
             1 -> CardProtrudingMouthFragment()
             else -> CardToothbrushFragment()

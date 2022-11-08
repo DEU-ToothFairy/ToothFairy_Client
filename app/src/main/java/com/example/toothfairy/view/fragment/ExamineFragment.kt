@@ -1,19 +1,16 @@
 package com.example.toothfairy.view.fragment
 
-import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.marginBottom
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.toothfairy.R
 import com.example.toothfairy.adapter.CardViewPagerAdapter
-import com.example.toothfairy.databinding.FragmentExamineBinding
-import com.example.toothfairy.util.DensityManager
+import com.example.toothfairy.databinding.FragmentExamineMenuBinding
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,7 +28,7 @@ class ExamineFragment : Fragment() {
     private var param2: String? = null
 
     // VARIABLE
-    private lateinit var bind: FragmentExamineBinding
+    private lateinit var bind: FragmentExamineMenuBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +40,7 @@ class ExamineFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_examine, container, false)
+        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_examine_menu, container, false)
         
         // 뷰페이저 설정
         bind.viewPager.apply {

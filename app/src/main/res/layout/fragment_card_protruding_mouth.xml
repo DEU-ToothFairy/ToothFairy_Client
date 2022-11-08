@@ -1,76 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="#00FFFFFF"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- LAYOUT 베이스 카드 레이아웃 -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="243dp"
-        android:layout_height="418dp"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:elevation="1dp"
-        android:background="@drawable/bg_rounded_rect_white"
-        >
+    <FrameLayout
+        android:id="@+id/parentLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF">
 
-        <FrameLayout
-            android:id="@+id/illustrationLayout"
-            android:layout_width="match_parent"
-            android:layout_height="268dp"
+        <!-- LAYOUT 베이스 카드 레이아웃 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="243dp"
+            android:layout_height="418dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_rounded_rect_white"
+            android:elevation="1dp">
 
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <View
+            <FrameLayout
+                android:id="@+id/illustrationLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="268dp"
 
-                android:background="@drawable/bg_rounded_rect_purple" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:layout_width="214dp"
-                android:layout_height="216dp"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="40dp"
-                android:background="@drawable/protruding_mouth" />
-        </FrameLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp"
+                    android:background="@drawable/bg_rounded_rect_purple" />
 
-            app:layout_constraintTop_toBottomOf="@+id/illustrationLayout">
+                <ImageView
+                    android:layout_width="214dp"
+                    android:layout_height="216dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/protruding_mouth" />
+            </FrameLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp"
 
-                android:text="돌출입 &amp; 주걱턱 검사"
-                android:textSize="17dp"
-                android:textColor="#202020"
-                android:fontFamily="@font/noto_sans_kr_bold"
-                android:includeFontPadding="false"/>
+                app:layout_constraintTop_toBottomOf="@+id/illustrationLayout">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-                android:text="인공지능을 이용해 돌출입 &amp; 주걱턱 여부를 판별합니다. 나의 입은 어떤지 확인해보세요 :)"
-                android:textSize="12dp"
-                android:textColor="@color/gray"
-                android:fontFamily="@font/montserrat_semi_bold"
-                android:includeFontPadding="false"/>
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"
+                    android:text="돌출입 &amp; 주걱턱 검사"
+                    android:textColor="#202020"
+                    android:textSize="17dp" />
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <!-- LAYOUT END 베이스 카드 레이아웃 -->
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:includeFontPadding="false"
+                    android:text="인공지능을 이용해 돌출입 &amp; 주걱턱 여부를 판별합니다. 나의 입은 어떤지 확인해보세요 :)"
+                    android:textColor="@color/gray"
+                    android:textSize="12dp" />
 
-</FrameLayout>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- LAYOUT END 베이스 카드 레이아웃 -->
+
+    </FrameLayout>
+</layout>

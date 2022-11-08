@@ -50,11 +50,9 @@ class CalendarAdapter(private val dataSet: ArrayList<CalendarDate>): RecyclerVie
         holder.dayTextView.text = dataSet[position].day
 
         // 클릭 이벤트 등록
-        if(onItemClickListener != null){
-            holder.calendarCell.setOnClickListener(View.OnClickListener(){
-                onItemClickListener.onClick(it, position) // 람다 형태로 OnClickListener 인터페이스를 구현
-            })
-        }
+        holder.calendarCell.setOnClickListener(View.OnClickListener(){
+            onItemClickListener.onClick(it, position) // 람다 형태로 OnClickListener 인터페이스를 구현
+        })
     }
 
     override fun getItemCount(): Int = dataSet.size

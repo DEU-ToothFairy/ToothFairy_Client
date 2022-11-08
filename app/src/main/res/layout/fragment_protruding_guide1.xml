@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="60dp"
+        android:adjustViewBounds="true"
+
+        android:layout_gravity="center"
+        android:src="@drawable/protruding_mouth_guide"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:text="돌출입 &amp; 주걱턱 검사란 ?"
+        android:textColor="@color/text_black"
+        android:textSize="18dp"
+
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="30dp"
+
+        android:fontFamily="@font/noto_sans_kr_regular"
+
+        android:includeFontPadding="false"
+        android:text="돌출입 &amp; 주걱턱 검사에선 Esthetic Line(E-Line, 심미선)을 이용하여 돌출입과 주걱턱을 판별합니다.
+        \n\n인공지능을 통해 얼굴 옆면에서 E-Line을 추출한 후 입술이 튀어난 정도를 측정합니다."
+        android:textAlignment="center"
+        android:textColor="@color/text_black_gray"
+        android:textSize="14dp" />
+</LinearLayout>

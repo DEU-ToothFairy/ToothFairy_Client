@@ -1,9 +1,7 @@
 package com.example.toothfairy.util
 
 import androidx.fragment.app.Fragment
-import com.example.toothfairy.view.guideFragment.FacialGuide1Fragment
-import com.example.toothfairy.view.guideFragment.FacialGuide2Fragment
-import com.example.toothfairy.view.guideFragment.FacialGuide3Fragment
+import com.example.toothfairy.view.guideFragment.*
 
 object GuideFactory {
     private class Key(
@@ -31,6 +29,10 @@ object GuideFactory {
         map[Key("Facial", 0)] = FacialGuide1Fragment()
         map[Key("Facial", 1)] = FacialGuide2Fragment()
         map[Key("Facial", 2)] = FacialGuide3Fragment()
+
+        map[Key("Protruding", 0)] = ProtrudingGuide1Fragment()
+        map[Key("Protruding", 1)] = ProtrudingGuide2Fragment()
+        map[Key("Protruding", 2)] = ProtrudingGuide3Fragment()
     }
 
     fun getGuideFragment(guideType:String, position:Int): Fragment{

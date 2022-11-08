@@ -110,6 +110,9 @@ dependencies {
     /* Rounded ImageView */
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
+    /* Fragment Ktx (프래그먼트끼리 데이터 전달을 위한 라이브러리) */
+    implementation 'androidx.fragment:fragment-ktx:1.5.4'
+
     // 코틀린을 쓰는 경우
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
 

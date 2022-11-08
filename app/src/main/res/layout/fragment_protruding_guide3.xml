@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="60dp"
+        android:adjustViewBounds="true"
+
+        android:layout_gravity="center"
+        android:src="@drawable/protruding_mouth_guide"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:text="측정 시 유의 사항"
+        android:textColor="@color/text_black"
+        android:textSize="18dp"
+
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="30dp"
+
+        android:fontFamily="@font/noto_sans_kr_regular"
+
+        android:includeFontPadding="false"
+        android:text="옆 모습을 찍었을 때 최대한 한 쪽 얼굴만 나와야합니다.\n\n반대쪽 얼굴이 보이게 되면 정확한 측정이 어려울 수 있으니 얼굴의 한 쪽면만 보이도록 해주세요."
+        android:textAlignment="center"
+        android:textColor="@color/text_black_gray"
+        android:textSize="14dp" />
+</LinearLayout>

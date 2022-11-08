@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.setFragmentResult
 import com.example.toothfairy.R
 import com.example.toothfairy.databinding.FragmentCardAsymmetryBinding
 
@@ -29,12 +31,19 @@ class CardAsymmetryFragment : Fragment() {
 
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_card_asymmetry, container, false)
 
-        bind.ParentLayout.setOnClickListener{
-            requireActivity().supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frameLayout, FacialAsymmetryFragment())
-                .addToBackStack(null)
-                .commit()
+        bind.parentLayout.setOnClickListener{
+            // GuideType을 Fragmet-Ktx로 전달
+            requireActivity().supportFragmentManager.apply {
+                setFragmentResult("GuidePageData", bundleOf(
+                    "GuideType" to "Facial",
+                    "GuideCount" to PAGE_NUM
+                ))
+
+                beginTransaction()
+                    .replace(R.id.frameLayout, GuideFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
 
         return bind.root
@@ -50,6 +59,7 @@ class CardAsymmetryFragment : Fragment() {
          * @return A new instance of fragment CardAsymmetryFragment.
          */
         // TODO: Rename and change types and number of parameters
+        const val PAGE_NUM = 3
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             CardAsymmetryFragment().apply {

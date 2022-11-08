@@ -74,7 +74,7 @@ class HomeFragment : Fragment() {
         bluetoothEventAdder()
 
         bind.checklistEditBtn.setOnClickListener {
-            var bottomSheet = ChecklistBottomSheetFragment()
+            val bottomSheet = ChecklistBottomSheetFragment()
             bottomSheet.show(parentFragmentManager, bottomSheet.tag)
         }
 

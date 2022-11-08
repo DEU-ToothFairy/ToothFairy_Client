@@ -24,6 +24,7 @@
 
             <!-- 오늘 날짜 텍스트 뷰 -->
             <TextView
+                android:id="@+id/searchDeviceText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nanumsquare_regular"

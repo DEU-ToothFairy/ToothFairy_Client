@@ -9,6 +9,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -77,6 +78,9 @@ class BluetoothActivity : AppCompatActivity() {
             if(connected) binding?.initText?.visibility = View.VISIBLE
         }
 
+        findViewById<TextView>(R.id.searchDeviceText).setOnClickListener{
+            changeActivity()
+        }
 
         // 펄스 애니메이션 멈추기
         // binding.bluetoothPulse.stopRippleAnimation();

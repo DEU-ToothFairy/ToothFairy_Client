@@ -27,8 +27,6 @@ private const val ARG_PARAM2 = "param2"
  */
 class GuideFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     // VARIABLE
     private lateinit var bind: FragmentGuideBinding
@@ -38,19 +36,15 @@ class GuideFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            guideType = it.getString("GuideType")!!
+            guideCount = it.getInt("GuideCount")
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_guide, container, false)
-
-        requireActivity().supportFragmentManager.setFragmentResultListener("GuidePageData", requireActivity()){_, bundle ->
-            guideType = bundle.getString("GuideType")?:""
-            guideCount = bundle.getInt("GuideCount")
-        }
+        bind.lifecycleOwner = requireActivity()
 
         if(::guideType.isInitialized){
             Log.i("가이드 데이터", "$guideType, $guideCount")

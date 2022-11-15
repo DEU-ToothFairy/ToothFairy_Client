@@ -111,8 +111,8 @@ class HomeFragment : Fragment() {
         // 블루투스 데이터 값에 따라 wearStatus 값을 변경
         // 이후 블루투스 데이터의 형식을 변경해야 할 수 있으므로 이벤트를 따로 분리
         blueVM.bluetoothData.observe(requireActivity()) { value: String ->
-            if (value == "ON") blueVM!!.wearStatus.setValue(true)
-            else blueVM!!.wearStatus.setValue(false)
+            if (value == "ON") blueVM.wearStatus.setValue(true)
+            else blueVM.wearStatus.setValue(false)
         }
 
         // 착용 상태 감지

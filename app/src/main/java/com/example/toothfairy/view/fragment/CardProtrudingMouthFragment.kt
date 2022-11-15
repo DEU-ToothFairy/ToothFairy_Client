@@ -32,15 +32,16 @@ class CardProtrudingMouthFragment : Fragment() {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_card_protruding_mouth, container, false)
 
         bind.parentLayout.setOnClickListener{
-            // GuideType을 Fragmet-Ktx로 전달
             requireActivity().supportFragmentManager.apply {
-                setFragmentResult("GuidePageData", bundleOf(
-                    "GuideType" to "Protruding",
-                    "GuideCount" to PAGE_NUM
-                ))
+                val fragment = GuideFragment().apply {
+                    arguments = Bundle().apply {
+                        putString("GuideType", "Protruding")
+                        putInt("GuideCount", PAGE_NUM)
+                    }
+                }
 
                 beginTransaction()
-                    .replace(R.id.frameLayout, GuideFragment())
+                    .replace(R.id.frameLayout, fragment)
                     .addToBackStack(null)
                     .commit()
             }
@@ -48,7 +49,6 @@ class CardProtrudingMouthFragment : Fragment() {
 
         return bind.root
     }
-
 
     companion object {
         /**

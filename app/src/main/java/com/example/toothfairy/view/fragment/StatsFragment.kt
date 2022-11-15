@@ -1,5 +1,6 @@
 package com.example.toothfairy.view.fragment
 
+import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableStringBuilder
@@ -176,6 +177,7 @@ class StatsFragment : Fragment() {
     /** 캘린더 리사이클러뷰 이벤트 */
     private fun calendarEventAdder(){
         bind.recyclerView.addOnScrollListener(object : OnScrollListener(){
+            @SuppressLint("SetTextI18n")
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if(newState == RecyclerView.SCROLL_STATE_IDLE){
@@ -208,16 +210,14 @@ class StatsFragment : Fragment() {
         for (i in 0 until calendar.childCount) {
             date = calendar.getChildAt(i) as LinearLayout // 리사이클러뷰 안의 날짜를 하나씩 가져옴
 
-            if (date != null) {
-                date.getLocationInWindow(xy) // 해당 날짜의 절대 좌표 값
+            date.getLocationInWindow(xy) // 해당 날짜의 절대 좌표 값
 
-                position = xy[0] + (date.width) / 4  // (프레임의 넓이 + 날짜 뷰의 넓이) / 2 -> 중간으로 설정 됨 + x 좌표
-                gap = position - calendar.width
+            position = xy[0] + (date.width) / 4  // (프레임의 넓이 + 날짜 뷰의 넓이) / 2 -> 중간으로 설정 됨 + x 좌표
+            gap = position - calendar.width
 
-                // 가장 가까운 그래프까지의 거리 차이를 저장
-                if (minimumGap == -1 || abs(gap) < abs(minimumGap)) {
-                    minimumGap = gap
-                }
+            // 가장 가까운 그래프까지의 거리 차이를 저장
+            if (minimumGap == -1 || abs(gap) < abs(minimumGap)) {
+                minimumGap = gap
             }
         }
 

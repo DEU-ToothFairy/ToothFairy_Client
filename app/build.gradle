@@ -31,6 +31,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    // For Kotlin projects
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     //Android Studio 4.0 버전 이상일때,
     buildFeatures {
         dataBinding true
@@ -53,6 +58,23 @@ dependencies {
 
     /* 가로 캘린더 디펜던시 */
     implementation 'devs.mulham.horizontalcalendar:horizontalcalendar:1.3.4'
+
+    /* CameraX */
+    // CameraX core library using the camera2 implementation
+    def camerax_version = "1.3.0-alpha01"
+    // The following line is optional, as the core library is included indirectly by camera-camera2
+    implementation "androidx.camera:camera-core:${camerax_version}"
+    implementation "androidx.camera:camera-camera2:${camerax_version}"
+    // If you want to additionally use the CameraX Lifecycle library
+    implementation "androidx.camera:camera-lifecycle:${camerax_version}"
+    // If you want to additionally use the CameraX View class
+    implementation "androidx.camera:camera-view:1.3.0-alpha01"
+    // If you want to additionally use the CameraX Extensions library
+    implementation "androidx.camera:camera-extensions:1.3.0-alpha01"
+
+
+    /* Firebase */
+    implementation 'com.google.mlkit:face-detection:16.1.5'
 
     /* MVVM 라이브러리 */
     implementation 'android.arch.lifecycle:extensions:1.1.1'

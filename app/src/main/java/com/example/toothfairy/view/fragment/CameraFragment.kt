@@ -1,21 +1,39 @@
 package com.example.toothfairy.view.fragment
 
+import android.R.attr.bitmap
 import android.annotation.SuppressLint
 import android.app.ActionBar.LayoutParams
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.graphics.drawable.BitmapDrawable
 import android.hardware.Camera
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.toothfairy.R
 import com.example.toothfairy.databinding.FragmentCameraBinding
 import com.example.toothfairy.view.customview.CameraSurfaceView
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.face.Face
+import com.google.mlkit.vision.face.FaceDetection
+import com.google.mlkit.vision.face.FaceDetector
+import com.google.mlkit.vision.face.FaceDetectorOptions
+import java.io.FileNotFoundException
+import java.io.InputStream
+import java.lang.Exception
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,13 +48,14 @@ private const val ARG_PARAM2 = "param2"
  */
 class CameraFragment : Fragment() {
 
-    // VARIABLE
-    private lateinit var bind:FragmentCameraBinding
-    private var cameraFacing:Int = Camera.CameraInfo.CAMERA_FACING_FRONT
-
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    // VARIABLE
+    private lateinit var bind:FragmentCameraBinding
+    private var cameraFacing:Int = Camera.CameraInfo.CAMERA_FACING_FRONT
+    var image:InputImage? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,10 +68,51 @@ class CameraFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_camera, container, false)
+
         requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation).visibility = View.GONE
 
+        faceDetection()
         initFragment()
+
         return bind.root
+    }
+
+    private fun faceDetection(){
+        // High-accuracy landmark detection and face classification
+        // detector에 대한 옵션 설정
+        val highAccuracyOpts = FaceDetectorOptions.Builder()
+            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
+            .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
+            .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
+            .build()
+
+        // detector생성
+        val detector: FaceDetector = FaceDetection.getClient(highAccuracyOpts)
+        
+        // GET IMAGE 버튼
+        bind.imageView.setOnClickListener(View.OnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = MediaStore.Images.Media.CONTENT_TYPE
+            startActivityForResult(intent, 1)
+        })
+
+//        // 얼굴 인식 버튼
+//        bind.detectionBtn.setOnClickListener {
+//            val result: Task<List<Face>> =
+//                image?.let {
+//                    detector.process(image!!)
+//                        .addOnSuccessListener(object : OnSuccessListener<MutableList<Face>> {
+//                            override fun onSuccess(faces: MutableList<Face>?) {
+//                                Log.i("얼굴 인식 정보", faces.toString())
+//                            }
+//                        })
+//                        .addOnFailureListener(object : OnFailureListener {
+//                            override fun onFailure(p0: Exception) {
+//                                Log.i("얼굴 인식 실패", "실패")
+//                            }
+//                        })
+//                } as Task<List<Face>>
+//        }
     }
 
     private fun initFragment(){
@@ -87,51 +147,82 @@ class CameraFragment : Fragment() {
                 addView(surfaceView)
             }
 
+            bind.button.setOnClickListener(null)
+            bind.surfaceView.setOnClickListener(null)
+            bind.cameraChangeBtn.setOnClickListener(null)
+
             // View를 재생성 시키는 것이기 때문에 기존에 등록했던 이벤트 리스너들이 날아가므로
             // 프래그먼트 전체의 초기화 코드를 initFragment()으로 뺴서 재호출
             initFragment()
         }
     }
 
-    @SuppressLint("SdCardPath")
-    private fun capture(){
-        /**
-         * 이미지가 바이트 배열로 data에 저장 됨
-         */
-        bind.surfaceView.capture()
+    /**
+     * 갤러리에서 가져온 이미지를 받을 메소드
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1) {
+            // 갤러리에서 선택한 사진에 대한 uri를 가져온다.
+            val uri = data?.data;
+            uri?.let {
+                setImage(it)
+            }
+        }
+
     }
 
-    //    private fun capture(){
-//        bind.surfaceView.capture { data, camera ->
-//            //bytearray 형식으로 전달
-//            //이걸이용해서 이미지뷰로 보여주거나 파일로 저장
-//            val options = BitmapFactory.Options().apply {
-//                inSampleSize = 8 // 1/8사이즈로 보여주기
-//            }
+
+    /**
+     * uri를 비트맵으로 변환시킨후 이미지뷰에 띄워주고 InputImage를 생성하는 메서드
+     */
+    private fun setImage(uri: Uri) {
+        try {
+            val `in`: InputStream = requireActivity().contentResolver.openInputStream(uri)!!
+            val bitmap = BitmapFactory.decodeStream(`in`)
+
+            bind.imageView.setImageBitmap(bitmap)
+
+            image = InputImage.fromBitmap(bitmap, 0)
+
+            Log.e("setImage", "이미지 to 비트맵")
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
+    }
+
+//    @SuppressLint("SdCardPath")
+//    private fun capture(){
+//        /**
+//         * 이미지가 바이트 배열로 data에 저장 됨
+//         */
+//        bind.surfaceView.capture()
 //
-//            //data 어레이 안에 있는 데이터 불러와서 비트맵에 저장
-//            val bitmap = BitmapFactory.decodeByteArray(data,0, data.size)
-//
-//            val width = bitmap.width
-//            val height = bitmap.height
-//            val newWidth = 200
-//            val newHeight = 200
-//
-//            val scaleWidth = newWidth.toFloat() / width
-//            val scaleHeight = newHeight.toFloat() / height
-//
-//            val matrix = Matrix().apply {
-//                postScale(scaleWidth, scaleHeight)
-//                postRotate(90F)
-//            }
-//
-//            val resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
-//            val bmd = BitmapDrawable(resizedBitmap)
-//
-//            bind.imageView.setImageDrawable(bmd) //이미지뷰에 사진 보여주기
-//            camera.startPreview()
-//        }
+//        Log.i("찍힌 이미지", bind.surfaceView.image.toString())
 //    }
+
+    /**
+     * 사진 찍는 메소드
+     */
+    private fun capture() {
+        /**
+         * 사진이 ByteArray로 data에 들어옴
+         */
+        bind.surfaceView.capture { data, camera ->
+            camera.startPreview() // 카메라를 다시 시작
+            activity?.let {
+                val fragment = InspectResultFragment()
+                fragment.arguments = Bundle().apply {
+                    putByteArray("image", data)
+                }
+
+                it.supportFragmentManager.beginTransaction()
+                    .add(R.id.frameLayout, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()

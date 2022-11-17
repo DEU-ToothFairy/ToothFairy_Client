@@ -1,5 +1,6 @@
 package com.example.toothfairy.view.customview
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.hardware.Camera
 import android.hardware.Camera.AutoFocusCallback
@@ -17,6 +18,7 @@ class CameraSurfaceView : SurfaceView, SurfaceHolder.Callback {
     lateinit var surfaceHolder: SurfaceHolder
     var camera: Camera? = null
     var cameraFacing: Int = Camera.CameraInfo.CAMERA_FACING_FRONT // 전면 or 후면 카메라 상태 저장 (초기값 전면)
+    var image:ByteArray? = null
 
     constructor(context: Context) : super(context) {
         init(context)
@@ -81,10 +83,20 @@ class CameraSurfaceView : SurfaceView, SurfaceHolder.Callback {
         camera = null
     }
 
+
     fun capture(): Boolean {
         return if (camera != null) {
             // imageView에 사진을 출력하고 싶으면 fragment쪽에서 callback을 구현해서 인자에 추가로 넣어주면 됨
             camera!!.takePicture(null, null, null, jpegCallback)
+            true
+        } else {
+            false
+        }
+    }
+
+    fun capture(saveCallback:PictureCallback): Boolean{
+        return if(camera != null){
+            camera!!.takePicture(null, null, saveCallback)
             true
         } else {
             false
@@ -101,12 +113,14 @@ class CameraSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     
+    @SuppressLint("SdCardPath")
     private val jpegCallback = PictureCallback { data, camera ->
         var photoPath:String? = null
 
         try {
             // 이미지를 파일로 저장
-            photoPath = String.format("/sdcard/DCIM/Pictures/%d.jpg",System.currentTimeMillis())
+            photoPath = String.format("/sdcard/DCIM/Pictures/%d.jpg", System.currentTimeMillis())
+            this.image = data
 
             FileOutputStream(photoPath).apply {
                 write(data)

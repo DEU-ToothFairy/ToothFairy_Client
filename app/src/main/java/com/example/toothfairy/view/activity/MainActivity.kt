@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         bind.menu.setOnClickListener{
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.frameLayout, CameraFragment())
+                .replace(R.id.frameLayout, CameraXFragment())
                 .addToBackStack(null)
                 .commit()
         }

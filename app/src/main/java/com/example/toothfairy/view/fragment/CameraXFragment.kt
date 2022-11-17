@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
@@ -58,6 +59,7 @@ class CameraXFragment : Fragment() {
         // Inflate the layout for this fragment
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_camera_x, container, false)
         createCameraManager()
+        requireActivity().findViewById<LinearLayout>(R.id.titleBar).visibility = View.GONE
         requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation).visibility = View.GONE
 
         if (allPermissionsGranted()) {
@@ -183,6 +185,7 @@ class CameraXFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        requireActivity().findViewById<LinearLayout>(R.id.titleBar).visibility = View.VISIBLE
         requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation).visibility = View.VISIBLE
     }
 

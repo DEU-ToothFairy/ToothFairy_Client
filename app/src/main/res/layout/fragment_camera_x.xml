@@ -40,7 +40,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:layout_marginStart="45dp"
+                android:layout_marginStart="25dp"
                 android:layout_gravity="left|center"
                 android:src="@mipmap/ic_launcher" />
 

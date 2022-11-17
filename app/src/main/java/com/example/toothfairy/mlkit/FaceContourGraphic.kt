@@ -57,6 +57,35 @@ class FaceContourGraphic(
         drawPath(path, paint)
     }
 
+    private fun Canvas.drawFaceEyeLine(leftEyePosition: Int, rightEyePosition:Int, @ColorInt selectedColor: Int) {
+        val leftContour = face.getContour(leftEyePosition)
+        val rightContour = face.getContour(rightEyePosition)
+        val path = Path()
+
+        val leftX = leftContour?.points?.get(0)?.x
+        val leftY = leftContour?.points?.get(0)?.y
+
+        val rightX = rightContour?.points?.get(8)?.x
+        val rightY = rightContour?.points?.get(8)?.y
+
+        path.moveTo(
+            translateX(leftX!!),
+            translateY(leftY!!)
+        )
+
+        path.lineTo(
+            translateX(rightX!!),
+            translateY(rightY!!)
+        )
+
+        val paint = Paint().apply {
+            color = selectedColor
+            style = Paint.Style.STROKE
+            strokeWidth = BOX_STROKE_WIDTH
+        }
+        drawPath(path, paint)
+    }
+
     override fun draw(canvas: Canvas?) {
 
         val rect = calculateRect(
@@ -107,6 +136,8 @@ class FaceContourGraphic(
         canvas?.drawFace(FaceContour.LOWER_LIP_TOP, Color.YELLOW)
         canvas?.drawFace(FaceContour.UPPER_LIP_BOTTOM, Color.GREEN)
         canvas?.drawFace(FaceContour.UPPER_LIP_TOP, Color.CYAN)
+
+        canvas?.drawFaceEyeLine(FaceContour.LEFT_EYE, FaceContour.RIGHT_EYE, Color.RED)
     }
 
     companion object {

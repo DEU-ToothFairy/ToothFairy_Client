@@ -27,7 +27,6 @@ fun Bitmap.rotateFlipImage(degree: Float, isFrontMode: Boolean): Bitmap? {
 }
 
 fun Bitmap.scaleImage(view: View, isHorizontalRotation: Boolean): Bitmap? {
-
     val ratio = view.width.toFloat() / view.height.toFloat()
     val newHeight = (view.width * ratio).toInt()
 

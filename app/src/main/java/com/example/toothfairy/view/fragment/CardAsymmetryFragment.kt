@@ -17,6 +17,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
+ * 안면 비대칭 프래그먼트
  * A simple [Fragment] subclass.
  * Use the [CardAsymmetryFragment.newInstance] factory method to
  * create an instance of this fragment.

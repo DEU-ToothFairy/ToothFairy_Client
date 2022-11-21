@@ -4,6 +4,7 @@ package com.example.toothfairy.mlkit
 import android.graphics.*
 import androidx.annotation.ColorInt
 import com.example.toothfairy.camerax.GraphicOverlay
+import com.example.toothfairy.viewModel.FaceDetectViewModel
 import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceContour
 
@@ -17,6 +18,7 @@ class FaceContourGraphic(
     private val facePositionPaint: Paint
     private val idPaint: Paint
     private val boxPaint: Paint
+    private lateinit var faceVM:FaceDetectViewModel
 
     init {
         val selectedColor = Color.WHITE
@@ -57,6 +59,9 @@ class FaceContourGraphic(
         drawPath(path, paint)
     }
 
+    /**
+     * 양쪽 눈 끝을 잇는 메소드
+     */
     private fun Canvas.drawFaceEyeLine(leftEyePosition: Int, rightEyePosition:Int, @ColorInt selectedColor: Int) {
         val leftContour = face.getContour(leftEyePosition)
         val rightContour = face.getContour(rightEyePosition)
@@ -67,6 +72,34 @@ class FaceContourGraphic(
 
         val rightX = rightContour?.points?.get(8)?.x
         val rightY = rightContour?.points?.get(8)?.y
+
+        path.moveTo(
+            translateX(leftX!!),
+            translateY(leftY!!)
+        )
+
+        path.lineTo(
+            translateX(rightX!!),
+            translateY(rightY!!)
+        )
+
+        val paint = Paint().apply {
+            color = selectedColor
+            style = Paint.Style.STROKE
+            strokeWidth = BOX_STROKE_WIDTH
+        }
+        drawPath(path, paint)
+    }
+
+    private fun Canvas.drawLipLine(lipPosition: Int, @ColorInt selectedColor: Int){
+        val lip = face.getContour(lipPosition)
+        val path = Path()
+
+        val leftX = lip?.points?.get(0)?.x
+        val leftY = lip?.points?.get(0)?.y
+
+        val rightX = lip?.points?.get(10)?.x
+        val rightY = lip?.points?.get(10)?.y
 
         path.moveTo(
             translateX(leftX!!),
@@ -117,31 +150,37 @@ class FaceContourGraphic(
         // face
         canvas?.drawFace(FaceContour.FACE, Color.BLUE)
 
-        // left eye
-        canvas?.drawFace(FaceContour.LEFT_EYEBROW_TOP, Color.RED)
-        canvas?.drawFace(FaceContour.LEFT_EYE, Color.BLACK)
-        canvas?.drawFace(FaceContour.LEFT_EYEBROW_BOTTOM, Color.CYAN)
+        // left eye (왼쪽 눈 부분)
+        canvas?.drawFace(FaceContour.LEFT_EYEBROW_TOP, Color.RED)       // RED
+        canvas?.drawFace(FaceContour.LEFT_EYE, Color.BLACK)             // BLACK
+        canvas?.drawFace(FaceContour.LEFT_EYEBROW_BOTTOM, Color.CYAN)   // CYAN
 
-        // right eye
-        canvas?.drawFace(FaceContour.RIGHT_EYE, Color.DKGRAY)
-        canvas?.drawFace(FaceContour.RIGHT_EYEBROW_BOTTOM, Color.GRAY)
-        canvas?.drawFace(FaceContour.RIGHT_EYEBROW_TOP, Color.GREEN)
+        // right eye (오른쪽 눈 부분)
+        canvas?.drawFace(FaceContour.RIGHT_EYE, Color.DKGRAY)           // DKGRAY
+        canvas?.drawFace(FaceContour.RIGHT_EYEBROW_BOTTOM, Color.GRAY)  // GRAY
+        canvas?.drawFace(FaceContour.RIGHT_EYEBROW_TOP, Color.GREEN)    // GREEN
 
-        // nose
-        canvas?.drawFace(FaceContour.NOSE_BOTTOM, Color.LTGRAY)
-        canvas?.drawFace(FaceContour.NOSE_BRIDGE, Color.MAGENTA)
+        // nose (코 부분)
+        canvas?.drawFace(FaceContour.NOSE_BOTTOM, Color.LTGRAY)         // LTGRAY
+        canvas?.drawFace(FaceContour.NOSE_BRIDGE, Color.MAGENTA)        // MAGENTA
 
-        // rip
-        canvas?.drawFace(FaceContour.LOWER_LIP_BOTTOM, Color.WHITE)
-        canvas?.drawFace(FaceContour.LOWER_LIP_TOP, Color.YELLOW)
-        canvas?.drawFace(FaceContour.UPPER_LIP_BOTTOM, Color.GREEN)
-        canvas?.drawFace(FaceContour.UPPER_LIP_TOP, Color.CYAN)
-
+        // rip (입술 부분)
+        canvas?.drawFace(FaceContour.LOWER_LIP_BOTTOM, Color.WHITE)     // WHITE
+        canvas?.drawFace(FaceContour.LOWER_LIP_TOP, Color.YELLOW)       // YELLOW
+        canvas?.drawFace(FaceContour.UPPER_LIP_BOTTOM, Color.GREEN)     // GREEN
+        canvas?.drawFace(FaceContour.UPPER_LIP_TOP, Color.CYAN)         // CYAN
+        
+        // 눈 양 끝 점 잇기
         canvas?.drawFaceEyeLine(FaceContour.LEFT_EYE, FaceContour.RIGHT_EYE, Color.RED)
+        canvas?.drawFaceEyeLine(FaceContour.LEFT_EYE, FaceContour.RIGHT_EYE, Color.RED)
+
+        // 입술 라인 그리기
+        canvas?.drawLipLine(FaceContour.UPPER_LIP_TOP, Color.RED)
     }
 
     companion object {
-        private const val FACE_POSITION_RADIUS = 4.0f
+        // 특징점의 크기
+        private const val FACE_POSITION_RADIUS = 6.0f
         private const val ID_TEXT_SIZE = 30.0f
         private const val BOX_STROKE_WIDTH = 5.0f
     }

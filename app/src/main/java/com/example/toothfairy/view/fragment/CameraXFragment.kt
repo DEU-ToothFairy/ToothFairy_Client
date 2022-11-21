@@ -1,7 +1,6 @@
 package com.example.toothfairy.view.fragment
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Paint
 import android.graphics.PorterDuff
@@ -19,14 +18,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
 import com.example.toothfairy.camerax.CameraManager
 import com.example.toothfairy.databinding.FragmentCameraXBinding
 import com.example.toothfairy.util.*
+import com.example.toothfairy.viewModel.FaceDetectViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,6 +44,7 @@ class CameraXFragment : Fragment() {
     // VARIABLE
     private lateinit var bind: FragmentCameraXBinding
     private lateinit var cameraManager: CameraManager
+    private lateinit var faceVM: FaceDetectViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +52,7 @@ class CameraXFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        faceVM = ViewModelProvider(requireActivity())[FaceDetectViewModel::class.java]
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -71,7 +71,9 @@ class CameraXFragment : Fragment() {
                 REQUEST_CODE_PERMISSIONS
             )
         }
+
         addBtnClickEvent()
+        addResultObserver()
 
         return bind.root
     }
@@ -103,8 +105,6 @@ class CameraXFragment : Fragment() {
         bind.button.setOnClickListener {
             takePicture()
         }
-
-
     }
 
     // 카메라 매니저 생성 메소드
@@ -113,7 +113,8 @@ class CameraXFragment : Fragment() {
             requireContext(),
             bind.previewViewFinder,
             this,
-            bind.graphicOverlayFinder
+            bind.graphicOverlayFinder,
+            faceVM // FaceDetectViewModel를 CameraManager에 전달 (FaceContourDetectionProcessor에게 전달하기 위함)
         )
     }
 
@@ -158,10 +159,29 @@ class CameraXFragment : Fragment() {
                     Paint().apply {
                         xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OVER)
                     })
-                bind.graphicOverlayFinder.processBitmap.saveToGallery(requireActivity())
+                bind.graphicOverlayFinder.processBitmap.saveToGallery(requireActivity(), faceVM)
             }
     }
 
+    /**
+     * 얼굴 탐지 결과 옵저버
+     */
+    private fun addResultObserver(){
+        faceVM.faceDetectPath.observe(viewLifecycleOwner){
+            // 여기서 Bitmap 들고 네트워크 요청 보내기
+            val inspectResultFragment = InspectResultFragment()
+            inspectResultFragment.arguments = Bundle().apply {
+                putString("imagePath", it)
+            }
+
+            // 다음 프래그먼트에 출력
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .add(R.id.frameLayout, inspectResultFragment)
+                .addToBackStack(null)
+                .commit()
+        }
+    }
     // 회전 이벤트 ?
     private fun setOrientationEvent() {
         val orientationEventListener = object : OrientationEventListener(requireContext()) {

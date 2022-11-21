@@ -40,6 +40,7 @@
                 android:textSize="16dp" />
 
             <TextView
+                android:id="@+id/typeResultTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -48,7 +49,7 @@
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
 
-                android:text="중증도 안면 비대칭"
+                android:text="하악형 안면 비대칭"
                 android:textColor="@color/colorAccent"
                 android:textSize="20dp" />
 
@@ -82,6 +83,55 @@
             </com.google.android.material.card.MaterialCardView>
             <!-- 라운드 텍스트 뷰 -->
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="낮음"
+                    android:textSize="13dp"
+                    android:textColor="@color/text_black_gray"
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"
+                    />
+
+                <!-- 프로그레스바 -->
+                <com.rachitgoyal.segmented.SegmentedProgressBar
+                    android:id="@+id/segmentedProgressBar"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+
+                    app:divisions="10"
+                    app:progressBarBackgroundColor="#F4F4F4"
+                    app:progressBarColor="@color/colorAccent"
+
+                    app:dividerColor="#ffffff"
+                    app:dividerWidth="4dp"
+                    app:isDividerEnabled="true"
+                    app:cornerRadius="0dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="높음"
+                    android:textSize="13dp"
+                    android:textColor="@color/text_black_gray"
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"
+                    />
+            </LinearLayout>
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,7 +142,7 @@
                 android:fontFamily="@font/noto_sans_kr_regular"
 
                 android:includeFontPadding="false"
-                android:text="OOO님은 중등도 안면 비대칭으로 오른쪽보다 왼쪽이 올라가 있습니다.평소에는 잘 느껴지지 않지만 사진을 찍으면 도드라져 보일 수 있어요. 혹시 다리를 꼬거나 왼쪽으로만 턱을 괴는 자세를
+                android:text="김잼민님은 하악형 안면 비대칭으로 오른쪽보다 왼쪽이 올라가 있습니다.평소에는 잘 느껴지지 않지만 사진을 찍으면 도드라져 보일 수 있어요. 혹시 다리를 꼬거나 왼쪽으로만 턱을 괴는 자세를
 하고 있지는 않나요? 이러한 습관들은 안면비대칭을 악화시켜요."
                 android:textAlignment="center"
 
@@ -129,9 +179,21 @@
             </LinearLayout>
             <!-- LAYOUT END 자주 묻는 질문 레이아웃 -->
 
-            <include layout="@layout/sub_faq_item_row"/>
-            <include layout="@layout/sub_faq_item_row"/>
-            <include layout="@layout/sub_faq_item_row"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                tools:context=".view.fragment.FaqFragment">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/faqRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+<!--            <include layout="@layout/sub_faq_item_row"/>-->
+<!--            <include layout="@layout/sub_faq_item_row"/>-->
+<!--            <include layout="@layout/sub_faq_item_row"/>-->
 
 
             <!-- LAYOUT 유튜브 추천 영상 레이아웃 -->
@@ -202,6 +264,19 @@
                 </LinearLayout>
             </HorizontalScrollView>
             <!-- LAYOUT END 추천 영상 레이아웃 -->
+
+            <TextView
+                android:id="@+id/nextTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="right"
+                android:text="다른 검사 받으러가기 >>"
+                android:textSize="16sp"
+                android:textColor="@color/colorAccent"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                />
         </LinearLayout>
     </ScrollView>
 

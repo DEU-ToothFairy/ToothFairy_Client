@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.util.Log
 import com.example.toothfairy.camerax.BaseImageAnalyzer
 import com.example.toothfairy.camerax.GraphicOverlay
+import com.example.toothfairy.viewModel.FaceDetectViewModel
 import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.Face
@@ -11,7 +12,7 @@ import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import java.io.IOException
 
-class FaceContourDetectionProcessor(private val view: GraphicOverlay) :
+class FaceContourDetectionProcessor(private val view: GraphicOverlay, val faceVM:FaceDetectViewModel) :
     BaseImageAnalyzer<List<Face>>() {
 
     /**
@@ -48,6 +49,7 @@ class FaceContourDetectionProcessor(private val view: GraphicOverlay) :
         results.forEach {
             val faceGraphic = FaceContourGraphic(graphicOverlay, it, rect)
             graphicOverlay.add(faceGraphic)
+            faceVM.face = it
         }
         graphicOverlay.postInvalidate()
     }

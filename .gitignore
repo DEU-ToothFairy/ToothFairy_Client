@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+ToothFairy_keystore.jks
+/app/release

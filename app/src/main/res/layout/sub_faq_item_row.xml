@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text=""/>
+            android:text="연필이나 손톱을 깨무는 습관, 한 쪽으로만 음식을 씹는 습관, 엎드려서 책을 보는 습관, 다리를 꼬는 습관 등 사소한 습관들이 안면 비대칭을 유발하게 됩니다. 항상 불균형한 자세를 취하지 않도록 주의하는게 중요합니다."/>
 
     </LinearLayout>
 

@@ -6,8 +6,12 @@ import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import androidx.lifecycle.ViewModelProvider
+import com.example.toothfairy.application.MyApplication
+import com.example.toothfairy.viewModel.FaceDetectViewModel
 import java.io.FileOutputStream
 
 fun Bitmap.rotateFlipImage(degree: Float, isFrontMode: Boolean): Bitmap? {
@@ -43,8 +47,8 @@ fun Bitmap.getBaseYByView(view: View, isHorizontalRotation: Boolean): Float {
     }
 }
 
-fun Bitmap.saveToGallery(context: Context) {
-    makeTempFile().apply {
+fun Bitmap.saveToGallery(context: Context, faceVM:FaceDetectViewModel) {
+    val path = makeTempFile().apply {
         FileOutputStream(this).run {
             this@saveToGallery.compress(Bitmap.CompressFormat.JPEG, 100, this)
             flush()
@@ -54,5 +58,9 @@ fun Bitmap.saveToGallery(context: Context) {
             it.data = Uri.fromFile(this)
             context.sendBroadcast(it)
         }
-    }
+    }.path
+
+    faceVM.faceDetectPath.postValue(path)
+
+    Log.d("사진 경로", path)
 }

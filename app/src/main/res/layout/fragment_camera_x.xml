@@ -30,52 +30,85 @@
         <!--LAYOUT 카메라 버튼 레이아웃 -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="match_parent"
             android:layout_gravity="bottom"
-            android:background="@color/white"
+            android:background="#00000000"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_marginStart="25dp"
-                android:layout_gravity="left|center"
-                android:src="@mipmap/ic_launcher" />
-
-            <!--            <View-->
-            <!--                android:id="@+id/detectionBtn"-->
-            <!--                android:layout_width="30dp"-->
-            <!--                android:layout_height="30dp"-->
-            <!--                android:layout_gravity="left|center"-->
-            <!--                android:background="@drawable/ic_search"/>-->
             <View
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="top"
+                android:background="@color/white"
+                android:gravity="center"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="50dp"
 
-            <ImageButton
-                android:id="@+id/button"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center"
-                android:background="@drawable/camera_btn_background"
-                android:src="@drawable/camera"
-                android:text="사진찍기" />
+                    android:background="@drawable/face_guideline_white"
+                    />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorAccent"
+                    android:layout_gravity="center"/>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+            </FrameLayout>
 
-            <View
-                android:id="@+id/cameraChangeBtn"
-                android:layout_width="25dp"
-                android:layout_height="23dp"
-                android:layout_marginEnd="75dp"
-                android:layout_gravity="right|center"
-                android:background="@drawable/refresh"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_gravity="bottom"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_gravity="left|center"
+                    android:src="@mipmap/ic_launcher" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:id="@+id/button"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/camera_btn_background"
+                    android:src="@drawable/camera"
+                    android:text="사진찍기" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <View
+                    android:id="@+id/cameraChangeBtn"
+                    android:layout_width="25dp"
+                    android:layout_height="23dp"
+                    android:layout_marginEnd="75dp"
+                    android:layout_gravity="right|center"
+                    android:background="@drawable/refresh"/>
+            </LinearLayout>
         </LinearLayout>
         <!--LAYOUT END 카메라 버튼 레이아웃 -->
 

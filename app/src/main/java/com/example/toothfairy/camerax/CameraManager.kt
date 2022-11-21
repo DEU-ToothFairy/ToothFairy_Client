@@ -12,6 +12,7 @@ import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.example.toothfairy.mlkit.FaceContourDetectionProcessor
+import com.example.toothfairy.viewModel.FaceDetectViewModel
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -19,7 +20,8 @@ class CameraManager(
     private val context: Context,
     private val finderView: PreviewView,
     private val lifecycleOwner: LifecycleOwner,
-    private val graphicOverlay: GraphicOverlay
+    private val graphicOverlay: GraphicOverlay,
+    private val faceVM:FaceDetectViewModel
 ) {
 
     private var preview: Preview? = null
@@ -111,7 +113,7 @@ class CameraManager(
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                     .build()
                     .also {
-                        it.setAnalyzer(cameraExecutor, FaceContourDetectionProcessor(graphicOverlay))
+                        it.setAnalyzer(cameraExecutor, FaceContourDetectionProcessor(graphicOverlay, faceVM))
                     }
 
                 val cameraSelector = CameraSelector.Builder()

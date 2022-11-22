@@ -5,24 +5,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="60dp"
-        android:adjustViewBounds="true"
-
-        android:layout_gravity="center"
-        android:src="@drawable/protruding_mouth_guide"
-        />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
 
-        android:text="측정 시 유의 사항"
-        android:textColor="@color/text_black"
-        android:textSize="18dp"
+        android:text="STEP 3."
+        android:textColor="@color/colorAccent"
+        android:textSize="24dp"
 
         android:fontFamily="@font/noto_sans_kr_bold"
         android:includeFontPadding="false"
@@ -31,7 +22,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="30dp"
+
+        android:text="촬영 시 유의 사항"
+        android:textColor="@color/text_black"
+        android:textSize="24dp"
+
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="30dp"
@@ -39,8 +41,18 @@
         android:fontFamily="@font/noto_sans_kr_regular"
 
         android:includeFontPadding="false"
-        android:text="옆 모습을 찍었을 때 최대한 한 쪽 얼굴만 나와야합니다.\n\n반대쪽 얼굴이 보이게 되면 정확한 측정이 어려울 수 있으니 얼굴의 한 쪽면만 보이도록 해주세요."
-        android:textAlignment="center"
-        android:textColor="@color/text_black_gray"
+        android:text="옆 얼굴 촬영시 최대한 한 쪽 얼굴만 나오도록 해주세요. 아래와 같이 반대쪽 얼굴이 보이면 부정확할 수 있습니다."
+        android:textColor="@color/text_black"
         android:textSize="14dp" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="60dp"
+        android:adjustViewBounds="true"
+
+        android:layout_gravity="center"
+        android:src="@drawable/protruding_guide_3"
+        />
 </LinearLayout>

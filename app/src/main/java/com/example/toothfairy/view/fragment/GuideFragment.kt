@@ -13,6 +13,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.toothfairy.R
 import com.example.toothfairy.adapter.GuideAdapter
 import com.example.toothfairy.databinding.FragmentGuideBinding
+import com.example.toothfairy.util.Extention.showBottomNabBar
+import com.example.toothfairy.util.Extention.showTitleBar
 import com.example.toothfairy.util.GuideFactory
 
 // TODO: Rename parameter arguments, choose names that match
@@ -59,8 +61,42 @@ class GuideFragment : Fragment() {
                 bind.indicator.attachTo(this)
             }
         }
+        //putString("GuideType", "Facial")
+
+        addStartedBtnClickEvent()
 
         return bind.root
+    }
+
+    private fun addStartedBtnClickEvent(){
+        when(guideType){
+            "Facial" -> {
+                bind.startBtn.setOnClickListener {
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .add(R.id.frameLayout, CameraXFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+            "Protruding" -> {
+                bind.startBtn.setOnClickListener {
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .add(R.id.frameLayout, SideFaceCameraXFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        this.apply {
+            showTitleBar()
+            showBottomNabBar()
+        }
     }
 
     companion object {

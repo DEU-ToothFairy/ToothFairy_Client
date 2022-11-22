@@ -71,10 +71,11 @@ class MainActivity : AppCompatActivity() {
         createAlarmManager()
         /* INIT End */
 
-        bind.menu.setOnClickListener{
+
+        bind.menu.setOnClickListener {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.frameLayout, CameraXFragment())
+                .replace(R.id.frameLayout, DetectLoadingFragment())
                 .addToBackStack(null)
                 .commit()
         }

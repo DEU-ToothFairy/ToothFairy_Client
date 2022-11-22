@@ -3,27 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".FacialGuide1Fragment">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="60dp"
-        android:adjustViewBounds="true"
-
-        android:layout_gravity="center"
-        android:src="@drawable/toothbrush"
-        />
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
 
-        android:text="측정 시 유의 사항"
-        android:textColor="@color/text_black"
-        android:textSize="18dp"
+        android:text="STEP 2."
+        android:textColor="@color/colorAccent"
+        android:textSize="24dp"
 
         android:fontFamily="@font/noto_sans_kr_bold"
         android:includeFontPadding="false"
@@ -32,16 +22,37 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginStart="30dp"
+
+        android:text="머리카락 정리, 표정 유지하기"
+        android:textColor="@color/text_black"
+        android:textSize="24dp"
+
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginTop="30dp"
 
         android:fontFamily="@font/noto_sans_kr_regular"
 
         android:includeFontPadding="false"
         android:text="사진 촬영 전에 머리카락이 얼굴을 가리지 않도록 잘 정리해 주시고 최대한 무표정을 유지해 주세요."
-        android:textAlignment="center"
-        android:textColor="@color/text_black_gray"
+        android:textColor="@color/text_black"
         android:textSize="14dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="60dp"
+        android:adjustViewBounds="true"
+
+        android:layout_gravity="center"
+        android:src="@drawable/facial_guide_2"
+        />
+
 </LinearLayout>

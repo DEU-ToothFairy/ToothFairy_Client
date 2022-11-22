@@ -1,35 +1,33 @@
 package com.example.toothfairy.view.fragment
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffXfermode
+import android.graphics.*
 import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.camera.core.*
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageProxy
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
+import com.example.toothfairy.application.MyApplication
 import com.example.toothfairy.camerax.CameraManager
-import com.example.toothfairy.databinding.FragmentCameraXBinding
+import com.example.toothfairy.databinding.FragmentSideFaceCameraXBinding
 import com.example.toothfairy.util.*
 import com.example.toothfairy.util.Extention.hideBottomNabBar
 import com.example.toothfairy.util.Extention.hideTitleBar
 import com.example.toothfairy.util.Extention.showBottomNabBar
 import com.example.toothfairy.util.Extention.showTitleBar
 import com.example.toothfairy.viewModel.FaceDetectViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.io.ByteArrayOutputStream
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,16 +36,16 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [CameraXFragment.newInstance] factory method to
+ * Use the [SideFaceCameraXFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CameraXFragment : Fragment() {
+class SideFaceCameraXFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     // VARIABLE
-    private lateinit var bind: FragmentCameraXBinding
+    private lateinit var bind:FragmentSideFaceCameraXBinding
     private lateinit var cameraManager: CameraManager
     private lateinit var faceVM: FaceDetectViewModel
 
@@ -57,13 +55,11 @@ class CameraXFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        // requireActivity()로 해야 얼굴 특징점까지 제대로 찍힌 사진이 받아와짐
         faceVM = ViewModelProvider(requireActivity())[FaceDetectViewModel::class.java]
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
+    override fun onDetach() {
+        super.onDetach()
         this.apply {
             hideTitleBar()
             hideBottomNabBar()
@@ -71,12 +67,17 @@ class CameraXFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_camera_x, container, false)
+        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_side_face_camera_x, container, false)
+        this.apply {
+            hideTitleBar()
+            hideBottomNabBar()
+        }
+        
+        // 카메라 매니저 생성
         createCameraManager()
 
         if (allPermissionsGranted()) {
-            cameraManager.startCamera(true)
+            cameraManager.startCamera(false)
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
@@ -87,36 +88,55 @@ class CameraXFragment : Fragment() {
 
         addBtnClickEvent()
         addResultObserver()
-
         return bind.root
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>, grantResults:
-        IntArray
-    ) {
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (allPermissionsGranted()) {
-                cameraManager.startCamera(true)
-            } else {
-                Toast.makeText(requireContext(), "Permissions not granted by the user.", Toast.LENGTH_SHORT)
-                    .show()
-                //finish()
-            }
-        }
-    }
-
     private fun addBtnClickEvent() {
-        
+
         //bind.fabFinder.transform()
         // 카메라 전환 버튼 이벤트
         bind.cameraChangeBtn.setOnClickListener{
-            cameraManager.changeCameraSelector(true)
+            cameraManager.changeCameraSelector(false)
         }
 
         // 촬영 버튼 클린 이벤트
         bind.button.setOnClickListener {
             takePicture()
+        }
+    }
+
+    /**
+     * 얼굴 탐지 결과 옵저버
+     */
+    private fun addResultObserver(){
+        /**
+         * 정면 얼굴 감지 결과 옵저버
+         */
+        faceVM.faceDetectPath.observe(viewLifecycleOwner){
+            // 여기서 Bitmap 들고 네트워크 요청 보내기
+            val inspectResultFragment = InspectResultFragment()
+            inspectResultFragment.arguments = Bundle().apply {
+                putString("imagePath", it)
+            }
+
+            // 다음 프래그먼트에 출력
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .add(R.id.frameLayout, inspectResultFragment)
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults:IntArray) {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
+                cameraManager.startCamera(false)
+            } else {
+                Toast.makeText(requireContext(), "Permissions not granted by the user.", Toast.LENGTH_SHORT)
+                    .show()
+                //finish()
+            }
         }
     }
 
@@ -136,7 +156,6 @@ class CameraXFragment : Fragment() {
         // shutter effect
         Toast.makeText(requireContext(), "take a picture!", Toast.LENGTH_SHORT).show()
         setOrientationEvent()
-
         cameraManager.imageCapture.takePicture(
             cameraManager.cameraExecutor,
             object : ImageCapture.OnImageCapturedCallback() {
@@ -172,29 +191,37 @@ class CameraXFragment : Fragment() {
                     Paint().apply {
                         xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OVER)
                     })
-                bind.graphicOverlayFinder.processBitmap.saveToGallery(requireActivity(), faceVM)
+                //bind.graphicOverlayFinder.processBitmap.saveToGallery(requireActivity(), faceVM)
+
+                /**
+                 * 여기서 비트맵을 서버로 전송
+                 * 비트맵 용량 줄여서 전송
+                 */
+                val outStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outStream)
+                // byteArray로 용량 줄여진걸 다시 비트맵으로 변환
+
+                val compressBitmap = BitmapFactory.decodeByteArray(outStream.toByteArray(), 0, outStream.toByteArray().size)
+                MyApplication.patient?.let {
+                    faceVM.detectSideFace(it.patientId?:"00000000", compressBitmap)
+
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, DetectLoadingFragment())
+                        .addToBackStack(null)
+                        .commit()
+
+//                    requireActivity().supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.frameLayout, DetectLoadingFragment())
+//                        .addToBackStack(null)
+//                        .commit()
+                }
             }
     }
 
-    /**
-     * 얼굴 탐지 결과 옵저버
-     */
-    private fun addResultObserver(){
-        faceVM.faceDetectPath.observe(viewLifecycleOwner){
-            // 여기서 Bitmap 들고 네트워크 요청 보내기
-            val inspectResultFragment = InspectResultFragment()
-            inspectResultFragment.arguments = Bundle().apply {
-                putString("imagePath", it)
-            }
 
-            // 다음 프래그먼트에 출력
-            requireActivity().supportFragmentManager
-                .beginTransaction()
-                .add(R.id.frameLayout, inspectResultFragment)
-                .addToBackStack(null)
-                .commit()
-        }
-    }
+
     // 회전 이벤트 ?
     private fun setOrientationEvent() {
         val orientationEventListener = object : OrientationEventListener(requireContext()) {
@@ -218,9 +245,10 @@ class CameraXFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-
-        this.showTitleBar()
-        this.showBottomNabBar()
+        this.apply {
+            showTitleBar()
+            showBottomNabBar()
+        }
     }
 
     companion object {
@@ -230,7 +258,7 @@ class CameraXFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment CameraXFragment.
+         * @return A new instance of fragment SideFaceCameraXFragment.
          */
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(
@@ -239,10 +267,9 @@ class CameraXFragment : Fragment() {
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
 
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            CameraXFragment().apply {
+            SideFaceCameraXFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

@@ -5,24 +5,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="60dp"
-        android:adjustViewBounds="true"
-
-        android:layout_gravity="center"
-        android:src="@drawable/protruding_mouth_guide"
-        />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
 
-        android:text="얼굴 촬영 방법"
-        android:textColor="@color/text_black"
-        android:textSize="18dp"
+        android:text="STEP 2."
+        android:textColor="@color/colorAccent"
+        android:textSize="24dp"
 
         android:fontFamily="@font/noto_sans_kr_bold"
         android:includeFontPadding="false"
@@ -31,7 +22,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="30dp"
+
+        android:text="가이드에 얼굴 맞추기"
+        android:textColor="@color/text_black"
+        android:textSize="24dp"
+
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="30dp"
@@ -39,8 +41,17 @@
         android:fontFamily="@font/noto_sans_kr_regular"
 
         android:includeFontPadding="false"
-        android:text="화면에 보이는 가이드 라인에 얼굴을 맞춰 촬영해주세요. \n\n다른 사람에게 촬열을 부탁하는 것이 좋습니다."
-        android:textAlignment="center"
-        android:textColor="@color/text_black_gray"
+        android:text="화면에 보이는 가이드에 옆 얼굴을 맞춰주세요."
+        android:textColor="@color/text_black"
         android:textSize="14dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="60dp"
+        android:adjustViewBounds="true"
+
+        android:layout_gravity="center"
+        android:src="@drawable/protruding_guide_2"
+        />
 </LinearLayout>

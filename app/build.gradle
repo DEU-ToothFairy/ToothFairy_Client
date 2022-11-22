@@ -59,6 +59,8 @@ dependencies {
     /* 가로 캘린더 디펜던시 */
     implementation 'devs.mulham.horizontalcalendar:horizontalcalendar:1.3.4'
 
+    implementation "com.airbnb.android:lottie:5.2.0"
+
     /* CameraX */
     // CameraX core library using the camera2 implementation
     def camerax_version = "1.3.0-alpha01"

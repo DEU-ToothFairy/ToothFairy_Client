@@ -47,6 +47,10 @@ fun Bitmap.getBaseYByView(view: View, isHorizontalRotation: Boolean): Float {
     }
 }
 
+/**
+ * Bitmap을 갤러리에 저장한 후 해당 경로를 ViewModel에 저장
+ * 결과 화면에서 경로 변수에 Observer 걸어서 감지
+ */
 fun Bitmap.saveToGallery(context: Context, faceVM:FaceDetectViewModel) {
     val path = makeTempFile().apply {
         FileOutputStream(this).run {

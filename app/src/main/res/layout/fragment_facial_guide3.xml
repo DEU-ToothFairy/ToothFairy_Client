@@ -3,8 +3,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".FacialGuide1Fragment">
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+
+        android:text="STEP 3."
+        android:textColor="@color/colorAccent"
+        android:textSize="24dp"
+
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+
+        android:text="수직선에 얼굴 맞추기"
+        android:textColor="@color/text_black"
+        android:textSize="24dp"
+
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="30dp"
+
+        android:fontFamily="@font/noto_sans_kr_regular"
+
+        android:includeFontPadding="false"
+        android:text="코를 화면의 중앙선에 맞춰 주세요. 중앙선에서 벗어날 경우 결과가 부정확할 수 있습니다."
+        android:textColor="@color/text_black"
+        android:textSize="14dp" />
+
 
     <ImageView
         android:layout_width="wrap_content"
@@ -13,33 +53,6 @@
         android:adjustViewBounds="true"
 
         android:layout_gravity="center"
-        android:src="@drawable/protruding_mouth"/>
+        android:src="@drawable/facial_guide_3"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-
-        android:text="얼굴 촬영 방법"
-        android:textColor="@color/text_black"
-        android:textSize="18dp"
-
-        android:fontFamily="@font/noto_sans_kr_bold"
-        android:includeFontPadding="false"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginTop="30dp"
-
-        android:fontFamily="@font/noto_sans_kr_regular"
-
-        android:includeFontPadding="false"
-        android:text="화면에 보이는 가이드 라인에 얼굴이 들어가도록 \n촬영해주세요. \n\n또한, 코를 중앙선에 최대한 맞춰 주셔야합니다."
-        android:textAlignment="center"
-        android:textColor="@color/text_black_gray"
-        android:textSize="14dp" />
 </LinearLayout>

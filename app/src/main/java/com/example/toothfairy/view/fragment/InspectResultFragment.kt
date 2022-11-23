@@ -63,7 +63,7 @@ class InspectResultFragment : Fragment() {
             imagePath = it.getString("imagePath")
         }
 
-        faceVM = ViewModelProvider(requireActivity())[FaceDetectViewModel::class.java]
+        faceVM = ViewModelProvider(parentFragment as SideFaceCameraXFragment)[FaceDetectViewModel::class.java]
     }
 
     override fun onAttach(context: Context) {

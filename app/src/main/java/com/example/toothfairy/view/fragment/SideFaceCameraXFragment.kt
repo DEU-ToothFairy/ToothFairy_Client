@@ -55,7 +55,7 @@ class SideFaceCameraXFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        faceVM = ViewModelProvider(requireActivity())[FaceDetectViewModel::class.java]
+        faceVM = ViewModelProvider(this)[FaceDetectViewModel::class.java]
     }
 
     override fun onDetach() {
@@ -204,13 +204,10 @@ class SideFaceCameraXFragment : Fragment() {
                 val compressBitmap = BitmapFactory.decodeByteArray(outStream.toByteArray(), 0, outStream.toByteArray().size)
                 MyApplication.patient?.let {
                     faceVM.detectSideFace(it.patientId?:"00000000", compressBitmap)
-
-                    requireActivity().supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.frameLayout, DetectLoadingFragment())
-                        .addToBackStack(null)
-                        .commit()
-
+                    
+                    // 로딩 페이지로 이동
+                    replaceToDetectLoadingFragment()
+                    
 //                    requireActivity().supportFragmentManager
 //                        .beginTransaction()
 //                        .replace(R.id.frameLayout, DetectLoadingFragment())
@@ -221,6 +218,27 @@ class SideFaceCameraXFragment : Fragment() {
     }
 
 
+    /**
+     * childFragmentManager를 통해 로딩 프래그먼트로 이동하는 메소드
+     */
+    fun replaceToDetectLoadingFragment(){
+        childFragmentManager
+            .beginTransaction()
+            .replace(R.id.frameLayout, DetectLoadingFragment())
+            .addToBackStack(null)
+            .commit()
+    }
+
+    /**
+     * childFragmentManager를 통해 결과 프래그먼트로 이동하는 메소드
+     */
+    fun replaceToInspectFragment(){
+        childFragmentManager
+            .beginTransaction()
+            .replace(R.id.frameLayout, InspectResultFragment())
+            .addToBackStack(null)
+            .commit()
+    }
 
     // 회전 이벤트 ?
     private fun setOrientationEvent() {

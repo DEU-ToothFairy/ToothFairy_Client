@@ -35,7 +35,7 @@ class DetectLoadingFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        faceVM = ViewModelProvider(requireActivity())[FaceDetectViewModel::class.java]
+        faceVM = ViewModelProvider(parentFragment as SideFaceCameraXFragment)[FaceDetectViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -54,11 +54,13 @@ class DetectLoadingFragment : Fragment() {
 //                putParcelable("bitmap", it)
 //            }
             // 다음 프래그먼트에 출력
-            requireActivity().supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frameLayout, inspectResultFragment)
-                .addToBackStack(null)
-                .commit()
+            (parentFragment as SideFaceCameraXFragment).replaceToInspectFragment()
+
+//            requireActivity().supportFragmentManager
+//                .beginTransaction()
+//                .replace(R.id.frameLayout, inspectResultFragment)
+//                .addToBackStack(null)
+//                .commit()
         }
     }
     companion object {

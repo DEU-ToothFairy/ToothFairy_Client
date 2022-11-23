@@ -29,7 +29,6 @@ class CardAsymmetryFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_card_asymmetry, container, false)
 
         bind.parentLayout.setOnClickListener{

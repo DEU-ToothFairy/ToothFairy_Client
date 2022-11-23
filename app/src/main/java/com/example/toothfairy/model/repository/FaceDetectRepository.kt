@@ -30,6 +30,19 @@ object FaceDetectRepository {
         return faceDetectService.sendBitmap(userId, bitmapMultipartBody)
     }
 
+    /**
+     * [ 칫솔모 교체 판별 ]
+     * 서버로 비트맵을 전송하는 메소드
+     */
+    fun sendToothBrush(userId:String, bitmap:Bitmap): Call<ResponseBody> {
+        val bitmapRequestBody = BitmapRequestBody(bitmap)
+        val bitmapMultipartBody =
+            if(bitmapRequestBody == null) null
+            else MultipartBody.Part.createFormData("file", "sideface", bitmapRequestBody)
+
+        return faceDetectService.sendToothBrush(userId, bitmapMultipartBody)
+    }
+
     class BitmapRequestBody(private val bitmap: Bitmap) : RequestBody() {
         override fun contentType(): MediaType = "image/jpeg".toMediaType()
         override fun writeTo(sink: BufferedSink) {

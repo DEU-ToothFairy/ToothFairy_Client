@@ -1,5 +1,6 @@
 package com.example.toothfairy.view.fragment
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.toothfairy.R
 import com.example.toothfairy.adapter.CardViewPagerAdapter
 import com.example.toothfairy.databinding.FragmentExamineMenuBinding
+import com.example.toothfairy.util.Extention.showBottomNabBar
+import com.example.toothfairy.util.Extention.showTitleBar
 
 
 // TODO: Rename parameter arguments, choose names that match

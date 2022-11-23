@@ -71,22 +71,6 @@ class MainActivity : AppCompatActivity() {
         createAlarmManager()
         /* INIT End */
 
-
-        bind.menu.setOnClickListener {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frameLayout, DetectLoadingFragment())
-                .addToBackStack(null)
-                .commit()
-        }
-
-        bind.notification.setOnClickListener {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frameLayout, InspectResultFragment())
-                .addToBackStack(null)
-                .commit()
-        }
     } // onCreate
 
     override fun onResume() {

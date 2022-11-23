@@ -8,6 +8,7 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -75,20 +76,20 @@ class StatsFragment : Fragment() {
 
         bind.recyclerView.layoutManager = layoutManager
 
-        initRecyclerView()
-        calendarEventAdder()
+        initRecyclerView(container)
+        calendarEventAdder(container)
 
         // todayTv Spannable로 폰트 스타일 변경
         styleChangeTodayTv()
         // userScoreTv Spannable로 폰트 스타일 변경
         styleChangeUserScoreTV()
 
-        NotifyManager.sendNotification(
-            context = requireContext(),
-            NotifyManager.WEARING_NOTIFY_ID,
-            "착용 상태 알림",
-            "교정기 착용 중"
-        )
+//        NotifyManager.sendNotification(
+//            context = requireContext(),
+//            NotifyManager.WEARING_NOTIFY_ID,
+//            "착용 상태 알림",
+//            "교정기 착용 중"
+//        )
 
         createScoreBoard(container, R.drawable.ic_excellent, "착용 시간 우수", "잘 했어요 ! 앞으로도 잘 착용해주세요 :)")
         createScoreBoard(container, R.drawable.ic_good, "체크리스트 양호", "체크리스트 5개 중 4개 완료 !")
@@ -99,15 +100,16 @@ class StatsFragment : Fragment() {
 
 
 
+
     /**
      * 체크리스트 완료 목룍 생성 메소드
      */
     private fun createScoreBoard(container: ViewGroup?, scoreIcon:Int, scoreTitle:String, scoreContent:String){
         val scoreLayout = bind.scoreboardLayout
 
-        var inflater = requireActivity().layoutInflater
-        var scoreView = inflater.inflate(R.layout.sub_score_board_layout, container, false)
-        var scoreIconView = scoreView.findViewById<View>(R.id.scoreIcon)
+        val inflater = requireActivity().layoutInflater
+        val scoreView = inflater.inflate(R.layout.sub_score_board_layout, container, false)
+        val scoreIconView = scoreView.findViewById<View>(R.id.scoreIcon)
 
         scoreIconView.background = resources.getDrawable(scoreIcon)
 
@@ -121,19 +123,19 @@ class StatsFragment : Fragment() {
 
         scoreView.findViewById<CardView>(R.id.scoreboard).setCardBackgroundColor(color)
 
-        var scoreTitleView = scoreView.findViewById<TextView>(R.id.scoreTitle)
-        scoreTitleView.text = scoreTitle
-
-        var scoreContentView = scoreView.findViewById<TextView>(R.id.scoreContent)
-        scoreContentView.text = scoreContent
-
+        val scoreTitleView = scoreView.findViewById<TextView>(R.id.scoreTitle).apply {
+            text = scoreTitle
+        }
+        val scoreContentView = scoreView.findViewById<TextView>(R.id.scoreContent).apply {
+            text = scoreContent
+        }
         scoreLayout.addView(scoreView)
     }
 
 
 
     /** 리사이클러뷰 초기화 */
-    private fun initRecyclerView(){
+    private fun initRecyclerView(container: ViewGroup?){
         // 현재 달의 마지막 날짜
         val lastDayOfMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth())
         lastDayOfMonth.format(DateTimeFormatter.ofPattern("dd"))
@@ -167,6 +169,7 @@ class StatsFragment : Fragment() {
                 selectorPosition = position - (bind.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
 
                 bind.selectDateTv.text = "${item.date.year}년 ${item.date.monthValue}월 ${item.date.dayOfMonth}일"
+                randomDataSetting(container)
             }
         }
 
@@ -175,7 +178,9 @@ class StatsFragment : Fragment() {
     }
 
     /** 캘린더 리사이클러뷰 이벤트 */
-    private fun calendarEventAdder(){
+    private fun calendarEventAdder(container:ViewGroup?){
+
+
         bind.recyclerView.addOnScrollListener(object : OnScrollListener(){
             @SuppressLint("SetTextI18n")
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -189,6 +194,8 @@ class StatsFragment : Fragment() {
                             (bind.recyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition() + selectorPosition]
 
                     bind.selectDateTv.text = "${item.date.year}년 ${item.date.monthValue}월 ${item.date.dayOfMonth}일"
+
+                    randomDataSetting(container)
                 }
             }
 
@@ -197,6 +204,49 @@ class StatsFragment : Fragment() {
             }
         })
     }
+
+    /**
+     * 통계 페이지 랜덤으로 데이터 셋팅하는 메소드
+     */
+    private fun randomDataSetting(container: ViewGroup?){
+        val iconList = arrayListOf<Int>(
+            R.drawable.ic_excellent,
+            R.drawable.ic_good,
+            R.drawable.ic_normal,
+            R.drawable.ic_bad
+        )
+
+        val scoreTitleList = arrayListOf<String>(
+            "착용 시간 우수",
+            "체크리스트 양호",
+            "체크리스트 보통",
+            "착용 시간 감소",
+        )
+
+        val scoreContentList = arrayListOf<String>(
+            "잘 했어요 ! 앞으로도 잘 착용해주세요 :)",
+            "체크리스트 5개 중 4개 완료 !",
+            "체크리스트 5개 중 2개 완료 ! 조금 더 열심히 !",
+            "전날 보다 1시간 30분 감소했어요",
+        )
+
+        bind.apply {
+            scoreboardLayout.removeAllViews()
+            val count:Int = (Math.random() * 3).toInt()+1 // 체크리스트 생성할 개수
+            val score = (Math.random() * 50).toInt() + 50 // 착용 점수
+            val idx = arrayListOf<Int>(0,1,2,3)           // 중복 없이 생성하기 위함 
+            idx.shuffle()                                 // 리스트 셔플
+
+            wearProgressBar.progress = score
+            wearPercentTv.text = "$score%"
+
+            for(i in 0 until count){
+                createScoreBoard(container, iconList[idx[i]], scoreTitleList[idx[i]], scoreContentList[idx[i]])
+            }
+
+        }
+    }
+
 
     private fun autoScroll() {
         lateinit var date: LinearLayout

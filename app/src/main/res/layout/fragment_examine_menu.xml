@@ -22,6 +22,69 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginStart="30dp"
+                android:text="나의"
+                android:textSize="24dp"
+                android:textColor="@color/colorAccent"
+
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginStart="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="상태"
+                    android:textSize="24dp"
+                    android:textColor="@color/colorAccent"
+
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="를 점검해보세요"
+                    android:textSize="24dp"
+                    android:textColor="@color/text_black"
+
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"
+                    />
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/pen"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="5dp"
+                android:text="인공지능을 이용한 다양한 검사가 준비 되어 있어요"
+                android:textSize="14dp"
+                android:textColor="@color/text_black"
+
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                />
+
             <!--
                 뷰페이저에 들어갈 아이템의 width가 ViewPager 전체를 덮지 않는 경우
                 뷰페이저를 match_parent로 하지 않으면 옆이 짤려버림
@@ -32,6 +95,7 @@
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="450dp"
+                android:layout_marginTop="30dp"
                 android:layout_gravity="center"
                 android:paddingStart="50dp"
                 android:paddingEnd="50dp"

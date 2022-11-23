@@ -24,8 +24,6 @@ import com.example.toothfairy.databinding.FragmentSideFaceCameraXBinding
 import com.example.toothfairy.util.*
 import com.example.toothfairy.util.Extention.hideBottomNabBar
 import com.example.toothfairy.util.Extention.hideTitleBar
-import com.example.toothfairy.util.Extention.showBottomNabBar
-import com.example.toothfairy.util.Extention.showTitleBar
 import com.example.toothfairy.viewModel.FaceDetectViewModel
 import java.io.ByteArrayOutputStream
 
@@ -87,7 +85,7 @@ class SideFaceCameraXFragment : Fragment() {
         }
 
         addBtnClickEvent()
-        addResultObserver()
+
         return bind.root
     }
 
@@ -102,29 +100,6 @@ class SideFaceCameraXFragment : Fragment() {
         // 촬영 버튼 클린 이벤트
         bind.button.setOnClickListener {
             takePicture()
-        }
-    }
-
-    /**
-     * 얼굴 탐지 결과 옵저버
-     */
-    private fun addResultObserver(){
-        /**
-         * 정면 얼굴 감지 결과 옵저버
-         */
-        faceVM.faceDetectPath.observe(viewLifecycleOwner){
-            // 여기서 Bitmap 들고 네트워크 요청 보내기
-            val inspectResultFragment = InspectResultFragment()
-            inspectResultFragment.arguments = Bundle().apply {
-                putString("imagePath", it)
-            }
-
-            // 다음 프래그먼트에 출력
-            requireActivity().supportFragmentManager
-                .beginTransaction()
-                .add(R.id.frameLayout, inspectResultFragment)
-                .addToBackStack(null)
-                .commit()
         }
     }
 
@@ -203,16 +178,10 @@ class SideFaceCameraXFragment : Fragment() {
 
                 val compressBitmap = BitmapFactory.decodeByteArray(outStream.toByteArray(), 0, outStream.toByteArray().size)
                 MyApplication.patient?.let {
-                    faceVM.detectSideFace(it.patientId?:"00000000", compressBitmap)
+                    faceVM.detectToothBrush(it.patientId?:"00000000", compressBitmap)
                     
                     // 로딩 페이지로 이동
-                    replaceToDetectLoadingFragment()
-                    
-//                    requireActivity().supportFragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.frameLayout, DetectLoadingFragment())
-//                        .addToBackStack(null)
-//                        .commit()
+                    moveToDetectLoadingFragment()
                 }
             }
     }
@@ -220,23 +189,13 @@ class SideFaceCameraXFragment : Fragment() {
 
     /**
      * childFragmentManager를 통해 로딩 프래그먼트로 이동하는 메소드
+     * childFragmentManager를 사용할 땐 ParentFragment의 전체 레이아웃을 넣어줘야함
+     * (그 위에 프래그먼트가 띄워질 것이기 때문)
      */
-    fun replaceToDetectLoadingFragment(){
+    fun moveToDetectLoadingFragment(){
         childFragmentManager
             .beginTransaction()
-            .replace(R.id.frameLayout, DetectLoadingFragment())
-            .addToBackStack(null)
-            .commit()
-    }
-
-    /**
-     * childFragmentManager를 통해 결과 프래그먼트로 이동하는 메소드
-     */
-    fun replaceToInspectFragment(){
-        childFragmentManager
-            .beginTransaction()
-            .replace(R.id.frameLayout, InspectResultFragment())
-            .addToBackStack(null)
+            .replace(R.id.sideFaceFrameLayout, DetectLoadingFragment())
             .commit()
     }
 
@@ -261,13 +220,6 @@ class SideFaceCameraXFragment : Fragment() {
         ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        this.apply {
-            showTitleBar()
-            showBottomNabBar()
-        }
-    }
 
     companion object {
         /**

@@ -1,14 +1,12 @@
 package com.example.toothfairy.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
-import com.example.toothfairy.view.fragment.InspectResultFragment
-import com.example.toothfairy.view.fragment.SideFaceCameraXFragment
 import com.example.toothfairy.viewModel.FaceDetectViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -49,20 +47,14 @@ class DetectLoadingFragment : Fragment() {
 
     private fun addObserver(){
         faceVM.sideDetectResult.observe(viewLifecycleOwner){
-            val inspectResultFragment = InspectResultFragment()
-//            inspectResultFragment.arguments = Bundle().apply {
-//                putParcelable("bitmap", it)
-//            }
             // 다음 프래그먼트에 출력
-            (parentFragment as SideFaceCameraXFragment).replaceToInspectFragment()
-
-//            requireActivity().supportFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.frameLayout, inspectResultFragment)
-//                .addToBackStack(null)
-//                .commit()
+            (parentFragment as SideFaceCameraXFragment).childFragmentManager
+                .beginTransaction()
+                .replace(R.id.sideFaceFrameLayout, SideFaceResultFragment())
+                .commit()
         }
     }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+
+        android:text="STEP 2."
+        android:textColor="@color/colorAccent"
+        android:textSize="24dp"
+
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+
+        android:text="주변 사물 정리하기"
+        android:textColor="@color/text_black"
+        android:textSize="24dp"
+
+        android:fontFamily="@font/noto_sans_kr_bold"
+        android:includeFontPadding="false"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="30dp"
+
+        android:fontFamily="@font/noto_sans_kr_regular"
+
+        android:includeFontPadding="false"
+        android:text="사진 촬영 시 칫솔 주변에 다른 사물이 나오지 않도록 주의해주세요. 제대로 인식이 되지 않을 수 있습니다."
+        android:textColor="@color/text_black"
+        android:textSize="14dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="60dp"
+        android:adjustViewBounds="true"
+
+        android:layout_gravity="center"
+        android:src="@drawable/toothbrush_guide2"
+        />
+</LinearLayout>

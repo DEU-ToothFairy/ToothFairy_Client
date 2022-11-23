@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.fragment.InspectResultFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            android:padding="30dp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_gravity="center_horizontal"
+                app:riv_corner_radius="30dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/face_exam" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+
+                android:text="김잼민님의 칫솔모"
+                android:textColor="@color/text_black_gray"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/typeResultTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+
+                android:text="칫솔모 교체 판별 결과"
+                android:textColor="@color/colorAccent"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="30dp"
+                android:fontFamily="@font/noto_sans_kr_regular"
+
+                android:includeFontPadding="false"
+                android:text="칫솔모 교체 여부 판별 검사는 머신러닝 기술을 이용하여 동작하고 있습니다.\n\n칫솔모 주변에 박스 색상이 빨간색 이거나 AbNormal ToothBrush라고 적혀있는 경우가 칫솔모를 교체해야한다는 뜻입니다.\n\n칫솔모가 벌어지면 칫솔 고유의 기능이 상실돼 치아가 제대로 세척 되지 않기 떄문에 교정을 진행 중인 환자라면 꼭 교체를 하셔야합니다."
+                android:textAlignment="center"
+
+                android:textColor="@color/black_gray"
+                android:textSize="13dp" />
+
+            <!-- LAYOUT 자주 묻는 질문 레이아웃 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"
+                    android:text="자주 묻는 질문"
+
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/finger"/>
+            </LinearLayout>
+            <!-- LAYOUT END 자주 묻는 질문 레이아웃 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                tools:context=".view.fragment.FaqFragment">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/faqRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+            <!--            <include layout="@layout/sub_faq_item_row"/>-->
+            <!--            <include layout="@layout/sub_faq_item_row"/>-->
+            <!--            <include layout="@layout/sub_faq_item_row"/>-->
+
+
+            <!-- LAYOUT 유튜브 추천 영상 레이아웃 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+
+                    android:text="김잼민님께 도움이 되는 영상"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:includeFontPadding="false"/>
+
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/movie"/>
+            </LinearLayout>
+            <!-- LAYOUT END 유튜브 추천 영상 레이아웃 -->
+
+            <!-- LAYOUT 추천 영상 레이아웃 -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="262dp"
+                        android:layout_height="142dp"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/toothbrush_thumb1"
+                        app:riv_corner_radius="10dp"
+                        android:scaleType="fitXY"
+                        />
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="262dp"
+                        android:layout_height="142dp"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/toothbrush_thumb2"
+                        app:riv_corner_radius="10dp"
+                        android:scaleType="fitXY"
+                        />
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="262dp"
+                        android:layout_height="142dp"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/toothbrush_thumb3"
+                        app:riv_corner_radius="10dp"
+                        android:scaleType="fitXY"
+                        />
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="262dp"
+                        android:layout_height="142dp"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/toothbrush_thumb4"
+                        app:riv_corner_radius="10dp"
+                        android:scaleType="fitXY"
+                        />
+                </LinearLayout>
+            </HorizontalScrollView>
+            <!-- LAYOUT END 추천 영상 레이아웃 -->
+
+            <TextView
+                android:id="@+id/nextTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="right"
+                android:text="다른 검사 받으러가기 >>"
+                android:textSize="16sp"
+                android:textColor="@color/colorAccent"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

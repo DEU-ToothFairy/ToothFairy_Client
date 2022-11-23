@@ -16,4 +16,8 @@ interface FaceDetectService {
     @Multipart
     @POST("upload/{userId}")
     fun sendBitmap(@Path("userId") userId:String, @Part file:MultipartBody.Part?): Call<ResponseBody>
+
+    @Multipart
+    @POST("upload2/{userId}")
+    fun sendToothBrush(@Path("userId") userId:String, @Part file:MultipartBody.Part?): Call<ResponseBody>
 }

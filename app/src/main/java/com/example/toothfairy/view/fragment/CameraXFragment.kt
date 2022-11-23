@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
@@ -29,7 +28,6 @@ import com.example.toothfairy.util.Extention.hideTitleBar
 import com.example.toothfairy.util.Extention.showBottomNabBar
 import com.example.toothfairy.util.Extention.showTitleBar
 import com.example.toothfairy.viewModel.FaceDetectViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +56,7 @@ class CameraXFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
         // requireActivity()로 해야 얼굴 특징점까지 제대로 찍힌 사진이 받아와짐
-        faceVM = ViewModelProvider(requireActivity())[FaceDetectViewModel::class.java]
+        faceVM = ViewModelProvider(this)[FaceDetectViewModel::class.java]
     }
 
     override fun onAttach(context: Context) {
@@ -182,16 +180,15 @@ class CameraXFragment : Fragment() {
     private fun addResultObserver(){
         faceVM.faceDetectPath.observe(viewLifecycleOwner){
             // 여기서 Bitmap 들고 네트워크 요청 보내기
-            val inspectResultFragment = InspectResultFragment()
-            inspectResultFragment.arguments = Bundle().apply {
+            val facialResultFragment = FacialResultFragment()
+            facialResultFragment.arguments = Bundle().apply {
                 putString("imagePath", it)
             }
 
             // 다음 프래그먼트에 출력
-            requireActivity().supportFragmentManager
+            childFragmentManager
                 .beginTransaction()
-                .add(R.id.frameLayout, inspectResultFragment)
-                .addToBackStack(null)
+                .replace(R.id.cameraXFrameLayout, facialResultFragment)
                 .commit()
         }
     }
@@ -216,12 +213,6 @@ class CameraXFragment : Fragment() {
         ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        this.showTitleBar()
-        this.showBottomNabBar()
-    }
 
     companion object {
         /**

@@ -211,7 +211,7 @@ class CameraFragment : Fragment() {
         bind.surfaceView.capture { data, camera ->
             camera.startPreview() // 카메라를 다시 시작
             activity?.let {
-                val fragment = InspectResultFragment()
+                val fragment = SideFaceResultFragment()
                 fragment.arguments = Bundle().apply {
                     putByteArray("image", data)
                 }

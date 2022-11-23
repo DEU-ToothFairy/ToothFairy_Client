@@ -73,15 +73,19 @@ class FaceContourGraphic(
         val rightX = rightContour?.points?.get(8)?.x
         val rightY = rightContour?.points?.get(8)?.y
 
-        path.moveTo(
-            translateX(leftX!!),
-            translateY(leftY!!)
-        )
+        if(leftX != null && leftY != null){
+            path.moveTo(
+                translateX(leftX),
+                translateY(leftY)
+            )
+        }
 
-        path.lineTo(
-            translateX(rightX!!),
-            translateY(rightY!!)
-        )
+        if(rightX != null && rightY != null){
+            path.lineTo(
+                translateX(rightX),
+                translateY(rightY)
+            )
+        }
 
         val paint = Paint().apply {
             color = selectedColor

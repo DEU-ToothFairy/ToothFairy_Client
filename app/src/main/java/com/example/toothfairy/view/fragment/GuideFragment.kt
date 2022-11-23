@@ -1,5 +1,6 @@
 package com.example.toothfairy.view.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.toothfairy.R
 import com.example.toothfairy.adapter.GuideAdapter
 import com.example.toothfairy.databinding.FragmentGuideBinding
+import com.example.toothfairy.util.Extention.hideBottomNabBar
+import com.example.toothfairy.util.Extention.hideTitleBar
 import com.example.toothfairy.util.Extention.showBottomNabBar
 import com.example.toothfairy.util.Extention.showTitleBar
 import com.example.toothfairy.util.GuideFactory
@@ -40,6 +43,14 @@ class GuideFragment : Fragment() {
         arguments?.let {
             guideType = it.getString("GuideType")!!
             guideCount = it.getInt("GuideCount")
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.apply {
+            hideTitleBar()
+            hideBottomNabBar()
         }
     }
 
@@ -74,7 +85,7 @@ class GuideFragment : Fragment() {
                 bind.startBtn.setOnClickListener {
                     requireActivity().supportFragmentManager
                         .beginTransaction()
-                        .add(R.id.frameLayout, CameraXFragment())
+                        .replace(R.id.frameLayout, CameraXFragment())
                         .addToBackStack(null)
                         .commit()
                 }
@@ -83,7 +94,16 @@ class GuideFragment : Fragment() {
                 bind.startBtn.setOnClickListener {
                     requireActivity().supportFragmentManager
                         .beginTransaction()
-                        .add(R.id.frameLayout, SideFaceCameraXFragment())
+                        .replace(R.id.frameLayout, SideFaceCameraXFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+            "Toothbrush" ->{
+                bind.startBtn.setOnClickListener {
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, ToothBrushCameraXFragment())
                         .addToBackStack(null)
                         .commit()
                 }

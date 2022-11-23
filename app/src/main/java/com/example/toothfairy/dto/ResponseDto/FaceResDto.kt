@@ -1,8 +1,10 @@
 package com.example.toothfairy.dto.ResponseDto
 
+import com.example.toothfairy.data.FaceType
+
 class FaceResDto {
     data class DetectResult(
-        var result:Float,
-        var type:String
+        var result:Double,
+        var type:String,
     )
 }

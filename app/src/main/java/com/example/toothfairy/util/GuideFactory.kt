@@ -33,6 +33,10 @@ object GuideFactory {
         map[Key("Protruding", 0)] = ProtrudingGuide1Fragment()
         map[Key("Protruding", 1)] = ProtrudingGuide2Fragment()
         map[Key("Protruding", 2)] = ProtrudingGuide3Fragment()
+
+        map[Key("Toothbrush", 0)] = ToothBrushGuide1Fragment()
+        map[Key("Toothbrush", 1)] = ToothBrushGuide2Fragment()
+
     }
 
     fun getGuideFragment(guideType:String, position:Int): Fragment{

@@ -178,7 +178,7 @@ class SideFaceCameraXFragment : Fragment() {
 
                 val compressBitmap = BitmapFactory.decodeByteArray(outStream.toByteArray(), 0, outStream.toByteArray().size)
                 MyApplication.patient?.let {
-                    faceVM.detectToothBrush(it.patientId?:"00000000", compressBitmap)
+                    faceVM.detectSideFace(it.patientId?:"00000000", compressBitmap)
                     
                     // 로딩 페이지로 이동
                     moveToDetectLoadingFragment()

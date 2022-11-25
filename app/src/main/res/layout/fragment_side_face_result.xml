@@ -49,7 +49,7 @@
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
 
-                android:text="하악형 안면 비대칭"
+                android:text="돌출입 결과"
                 android:textColor="@color/colorAccent"
                 android:textSize="20dp" />
 
@@ -77,7 +77,7 @@
                     android:fontFamily="@font/noto_sans_kr_bold"
                     android:includeFontPadding="false"
 
-                    android:text="비대칭 정도"
+                    android:text="돌출 정도"
                     android:textColor="@color/text_black_gray"
                     android:textSize="14dp" />
             </com.google.android.material.card.MaterialCardView>
@@ -142,8 +142,7 @@
                 android:fontFamily="@font/noto_sans_kr_regular"
 
                 android:includeFontPadding="false"
-                android:text="김잼민님은 하악형 안면 비대칭으로 오른쪽보다 왼쪽이 올라가 있습니다.평소에는 잘 느껴지지 않지만 사진을 찍으면 도드라져 보일 수 있어요. 혹시 다리를 꼬거나 왼쪽으로만 턱을 괴는 자세를
-하고 있지는 않나요? 이러한 습관들은 안면비대칭을 악화시켜요."
+                android:text="돌출입은 주걱턱과 마찬가지로 돌출입도 유전적인 영향을 많이 받습니다. 어머니나 아버지가 돌출형구강구조를 가진 경우 자녀에서 돌출입이 발생할 가능성이 높습니다.\n\n 한편, 가족력이 없다고 해도 어렸을 때의 습관으로 돌출입이 발생할 수 있는데, 혀를 내밀 거나, 손가락을 빠는 습관, 손톱이나 입술을 깨무는 습관, 입으로 숨을 쉬는 습관을 가지고 있는 경우 돌출입이 발생하거나, 기존의 돌출을 더욱 심하게 만들 수 있습니다."
                 android:textAlignment="center"
 
                 android:textColor="@color/black_gray"

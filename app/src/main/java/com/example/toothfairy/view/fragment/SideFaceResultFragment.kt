@@ -20,6 +20,7 @@ import com.example.toothfairy.data.Faq
 import com.example.toothfairy.databinding.FragmentSideFaceResultBinding
 import com.example.toothfairy.util.Extention.*
 import com.example.toothfairy.viewModel.FaceDetectViewModel
+import com.example.toothfairy.viewModel.SideFaceViewModel
 import com.google.mlkit.vision.face.*
 import java.io.File
 import kotlin.math.abs
@@ -41,15 +42,15 @@ class SideFaceResultFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private var image: ByteArray? = null
     private lateinit var bind:FragmentSideFaceResultBinding
-
     private lateinit var faceVM: FaceDetectViewModel
+    private lateinit var sideVM: SideFaceViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         faceVM = ViewModelProvider(parentFragment as SideFaceCameraXFragment)[FaceDetectViewModel::class.java]
+        sideVM = ViewModelProvider(parentFragment as SideFaceCameraXFragment)[SideFaceViewModel::class.java]
     }
 
     override fun onAttach(context: Context) {
@@ -66,13 +67,12 @@ class SideFaceResultFragment : Fragment() {
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_side_face_result, container, false)
         bind.imageView.scaleType = ImageView.ScaleType.CENTER_CROP
 
-
-
         /**
          * 측면 얼굴 결과는 뷰 모델에서 바로 가져옴
          * (Bundle로 보내면 용량이 너무 커서 에러남)
          */
         bind.imageView.setImageBitmap(faceVM.sideDetectResult.value)
+        Log.d("옆면 결과", sideVM.sideDetectResult.toString())
 
         initFaqRecylcerView()
         //makeBitmap()

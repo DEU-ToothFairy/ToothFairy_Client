@@ -25,6 +25,7 @@ import com.example.toothfairy.util.*
 import com.example.toothfairy.util.Extention.hideBottomNabBar
 import com.example.toothfairy.util.Extention.hideTitleBar
 import com.example.toothfairy.viewModel.FaceDetectViewModel
+import com.example.toothfairy.viewModel.SideFaceViewModel
 import java.io.ByteArrayOutputStream
 
 // TODO: Rename parameter arguments, choose names that match

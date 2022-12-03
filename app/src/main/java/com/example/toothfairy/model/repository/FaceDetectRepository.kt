@@ -18,7 +18,7 @@ object FaceDetectRepository {
     val faceDetectService = RetrofitClient.retrofit.create(FaceDetectService::class.java)
 
     /**
-     * [ 옆면 얼굴 인식 ]
+     * [ 정면 & 옆면 얼굴 인식 ]
      * 서버로 비트맵을 전송하는 메소드
      */
     fun sendBitmap(userId:String, bitmap:Bitmap): Call<ResponseBody> {

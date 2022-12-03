@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
 import com.example.toothfairy.viewModel.FaceDetectViewModel
+import com.example.toothfairy.viewModel.SideFaceViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +26,7 @@ class DetectLoadingFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var faceVM: FaceDetectViewModel
+    private lateinit var sideVM: SideFaceViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +36,7 @@ class DetectLoadingFragment : Fragment() {
         }
 
         faceVM = ViewModelProvider(parentFragment as SideFaceCameraXFragment)[FaceDetectViewModel::class.java]
+        sideVM = ViewModelProvider(parentFragment as SideFaceCameraXFragment)[SideFaceViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -47,6 +50,13 @@ class DetectLoadingFragment : Fragment() {
 
     private fun addObserver(){
         faceVM.sideDetectResult.observe(viewLifecycleOwner){
+            /**
+             * 얼굴 인식 결과 사진이 오면 점수 데이터 요청
+             */
+            sideVM.getDetectResult()
+        }
+
+        sideVM.sideDetectResult.observe(viewLifecycleOwner){
             // 다음 프래그먼트에 출력
             (parentFragment as SideFaceCameraXFragment).childFragmentManager
                 .beginTransaction()

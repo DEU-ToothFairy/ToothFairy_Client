@@ -53,7 +53,7 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="20dp" />
 
-            <!-- 라운드 텍스트 뷰 -->
+            <!-- LAYOUT 돌출입 정도 프로그레스바 레이아웃 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -77,60 +77,20 @@
                     android:fontFamily="@font/noto_sans_kr_bold"
                     android:includeFontPadding="false"
 
-                    android:text="돌출 정도"
+                    android:text="점의 거리"
                     android:textColor="@color/text_black_gray"
                     android:textSize="14dp" />
             </com.google.android.material.card.MaterialCardView>
             <!-- 라운드 텍스트 뷰 -->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <include
+                android:id="@+id/eyesDegreeProgress"
+                layout="@layout/sub_center_start_progressbar"
                 android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="낮음"
-                    android:textSize="13dp"
-                    android:textColor="@color/text_black_gray"
-                    android:fontFamily="@font/noto_sans_kr_bold"
-                    android:includeFontPadding="false"
-                    />
-
-                <!-- 프로그레스바 -->
-                <com.rachitgoyal.segmented.SegmentedProgressBar
-                    android:id="@+id/segmentedProgressBar"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-
-                    app:divisions="10"
-                    app:progressBarBackgroundColor="#F4F4F4"
-                    app:progressBarColor="@color/colorAccent"
-
-                    app:dividerColor="#ffffff"
-                    app:dividerWidth="4dp"
-                    app:isDividerEnabled="true"
-                    app:cornerRadius="0dp"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="높음"
-                    android:textSize="13dp"
-                    android:textColor="@color/text_black_gray"
-                    android:fontFamily="@font/noto_sans_kr_bold"
-                    android:includeFontPadding="false"
-                    />
-            </LinearLayout>
-
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+            <!-- LAYOUT END 돌출입 정도 프로그레스바 레이아웃 -->
 
             <TextView
                 android:layout_width="wrap_content"

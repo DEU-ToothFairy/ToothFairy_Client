@@ -49,7 +49,7 @@
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
 
-                android:text="하악형 안면 비대칭"
+                android:text=""
                 android:textColor="@color/colorAccent"
                 android:textSize="20dp" />
 
@@ -144,8 +144,7 @@
                 android:fontFamily="@font/noto_sans_kr_regular"
 
                 android:includeFontPadding="false"
-                android:text="김잼민님은 하악형 안면 비대칭으로 오른쪽보다 왼쪽이 올라가 있습니다.평소에는 잘 느껴지지 않지만 사진을 찍으면 도드라져 보일 수 있어요. 혹시 다리를 꼬거나 왼쪽으로만 턱을 괴는 자세를
-하고 있지는 않나요? 이러한 습관들은 안면비대칭을 악화시켜요."
+                android:text=""
                 android:textAlignment="center"
 
                 android:textColor="@color/black_gray"

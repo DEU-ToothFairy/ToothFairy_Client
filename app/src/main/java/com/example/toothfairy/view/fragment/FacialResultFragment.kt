@@ -76,12 +76,11 @@ class FacialResultFragment : Fragment() {
             }
 
             Log.i("페이스 감정 결과", faceVM.face.toString())
-
             detectAsymmetry()
         }
 
-        bind.eyesDegreeProgress.setProgress(-5)
-        bind.lipDegreeProgress.setProgress(20)
+
+
 
         return bind.root
     }
@@ -92,6 +91,16 @@ class FacialResultFragment : Fragment() {
          * 음수의 경우 절댓값을 취해서 비교하면 모두 양수가 되어버리므로,
          * progress / abs(progress)를 통해 progress의 부호를 적용
          */
+        if (progress == 0){
+            this.leftProgressLayout.visibility = View.VISIBLE
+            this.rightProgressLayout.visibility = View.INVISIBLE
+
+            leftProgress.progress = 5
+            leftProgressText.text = ""
+
+            return
+        }
+
         val tempProgress = if(abs(progress) < 10) 10 * (progress / abs(progress)) else progress
 
         if(tempProgress < 0){
@@ -134,9 +143,14 @@ class FacialResultFragment : Fragment() {
             val detectResult = faceVM.detectAsymmetry()
 
             detectResult?.let { detect ->
-                bind.typeResultTv.text = detect.type
-                bind.explainTv.text = explainFactory(detect.type)
+                /**
+                 * 안면 비대칭 타입 & 설명 표시 부분
+                 * bind.typeResultTv.text = detect.type
+                 * bind.explainTv.text = explainFactory(detect.type)
+                 */
                 initFaqRecylcerView(detect.type)
+                bind.eyesDegreeProgress.setProgress(detect.eyeDegree.toInt())
+                bind.lipDegreeProgress.setProgress(detect.lipDegree.toInt())
             }
         }
     }

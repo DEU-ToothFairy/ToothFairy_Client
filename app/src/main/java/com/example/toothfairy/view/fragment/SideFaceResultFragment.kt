@@ -77,6 +77,14 @@ class SideFaceResultFragment : Fragment() {
         initFaqRecylcerView()
         //makeBitmap()
         addClickEventNextBtn()
+
+        sideVM.sideDetectResult.value?.let {
+            bind.eyesDegreeProgress.apply {
+                setMax(10)
+                setProgress(it.score.toInt())
+            }
+        }
+
         return bind.root
     }
 
@@ -98,24 +106,27 @@ class SideFaceResultFragment : Fragment() {
     }
 
 
-    private fun setSegmentedProgress(progress:Int){
-        bind.segmentedProgressBar.apply {
-            val enabled = arrayListOf<Int>()
-            for (i in 0  until progress) enabled.add(i)
-
-            if(enabled.isEmpty()) setEnabledDivisions(arrayListOf(0))
-            else setEnabledDivisions(enabled)
-        }
-    }
-    private fun setSegmentedProgress(eyeDegree:Double){
-        bind.segmentedProgressBar.apply {
-            val enabled = arrayListOf<Int>()
-            for (i in 0  until (eyeDegree.toInt() / 10)) enabled.add(i)
-
-            if(enabled.isEmpty()) setEnabledDivisions(arrayListOf(0))
-            else setEnabledDivisions(enabled)
-        }
-    }
+//    /**
+//     * 사각형 프로그레스바 세팅 메소드
+//     */
+//    private fun setSegmentedProgress(progress:Int){
+//        bind.segmentedProgressBar.apply {
+//            val enabled = arrayListOf<Int>()
+//            for (i in 0  until progress) enabled.add(i)
+//
+//            if(enabled.isEmpty()) setEnabledDivisions(arrayListOf(0))
+//            else setEnabledDivisions(enabled)
+//        }
+//    }
+//    private fun setSegmentedProgress(eyeDegree:Double){
+//        bind.segmentedProgressBar.apply {
+//            val enabled = arrayListOf<Int>()
+//            for (i in 0  until (eyeDegree.toInt() / 10)) enabled.add(i)
+//
+//            if(enabled.isEmpty()) setEnabledDivisions(arrayListOf(0))
+//            else setEnabledDivisions(enabled)
+//        }
+//    }
 
     private fun loadData():List<Faq> {
         val faqList = ArrayList<Faq>()

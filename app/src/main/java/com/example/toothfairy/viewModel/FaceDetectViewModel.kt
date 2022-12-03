@@ -60,24 +60,18 @@ class FaceDetectViewModel: ViewModel() {
 
             // 해당 if문의 결과를 리턴(FaceResDto.DetectResult)
             if(leftEye != null && rightEye != null && lip != null){
-                // Atan2(x,y)*180/PI
-                val xDis = leftEye.points[0].x.minus(rightEye.points[8].x).toDouble()
-                val yDis = leftEye.points[0].y.minus(rightEye.points[8].y).toDouble()
+                // Atan2(x,y) * 180 / PI
+                val xDis = leftEye.points[0].x.minus(rightEye.points[8].x).toDouble() // 양쪽 눈의 x 차이
+                val yDis = leftEye.points[0].y.minus(rightEye.points[8].y).toDouble() // 양쪽 눈의 y 차이
+                
+                val eyeIncline = yDis / xDis // 눈 기울기
+                var eyeDegree = (atan2(abs(yDis), abs(xDis)) * 180 / Math.PI) / 20 * 100 // 눈 각도(degree)
 
-                // 눈 기울기
-                val eyeIncline = yDis / xDis
-                // 눈 각도
-                var eyeDegree = (atan2(abs(yDis), abs(xDis)) * 180 / Math.PI) / 20 * 100// degree 각도
+                val lipXdis = lip.points[0].x.minus(lip.points[10].x).toDouble() // 양쪽 입술의 x 차이
+                val lipYdis = lip.points[0].y.minus(lip.points[10].y).toDouble() // 양쪽 입술의 y 차이
 
-                val leftLip = lip.points[0]     // 입술 왼쪽 끝 점
-                val rightLip = lip.points[10]   // 입술 오른쪽 끝 점
-                val lipXdis = lip.points[0].x.minus(lip.points[10].x).toDouble()
-                val lipYdis = lip.points[0].y.minus(lip.points[10].y).toDouble()
-
-                // 입술 기울기
-                val lipIncline = lipYdis / lipXdis
-                // 입술 각도
-                var lipDegree = (atan2(abs(lipYdis), abs(lipXdis)) * 180 / Math.PI) / 20 * 100// degree 각도
+                val lipIncline = lipYdis / lipXdis // 입술 기울기
+                var lipDegree = (atan2(abs(lipYdis), abs(lipXdis)) * 180 / Math.PI) / 20 * 100 // 입술 각도(degree)
 
                 Log.i("눈 결과","기울기 : $eyeIncline, 각도(비대칭 정도) : $eyeDegree") // 음수면 오른 쪽이 내려간 것
                 Log.i("입 결과","기울기 : $lipIncline, 각도(비대칭 정도) : $lipDegree") // 음수면 오른 쪽이 내려간 것
@@ -114,7 +108,9 @@ class FaceDetectViewModel: ViewModel() {
 
                 FaceResDto.DetectResult(
                     result,
-                    type
+                    type,
+                    eyeDegree,
+                    lipDegree
                 )
             } else null
         }

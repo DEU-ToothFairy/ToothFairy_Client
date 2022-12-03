@@ -20,6 +20,7 @@ import com.example.toothfairy.adapter.ExamineFaqAdapter
 import com.example.toothfairy.data.FaceType
 import com.example.toothfairy.data.Faq
 import com.example.toothfairy.databinding.FragmentFacialResultBinding
+import com.example.toothfairy.databinding.SubCenterStartProgressbarBinding
 import com.example.toothfairy.dto.ResponseDto.FaqResDto
 import com.example.toothfairy.util.Extention.getFaqList
 import com.example.toothfairy.viewModel.FaceDetectViewModel
@@ -79,7 +80,38 @@ class FacialResultFragment : Fragment() {
             detectAsymmetry()
         }
 
+        bind.eyesDegreeProgress.setProgress(-5)
+        bind.lipDegreeProgress.setProgress(20)
+
         return bind.root
+    }
+
+    private fun SubCenterStartProgressbarBinding.setProgress(progress:Int){
+        /**
+         * 프로그레스의 최솟 값을 10으로 지정하기 위한 코드
+         * 음수의 경우 절댓값을 취해서 비교하면 모두 양수가 되어버리므로,
+         * progress / abs(progress)를 통해 progress의 부호를 적용
+         */
+        val tempProgress = if(abs(progress) < 10) 10 * (progress / abs(progress)) else progress
+
+        if(tempProgress < 0){
+            this.leftProgressLayout.visibility = View.VISIBLE
+            this.rightProgressLayout.visibility = View.INVISIBLE
+
+            leftProgress.progress = abs(tempProgress)
+            leftProgressText.text = "${tempProgress}%"
+            leftText.setTextColor(resources.getColor(R.color.colorAccent))
+            rightText.setTextColor(resources.getColor(R.color.text_black_gray))
+
+        } else {
+            this.leftProgressLayout.visibility = View.INVISIBLE
+            this.rightProgressLayout.visibility = View.VISIBLE
+
+            rightProgress.progress = tempProgress
+            rightProgressText.text = "${tempProgress}%"
+            rightText.setTextColor(resources.getColor(R.color.colorAccent))
+            leftText.setTextColor(resources.getColor(R.color.text_black_gray))
+        }
     }
 
     /**
@@ -104,31 +136,11 @@ class FacialResultFragment : Fragment() {
             detectResult?.let { detect ->
                 bind.typeResultTv.text = detect.type
                 bind.explainTv.text = explainFactory(detect.type)
-                setSegmentedProgress(detect.result)
                 initFaqRecylcerView(detect.type)
             }
         }
     }
 
-    private fun setSegmentedProgress(progress:Int){
-        bind.segmentedProgressBar.apply {
-            val enabled = arrayListOf<Int>()
-            for (i in 0  until progress) enabled.add(i)
-
-            if(enabled.isEmpty()) setEnabledDivisions(arrayListOf(0))
-            else setEnabledDivisions(enabled)
-        }
-    }
-
-    private fun setSegmentedProgress(eyeDegree:Double){
-        bind.segmentedProgressBar.apply {
-            val enabled = arrayListOf<Int>()
-            for (i in 0  until (eyeDegree.toInt() / 10)) enabled.add(i)
-
-            if(enabled.isEmpty()) setEnabledDivisions(arrayListOf(0))
-            else setEnabledDivisions(enabled)
-        }
-    }
 
     /**
      * 안면비대칭 타입에 맞는 설명을 리턴하는 팩토리

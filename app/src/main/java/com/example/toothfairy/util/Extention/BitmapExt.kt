@@ -1,16 +1,13 @@
-package com.example.toothfairy.util
+package com.example.toothfairy.util.Extention
 
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Matrix
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
-import androidx.lifecycle.ViewModelProvider
-import com.example.toothfairy.application.MyApplication
+import com.example.toothfairy.util.makeTempFile
 import com.example.toothfairy.viewModel.FaceDetectViewModel
 import java.io.FileOutputStream
 

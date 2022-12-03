@@ -23,10 +23,7 @@ import com.example.toothfairy.R
 import com.example.toothfairy.camerax.CameraManager
 import com.example.toothfairy.databinding.FragmentCameraXBinding
 import com.example.toothfairy.util.*
-import com.example.toothfairy.util.Extention.hideBottomNabBar
-import com.example.toothfairy.util.Extention.hideTitleBar
-import com.example.toothfairy.util.Extention.showBottomNabBar
-import com.example.toothfairy.util.Extention.showTitleBar
+import com.example.toothfairy.util.Extention.*
 import com.example.toothfairy.viewModel.FaceDetectViewModel
 
 // TODO: Rename parameter arguments, choose names that match

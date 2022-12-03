@@ -23,10 +23,10 @@ import com.example.toothfairy.camerax.CameraManager
 import com.example.toothfairy.databinding.FragmentToothBrushCameraXBinding
 import com.example.toothfairy.util.Extention.hideBottomNabBar
 import com.example.toothfairy.util.Extention.hideTitleBar
-import com.example.toothfairy.util.getBaseYByView
+import com.example.toothfairy.util.Extention.getBaseYByView
 import com.example.toothfairy.util.imageToBitmap
-import com.example.toothfairy.util.rotateFlipImage
-import com.example.toothfairy.util.scaleImage
+import com.example.toothfairy.util.Extention.rotateFlipImage
+import com.example.toothfairy.util.Extention.scaleImage
 import com.example.toothfairy.viewModel.FaceDetectViewModel
 import java.io.ByteArrayOutputStream
 

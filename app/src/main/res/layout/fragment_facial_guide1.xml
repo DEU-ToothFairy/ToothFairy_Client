@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
 
-        android:text="안면 비대칭 검사란 ?"
+        android:text="안면 비대칭 기록이란 ?"
         android:textColor="@color/text_black"
         android:textSize="24dp"
 
@@ -41,7 +41,8 @@
         android:fontFamily="@font/noto_sans_kr_regular"
 
         android:includeFontPadding="false"
-        android:text="인공지능을 통한 얼굴 특징점 추출을 통해 안면 비대칭을 검사하는 방법입니다."
+        android:text="인공지능을 통한 얼굴 특징점 추출을 통해 눈의 기울기, 입술의 기울기 등을 수치로 나타내주는 기능입니다.
+"
         android:textColor="@color/text_black"
         android:textSize="14dp" />
 

@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
 
-        android:text="돌출입 &amp; 주걱턱 검사란 ?"
+        android:text="돌출입 &amp; 주걱턱 기록이란 ?"
         android:textColor="@color/text_black"
         android:textSize="24dp"
 
@@ -41,7 +41,7 @@
         android:fontFamily="@font/noto_sans_kr_regular"
 
         android:includeFontPadding="false"
-        android:text="인공지능을 통해 심미선(E-Line)을 추출하여 돌출입, 주걱턱을 판별합니다."
+        android:text="인공지능을 통해 얼굴의 특징점과 심미선(E-Line)을 추출하여 나의 돌출입 상태를 정확하게 확인할 수 있습니다."
         android:textColor="@color/text_black"
         android:textSize="14dp" />
 

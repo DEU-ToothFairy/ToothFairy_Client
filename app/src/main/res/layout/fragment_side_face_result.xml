@@ -35,23 +35,9 @@
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:includeFontPadding="false"
 
-                android:text="김잼민님의 검사 결과"
+                android:text="김잼민님의 측정 결과"
                 android:textColor="@color/text_black_gray"
                 android:textSize="16dp" />
-
-            <TextView
-                android:id="@+id/typeResultTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-
-                android:fontFamily="@font/noto_sans_kr_bold"
-                android:includeFontPadding="false"
-
-                android:text="돌출입 결과"
-                android:textColor="@color/colorAccent"
-                android:textSize="20dp" />
 
             <!-- LAYOUT 돌출입 정도 프로그레스바 레이아웃 -->
             <com.google.android.material.card.MaterialCardView
@@ -77,20 +63,148 @@
                     android:fontFamily="@font/noto_sans_kr_bold"
                     android:includeFontPadding="false"
 
-                    android:text="점의 거리"
+                    android:text="결과 데이터"
                     android:textColor="@color/text_black_gray"
                     android:textSize="14dp" />
             </com.google.android.material.card.MaterialCardView>
             <!-- 라운드 텍스트 뷰 -->
 
-            <include
-                android:id="@+id/eyesDegreeProgress"
-                layout="@layout/sub_center_start_progressbar"
-                android:layout_marginTop="20dp"
+            <!-- LAYOUT 점의 개수 레이아웃 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/pointCntLayout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-            <!-- LAYOUT END 돌출입 정도 프로그레스바 레이아웃 -->
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                app:strokeColor="#F6F6F6"
+                app:strokeWidth="1dp"
+                app:cardCornerRadius="10dp">
+
+                <!-- LAYOUT 점의 개수 데이터 레이아웃 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="20dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/ic_data_analytics"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="점의 개수"
+                        android:textSize="16dp"
+                        android:textColor="@color/text_black_gray"
+                        android:fontFamily="@font/noto_sans_kr_bold"
+                        android:includeFontPadding="false"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="50dp"
+                        app:cardBackgroundColor="@color/light_blue"
+                        app:cardCornerRadius="2dp"
+                        app:cardElevation="0dp"
+                        android:layout_gravity="center_vertical|end">
+
+                        <TextView
+                            android:id="@+id/pointCntText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_gravity="center"
+                            android:text="3"
+                            android:textSize="14dp"
+                            android:textColor="@color/colorAccent"
+
+                            android:fontFamily="@font/poppins_medium"
+                            android:includeFontPadding="false"/>
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+                <!-- LAYOUT END 점의 개수 데이터 레이아웃 -->
+            </com.google.android.material.card.MaterialCardView>
+            <!-- LAYOUT END 점의 개수 레이아웃 -->
+
+
+            <!-- LAYOUT 거리 수치 레이아웃 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/pointdistanceLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                app:strokeColor="#F6F6F6"
+                app:strokeWidth="1dp"
+                app:cardCornerRadius="10dp">
+
+                <!-- LAYOUT 거리 수치 데이터 레이아웃 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="20dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/ic_point_arrows"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="거리 수치"
+                        android:textSize="16dp"
+                        android:textColor="@color/text_black_gray"
+                        android:fontFamily="@font/noto_sans_kr_bold"
+                        android:includeFontPadding="false"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="50dp"
+                        app:cardBackgroundColor="@color/light_blue"
+                        app:cardCornerRadius="2dp"
+                        app:cardElevation="0dp"
+                        android:layout_gravity="center_vertical|end">
+
+                        <TextView
+                            android:id="@+id/pointDistanceText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_gravity="center"
+                            android:text="8.17"
+                            android:textSize="14dp"
+                            android:textColor="@color/colorAccent"
+
+                            android:fontFamily="@font/poppins_medium"
+                            android:includeFontPadding="false"/>
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+                <!-- LAYOUT END 거리 수치 데이터 레이아웃 -->
+            </com.google.android.material.card.MaterialCardView>
+            <!-- LAYOUT END 거리 수치 레이아웃 -->
 
             <TextView
                 android:layout_width="wrap_content"

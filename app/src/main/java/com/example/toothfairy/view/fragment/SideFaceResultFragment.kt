@@ -79,10 +79,7 @@ class SideFaceResultFragment : Fragment() {
         addClickEventNextBtn()
 
         sideVM.sideDetectResult.value?.let {
-            bind.eyesDegreeProgress.apply {
-                setMax(10)
-                setProgress(it.score.toInt())
-            }
+            bind.pointDistanceText.text = "${it.score}"
         }
 
         return bind.root

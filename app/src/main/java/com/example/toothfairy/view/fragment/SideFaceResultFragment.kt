@@ -79,6 +79,7 @@ class SideFaceResultFragment : Fragment() {
         addClickEventNextBtn()
 
         sideVM.sideDetectResult.value?.let {
+            bind.pointCntText.text = "${it.dots}"
             bind.pointDistanceText.text = "${it.score}"
         }
 

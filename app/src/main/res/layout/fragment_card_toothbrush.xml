@@ -65,7 +65,7 @@
 
                     android:fontFamily="@font/montserrat_semi_bold"
                     android:includeFontPadding="false"
-                    android:text="칫솔을 언제 교체해야 좋은지 궁금 하지 않나요 ? 인공지능을 이용하여 칫솔묘 교체 주기를 판별해드려요 :)"
+                    android:text="칫솔을 언제 교체 해야 좋은지 궁금 하지않나요 ? 인공지능을 이용하여 칫솔모 교체 주기를 판별해드려요 :)"
                     android:textColor="@color/gray"
                     android:textSize="12dp" />
 

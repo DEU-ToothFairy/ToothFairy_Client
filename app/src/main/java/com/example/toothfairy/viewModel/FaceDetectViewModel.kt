@@ -76,13 +76,13 @@ class FaceDetectViewModel: ViewModel() {
                 Log.i("눈 결과","기울기 : $eyeIncline, 각도(비대칭 정도) : $eyeDegree") // 음수면 오른 쪽이 내려간 것
                 Log.i("입 결과","기울기 : $lipIncline, 각도(비대칭 정도) : $lipDegree") // 음수면 오른 쪽이 내려간 것
 
-                // 기울기가 양수인 경우 1, 직선인 경우 0, 음수인 경우 -1
-                val eyeSlope = if(eyeIncline > 0) 1 else if (eyeIncline == 0.0) 0 else -1
-                val lipSlope = if(lipIncline > 0) 1 else if (lipIncline == 0.0) 0 else -1
+                // 기울기가 양수(왼쪽으로 기운 경우)인 경우 -1, 직선인 경우 0, 음수(오른쪽으로 기운 경우)인 경우 1
+                val eyeSlope = if(eyeIncline > 0) -1 else if (eyeIncline == 0.0) 0 else 1
+                val lipSlope = if(lipIncline > 0) -1 else if (lipIncline == 0.0) 0 else 1
 
-                // 7도 이하로 조금 비틀어진건 직선으로 취급
-                eyeDegree = if(abs(eyeDegree) <= 7) 0.0 else eyeDegree
-                lipDegree = if(abs(lipDegree) <= 7) 0.0 else lipDegree
+                // 3도 이하로 조금 비틀어진건 직선으로 취급
+                eyeDegree = if(abs(eyeDegree) <= 3) 0.0 else eyeDegree
+                lipDegree = if(abs(lipDegree) <= 3) 0.0 else lipDegree
 
                 Log.d("프로그레스", "eye = ${(eyeDegree / 13 * 100)} lip = ${(lipDegree / 13 * 100)} 합 = ${(eyeDegree / 13 * 100) + (lipDegree / 13 * 100)}")
                 val result = (eyeDegree / 30 * 100) + (lipDegree / 30 * 100) // 측정 결과 수치
@@ -109,7 +109,9 @@ class FaceDetectViewModel: ViewModel() {
                 FaceResDto.DetectResult(
                     result,
                     type,
+                    eyeSlope,
                     eyeDegree,
+                    lipSlope,
                     lipDegree
                 )
             } else null

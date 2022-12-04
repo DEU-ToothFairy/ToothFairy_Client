@@ -85,13 +85,17 @@ class FacialResultFragment : Fragment() {
         return bind.root
     }
 
-    private fun SubCenterStartProgressbarBinding.setProgress(progress:Int){
+    /**
+     * @param flag      : Int (왼쪽, 오른쪽을 정하는 변수)
+     * @param progress  : Int
+     */
+    private fun SubCenterStartProgressbarBinding.setProgress(flag:Int, progress:Int){
         /**
          * 프로그레스의 최솟 값을 10으로 지정하기 위한 코드
          * 음수의 경우 절댓값을 취해서 비교하면 모두 양수가 되어버리므로,
          * progress / abs(progress)를 통해 progress의 부호를 적용
          */
-        if (progress == 0){
+        if (flag == 0 || progress == 0){
             this.leftProgressLayout.visibility = View.VISIBLE
             this.rightProgressLayout.visibility = View.INVISIBLE
 
@@ -103,7 +107,7 @@ class FacialResultFragment : Fragment() {
 
         val tempProgress = if(abs(progress) < 10) 10 * (progress / abs(progress)) else progress
 
-        if(tempProgress < 0){
+        if(flag < 0){
             this.leftProgressLayout.visibility = View.VISIBLE
             this.rightProgressLayout.visibility = View.INVISIBLE
 
@@ -149,8 +153,9 @@ class FacialResultFragment : Fragment() {
                  * bind.explainTv.text = explainFactory(detect.type)
                  */
                 initFaqRecylcerView(detect.type)
-                bind.eyesDegreeProgress.setProgress(detect.eyeDegree.toInt())
-                bind.lipDegreeProgress.setProgress(detect.lipDegree.toInt())
+                Log.i("기울기 결과", detect.toString())
+                bind.eyesDegreeProgress.setProgress(detect.eyeSlope, detect.eyeDegree.toInt())
+                bind.lipDegreeProgress.setProgress(detect.lipSlope, detect.lipDegree.toInt())
             }
         }
     }

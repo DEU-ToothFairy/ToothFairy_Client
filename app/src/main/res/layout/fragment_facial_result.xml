@@ -40,18 +40,17 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:id="@+id/typeResultTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
 
-                android:fontFamily="@font/noto_sans_kr_bold"
+                android:fontFamily="@font/noto_sans_kr_regular"
                 android:includeFontPadding="false"
 
-                android:text=""
-                android:textColor="@color/colorAccent"
-                android:textSize="20dp" />
+                android:text="양쪽 눈 기울기와 입술의 기울기를 수치로 확인해보세요. \n\n눈으로 확인하기 힘든 부분까지도 인공지능으로 정확하게 확인할 수 있어요."
+                android:textColor="@color/text_black_gray"
+                android:textSize="14dp" />
 
             <!-- LAYOUT 눈 각도 프로그레스바 레이아웃 -->
             <com.google.android.material.card.MaterialCardView

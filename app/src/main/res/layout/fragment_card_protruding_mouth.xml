@@ -54,7 +54,7 @@
 
                     android:fontFamily="@font/noto_sans_kr_bold"
                     android:includeFontPadding="false"
-                    android:text="돌출입 &amp; 주걱턱 검사"
+                    android:text="돌출입 &amp; 주걱턱"
                     android:textColor="#202020"
                     android:textSize="17dp" />
 
@@ -65,7 +65,7 @@
 
                     android:fontFamily="@font/montserrat_semi_bold"
                     android:includeFontPadding="false"
-                    android:text="인공지능을 이용해 돌출입 &amp; 주걱턱 여부를 판별합니다. 나의 입은 어떤지 확인해보세요 :)"
+                    android:text="인공지능을 이용해 심미선을 기준으로 입술이 얼마나 튀어나갔는지를 수치로 나타내드려요."
                     android:textColor="@color/gray"
                     android:textSize="12dp" />
 

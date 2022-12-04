@@ -6,7 +6,9 @@ class FaceResDto {
     data class DetectResult(
         var result:Double,
         var type:String,
+        val eyeSlope : Int,
         val eyeDegree: Double,
-        val lipDegree: Double
+        val lipSlope : Int,
+        val lipDegree: Double,
     )
 }

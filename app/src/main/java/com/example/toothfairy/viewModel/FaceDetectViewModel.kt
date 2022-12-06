@@ -65,13 +65,15 @@ class FaceDetectViewModel: ViewModel() {
                 val yDis = leftEye.points[0].y.minus(rightEye.points[8].y).toDouble() // 양쪽 눈의 y 차이
                 
                 val eyeIncline = yDis / xDis // 눈 기울기
-                var eyeDegree = (atan2(abs(yDis), abs(xDis)) * 180 / Math.PI) / 20 * 100 // 눈 각도(degree)
+                var eyeDegree = (atan2(abs(yDis), abs(xDis)) * 180 / Math.PI)
+                // 20 * 100 // 눈 각도(degree)
 
                 val lipXdis = lip.points[0].x.minus(lip.points[10].x).toDouble() // 양쪽 입술의 x 차이
                 val lipYdis = lip.points[0].y.minus(lip.points[10].y).toDouble() // 양쪽 입술의 y 차이
 
                 val lipIncline = lipYdis / lipXdis // 입술 기울기
-                var lipDegree = (atan2(abs(lipYdis), abs(lipXdis)) * 180 / Math.PI) / 20 * 100 // 입술 각도(degree)
+                var lipDegree = (atan2(abs(lipYdis), abs(lipXdis)) * 180 / Math.PI)
+                /// 20 * 100 // 입술 각도(degree)
 
                 Log.i("눈 결과","기울기 : $eyeIncline, 각도(비대칭 정도) : $eyeDegree") // 음수면 오른 쪽이 내려간 것
                 Log.i("입 결과","기울기 : $lipIncline, 각도(비대칭 정도) : $lipDegree") // 음수면 오른 쪽이 내려간 것

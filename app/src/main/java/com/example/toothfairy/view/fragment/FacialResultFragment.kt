@@ -26,8 +26,7 @@ import com.example.toothfairy.util.Extention.getFaqList
 import com.example.toothfairy.viewModel.FaceDetectViewModel
 import com.google.mlkit.vision.face.FaceContour
 import java.io.File
-import kotlin.math.abs
-import kotlin.math.atan2
+import kotlin.math.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -105,14 +104,14 @@ class FacialResultFragment : Fragment() {
             return
         }
 
-        val tempProgress = if(abs(progress) < 10) 10 * (progress / abs(progress)) else progress
+        //val tempProgress = if(abs(progress) < 5) 5 * (progress / abs(progress)) else progress
 
         if(flag < 0){
             this.leftProgressLayout.visibility = View.VISIBLE
             this.rightProgressLayout.visibility = View.INVISIBLE
 
-            leftProgress.progress = abs(tempProgress)
-            leftProgressText.text = "${tempProgress}%"
+            leftProgress.progress = abs(progress)
+            leftProgressText.text = "${progress}˚"
             leftText.setTextColor(resources.getColor(R.color.colorAccent))
             rightText.setTextColor(resources.getColor(R.color.text_black_gray))
 
@@ -120,8 +119,8 @@ class FacialResultFragment : Fragment() {
             this.leftProgressLayout.visibility = View.INVISIBLE
             this.rightProgressLayout.visibility = View.VISIBLE
 
-            rightProgress.progress = tempProgress
-            rightProgressText.text = "${tempProgress}%"
+            rightProgress.progress = progress
+            rightProgressText.text = "${progress}˚"
             rightText.setTextColor(resources.getColor(R.color.colorAccent))
             leftText.setTextColor(resources.getColor(R.color.text_black_gray))
         }
@@ -154,13 +153,18 @@ class FacialResultFragment : Fragment() {
                  */
                 initFaqRecylcerView(detect.type)
                 Log.i("기울기 결과", detect.toString())
-                bind.eyesDegreeProgress.setProgress(detect.eyeSlope, detect.eyeDegree.toInt())
-                bind.lipDegreeProgress.setProgress(detect.lipSlope, detect.lipDegree.toInt())
+                bind.eyeDegreeText.text = if(detect.eyeSlope == 0) "${roundDigit(detect.eyeDegree, 2)}˚" else "${roundDigit(detect.eyeSlope * detect.eyeDegree, 2)}˚"
+                bind.lipDegreeText.text = if(detect.lipSlope == 0) "${roundDigit(detect.lipDegree, 2)}˚" else "${roundDigit(detect.lipSlope * detect.lipDegree, 2)}˚"
+                //bind.eyesDegreeProgress.setProgress(detect.eyeSlope, detect.eyeDegree.toInt())
+                //bind.lipDegreeProgress.setProgress(detect.lipSlope, detect.lipDegree.toInt())
             }
         }
     }
 
+    fun roundDigit(number: Double, digit:Int): Double{
+        return (number * 10.0.pow(digit.toDouble())).roundToInt() / 10.0.pow(digit.toDouble())
 
+    }
     /**
      * 안면비대칭 타입에 맞는 설명을 리턴하는 팩토리
      */

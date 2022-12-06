@@ -83,8 +83,8 @@ class FaceDetectViewModel: ViewModel() {
                 val lipSlope = if(lipIncline > 0) -1 else if (lipIncline == 0.0) 0 else 1
 
                 // 3도 이하로 조금 비틀어진건 직선으로 취급
-                eyeDegree = if(abs(eyeDegree) <= 3) 0.0 else eyeDegree
-                lipDegree = if(abs(lipDegree) <= 3) 0.0 else lipDegree
+                //eyeDegree = if(abs(eyeDegree) <= 3) 0.0 else eyeDegree
+                //lipDegree = if(abs(lipDegree) <= 3) 0.0 else lipDegree
 
                 Log.d("프로그레스", "eye = ${(eyeDegree / 13 * 100)} lip = ${(lipDegree / 13 * 100)} 합 = ${(eyeDegree / 13 * 100) + (lipDegree / 13 * 100)}")
                 val result = (eyeDegree / 30 * 100) + (lipDegree / 30 * 100) // 측정 결과 수치

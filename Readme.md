@@ -9,6 +9,10 @@
 
 **교정**뿐만 아니라 **병원 예약 관리, 처방전 관리, 챗봇 상담** 등 부가적인 요소까지 자동으로 관리할 수 있어 **교정 치료에 대한 사용자의 부담을 덜어주는 앱**입니다.
 
+***ToothFairy*** automates wear time management by **detecting whether or not users are wearing braces in real time**, and provides various status recording functions through artificial intelligence.
+
+It is an app that relieves users of the burden of correctional treatment by automatically managing additional factors such as **hospital reservation management, prescription management, and chatbot** counseling as well as correctional treatment.
+
 ![](../header.png)
 
 ## 🚀 설치 방법

@@ -99,7 +99,36 @@ It is an app that relieves users of the burden of correctional treatment by auto
 
 _더 많은 예제와 사용법은 [Wiki][wiki]를 참고하세요._
 
+## 📁 프로젝트 구조
+- 해당 프로젝트는 **MVVM 구조**를 기반으로 구현 되었습니다.
+<div align="center">
+   <img src="https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/architecture/architecture.png"  width="100%"/>&nbsp;&nbsp;
+</div>
 
+```
+ 📂toothfairy
+    ├─ 📂adapter
+    ├─ 📂application
+    ├─ 📂camerax
+    ├─ 📂data
+    ├─ 📂dto
+    │     └─ 📂ResponseDto
+    ├─ 📂entity
+    ├─ 📂mlkit
+    ├─ 📂model
+    │     ├─ 📂repository
+    │     └─ 📂service
+    ├─ 📂util
+    │     └─ 📂Extention
+    ├─ 📂view
+    │     ├─ 📂activity
+    │     ├─ 📂customview
+    │     ├─ 📂fragment
+    │     ├─ 📂guideFragment
+    │     └─ 📂ui
+    └─ 📂viewModel
+
+```
 ## ⚙ 개발 환경 설정
 
 모든 개발 의존성 설치 방법과 자동 테스트 슈트 실행 방법을 운영체제 별로 작성합니다.

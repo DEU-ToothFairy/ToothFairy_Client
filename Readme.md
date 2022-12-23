@@ -5,6 +5,9 @@
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
+![ToothFairy Banner](https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/banner.png)
+
+
 ***ToothFairy***는 사용자의 **교정기 착용 여부** 및 **착용 시간**을 **실시간**으로 감지하여 착용 시간 관리를 **자동화**하며, **인공지능**을 통한 **다양한 상태 기록 기능**을 제공합니다.
 
 **교정**뿐만 아니라 **병원 예약 관리, 처방전 관리, 챗봇 상담** 등 부가적인 요소까지 자동으로 관리할 수 있어 **교정 치료에 대한 사용자의 부담을 덜어주는 앱**입니다.

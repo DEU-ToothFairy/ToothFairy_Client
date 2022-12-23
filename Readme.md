@@ -158,11 +158,19 @@ npm test
 
 ## 🛡 정보
 
-이름 – [@트위터 주소](https://twitter.com/dbader_org) – 이메일주소@example.com
+|김동현 ``` Developer ```|
+|:-:|
+|<img src="https://avatars.githubusercontent.com/u/63500239?v=4" width=130>|
+|[@donghyeon0915](https://github.com/Donghyeon0915)|
 
-XYZ 라이센스를 준수하며 ``LICENSE``에서 자세한 정보를 확인할 수 있습니다.
-
-[https://github.com/yourname/github-link](https://github.com/dbader/)
+<div align="left">
+  <a href="https://www.instagram.com/dongx._.2/" target="_blank">
+    <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/instagram/default.svg" width="52" height="40" alt="instagram logo"  />
+  </a>
+  <a href="https://m.facebook.com/profile.php?eav=AfYuUlRNP7OHraaGKSMnyiTENtBWBTsxLDo_haYuO3JPSqt9iTUqN-x1hTyLcF3qLQk&paipv=0" target="_blank">
+    <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/facebook/default.svg" width="52" height="40" alt="facebook logo"  />
+  </a>
+</div>
 
 ## 기여 방법
 

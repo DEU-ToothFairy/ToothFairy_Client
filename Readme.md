@@ -1,12 +1,18 @@
-# ToothFairy
-> 당신의 미소를 찾아줄 치아 요정, ToothFairy
+# ToothFairy 
+> **당신의 미소를 찾아줄 치아 요정, ToothFairy**
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
+<!-- ![Release Version](https://img.shields.io/github/v/release/DEU-ToothFairy/ToothFairy_Client?style=flat-square) -->
 
-![ToothFairy Banner](https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/banner.png)
+![Release Version](https://img.shields.io/badge/release-0.0.1-yellow?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-Android-blue?style=flat-square)
+![Last Commit](https://img.shields.io/github/last-commit/DEU-ToothFairy/ToothFairy_Client?style=flat-square) 
 
+<!-- ToothFairy 배너 -->
+<div align="center">
+   <img src="https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/banner.png" width="80%"/> &nbsp;&nbsp;
+</div>
+
+<br><br>
 
 ***ToothFairy***는 사용자의 **교정기 착용 여부** 및 **착용 시간**을 **실시간**으로 감지하여 착용 시간 관리를 **자동화**하며, **인공지능**을 통한 **다양한 상태 기록 기능**을 제공합니다.
 

@@ -9,7 +9,7 @@
 
 <!-- ToothFairy 배너 -->
 <div align="center">
-   <img src="https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/banner.png" width="100%"/> &nbsp;&nbsp;
+   <img src="https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/banner_crop.png" width="100%"/> &nbsp;&nbsp;
 </div>
 
 <br>

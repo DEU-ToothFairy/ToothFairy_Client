@@ -9,7 +9,7 @@
 
 <!-- ToothFairy 배너 -->
 <div align="center">
-   <img src="https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/banner.png" width="80%"/> &nbsp;&nbsp;
+   <img src="https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/banner.png" width="100%"/> &nbsp;&nbsp;
 </div>
 
 <br><br>
@@ -27,19 +27,12 @@ It is an app that relieves users of the burden of correctional treatment by auto
 
 <hr>
 
-## 🚀 설치 방법
+## 📩 다운로드
+> **추후 플레이스토어 업로드 예정**
 
-OS X & 리눅스:
+<!-- 📁📂🗂️📅📆🗓️📋📌✅🚀🔗  -->
 
-```sh
-npm install my-crazy-module --save
-```
-
-윈도우:
-
-```sh
-edit autoexec.bat
-```
+<br>
 
 ## ✨ 기능 소개
 
@@ -116,7 +109,7 @@ make install
 npm test
 ```
 
-## 🔗 업데이트 내역
+## 📅 업데이트 내역
 
 <!-- 추후 버전 관리 추가시 해당 부분과 같이 작성
 * 0.2.1

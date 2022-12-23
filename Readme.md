@@ -12,7 +12,7 @@
    <img src="https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/banner.png" width="100%"/> &nbsp;&nbsp;
 </div>
 
-<br><br>
+<br>
 
 ***ToothFairy***는 사용자의 **교정기 착용 여부** 및 **착용 시간**을 **실시간**으로 감지하여 착용 시간 관리를 **자동화**하며, **인공지능**을 통한 **다양한 상태 기록 기능**을 제공합니다.
 

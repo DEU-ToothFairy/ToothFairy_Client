@@ -158,19 +158,29 @@ npm test
 
 ## 🛡 정보
 
+<div align="center">
+
 |김동현 ``` Developer ```|
 |:-:|
 |<img src="https://avatars.githubusercontent.com/u/63500239?v=4" width=130>|
 |[@donghyeon0915](https://github.com/Donghyeon0915)|
 
-<div align="left">
-  <a href="https://www.instagram.com/dongx._.2/" target="_blank">
-    <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/instagram/default.svg" width="52" height="40" alt="instagram logo"  />
-  </a>
-  <a href="https://m.facebook.com/profile.php?eav=AfYuUlRNP7OHraaGKSMnyiTENtBWBTsxLDo_haYuO3JPSqt9iTUqN-x1hTyLcF3qLQk&paipv=0" target="_blank">
-    <img src="https://raw.githubusercontent.com/maurodesouza/profile-readme-generator/master/src/assets/icons/social/facebook/default.svg" width="52" height="40" alt="facebook logo"  />
-  </a>
 </div>
+
+<p align="center"
+<a href="https://github.com/Donghyeon0915" target="_blank">
+<img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github style="margin-bottom: 5px;" />
+</a>
+<a href="https://github.com/Donghyeon0915" target="_blank">
+<img src=https://img.shields.io/badge/git-%231E77B5.svg?&style=for-the-badge&logo=git&logoColor=white alt=linkedin style="margin-bottom: 5px;" />
+</a>
+<a href="https://www.facebook.com/profile.php?id=100007219727232" target="_blank">
+<img src=https://img.shields.io/badge/facebook-%232E87FB.svg?&style=for-the-badge&logo=facebook&logoColor=white alt=facebook style="margin-bottom: 5px;" />
+</a>
+<a href="https://www.instagram.com/dongx._.2/" target="_blank">
+<img src=https://img.shields.io/badge/instagram-%23000000.svg?&style=for-the-badge&logo=instagram&logoColor=white&color=dd2a7b alt=instagram style="margin-bottom: 5px;" />
+</a>  
+ </p>
 
 ## 기여 방법
 

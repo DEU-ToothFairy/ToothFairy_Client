@@ -96,6 +96,9 @@ It is an app that relieves users of the burden of correctional treatment by auto
 <br><br>
 
 > **안면 비대칭 측정 & 기록**
+- 추후 업로드 예정
+
+> 칫솔모 교체 판별
 
 _더 많은 예제와 사용법은 [Wiki][wiki]를 참고하세요._
 

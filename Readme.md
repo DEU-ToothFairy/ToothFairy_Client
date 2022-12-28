@@ -99,6 +99,13 @@ It is an app that relieves users of the burden of correctional treatment by auto
 - 추후 업로드 예정
 
 > 칫솔모 교체 판별
+- 해당 기능은 **교정 환자를 위한 기능**입니다.
+- **인공지능**을 통해 **칫솔모 교체 여부**를 **판별**합니다.
+
+<div align="center">
+   <img src="https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/screenshot/18) 칫솔모 비정상 목업.png"  width="25%"/>&nbsp;&nbsp;
+   <img src="https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/screenshot/19) 칫솔모 정상 목업.png"  width="25%"/>&nbsp;&nbsp;
+</div>
 
 _더 많은 예제와 사용법은 [Wiki][wiki]를 참고하세요._
 

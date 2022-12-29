@@ -36,10 +36,7 @@ It is an app that relieves users of the burden of correctional treatment by auto
 
 ## ✨ 기능 소개
 
-> **교정기 착용 여부 및 시간 측정**
-- **실시간**으로 **교정 장치 착용 여부 및 시간**을 **측정**합니다.
-- **착용 시간**을 **일별**로 **서버에 저장**합니다.
-- **알림**을 통해 **목표 착용 시간**에 **도달**할 수 있도록 합니다.
+> 스플래시 화면
 
 <div align="center">
    <img src="https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/screenshot/1) 홈 화면 목업.png"  width="25%"/> &nbsp;&nbsp;

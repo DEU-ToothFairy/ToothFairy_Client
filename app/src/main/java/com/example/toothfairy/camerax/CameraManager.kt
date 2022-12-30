@@ -7,6 +7,8 @@ import android.util.Log
 import android.util.Size
 import android.view.ScaleGestureDetector
 import androidx.camera.core.*
+import androidx.camera.core.CameraSelector.LensFacing
+import androidx.camera.core.ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
@@ -119,7 +121,10 @@ class CameraManager(
                     }
 
                 val cameraSelector = CameraSelector.Builder()
-                    .requireLensFacing(cameraSelectorOption)
+                    .requireLensFacing(cameraSelectorOption.apply {
+                        if (isFrontFace) CameraSelector.LENS_FACING_FRONT
+                        else CameraSelector.LENS_FACING_BACK}
+                    )
                     .build()
 
                 metrics =  DisplayMetrics().also { finderView.display.getRealMetrics(it) }

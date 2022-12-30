@@ -1,7 +1,11 @@
 package com.example.toothfairy.application
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import com.example.toothfairy.entity.Patient
 import com.example.toothfairy.util.NotifyManager
@@ -28,7 +32,36 @@ class MyApplication : Application() {
     }
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         private var context: Context? = null
+
+        // 필요한 권한 목록
+        val REQUIRED_PERMISSIONS:Array<String> = arrayOf(
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.BLUETOOTH_SCAN,
+            Manifest.permission.BLUETOOTH_ADVERTISE,
+            Manifest.permission.BLUETOOTH_CONNECT,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.MANAGE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_MEDIA_IMAGES,
+        )
+
+        val REQUIRED_CAMERA_PERMISSIONS: Array<String> =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // TIRAMISU == Android 13
+                arrayOf(
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_MEDIA_IMAGES,
+                )
+            } else {
+                arrayOf(
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+            }
 
         /** 사용자 정보 */
         var patient:Patient? = null

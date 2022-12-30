@@ -73,11 +73,11 @@ class ToothBrushCameraXFragment : Fragment() {
         createCameraManager()
 
         if (allPermissionsGranted()) {
-            cameraManager.startCamera(false)
+            cameraManager.startCamera()
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                REQUIRED_PERMISSIONS,
+                MyApplication.REQUIRED_CAMERA_PERMISSIONS,
                 REQUEST_CODE_PERMISSIONS
             )
         }
@@ -92,7 +92,7 @@ class ToothBrushCameraXFragment : Fragment() {
         //bind.fabFinder.transform()
         // 카메라 전환 버튼 이벤트
         bind.cameraChangeBtn.setOnClickListener{
-            cameraManager.changeCameraSelector(false)
+            cameraManager.changeCameraSelector()
         }
 
         // 촬영 버튼 클린 이벤트
@@ -104,7 +104,7 @@ class ToothBrushCameraXFragment : Fragment() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults:IntArray) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
-                cameraManager.startCamera(false)
+                cameraManager.startCamera()
             } else {
                 Toast.makeText(requireContext(), "Permissions not granted by the user.", Toast.LENGTH_SHORT)
                     .show()
@@ -214,7 +214,7 @@ class ToothBrushCameraXFragment : Fragment() {
     }
 
     // 퍼미션 얻는 메소드
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+    private fun allPermissionsGranted() = MyApplication.REQUIRED_CAMERA_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
     }
 
@@ -229,11 +229,6 @@ class ToothBrushCameraXFragment : Fragment() {
          * @return A new instance of fragment SideFaceCameraXFragment.
          */
         private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(
-            android.Manifest.permission.CAMERA,
-            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
 
         // TODO: Rename and change types and number of parameters
         @JvmStatic

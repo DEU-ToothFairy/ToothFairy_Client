@@ -74,11 +74,11 @@ class SideFaceCameraXFragment : Fragment() {
         createCameraManager()
 
         if (allPermissionsGranted()) {
-            cameraManager.startCamera(false)
+            cameraManager.startCamera()
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                REQUIRED_PERMISSIONS,
+                MyApplication.REQUIRED_CAMERA_PERMISSIONS,
                 REQUEST_CODE_PERMISSIONS
             )
         }
@@ -93,7 +93,7 @@ class SideFaceCameraXFragment : Fragment() {
         //bind.fabFinder.transform()
         // 카메라 전환 버튼 이벤트
         bind.cameraChangeBtn.setOnClickListener{
-            cameraManager.changeCameraSelector(false)
+            cameraManager.changeCameraSelector()
         }
 
         // 촬영 버튼 클린 이벤트
@@ -105,7 +105,7 @@ class SideFaceCameraXFragment : Fragment() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults:IntArray) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
-                cameraManager.startCamera(false)
+                cameraManager.startCamera()
             } else {
                 Toast.makeText(requireContext(), "Permissions not granted by the user.", Toast.LENGTH_SHORT)
                     .show()
@@ -215,7 +215,7 @@ class SideFaceCameraXFragment : Fragment() {
     }
 
     // 퍼미션 얻는 메소드
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+    private fun allPermissionsGranted() = MyApplication.REQUIRED_CAMERA_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
     }
 
@@ -230,11 +230,6 @@ class SideFaceCameraXFragment : Fragment() {
          * @return A new instance of fragment SideFaceCameraXFragment.
          */
         private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(
-            android.Manifest.permission.CAMERA,
-            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
 
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

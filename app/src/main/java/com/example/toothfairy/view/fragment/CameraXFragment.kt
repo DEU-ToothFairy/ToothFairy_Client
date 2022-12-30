@@ -20,6 +20,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.toothfairy.R
+import com.example.toothfairy.application.MyApplication
 import com.example.toothfairy.camerax.CameraManager
 import com.example.toothfairy.databinding.FragmentCameraXBinding
 import com.example.toothfairy.util.*
@@ -71,11 +72,11 @@ class CameraXFragment : Fragment() {
         createCameraManager()
 
         if (allPermissionsGranted()) {
-            cameraManager.startCamera(true)
+            cameraManager.startCamera()
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                REQUIRED_PERMISSIONS,
+                MyApplication.REQUIRED_CAMERA_PERMISSIONS,
                 REQUEST_CODE_PERMISSIONS
             )
         }
@@ -87,12 +88,11 @@ class CameraXFragment : Fragment() {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>, grantResults:
-        IntArray
+        requestCode: Int, permissions: Array<String>, grantResults:IntArray
     ) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
-                cameraManager.startCamera(true)
+                cameraManager.startCamera()
             } else {
                 Toast.makeText(requireContext(), "Permissions not granted by the user.", Toast.LENGTH_SHORT)
                     .show()
@@ -106,7 +106,7 @@ class CameraXFragment : Fragment() {
         //bind.fabFinder.transform()
         // 카메라 전환 버튼 이벤트
         bind.cameraChangeBtn.setOnClickListener{
-            cameraManager.changeCameraSelector(true)
+            cameraManager.changeCameraSelector()
         }
 
         // 촬영 버튼 클린 이벤트
@@ -206,7 +206,7 @@ class CameraXFragment : Fragment() {
     }
 
     // 퍼미션 얻는 메소드
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+    private fun allPermissionsGranted() = MyApplication.REQUIRED_CAMERA_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
     }
 
@@ -221,11 +221,6 @@ class CameraXFragment : Fragment() {
          * @return A new instance of fragment CameraXFragment.
          */
         private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(
-            android.Manifest.permission.CAMERA,
-            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
 
         // TODO: Rename and change types and number of parameters
         @JvmStatic

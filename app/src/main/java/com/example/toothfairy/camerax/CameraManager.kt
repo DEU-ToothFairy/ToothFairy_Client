@@ -99,7 +99,7 @@ class CameraManager(
         }
     }
 
-    fun startCamera(isFrontFace:Boolean) {
+    fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
         cameraProviderFuture.addListener(
             Runnable {
@@ -117,14 +117,12 @@ class CameraManager(
                     .build()
                     .also {
                         // 정면 얼굴 촬영할 때만 ML Kit 동작하도록
-                        if(isFrontFace) it.setAnalyzer(cameraExecutor, FaceContourDetectionProcessor(graphicOverlay, faceVM))
+                        // if(isFrontFace) it.setAnalyzer(cameraExecutor, FaceContourDetectionProcessor(graphicOverlay, faceVM))
+                        it.setAnalyzer(cameraExecutor, FaceContourDetectionProcessor(graphicOverlay, faceVM))
                     }
 
                 val cameraSelector = CameraSelector.Builder()
-                    .requireLensFacing(cameraSelectorOption.apply {
-                        if (isFrontFace) CameraSelector.LENS_FACING_FRONT
-                        else CameraSelector.LENS_FACING_BACK}
-                    )
+                    .requireLensFacing(cameraSelectorOption)
                     .build()
 
                 metrics =  DisplayMetrics().also { finderView.display.getRealMetrics(it) }
@@ -145,14 +143,14 @@ class CameraManager(
         )
     }
 
-    fun changeCameraSelector(isFrontFace: Boolean) {
+    fun changeCameraSelector() {
         cameraProvider?.unbindAll()
         cameraSelectorOption =
             if (cameraSelectorOption == CameraSelector.LENS_FACING_BACK) CameraSelector.LENS_FACING_FRONT
             else CameraSelector.LENS_FACING_BACK
         graphicOverlay.toggleSelector()
 
-        startCamera(isFrontFace)
+        startCamera()
     }
 
 //    fun changeAnalyzer(visionType: VisionType) {

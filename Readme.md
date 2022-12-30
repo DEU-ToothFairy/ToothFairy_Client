@@ -36,10 +36,7 @@ It is an app that relieves users of the burden of correctional treatment by auto
 
 ## ✨ 기능 소개
 
-> **교정기 착용 여부 및 시간 측정**
-- **실시간**으로 **교정 장치 착용 여부 및 시간**을 **측정**합니다.
-- **착용 시간**을 **일별**로 **서버에 저장**합니다.
-- **알림**을 통해 **목표 착용 시간**에 **도달**할 수 있도록 합니다.
+> 스플래시 화면
 
 <div align="center">
    <img src="https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/screenshot/1) 홈 화면 목업.png"  width="25%"/> &nbsp;&nbsp;
@@ -99,6 +96,13 @@ It is an app that relieves users of the burden of correctional treatment by auto
 - 추후 업로드 예정
 
 > 칫솔모 교체 판별
+- 해당 기능은 **교정 환자를 위한 기능**입니다.
+- **인공지능**을 통해 **칫솔모 교체 여부**를 **판별**합니다.
+
+<div align="center">
+   <img src="https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/screenshot/18) 칫솔모 비정상 목업.png"  width="25%"/>&nbsp;&nbsp;
+   <img src="https://raw.githubusercontent.com/Donghyeon0915/ToothFairy_data/master/screenshot/19) 칫솔모 정상 목업.png"  width="25%"/>&nbsp;&nbsp;
+</div>
 
 _더 많은 예제와 사용법은 [Wiki][wiki]를 참고하세요._
 

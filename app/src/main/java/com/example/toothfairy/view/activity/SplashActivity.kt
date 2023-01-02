@@ -21,7 +21,7 @@ import kotlin.system.exitProcess
 class SplashActivity : AppCompatActivity() {
 
     // 필요한 권한 목록
-    private val permissionList = MyApplication.permissionList
+    private val permissionList = MyApplication.REQUIRED_PERMISSIONS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

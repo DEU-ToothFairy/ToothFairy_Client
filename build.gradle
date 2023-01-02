@@ -1,6 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.kotlin_version = '1.7.10'
+    ext.sonarqube = '3.5.0.2730'
+
     repositories {
         google()
         mavenCentral()
@@ -11,6 +13,37 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+    }
+}
+
+plugins {
+    id "org.sonarqube" version "3.5.0.2730"
+}
+
+sonarqube {
+    properties {
+        property "sonar.host.url", "http://localhost:9000/"
+        property "sonar.login", "sqp_cd597b6b569550f5f2918e59885c0751e3a4a3ce"
+        property "sonar.password", ""	// 인증 토큰 을 사용 하므로 공백처리 한다
+        property "sonar.projectKey", "ToothFairy"
+        property "sonar.projectName", "ToothFairy"
+        property "sonar.projectVersion", "1.0"
+        // 소나큐브의 분석에 포함되지 않을 파일을 `exclusions`에 추가할 수 있다.
+        property "sonar.exclusions", "**/*Test*/**," +
+                "*.json," +
+                "**/*test/**," +
+                "**/.gradle/**," +
+                "**/R.class"
+    }
+}
+
+subprojects {   // 다른 모듈들에 대한 공통 작업을 정의 한다.
+    sonarqube {
+        properties {
+            // 코틀린의 소스셋의 디렉토리를 따로 가져갔을 경우 해당 디렉토리와 같게 해주어야 한다.
+            property "sonar.sources", "src/main/java"
+            property "sonar.sourceEncoding", "UTF-8"
+        }
     }
 }
 

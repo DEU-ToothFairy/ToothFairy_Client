@@ -1,5 +1,6 @@
 package com.example.toothfairy.model
 
+import com.example.toothfairy.BuildConfig
 import com.example.toothfairy.util.ApiLogger
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -11,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
     // 기본 URL
-    private const val BASE_URL = "http://113.198.236.100:8080" //"http://220.92.179.244:8080";
+    private const val BASE_URL = BuildConfig.BASE_URL //"http://113.198.236.100:8080"
     var retrofit: Retrofit
 
     init{

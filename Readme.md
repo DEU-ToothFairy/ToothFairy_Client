@@ -19,7 +19,7 @@
 👉 **Smiley 보러가기**
 
 <a href="https://github.com/DEU-Smiley/Smiley-Android-App/tree/develop">
-  <img src="https://github.com/DEU-ToothFairy/ToothFairy_Client/assets/63500239/eecedc79-faa6-4887-97a1-bbc5ac38657b"/>
+  <img src="https://raw.githubusercontent.com/Donghyeon0915/DataRepository/master/Smiley/스마일리 심플 배너.png"/>
 </a>
 
 <br>

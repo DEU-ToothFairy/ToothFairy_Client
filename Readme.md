@@ -17,9 +17,12 @@
 - 지금 바로 Smiley를 확인해보세요!
   
 👉 **Smiley 보러가기**
-  
-![스마일리 심플 배너](https://github.com/DEU-ToothFairy/ToothFairy_Client/assets/63500239/eecedc79-faa6-4887-97a1-bbc5ac38657b)
 
+<a href="[https://chrome.google.com/webstore/detail/nklcbhub/hhpoinniefcngfbkiepakgelppjoambe](https://github.com/DEU-Smiley/Smiley-Android-App/tree/develop)">
+  <img src="https://github.com/DEU-ToothFairy/ToothFairy_Client/assets/63500239/eecedc79-faa6-4887-97a1-bbc5ac38657b"/>
+</a>
+
+<br>
 <br>
 
 ***ToothFairy***는 사용자의 **교정기 착용 여부** 및 **착용 시간**을 **실시간**으로 감지하여 교정 관리를 **자동화**하며, **인공지능**을 통한 **다양한 상태 기록 기능**을 제공합니다.

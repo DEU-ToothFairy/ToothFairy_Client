@@ -18,7 +18,7 @@
   
 👉 **Smiley 보러가기**
 
-<a href="[https://chrome.google.com/webstore/detail/nklcbhub/hhpoinniefcngfbkiepakgelppjoambe](https://github.com/DEU-Smiley/Smiley-Android-App/tree/develop)">
+<a href="https://github.com/DEU-Smiley/Smiley-Android-App/tree/develop">
   <img src="https://github.com/DEU-ToothFairy/ToothFairy_Client/assets/63500239/eecedc79-faa6-4887-97a1-bbc5ac38657b"/>
 </a>
 

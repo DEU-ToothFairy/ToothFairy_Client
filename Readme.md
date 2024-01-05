@@ -13,15 +13,18 @@
 </div>
 
 ### 📢 새로운 버전
-- ToothFairy가 더욱 편리한 기능과 함께 Smiley로 업데이트 되었습니다!
-- 지금 바로 Smiley를 확인해보세요!
-  
+> [!note]
+> - ToothFairy가 더욱 편리한 기능과 함께 Smiley로 업데이트 되었습니다!
+> - 지금 바로 Smiley를 확인해보세요!
+
 👉 **Smiley 보러가기**
 
 <a href="https://github.com/DEU-Smiley/Smiley-Android-App/tree/develop">
   <img src="https://raw.githubusercontent.com/Donghyeon0915/DataRepository/master/Smiley/스마일리 심플 배너.png"/>
 </a>
 
+<br>
+<br>
 <br>
 <br>
 
